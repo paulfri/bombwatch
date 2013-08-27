@@ -92,7 +92,7 @@
     GBVideo *video = [self videoForRowAtIndexPath:indexPath];
 
     cell.textLabel.text = video.name;
-    [cell.imageView setImageWithURL:(NSURL *)video.imageIconURL]; //placeholderImage:(UIImage *)placeholderImage;
+    [cell.imageView setImageWithURL:(NSURL *)video.imageIconURL placeholderImage:[UIImage imageNamed:@"placeholder-square.jpg"]];
 
     return cell;
 }

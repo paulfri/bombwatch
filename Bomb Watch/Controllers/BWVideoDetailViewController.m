@@ -30,6 +30,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setTitle:self.video.name];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -56,6 +58,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+
+//    [cell setSeparatorInset:UIEdgeInsetsZero];
 
     [(UILabel *)[cell viewWithTag:101] setText:self.video.name];
     [(UIImageView *)[cell viewWithTag:100] setImageWithURL:self.video.imageMediumURL];

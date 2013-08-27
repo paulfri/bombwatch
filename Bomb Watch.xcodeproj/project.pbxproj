@@ -26,6 +26,7 @@
 		DACE829617CD035800E23051 /* Bomb_WatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DACE829517CD035800E23051 /* Bomb_WatchTests.m */; };
 		DACE82A517CD052300E23051 /* GiantBombAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DACE82A317CD052300E23051 /* GiantBombAPIClient.m */; };
 		DACE82A817CD0B2600E23051 /* GBVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = DACE82A717CD0B2600E23051 /* GBVideo.m */; };
+		DAD2505817CD50C500FB0F5A /* placeholder-square.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DAD2505717CD50C500FB0F5A /* placeholder-square.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		DACE82A317CD052300E23051 /* GiantBombAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiantBombAPIClient.m; sourceTree = "<group>"; };
 		DACE82A617CD0B2600E23051 /* GBVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBVideo.h; sourceTree = "<group>"; };
 		DACE82A717CD0B2600E23051 /* GBVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBVideo.m; sourceTree = "<group>"; };
+		DAD2505717CD50C500FB0F5A /* placeholder-square.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "placeholder-square.jpg"; path = "Controllers/placeholder-square.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			children = (
 				DACE827617CD035800E23051 /* Main_iPhone.storyboard */,
 				DACE827917CD035800E23051 /* Main_iPad.storyboard */,
+				DAD2505717CD50C500FB0F5A /* placeholder-square.jpg */,
 				DACE829F17CD04D100E23051 /* Giant Bomb */,
 				DA73CCA617CD15BC00976570 /* Controllers */,
 				DACE827317CD035800E23051 /* BWAppDelegate.h */,
@@ -274,6 +277,7 @@
 				DACE827B17CD035800E23051 /* Main_iPad.storyboard in Resources */,
 				DACE828317CD035800E23051 /* Images.xcassets in Resources */,
 				DACE827817CD035800E23051 /* Main_iPhone.storyboard in Resources */,
+				DAD2505817CD50C500FB0F5A /* placeholder-square.jpg in Resources */,
 				DACE826F17CD035800E23051 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
