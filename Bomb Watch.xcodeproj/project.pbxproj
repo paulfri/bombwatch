@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4E21EDCE00254B9EA7AE7D38 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40FCD5D8F7DD4243AC1A2E48 /* libPods.a */; };
+		DA4C7E4B17CD29DF00783060 /* BWVideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4C7E4A17CD29DF00783060 /* BWVideoDetailViewController.m */; };
 		DACE826517CD035700E23051 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826417CD035700E23051 /* Foundation.framework */; };
 		DACE826717CD035700E23051 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826617CD035700E23051 /* CoreGraphics.framework */; };
 		DACE826917CD035700E23051 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826817CD035700E23051 /* UIKit.framework */; };
@@ -40,6 +41,8 @@
 /* Begin PBXFileReference section */
 		40FCD5D8F7DD4243AC1A2E48 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D03B65A058C4AD9BB095CF3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		DA4C7E4917CD29DF00783060 /* BWVideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoDetailViewController.h; sourceTree = "<group>"; };
+		DA4C7E4A17CD29DF00783060 /* BWVideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoDetailViewController.m; sourceTree = "<group>"; };
 		DACE826117CD035700E23051 /* Bomb Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bomb Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DACE826417CD035700E23051 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DACE826617CD035700E23051 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -96,6 +99,8 @@
 			children = (
 				DACE827C17CD035800E23051 /* BWLatestViewController.h */,
 				DACE827D17CD035800E23051 /* BWLatestViewController.m */,
+				DA4C7E4917CD29DF00783060 /* BWVideoDetailViewController.h */,
+				DA4C7E4A17CD29DF00783060 /* BWVideoDetailViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -323,6 +328,7 @@
 			files = (
 				DACE82A817CD0B2600E23051 /* GBVideo.m in Sources */,
 				DACE827E17CD035800E23051 /* BWLatestViewController.m in Sources */,
+				DA4C7E4B17CD29DF00783060 /* BWVideoDetailViewController.m in Sources */,
 				DACE827117CD035800E23051 /* main.m in Sources */,
 				DACE827517CD035800E23051 /* BWAppDelegate.m in Sources */,
 				DACE82A517CD052300E23051 /* GiantBombAPIClient.m in Sources */,

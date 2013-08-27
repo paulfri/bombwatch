@@ -17,11 +17,11 @@
         self.videoID = [NSNumber numberWithInt:[[dictionary objectForKey:@"id"] intValue]];
         self.name = [dictionary objectForKey:@"name"];
         self.summary = [dictionary objectForKey:@"deck"];
-//        if([dictionary objectForKey:@"image"] != (id)[NSNull null]) {
-//            self.iconImageURL = [[dictionary objectForKey:@"image"] objectForKey:@"icon_url"];
-//            self.mediumImageURL = [[dictionary objectForKey:@"image"] objectForKey:@"medium_url"];
-//      }
+        if([dictionary objectForKey:@"image"] != (id)[NSNull null]) {
+            self.imageIconURL = [NSURL URLWithString:[[dictionary objectForKey:@"image"] objectForKey:@"icon_url"]];
+            self.imageMediumURL = [NSURL URLWithString:[[dictionary objectForKey:@"image"] objectForKey:@"medium_url"]];
         }
+    }
 
     return self;
 }

@@ -9,6 +9,8 @@
 #import "BWLatestViewController.h"
 #import "GiantBombAPIClient.h"
 #import "GBVideo.h"
+#import "UIImageView+AFNetworking.h"
+#import "BWVideoDetailViewController.h"
 
 @interface BWLatestViewController ()
 
@@ -39,7 +41,6 @@
         for (id gameDictionary in [responseObject valueForKey:@"results"]) {
             GBVideo *video = [[GBVideo alloc] initWithDictionary:gameDictionary];
             [results addObject:video];
-            NSLog(@"%@", video.name);
         }
 
         self.latestVideos = results;
@@ -77,24 +78,27 @@
 ////    return 70;
 //}
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString* cellIdentifier = @"CellIdentifier";
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    }
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     GBVideo *video = [self videoForRowAtIndexPath:indexPath];
 
     cell.textLabel.text = video.name;
-    
+    [cell.imageView setImageWithURL:(NSURL *)video.imageIconURL]; //placeholderImage:(UIImage *)placeholderImage;
+
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //
+}
+
+#pragma mark - Navigation
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    BWVideoDetailViewController *controller = [segue destinationViewController];
+    controller.video = [self videoForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
 }
 
 @end
