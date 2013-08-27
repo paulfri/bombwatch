@@ -91,6 +91,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DA73CCA617CD15BC00976570 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DACE827C17CD035800E23051 /* BWLatestViewController.h */,
+				DACE827D17CD035800E23051 /* BWLatestViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		DACE825817CD035700E23051 = {
 			isa = PBXGroup;
 			children = (
@@ -127,12 +136,11 @@
 			isa = PBXGroup;
 			children = (
 				DACE829F17CD04D100E23051 /* Giant Bomb */,
+				DA73CCA617CD15BC00976570 /* Controllers */,
 				DACE827317CD035800E23051 /* BWAppDelegate.h */,
 				DACE827417CD035800E23051 /* BWAppDelegate.m */,
 				DACE827617CD035800E23051 /* Main_iPhone.storyboard */,
 				DACE827917CD035800E23051 /* Main_iPad.storyboard */,
-				DACE827C17CD035800E23051 /* BWLatestViewController.h */,
-				DACE827D17CD035800E23051 /* BWLatestViewController.m */,
 				DACE828217CD035800E23051 /* Images.xcassets */,
 				DACE826B17CD035700E23051 /* Supporting Files */,
 			);
