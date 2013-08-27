@@ -140,12 +140,12 @@
 		DACE826A17CD035700E23051 /* Bomb Watch */ = {
 			isa = PBXGroup;
 			children = (
+				DACE827617CD035800E23051 /* Main_iPhone.storyboard */,
+				DACE827917CD035800E23051 /* Main_iPad.storyboard */,
 				DACE829F17CD04D100E23051 /* Giant Bomb */,
 				DA73CCA617CD15BC00976570 /* Controllers */,
 				DACE827317CD035800E23051 /* BWAppDelegate.h */,
 				DACE827417CD035800E23051 /* BWAppDelegate.m */,
-				DACE827617CD035800E23051 /* Main_iPhone.storyboard */,
-				DACE827917CD035800E23051 /* Main_iPad.storyboard */,
 				DACE828217CD035800E23051 /* Images.xcassets */,
 				DACE826B17CD035700E23051 /* Supporting Files */,
 			);

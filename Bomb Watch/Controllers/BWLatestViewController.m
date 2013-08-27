@@ -16,6 +16,7 @@
 
 @property (strong, nonatomic) NSArray *latestVideos;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
 @end
 
@@ -27,14 +28,19 @@
 //    [self.navigationController.navigationBar setBarTintColor:[UIColor blackColor]];
 //    [self.view setBackgroundColor:[UIColor blackColor]];
     [self setTitle:@"Latest"];
-    [self loadLatestVideos];
 
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(loadLatestVideos) forControlEvents:UIControlEventValueChanged];
+
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [self.dateFormatter setTimeStyle:NSDateFormatterLongStyle];
+
+    [self loadLatestVideos];
 }
 
 - (void)loadLatestVideos {
-//        NSDictionary *params = @{@"query": query, @"resources":@"game"};
+//    NSDictionary *params = @{@"query": query, @"resources":@"game"};
     [[GiantBombAPIClient defaultClient] GET:@"videos" parameters:nil success:^(NSHTTPURLResponse *response, id responseObject) {
 
         NSMutableArray *results = [NSMutableArray array];
@@ -61,6 +67,7 @@
 
 - (void)updateTableView {
     [self.tableView reloadData];
+    self.refreshControl.attributedTitle = [self refreshControlTitle];
     [self.refreshControl endRefreshing];
 }
 
@@ -99,6 +106,12 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     BWVideoDetailViewController *controller = [segue destinationViewController];
     controller.video = [self videoForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+}
+
+#pragma mark - Convenience methods
+- (NSAttributedString *)refreshControlTitle {
+    return [[NSAttributedString alloc] initWithString:
+            [NSString stringWithFormat:@"Last updated %@", [self.dateFormatter stringFromDate:[NSDate date]]]];
 }
 
 @end

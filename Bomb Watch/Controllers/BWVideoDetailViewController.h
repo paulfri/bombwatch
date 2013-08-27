@@ -13,4 +13,6 @@
 
 @property (strong, nonatomic) GBVideo *video;
 
+- (IBAction)playButtonPressed:(id)sender;
+
 @end

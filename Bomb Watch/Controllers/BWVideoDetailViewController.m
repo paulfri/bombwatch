@@ -9,8 +9,12 @@
 #import "BWVideoDetailViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "GBVideo.h"
+//#import <MobileCoreServices/UTCoreTypes.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface BWVideoDetailViewController ()
+
+@property (strong, nonatomic) MPMoviePlayerViewController *player;
 
 @end
 
@@ -53,11 +57,12 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
 
-    cell.textLabel.text = self.video.name;
-    [cell.imageView setImageWithURL:self.video.imageMediumURL];
-
+    [(UILabel *)[cell viewWithTag:101] setText:self.video.name];
+    [(UIImageView *)[cell viewWithTag:100] setImageWithURL:self.video.imageMediumURL];
+    
     return cell;
 }
+
 
 /*
 // Override to support conditional editing of the table view.
@@ -107,5 +112,28 @@
 //    // Pass the selected object to the new view controller.
 //
 //}
+
+#pragma mark - actions
+
+- (IBAction)playButtonPressed:(id)sender {
+    NSLog(@"presseD");
+    self.player = [[MPMoviePlayerViewController alloc] initWithContentURL:self.video.videoLowURL];
+
+    [self.player.moviePlayer setFullscreen:YES animated:YES];
+    [self.player.moviePlayer setMovieSourceType:MPMovieSourceTypeStreaming];
+    [self.player.moviePlayer setControlStyle:MPMovieSourceTypeStreaming];
+    [self.player.moviePlayer setAllowsAirPlay:YES];
+    [self.player.moviePlayer setContentURL:self.video.videoLowURL];
+
+    
+    [self presentMoviePlayerViewControllerAnimated:self.player];
+    [self.player.moviePlayer play];
+
+//    [self.player.view setFrame:self.view.bounds];
+//    [self.view addSubview:self.player.view];
+    //    self.player setInitialPlaybackTime:NSTimeInterval
+//    [self.view addSubview:[player view]];
+//    [self.player play];
+}
 
 @end
