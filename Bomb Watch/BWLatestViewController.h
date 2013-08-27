@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BWFirstViewController : UIViewController
+@interface BWLatestViewController : UITableViewController
 
 @end

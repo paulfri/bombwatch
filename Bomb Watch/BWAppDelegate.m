@@ -10,9 +10,10 @@
 
 @implementation BWAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+//    [self.window setTintColor:[UIColor colorWithRed:1 green:0.5 blue:0.5 alpha:1]];
+    [self.window setTintColor:[UIColor colorWithRed:178.0/255 green:34.0/255 blue:34.0/255 alpha:1]];
+
     return YES;
 }
 							
