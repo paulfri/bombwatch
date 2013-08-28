@@ -11,7 +11,7 @@
 
 @interface BWCategoriesViewController ()
 
-// this should be constantized somewhere
+// TODO: this should be constantized somewhere
 @property (strong, nonatomic) NSArray *videoCategories;
 
 @end
@@ -30,50 +30,53 @@
     [super viewDidLoad];
     [self setTitle:@"Videos"];
 
-    self.videoCategories = @[@"Latest", @"Quick Look", @"Feature", @"Endurance Run",
-                             @"TANG", @"Review", @"Trailer"];
-
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    // TODO: this should be constantized somewhere
+    self.videoCategories = @[@"Latest", @"Quick Looks", @"Features", @"Events",
+                             @"Endurance Run", @"TANG", @"Reviews", @"Trailers",
+                             @"Premium"];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
+#pragma mark - UITableViewDataSource protocol methods
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if(section == 0) {
-        return @"Categories";
-    } else {
-        return nil;
-    }
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
+/*
+ - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+ // 1 for now, which is the default implementation
+ return 1;
+ }
+*/
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // revisit this if I put more sections in
     return self.videoCategories.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) return @"Categories";
+    else return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString* cellIdentifier = @"CategoryCell";
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 
-    // TODO: do i have to use a custom cell for this? the default one is probably fine
-    UILabel *label = (UILabel *)[cell viewWithTag:100];
-    label.text = [self.videoCategories objectAtIndex:[indexPath row]];
+    // TODO: do I have to use a custom cell for this? the default one is probably fine
+    // add icons here later -- yeah just use the default cell coz it has an imageview already
+    cell.textLabel.text = [self.videoCategories objectAtIndex:[indexPath row]];
 
     return cell;
 }
 
+#pragma mark - UITableViewDelegate protocol methods
+
+/*
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 }
+*/
 
 // this section intentionally left blank
 
@@ -84,11 +87,7 @@
     if([[segue identifier] isEqualToString:@"videoListSegue"]) {
         BWVideoListViewController *destinationVC = (BWVideoListViewController *)[segue destinationViewController];
         UITableViewCell *selectedCell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-        // view with tag 100 should be the label for the selected cell
-        // this won't map 1:1 with the api category name, so this will get more complicated
-        // or that logic can also go in the video list view controller -- yeah that sounds good
-        UILabel *selectedLabel = (UILabel *)[selectedCell viewWithTag:100];
-        destinationVC.category = selectedLabel.text;
+        destinationVC.category = selectedCell.textLabel.text;
     }
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.

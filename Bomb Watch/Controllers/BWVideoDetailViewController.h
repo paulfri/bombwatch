@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class GBVideo;
 
-@interface BWVideoDetailViewController : UITableViewController
+@interface BWVideoDetailViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (strong, nonatomic) GBVideo *video;
 

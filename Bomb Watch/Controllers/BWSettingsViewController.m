@@ -41,6 +41,8 @@
 
     self.pocket = [PocketAPI sharedAPI];
     self.pocketSwitch.on = self.pocket.loggedIn;
+
+    self.versionDetailLabel.text = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -11,6 +11,7 @@
 @interface BWSettingsViewController : UITableViewController
 
 @property (weak, nonatomic) IBOutlet UISwitch *pocketSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *versionDetailLabel;
 
 - (IBAction)pocketSwitchChanged:(id)sender;
 - (IBAction)doneButtonPressed:(id)sender;

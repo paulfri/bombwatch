@@ -8,7 +8,6 @@
 
 #import "BWVideoListViewController.h"
 #import "BWVideoDetailViewController.h"
-
 #import "GiantBombAPIClient.h"
 #import "GBVideo.h"
 #import "UIImageView+AFNetworking.h"
@@ -46,6 +45,15 @@
     [super viewWillAppear:animated];
 }
 
+#pragma mark - Giant Bomb API querying methods
+
+- (NSDictionary *)queryParams {
+    // override this based on the VC's assigned category (Quick Look, whatever)
+    // reference GBAPI spec to get the proper category IDs
+    //@{@"filter": @"whatever"}
+    return nil;
+}
+
 - (void)loadVideos {
     NSDictionary *params = [self queryParams];
     [[GiantBombAPIClient defaultClient] GET:@"videos" parameters:params success:^(NSHTTPURLResponse *response, id responseObject) {
@@ -64,10 +72,6 @@
     }];
 }
 
-- (NSDictionary *)queryParams {
-    return nil;
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -83,7 +87,7 @@
     [self.refreshControl endRefreshing];
 }
 
-#pragma mark - UITableView delegate methods
+#pragma mark - UITableViewDelegate methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -92,10 +96,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.videos.count;
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-////    return 70;
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
@@ -109,9 +109,11 @@
     return cell;
 }
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    //
-//}
+/*
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    //
+}
+*/
 
 #pragma mark - UIScrollView delegate methods
 
@@ -160,6 +162,7 @@
 }
 
 #pragma mark - Convenience methods
+
 - (NSAttributedString *)refreshControlTitle {
     return [[NSAttributedString alloc] initWithString:
             [NSString stringWithFormat:@"Last updated %@", [self.dateFormatter stringFromDate:[NSDate date]]]];
