@@ -99,14 +99,14 @@
     GBVideo *video = [self videoForRowAtIndexPath:indexPath];
 
     cell.textLabel.text = video.name;
-    [cell.imageView setImageWithURL:(NSURL *)video.imageIconURL placeholderImage:[UIImage imageNamed:@"placeholder-square.jpg"]];
+    [cell.imageView setImageWithURL:(NSURL *)video.imageIconURL placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"]];
 
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    //
+//}
 
 #pragma mark - UIScrollView delegate methods
 
@@ -119,7 +119,7 @@
         // if it's less than, then there should already be a load in progress
         NSLog(@"thinking about loading more: %d shown and %d should be shown", self.latestVideos.count, self.page * PER_PAGE);
         if(self.latestVideos.count >= (self.page * PER_PAGE)) {
-            self.page = self.page + 1;
+            self.page++;
             [self loadNextPage];
         }
     }
@@ -146,8 +146,12 @@
 #pragma mark - Navigation
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    BWVideoDetailViewController *controller = [segue destinationViewController];
-    controller.video = [self videoForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    if([segue.identifier isEqualToString:@"showVideoDetailSegue"]) {
+        BWVideoDetailViewController *controller = [segue destinationViewController];
+        controller.video = [self videoForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    } else {
+        //
+    }
 }
 
 #pragma mark - Convenience methods

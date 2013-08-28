@@ -11,6 +11,8 @@
 #import "GBVideo.h"
 //#import <MobileCoreServices/UTCoreTypes.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import "PocketAPIActivity.h"
+#import "PocketAPI.h"
 
 @interface BWVideoDetailViewController ()
 
@@ -119,7 +121,6 @@
 #pragma mark - actions
 
 - (IBAction)playButtonPressed:(id)sender {
-    NSLog(@"presseD");
     self.player = [[MPMoviePlayerViewController alloc] initWithContentURL:self.video.videoLowURL];
 
     [self.player.moviePlayer setFullscreen:YES animated:YES];
@@ -127,28 +128,25 @@
     [self.player.moviePlayer setControlStyle:MPMovieSourceTypeStreaming];
     [self.player.moviePlayer setAllowsAirPlay:YES];
     [self.player.moviePlayer setContentURL:self.video.videoLowURL];
+    // [self.player.moviePlayer setInitialPlaybackTime:NSTimeInterval]
 
-    
     [self presentMoviePlayerViewControllerAnimated:self.player];
     [self.player.moviePlayer play];
 
-//    [self.player.view setFrame:self.view.bounds];
-//    [self.view addSubview:self.player.view];
-    //    self.player setInitialPlaybackTime:NSTimeInterval
-//    [self.view addSubview:[player view]];
-//    [self.player play];
 }
 
 - (IBAction)actionButtonPressed:(id)sender {
     NSArray *activityItems;
-    
-    if (self.video.imageIconURL != nil) {
-        activityItems = @[self.video.summary, self.video.imageIconURL];
-    } else {
-        activityItems = @[self.video.summary];
+    NSMutableArray *applicationActivities;
+
+    if([PocketAPI sharedAPI].loggedIn) {
+        [applicationActivities addObject:[[PocketAPIActivity alloc] init]];
     }
 
-    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+    // TODO: find a way to get the title into the PocketAPIActivity
+    activityItems = @[self.video.videoLowURL];
+
+    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:applicationActivities];
     [self presentViewController:activityController animated:YES completion:nil];
 }
 

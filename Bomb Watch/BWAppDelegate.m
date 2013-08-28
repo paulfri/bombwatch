@@ -7,6 +7,7 @@
 //
 
 #import "BWAppDelegate.h"
+#import "PocketAPI.h"
 
 @implementation BWAppDelegate
 
@@ -14,11 +15,21 @@
 //    [self.window setTintColor:[UIColor colorWithRed:1 green:0.5 blue:0.5 alpha:1]];
     [self.window setTintColor:[UIColor colorWithRed:178.0/255 green:34.0/255 blue:34.0/255 alpha:1]];
 
+    [[PocketAPI sharedAPI] setConsumerKey:@"17866-6c522817c89aaee6ae6da74f"];
+    
     return YES;
 }
+
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    if([[PocketAPI sharedAPI] handleOpenURL:url]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 							
-- (void)applicationWillResignActive:(UIApplication *)application
-{
+- (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }

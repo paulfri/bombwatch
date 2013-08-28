@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6AB17372-F679-4255-AE8C-E5B6A6745352</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Bomb Watch</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>87B30151-F509-4BFF-A5D7-71873A5D8A8E</key>
+		<string>ssh://github.com/paulfri/bombwatch.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Bomb Watch.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>87B30151-F509-4BFF-A5D7-71873A5D8A8E</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/paulfri/bombwatch.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>87B30151-F509-4BFF-A5D7-71873A5D8A8E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>87B30151-F509-4BFF-A5D7-71873A5D8A8E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Bomb Watch</string>
+		</dict>
+	</array>
+</dict>
+</plist>

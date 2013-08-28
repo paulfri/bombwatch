@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4E21EDCE00254B9EA7AE7D38 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40FCD5D8F7DD4243AC1A2E48 /* libPods.a */; };
+		DA4127F417CE28D3003C4F59 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4127F317CE28D3003C4F59 /* Security.framework */; };
+		DA4127F717CE2BDB003C4F59 /* BWSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4127F617CE2BDB003C4F59 /* BWSettingsViewController.m */; };
+		DA4127FA17CE30BE003C4F59 /* PocketAPIActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4127F917CE30BE003C4F59 /* PocketAPIActivity.m */; };
+		DA41280617CE38C5003C4F59 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA41280517CE38C5003C4F59 /* Images.xcassets */; };
 		DA4C7E4B17CD29DF00783060 /* BWVideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4C7E4A17CD29DF00783060 /* BWVideoDetailViewController.m */; };
 		DACE826517CD035700E23051 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826417CD035700E23051 /* Foundation.framework */; };
 		DACE826717CD035700E23051 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826617CD035700E23051 /* CoreGraphics.framework */; };
@@ -18,7 +22,6 @@
 		DACE827817CD035800E23051 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DACE827617CD035800E23051 /* Main_iPhone.storyboard */; };
 		DACE827B17CD035800E23051 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DACE827917CD035800E23051 /* Main_iPad.storyboard */; };
 		DACE827E17CD035800E23051 /* BWLatestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DACE827D17CD035800E23051 /* BWLatestViewController.m */; };
-		DACE828317CD035800E23051 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DACE828217CD035800E23051 /* Images.xcassets */; };
 		DACE828A17CD035800E23051 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE828917CD035800E23051 /* XCTest.framework */; };
 		DACE828B17CD035800E23051 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826417CD035700E23051 /* Foundation.framework */; };
 		DACE828C17CD035800E23051 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826817CD035700E23051 /* UIKit.framework */; };
@@ -26,7 +29,6 @@
 		DACE829617CD035800E23051 /* Bomb_WatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DACE829517CD035800E23051 /* Bomb_WatchTests.m */; };
 		DACE82A517CD052300E23051 /* GiantBombAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DACE82A317CD052300E23051 /* GiantBombAPIClient.m */; };
 		DACE82A817CD0B2600E23051 /* GBVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = DACE82A717CD0B2600E23051 /* GBVideo.m */; };
-		DAD2505817CD50C500FB0F5A /* placeholder-square.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DAD2505717CD50C500FB0F5A /* placeholder-square.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,12 @@
 /* Begin PBXFileReference section */
 		40FCD5D8F7DD4243AC1A2E48 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D03B65A058C4AD9BB095CF3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		DA4127F317CE28D3003C4F59 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		DA4127F517CE2BDB003C4F59 /* BWSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSettingsViewController.h; sourceTree = "<group>"; };
+		DA4127F617CE2BDB003C4F59 /* BWSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWSettingsViewController.m; sourceTree = "<group>"; };
+		DA4127F817CE30BE003C4F59 /* PocketAPIActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketAPIActivity.h; sourceTree = "<group>"; };
+		DA4127F917CE30BE003C4F59 /* PocketAPIActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PocketAPIActivity.m; sourceTree = "<group>"; };
+		DA41280517CE38C5003C4F59 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DA4C7E4917CD29DF00783060 /* BWVideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoDetailViewController.h; sourceTree = "<group>"; };
 		DA4C7E4A17CD29DF00783060 /* BWVideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoDetailViewController.m; sourceTree = "<group>"; };
 		DACE826117CD035700E23051 /* Bomb Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bomb Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,7 +66,6 @@
 		DACE827A17CD035800E23051 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		DACE827C17CD035800E23051 /* BWLatestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BWLatestViewController.h; sourceTree = "<group>"; };
 		DACE827D17CD035800E23051 /* BWLatestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BWLatestViewController.m; sourceTree = "<group>"; };
-		DACE828217CD035800E23051 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DACE828817CD035800E23051 /* Bomb WatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bomb WatchTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DACE828917CD035800E23051 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DACE829117CD035800E23051 /* Bomb WatchTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Bomb WatchTests-Info.plist"; sourceTree = "<group>"; };
@@ -68,7 +75,6 @@
 		DACE82A317CD052300E23051 /* GiantBombAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiantBombAPIClient.m; sourceTree = "<group>"; };
 		DACE82A617CD0B2600E23051 /* GBVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBVideo.h; sourceTree = "<group>"; };
 		DACE82A717CD0B2600E23051 /* GBVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBVideo.m; sourceTree = "<group>"; };
-		DAD2505717CD50C500FB0F5A /* placeholder-square.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "placeholder-square.jpg"; path = "Controllers/placeholder-square.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA4127F417CE28D3003C4F59 /* Security.framework in Frameworks */,
 				DACE826717CD035700E23051 /* CoreGraphics.framework in Frameworks */,
 				DACE826917CD035700E23051 /* UIKit.framework in Frameworks */,
 				DACE826517CD035700E23051 /* Foundation.framework in Frameworks */,
@@ -99,6 +106,8 @@
 		DA73CCA617CD15BC00976570 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DA4127F517CE2BDB003C4F59 /* BWSettingsViewController.h */,
+				DA4127F617CE2BDB003C4F59 /* BWSettingsViewController.m */,
 				DACE827C17CD035800E23051 /* BWLatestViewController.h */,
 				DACE827D17CD035800E23051 /* BWLatestViewController.m */,
 				DA4C7E4917CD29DF00783060 /* BWVideoDetailViewController.h */,
@@ -130,6 +139,7 @@
 		DACE826317CD035700E23051 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA4127F317CE28D3003C4F59 /* Security.framework */,
 				DACE826417CD035700E23051 /* Foundation.framework */,
 				DACE826617CD035700E23051 /* CoreGraphics.framework */,
 				DACE826817CD035700E23051 /* UIKit.framework */,
@@ -142,14 +152,15 @@
 		DACE826A17CD035700E23051 /* Bomb Watch */ = {
 			isa = PBXGroup;
 			children = (
-				DACE827617CD035800E23051 /* Main_iPhone.storyboard */,
-				DACE827917CD035800E23051 /* Main_iPad.storyboard */,
-				DAD2505717CD50C500FB0F5A /* placeholder-square.jpg */,
-				DACE829F17CD04D100E23051 /* Giant Bomb */,
-				DA73CCA617CD15BC00976570 /* Controllers */,
+				DA4127F817CE30BE003C4F59 /* PocketAPIActivity.h */,
+				DA4127F917CE30BE003C4F59 /* PocketAPIActivity.m */,
 				DACE827317CD035800E23051 /* BWAppDelegate.h */,
 				DACE827417CD035800E23051 /* BWAppDelegate.m */,
-				DACE828217CD035800E23051 /* Images.xcassets */,
+				DACE827617CD035800E23051 /* Main_iPhone.storyboard */,
+				DACE827917CD035800E23051 /* Main_iPad.storyboard */,
+				DA41280517CE38C5003C4F59 /* Images.xcassets */,
+				DACE829F17CD04D100E23051 /* Giant Bomb */,
+				DA73CCA617CD15BC00976570 /* Controllers */,
 				DACE826B17CD035700E23051 /* Supporting Files */,
 			);
 			path = "Bomb Watch";
@@ -275,9 +286,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DACE827B17CD035800E23051 /* Main_iPad.storyboard in Resources */,
-				DACE828317CD035800E23051 /* Images.xcassets in Resources */,
+				DA41280617CE38C5003C4F59 /* Images.xcassets in Resources */,
 				DACE827817CD035800E23051 /* Main_iPhone.storyboard in Resources */,
-				DAD2505817CD50C500FB0F5A /* placeholder-square.jpg in Resources */,
 				DACE826F17CD035800E23051 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,7 +343,9 @@
 				DACE82A817CD0B2600E23051 /* GBVideo.m in Sources */,
 				DACE827E17CD035800E23051 /* BWLatestViewController.m in Sources */,
 				DA4C7E4B17CD29DF00783060 /* BWVideoDetailViewController.m in Sources */,
+				DA4127FA17CE30BE003C4F59 /* PocketAPIActivity.m in Sources */,
 				DACE827117CD035800E23051 /* main.m in Sources */,
+				DA4127F717CE2BDB003C4F59 /* BWSettingsViewController.m in Sources */,
 				DACE827517CD035800E23051 /* BWAppDelegate.m in Sources */,
 				DACE82A517CD052300E23051 /* GiantBombAPIClient.m in Sources */,
 			);
