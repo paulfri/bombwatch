@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+enum {
+    PER_PAGE = 25,
+};
+
 @interface BWLatestViewController : UITableViewController
 
 @end

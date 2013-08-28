@@ -210,7 +210,13 @@
                             <outlet property="delegate" destination="rJ6-uZ-0Hw" id="fMg-0c-4YX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="vju-kW-fSh"/>
+                    <navigationItem key="navigationItem" id="vju-kW-fSh">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="yFh-Xl-VLN">
+                            <connections>
+                                <action selector="actionButtonPressed:" destination="rJ6-uZ-0Hw" id="gJb-4S-jEi"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LyQ-xl-och" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

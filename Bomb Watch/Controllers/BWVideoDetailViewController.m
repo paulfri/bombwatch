@@ -67,7 +67,6 @@
     return cell;
 }
 
-
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -138,6 +137,19 @@
     //    self.player setInitialPlaybackTime:NSTimeInterval
 //    [self.view addSubview:[player view]];
 //    [self.player play];
+}
+
+- (IBAction)actionButtonPressed:(id)sender {
+    NSArray *activityItems;
+    
+    if (self.video.imageIconURL != nil) {
+        activityItems = @[self.video.summary, self.video.imageIconURL];
+    } else {
+        activityItems = @[self.video.summary];
+    }
+
+    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+    [self presentViewController:activityController animated:YES completion:nil];
 }
 
 @end

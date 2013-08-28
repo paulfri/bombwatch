@@ -14,9 +14,10 @@
 
 @interface BWLatestViewController ()
 
-@property (strong, nonatomic) NSArray *latestVideos;
+@property (strong, nonatomic) NSMutableArray *latestVideos;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
+@property NSInteger page;
 
 @end
 
@@ -39,6 +40,11 @@
     [self loadLatestVideos];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:animated];
+    [super viewWillAppear:animated];
+}
+
 - (void)loadLatestVideos {
 //    NSDictionary *params = @{@"query": query, @"resources":@"game"};
     [[GiantBombAPIClient defaultClient] GET:@"videos" parameters:nil success:^(NSHTTPURLResponse *response, id responseObject) {
@@ -50,6 +56,7 @@
         }
 
         self.latestVideos = results;
+        self.page = 1;
         [self updateTableView];
     } failure:^(NSError *error) {
         NSLog(@"%@", error);
@@ -99,6 +106,41 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //
+}
+
+#pragma mark - UIScrollView delegate methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat currentOffsetY = scrollView.contentOffset.y + [[UIScreen mainScreen] bounds].size.height;
+    CGFloat contentHeight = scrollView.contentSize.height;
+
+    if (currentOffsetY > ((contentHeight * 3)/ 4.0)) {
+        // if it's equal, we're all caught up and can load the next page
+        // if it's less than, then there should already be a load in progress
+        NSLog(@"thinking about loading more: %d shown and %d should be shown", self.latestVideos.count, self.page * PER_PAGE);
+        if(self.latestVideos.count >= (self.page * PER_PAGE)) {
+            self.page = self.page + 1;
+            [self loadNextPage];
+        }
+    }
+}
+
+- (void)loadNextPage {
+    NSString *offset = [NSString stringWithFormat:@"%d", (PER_PAGE * (self.page - 1))];
+    NSDictionary *params = @{@"limit": @"25", @"offset":offset};
+
+    [[GiantBombAPIClient defaultClient] GET:@"videos" parameters:params success:^(NSHTTPURLResponse *response, id responseObject) {
+        NSMutableArray *results = [NSMutableArray array];
+        for (id gameDictionary in [responseObject valueForKey:@"results"]) {
+            GBVideo *video = [[GBVideo alloc] initWithDictionary:gameDictionary];
+            [results addObject:video];
+        }
+        [self.latestVideos addObjectsFromArray:results];
+        [self updateTableView];
+
+    } failure:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 #pragma mark - Navigation
