@@ -1,43 +1,44 @@
 //
-//  BWFirstViewController.m
+//  BWVideoListViewController.m
 //  Bomb Watch
 //
 //  Created by Paul Friedman on 8/27/13.
 //  Copyright (c) 2013 Laika Cosmonautics. All rights reserved.
 //
 
-#import "BWLatestViewController.h"
+#import "BWVideoListViewController.h"
+#import "BWVideoDetailViewController.h"
+
 #import "GiantBombAPIClient.h"
 #import "GBVideo.h"
 #import "UIImageView+AFNetworking.h"
-#import "BWVideoDetailViewController.h"
 
-@interface BWLatestViewController ()
+@interface BWVideoListViewController ()
 
-@property (strong, nonatomic) NSMutableArray *latestVideos;
+@property (strong, nonatomic) NSMutableArray *videos;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @property NSInteger page;
 
 @end
 
-@implementation BWLatestViewController
+@implementation BWVideoListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
 //    [self.navigationController.navigationBar setBarTintColor:[UIColor blackColor]];
 //    [self.view setBackgroundColor:[UIColor blackColor]];
-    [self setTitle:@"Latest"];
+    [self setTitle:self.category];
 
     self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(loadLatestVideos) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(loadVideos) forControlEvents:UIControlEventValueChanged];
 
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
     [self.dateFormatter setTimeStyle:NSDateFormatterLongStyle];
 
-    [self loadLatestVideos];
+    [self loadVideos];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -45,9 +46,9 @@
     [super viewWillAppear:animated];
 }
 
-- (void)loadLatestVideos {
-//    NSDictionary *params = @{@"query": query, @"resources":@"game"};
-    [[GiantBombAPIClient defaultClient] GET:@"videos" parameters:nil success:^(NSHTTPURLResponse *response, id responseObject) {
+- (void)loadVideos {
+    NSDictionary *params = [self queryParams];
+    [[GiantBombAPIClient defaultClient] GET:@"videos" parameters:params success:^(NSHTTPURLResponse *response, id responseObject) {
 
         NSMutableArray *results = [NSMutableArray array];
         for (id gameDictionary in [responseObject valueForKey:@"results"]) {
@@ -55,12 +56,16 @@
             [results addObject:video];
         }
 
-        self.latestVideos = results;
+        self.videos = results;
         self.page = 1;
         [self updateTableView];
     } failure:^(NSError *error) {
         NSLog(@"%@", error);
     }];
+}
+
+- (NSDictionary *)queryParams {
+    return nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -69,7 +74,7 @@
 }
 
 - (GBVideo *)videoForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.latestVideos objectAtIndex:indexPath.row];
+    return [self.videos objectAtIndex:indexPath.row];
 }
 
 - (void)updateTableView {
@@ -85,7 +90,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.latestVideos.count;
+    return self.videos.count;
 }
 
 //- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -117,8 +122,8 @@
     if (currentOffsetY > ((contentHeight * 3)/ 4.0)) {
         // if it's equal, we're all caught up and can load the next page
         // if it's less than, then there should already be a load in progress
-        NSLog(@"thinking about loading more: %d shown and %d should be shown", self.latestVideos.count, self.page * PER_PAGE);
-        if(self.latestVideos.count >= (self.page * PER_PAGE)) {
+        NSLog(@"thinking about loading more: %d shown and %d should be shown", self.videos.count, self.page * PER_PAGE);
+        if(self.videos.count >= (self.page * PER_PAGE)) {
             self.page++;
             [self loadNextPage];
         }
@@ -135,7 +140,7 @@
             GBVideo *video = [[GBVideo alloc] initWithDictionary:gameDictionary];
             [results addObject:video];
         }
-        [self.latestVideos addObjectsFromArray:results];
+        [self.videos addObjectsFromArray:results];
         [self updateTableView];
 
     } failure:^(NSError *error) {

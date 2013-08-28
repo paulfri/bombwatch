@@ -1,5 +1,5 @@
 //
-//  BWFirstViewController.h
+//  BWVideoListViewController.h
 //  Bomb Watch
 //
 //  Created by Paul Friedman on 8/27/13.
@@ -12,6 +12,8 @@ enum {
     PER_PAGE = 25,
 };
 
-@interface BWLatestViewController : UITableViewController
+@interface BWVideoListViewController : UITableViewController
+
+@property (strong, nonatomic) NSString *category;
 
 @end

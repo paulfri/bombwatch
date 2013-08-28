@@ -37,7 +37,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="3qt-wd-5me" kind="relationship" relationship="rootViewController" id="GaY-9m-3NG"/>
+                        <segue destination="HlT-IB-UZg" kind="relationship" relationship="rootViewController" id="7se-50-kiY"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aQv-tR-ypB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -198,10 +198,51 @@
             </objects>
             <point key="canvasLocation" x="-5876" y="-4021"/>
         </scene>
-        <!--Latest View Controller-->
+        <!--Categories View Controller-->
+        <scene sceneID="KZt-04-Cha">
+            <objects>
+                <tableViewController id="HlT-IB-UZg" customClass="BWCategoriesViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="C9j-fJ-NKb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CategoryCell" id="RQF-BB-tIk">
+                                <rect key="frame" x="0.0" y="119" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RQF-BB-tIk" id="aAZ-Yb-qQE">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Latest" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0KT-0z-XOg">
+                                            <rect key="frame" x="20" y="11" width="267" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="3qt-wd-5me" kind="push" identifier="videoListSegue" id="qOc-7j-wZf"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="HlT-IB-UZg" id="Bdq-Qd-8cT"/>
+                            <outlet property="delegate" destination="HlT-IB-UZg" id="kyA-U3-cGf"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="bLF-MQ-ZYj"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OWQ-CU-I0n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-6323" y="-3301"/>
+        </scene>
+        <!--Video List View Controller-->
         <scene sceneID="JvP-0V-ydo">
             <objects>
-                <tableViewController id="3qt-wd-5me" customClass="BWLatestViewController" sceneMemberID="viewController">
+                <tableViewController id="3qt-wd-5me" customClass="BWVideoListViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wXq-pT-ciJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -244,9 +285,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="77p-Nc-MiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5678" y="-3301"/>
+            <point key="canvasLocation" x="-5876" y="-3301"/>
         </scene>
-        <!--Table View Controller - Root View Controller-->
+        <!--Table View Controller - Search-->
         <scene sceneID="MFO-EJ-weo">
             <objects>
                 <tableViewController id="Mp5-ly-RFh" sceneMemberID="viewController">
@@ -265,13 +306,13 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="rxh-G9-3nO"/>
+                    <navigationItem key="navigationItem" title="Search" id="rxh-G9-3nO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xOy-sG-pwQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-6022" y="-1754"/>
         </scene>
-        <!--Table View Controller - Root View Controller-->
+        <!--Table View Controller - Favorites-->
         <scene sceneID="VBC-X3-JCk">
             <objects>
                 <tableViewController id="keY-hV-DQ4" sceneMemberID="viewController">
@@ -290,13 +331,13 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="rl8-C8-Q8j"/>
+                    <navigationItem key="navigationItem" title="Favorites" id="rl8-C8-Q8j"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lnZ-NS-Led" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-7130" y="-1828"/>
         </scene>
-        <!--Table View Controller - Root View Controller-->
+        <!--Table View Controller - Downloads-->
         <scene sceneID="CKA-pp-gz8">
             <objects>
                 <tableViewController id="Ei6-Rn-7Ys" sceneMemberID="viewController">
@@ -315,7 +356,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="wRf-Qe-jjt"/>
+                    <navigationItem key="navigationItem" title="Downloads" id="wRf-Qe-jjt"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BMH-ZF-jbP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
