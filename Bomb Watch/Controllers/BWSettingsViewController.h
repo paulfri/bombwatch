@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BWSettingsViewController : UIViewController
+@interface BWSettingsViewController : UITableViewController
 
 @property (weak, nonatomic) IBOutlet UISwitch *pocketSwitch;
-- (IBAction)pocketSwitchToggled:(id)sender;
+
+- (IBAction)pocketSwitchChanged:(id)sender;
+- (IBAction)doneButtonPressed:(id)sender;
 
 @end

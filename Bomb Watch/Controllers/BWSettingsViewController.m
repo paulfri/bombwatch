@@ -27,6 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setTitle:@"Settings"];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(pocketLoginStarted:)
@@ -47,13 +48,19 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)pocketSwitchToggled:(id)sender {
+
+- (IBAction)doneButtonPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Pocket
+
+- (IBAction)pocketSwitchChanged:(id)sender {
     if(!self.pocket.loggedIn) {
         [self pocketLogin];
     } else {
         [self pocketLogout];
     }
-
 }
 
 - (void)pocketLogin {
