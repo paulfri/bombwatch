@@ -47,9 +47,11 @@
     if ([self accountIsLinked]) {
         self.accountLinkedLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"apiKey"];
         self.accountLinkedCell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        self.accountLinkedCell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else {
         self.accountLinkedLabel.text = @"Not Linked";
         self.accountLinkedCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        self.accountLinkedCell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
 
     self.pocketSwitch.on = self.pocket.loggedIn;
@@ -120,7 +122,6 @@
 
 - (IBAction)pocketSwitchChanged:(id)sender {
     if(!self.pocket.loggedIn) {
-        // switch to KVO for the login UI if this doesn't seem reliable
         [SVProgressHUD showWithStatus:@"Logging in..."];
         [self pocketLogin];
     } else {

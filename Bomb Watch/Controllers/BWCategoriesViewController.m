@@ -8,6 +8,7 @@
 
 #import "BWCategoriesViewController.h"
 #import "BWVideoListViewController.h"
+#import "BWAppDelegate.h"
 
 @interface BWCategoriesViewController ()
 
@@ -20,15 +21,12 @@
 
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTitle:@"Videos"];
+    self.title = @"Videos";
 
     // TODO: this should be constantized somewhere
     self.videoCategories = @[@"Latest", @"Quick Looks", @"Features", @"Events",
@@ -52,8 +50,10 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 0) return @"Categories";
-    else return nil;
+    if (section == 0)
+        return @"Categories";
+    else
+        return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -65,17 +65,21 @@
     return cell;
 }
 
-#pragma mark - UITableViewDelegate protocol methods
-
-// this section intentionally left blank
-
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    BWVideoListViewController *destinationVC = (BWVideoListViewController *)[segue destinationViewController];
+
     if([[segue identifier] isEqualToString:@"videoListSegue"]) {
-        BWVideoListViewController *destinationVC = (BWVideoListViewController *)[segue destinationViewController];
-        UITableViewCell *selectedCell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-        destinationVC.category = selectedCell.textLabel.text;
+        if ([sender isKindOfClass:[NSString class]]) {
+            // when this view is instantiated from the app delegate it doesn't seem to set its
+            // title properly, which can mess up the nav controller's back button label
+            self.title = @"Videos";
+            destinationVC.category = sender;
+        } else {
+            UITableViewCell *selectedCell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+            destinationVC.category = selectedCell.textLabel.text;
+        }
     }
 }
 

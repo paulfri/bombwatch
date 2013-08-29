@@ -18,6 +18,17 @@
     [[PocketAPI sharedAPI] setConsumerKey:PocketConsumerKey];
     [[NSUserDefaults standardUserDefaults] registerDefaults:[self defaultPreferences]];
 
+    NSString *defaultView = [[NSUserDefaults standardUserDefaults] stringForKey:@"initialView"];
+    
+    if (![defaultView isEqualToString:@"Categories"]) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+        UITabBarController *root = [storyboard instantiateViewControllerWithIdentifier:@"mainTabBarVC"];
+        self.window.rootViewController = root;
+        UINavigationController *nav = (UINavigationController *)root.viewControllers[0];
+        [nav.topViewController performSegueWithIdentifier:@"videoListSegue"
+                                                   sender:defaultView];
+    }
+
     return YES;
 }
 
@@ -32,6 +43,7 @@
     return @{@"showTrailersInLatest": @YES,
               @"showPremiumInLatest": @NO,
                @"rotationLockVideos": @NO,
+                      @"initialView": @"Categories",
                            @"apiKey": GiantBombDefaultAPIKey};
 }
 
