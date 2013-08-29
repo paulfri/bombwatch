@@ -166,16 +166,21 @@
 
 - (IBAction)actionButtonPressed:(id)sender {
     NSArray *activityItems;
-    NSMutableArray *applicationActivities;
+    NSArray *applicationActivities;
 
     if([PocketAPI sharedAPI].loggedIn) {
-        [applicationActivities addObject:[[PocketAPIActivity alloc] init]];
+        NSLog(@"logged in");
+        PocketAPIActivity *pocketActivity = [[PocketAPIActivity alloc] init];
+        applicationActivities = @[pocketActivity];
+        NSLog(@"%@", pocketActivity);
     }
 
     // TODO: find a way to get the title into the PocketAPIActivity
     activityItems = @[self.video.videoLowURL];
 
-    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:applicationActivities];
+    UIActivityViewController *activityController = [[UIActivityViewController alloc]
+                                                    initWithActivityItems:activityItems
+                                                    applicationActivities:applicationActivities];
     [self presentViewController:activityController animated:YES completion:nil];
 }
 

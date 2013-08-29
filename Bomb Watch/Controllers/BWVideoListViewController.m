@@ -48,10 +48,32 @@
 #pragma mark - Giant Bomb API querying methods
 
 - (NSDictionary *)queryParams {
-    // override this based on the VC's assigned category (Quick Look, whatever)
-    // reference GBAPI spec to get the proper category IDs
-    //@{@"filter": @"whatever"}
-    return nil;
+    //2:reviews
+    //3:quicklooks
+    //4:tang
+    //5:endurancerun
+    //6:events
+    //7:traileres
+    //8:features
+    //10:subscriber
+    NSString *offset = [NSString stringWithFormat:@"%d", (PER_PAGE * (self.page - 1))];
+    NSString *perPage = [NSString stringWithFormat:@"%d", PER_PAGE];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[perPage, offset]
+                                                                     forKeys:@[@"limit", @"offset"]];
+
+    // TODO: Constantize these at some point
+    NSArray *videoCategories = @[@"Latest", @"Quick Looks", @"Features", @"Events",
+                             @"Endurance Run", @"TANG", @"Reviews", @"Trailers",
+                             @"Premium"];
+    NSArray *videoEndpoints  = @[@"", @"3", @"8", @"6", @"5", @"4", @"2", @"7", @"10"];
+
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjects:videoEndpoints
+                                                       forKeys:videoCategories];
+
+    if (![self.category isEqualToString:@"Latest"])
+        [params addEntriesFromDictionary:@{@"video_type": dict[self.category]}];
+
+    return params;
 }
 
 - (void)loadVideos {
@@ -79,12 +101,6 @@
 
 - (GBVideo *)videoForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [self.videos objectAtIndex:indexPath.row];
-}
-
-- (void)updateTableView {
-    [self.tableView reloadData];
-    self.refreshControl.attributedTitle = [self refreshControlTitle];
-    [self.refreshControl endRefreshing];
 }
 
 #pragma mark - UITableViewDelegate methods
@@ -122,9 +138,8 @@
     CGFloat contentHeight = scrollView.contentSize.height;
 
     if (currentOffsetY > ((contentHeight * 3)/ 4.0)) {
-        // if it's equal, we're all caught up and can load the next page
-        // if it's less than, then there should already be a load in progress
-        NSLog(@"thinking about loading more: %d shown and %d should be shown", self.videos.count, self.page * PER_PAGE);
+        // if it's >=, we're all caught up and can load the next page
+        // if it's < , then there should already be a load in progress
         if(self.videos.count >= (self.page * PER_PAGE)) {
             self.page++;
             [self loadNextPage];
@@ -133,10 +148,7 @@
 }
 
 - (void)loadNextPage {
-    NSString *offset = [NSString stringWithFormat:@"%d", (PER_PAGE * (self.page - 1))];
-    NSDictionary *params = @{@"limit": @"25", @"offset":offset};
-
-    [[GiantBombAPIClient defaultClient] GET:@"videos" parameters:params success:^(NSHTTPURLResponse *response, id responseObject) {
+    [[GiantBombAPIClient defaultClient] GET:@"videos" parameters:[self queryParams] success:^(NSHTTPURLResponse *response, id responseObject) {
         NSMutableArray *results = [NSMutableArray array];
         for (id gameDictionary in [responseObject valueForKey:@"results"]) {
             GBVideo *video = [[GBVideo alloc] initWithDictionary:gameDictionary];
@@ -166,6 +178,12 @@
 - (NSAttributedString *)refreshControlTitle {
     return [[NSAttributedString alloc] initWithString:
             [NSString stringWithFormat:@"Last updated %@", [self.dateFormatter stringFromDate:[NSDate date]]]];
+}
+
+- (void)updateTableView {
+    [self.tableView reloadData];
+    self.refreshControl.attributedTitle = [self refreshControlTitle];
+    [self.refreshControl endRefreshing];
 }
 
 @end
