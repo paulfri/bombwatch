@@ -7,6 +7,7 @@
 //
 
 #import "BWSettingsViewController.h"
+#import "GiantBombAPIClient.h"
 #import "PocketAPI.h"
 #import "SVProgressHUD.h"
 
@@ -31,25 +32,31 @@
     [self setTitle:@"Settings"];
 
     self.pocket = [PocketAPI sharedAPI];
-    [self setCurrentValues];
+    [self setValues];
 }
 
-- (void)setCurrentValues {
+- (void)setValues {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
+
+    if (![[defaults stringForKey:@"apiKey"] isEqualToString:GiantBombDefaultAPIKey]) {
+        self.accountLinkedLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"apiKey"];
+    } else {
+        self.accountLinkedLabel.text = @"Not Linked";
+    }
+
     self.pocketSwitch.on = self.pocket.loggedIn;
     self.lockRotationSwitch.on = [defaults boolForKey:@"lockRotation"];
     self.showTrailersSwitch.on = [defaults boolForKey:@"showTrailersInLatest"];
     self.showPremiumSwitch.on = [defaults boolForKey:@"showPremiumInLatest"];
-
     self.versionDetailLabel.text = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
+
+#pragma mark - IB Actions
 
 - (IBAction)doneButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -70,6 +77,22 @@
     [[NSUserDefaults standardUserDefaults] setBool:control.on forKey:@"lockRotation"];
 }
 
+#pragma mark - Link Giant Bomb account
+
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//    if (cell == self.accountLinkedCell) {
+//        [self linkAccount];
+//    }
+//}
+//
+//- (void)linkAccount {
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Link Account" message:@"giantbomb.com/boxee" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Link", nil];
+//
+//    [alert show];
+//}
+
 #pragma mark - Pocket
 
 - (IBAction)pocketSwitchChanged:(id)sender {
@@ -85,9 +108,6 @@
 - (void)pocketLogin {
     [self.pocket loginWithHandler: ^(PocketAPI *API, NSError *error){
         if (error != nil) {
-            // The error object will contain a human readable error message that you
-            // should display to the user. Ex: Show an UIAlertView with the message
-            // from error.localizedDescription
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         } else {
             [SVProgressHUD showSuccessWithStatus:@"Logged in!"];

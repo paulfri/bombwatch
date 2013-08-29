@@ -96,12 +96,20 @@
     __block NSDictionary *params = [self queryParams];
     
     [[GiantBombAPIClient defaultClient] GET:@"videos" parameters:params success:^(NSHTTPURLResponse *response, id responseObject) {
+
+        // TODO: handle error codes
+//        100:Invalid API Key
+//        101:Object Not Found
+//        104:Filter Error
+//        105:Subscriber only video is for subscribers only
+
         NSMutableArray *results = [NSMutableArray array];
         for (id gameDictionary in [responseObject valueForKey:@"results"]) {
             GBVideo *video = [[GBVideo alloc] initWithDictionary:gameDictionary];
             [results addObject:video];
         }
-
+        NSLog(@"%@", responseObject);
+        
         if([params[@"offset"] isEqualToString:@"0"])
             self.videos = results;
         else

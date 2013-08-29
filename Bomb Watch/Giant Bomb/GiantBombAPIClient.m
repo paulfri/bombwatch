@@ -8,9 +8,6 @@
 
 #import "GiantBombAPIClient.h"
 
-#define GiantBombAPIBaseURLString @"http://www.giantbomb.com/api"
-#define GiantBombAPIToken         @"064d830691a4b7323a7424bffa5ce1c8d7552962"
-
 @implementation GiantBombAPIClient
 
 + (id)defaultClient {
@@ -38,10 +35,13 @@
                                 parameters:(NSDictionary *)parameters
 {
     NSMutableDictionary *newParams = [[NSMutableDictionary alloc] init];
+    NSString *token = [[NSUserDefaults standardUserDefaults] stringForKey:@"apiKey"];
+
     [newParams addEntriesFromDictionary:parameters];
     [newParams setObject:@"json" forKey:@"format"];
-    [newParams setObject:GiantBombAPIToken forKey:@"api_key"];
+    [newParams setObject:token   forKey:@"api_key"];
 
+    NSLog(@"%@", newParams);
     return [super requestWithMethod:method URLString:URLString parameters:newParams];
 }
 

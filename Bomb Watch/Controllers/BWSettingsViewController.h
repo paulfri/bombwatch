@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UISwitch *showTrailersSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *showPremiumSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *lockRotationSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *accountLinkedLabel;
+@property (weak, nonatomic) IBOutlet UITableViewCell *accountLinkedCell;
 
 - (IBAction)pocketSwitchChanged:(id)sender;
 - (IBAction)doneButtonPressed:(id)sender;

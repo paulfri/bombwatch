@@ -5,9 +5,12 @@
 //  Created by Paul Friedman on 8/27/13.
 //  Copyright (c) 2013 Laika Cosmonautics. All rights reserved.
 //
-
 #import "BWAppDelegate.h"
 #import "PocketAPI.h"
+#import "GiantBombAPIClient.h"
+
+//#define DefaultAPIKey  @"064d830691a4b7323a7424bffa5ce1c8d7552962"
+//#define DefaultAPIKey  @"e5ab8850b03bcec7ce6590ca705c9a26395dddf1"
 
 @implementation BWAppDelegate
 
@@ -27,11 +30,10 @@
 }
 
 - (NSDictionary *)defaultPreferences {
-
     return @{@"showTrailersInLatest": @YES,
-              @"showPremiumInLatest": @YES,
-               @"rotationLockVideos": @NO};
-
+              @"showPremiumInLatest": @NO,
+               @"rotationLockVideos": @NO,
+                           @"apiKey": GiantBombDefaultAPIKey};
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
