@@ -14,6 +14,11 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>Pods-SVProgressHUD.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -37,7 +42,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3989DA060FA74BE2B8EB9E86</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>53A1B0F1CB2546D8980675A7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>760572629A38446194B29379</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8B9DAD2D983147228E9F6D44</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A60152BFF9E4468886F21F18</key>
 		<dict>
 			<key>primary</key>
 			<true/>

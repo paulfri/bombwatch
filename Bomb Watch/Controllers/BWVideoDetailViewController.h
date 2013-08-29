@@ -12,6 +12,9 @@
 @interface BWVideoDetailViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (strong, nonatomic) GBVideo *video;
+@property (weak, nonatomic) IBOutlet UIPickerView *qualityPicker;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *previewImage;
 
 - (IBAction)playButtonPressed:(id)sender;
 - (IBAction)actionButtonPressed:(id)sender;

@@ -8,6 +8,7 @@
 
 #import "BWSettingsViewController.h"
 #import "PocketAPI.h"
+#import "SVProgressHUD.h"
 
 @interface BWSettingsViewController ()
 
@@ -29,18 +30,17 @@
     [super viewDidLoad];
     [self setTitle:@"Settings"];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(pocketLoginStarted:)
-                                                 name:@"PocketAPILoginStartedNotification"
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(pocketLoginFinished:)
-                                                 name:@"PocketAPILoginFinishedNotification"
-                                               object:nil];
-
     self.pocket = [PocketAPI sharedAPI];
+    [self setCurrentValues];
+}
+
+- (void)setCurrentValues {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
     self.pocketSwitch.on = self.pocket.loggedIn;
+    self.lockRotationSwitch.on = [defaults boolForKey:@"lockRotation"];
+    self.showTrailersSwitch.on = [defaults boolForKey:@"showTrailersInLatest"];
+    self.showPremiumSwitch.on = [defaults boolForKey:@"showPremiumInLatest"];
 
     self.versionDetailLabel.text = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 }
@@ -55,10 +55,27 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)showTrailersSwitchChanged:(id)sender {
+    UISwitch *control = (UISwitch *)sender;
+    [[NSUserDefaults standardUserDefaults] setBool:control.on forKey:@"showTrailersInLatest"];
+}
+
+- (IBAction)showPremiumSwitchChanged:(id)sender {
+    UISwitch *control = (UISwitch *)sender;
+    [[NSUserDefaults standardUserDefaults] setBool:control.on forKey:@"showPremiumInLatest"];
+}
+
+- (IBAction)lockRotationSwitchChanged:(id)sender {
+    UISwitch *control = (UISwitch *)sender;
+    [[NSUserDefaults standardUserDefaults] setBool:control.on forKey:@"lockRotation"];
+}
+
 #pragma mark - Pocket
 
 - (IBAction)pocketSwitchChanged:(id)sender {
     if(!self.pocket.loggedIn) {
+        // switch to KVO for the login UI if this doesn't seem reliable
+        [SVProgressHUD showWithStatus:@"Logging in..."];
         [self pocketLogin];
     } else {
         [self pocketLogout];
@@ -68,34 +85,22 @@
 - (void)pocketLogin {
     [self.pocket loginWithHandler: ^(PocketAPI *API, NSError *error){
         if (error != nil) {
-            // There was an error when authorizing the user.
-            // The most common error is that the user denied access to your application.
             // The error object will contain a human readable error message that you
             // should display to the user. Ex: Show an UIAlertView with the message
             // from error.localizedDescription
-            NSLog(@"%@", error.localizedDescription);
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         } else {
-            // The user logged in successfully, your app can now make requests.
-            // [API username] will return the logged-in user’s username
-            // and API.loggedIn will == YES
-            NSLog(@"%@", [self.pocket username]);
+            [SVProgressHUD showSuccessWithStatus:@"Logged in!"];
         }
-        
+
         self.pocketSwitch.on = self.pocket.loggedIn;
     }];
 }
 
 - (void)pocketLogout {
     [self.pocket logout];
+    [SVProgressHUD showSuccessWithStatus:@"Logged out"];
     self.pocketSwitch.on = NO;
-}
-
-- (void)pocketLoginStarted:(NSNotification *)notification {
-    NSLog(@"login start");
-}
-
-- (void)pocketLoginFinished:(NSNotification *)notification {
-    NSLog(@"login finito");
 }
 
 @end

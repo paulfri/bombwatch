@@ -12,8 +12,14 @@
 
 @property (weak, nonatomic) IBOutlet UISwitch *pocketSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *versionDetailLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *showTrailersSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *showPremiumSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *lockRotationSwitch;
 
 - (IBAction)pocketSwitchChanged:(id)sender;
 - (IBAction)doneButtonPressed:(id)sender;
+- (IBAction)showTrailersSwitchChanged:(id)sender;
+- (IBAction)showPremiumSwitchChanged:(id)sender;
+- (IBAction)lockRotationSwitchChanged:(id)sender;
 
 @end
