@@ -9,14 +9,13 @@
 #import "PocketAPI.h"
 #import "GiantBombAPIClient.h"
 
-//#define DefaultAPIKey  @"064d830691a4b7323a7424bffa5ce1c8d7552962"
-//#define DefaultAPIKey  @"e5ab8850b03bcec7ce6590ca705c9a26395dddf1"
+#define PocketConsumerKey @"17866-6c522817c89aaee6ae6da74f"
 
 @implementation BWAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self.window setTintColor:[UIColor colorWithRed:178.0/255 green:34.0/255 blue:34.0/255 alpha:1]];
-    [[PocketAPI sharedAPI] setConsumerKey:@"17866-6c522817c89aaee6ae6da74f"];
+    [[PocketAPI sharedAPI] setConsumerKey:PocketConsumerKey];
     [[NSUserDefaults standardUserDefaults] registerDefaults:[self defaultPreferences]];
 
     return YES;

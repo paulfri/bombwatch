@@ -8,10 +8,16 @@
 
 #import "PocketAPIActivity.h"
 #import "PocketAPI.h"
+#import "GBVideo.h"
+#import "SVProgressHUD.h"
 
-@implementation PocketAPIActivity {
-	NSArray *_URLs;
-}
+@interface PocketAPIActivity ()
+
+@property (strong, nonatomic) NSArray *videos;
+
+@end
+
+@implementation PocketAPIActivity
 
 - (NSString *)activityType {
 	return @"Pocket";
@@ -27,9 +33,8 @@
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
 	for (id activityItem in activityItems) {
-		if ([activityItem isKindOfClass:[NSURL class]]) {
+		if ([activityItem isKindOfClass:[GBVideo class]]) {
 			NSURL *pocketURL = [NSURL URLWithString:[[PocketAPI pocketAppURLScheme] stringByAppendingString:@":test"]];
-			
 			if ([[UIApplication sharedApplication] canOpenURL:pocketURL] || [PocketAPI sharedAPI].loggedIn) {
 				return YES;
 			}
@@ -40,32 +45,39 @@
 }
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems {
-	NSMutableArray *URLs = [NSMutableArray array];
+	NSMutableArray *videos = [NSMutableArray array];
 	
 	for (id activityItem in activityItems) {
-		if ([activityItem isKindOfClass:[NSURL class]]) {
-			[URLs addObject:activityItem];
+		if ([activityItem isKindOfClass:[GBVideo class]]) {
+			[videos addObject:activityItem];
 		}
 	}
 
-	_URLs = [URLs copy];
+	self.videos = [videos copy];
 }
 
 - (void)performActivity {
-	__block NSUInteger URLsLeft = _URLs.count;
-	__block BOOL urlFailed = NO;
+	__block NSUInteger videosLeft = self.videos.count;
+	__block BOOL videoFailed = NO;
 
-	for (NSURL *url in _URLs) {
-		[[PocketAPI sharedAPI] saveURL:url handler: ^(PocketAPI *api, NSURL *url, NSError *error) {
-			if (error != nil)
-				urlFailed = YES;
-
-			URLsLeft--;
-
-			if (URLsLeft == 0)
-				[self activityDidFinish:!urlFailed];
+	for (GBVideo *video in self.videos) {
+        [[PocketAPI sharedAPI] saveURL:video.videoHighURL
+                             withTitle:video.name
+                               handler: ^(PocketAPI *api, NSURL *url, NSError *error) {
+			if (error != nil) videoFailed = YES;
+			videosLeft--;
+			if (videosLeft == 0) [self activityDidFinish:!videoFailed];
 		}];
 	}
+}
+
+- (void)activityDidFinish:(BOOL)completed {
+    if (completed) {
+        [SVProgressHUD showSuccessWithStatus:@"Saved to Pocket"];
+    } else {
+        [SVProgressHUD showErrorWithStatus:@"Failed to save to Pocket"];
+    }
+    [super activityDidFinish:completed];
 }
 
 @end

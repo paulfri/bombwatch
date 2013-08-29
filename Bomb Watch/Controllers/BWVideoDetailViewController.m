@@ -105,14 +105,11 @@
     NSArray *applicationActivities;
 
     if([PocketAPI sharedAPI].loggedIn) {
-        NSLog(@"logged in");
         PocketAPIActivity *pocketActivity = [[PocketAPIActivity alloc] init];
         applicationActivities = @[pocketActivity];
-        NSLog(@"%@", pocketActivity);
     }
 
-    // TODO: find a way to get the title into the PocketAPIActivity
-    activityItems = @[self.video.videoLowURL];
+    activityItems = @[self.video];
 
     UIActivityViewController *activityController = [[UIActivityViewController alloc]
                                                     initWithActivityItems:activityItems

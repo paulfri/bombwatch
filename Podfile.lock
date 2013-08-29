@@ -5,12 +5,12 @@ PODS:
   - AFNetworking/Core (2.0.0-RC2)
   - AFNetworking/UIKit+AFNetworking (2.0.0-RC2)
   - PocketAPI (1.0.2)
-  - SVProgressHUD (0.9)
+  - SVProgressHUD (HEAD based on 0.9)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0.0-RC2)
   - PocketAPI (~> 1.0.2)
-  - SVProgressHUD
+  - SVProgressHUD (HEAD)
 
 SPEC CHECKSUMS:
   AFNetworking: 6b19d8a0793f342d8c879cd0af9d7488e54addcf

@@ -21,9 +21,6 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
     return self;
 }
 
@@ -32,16 +29,27 @@
     [self setTitle:@"Settings"];
 
     self.pocket = [PocketAPI sharedAPI];
-    [self setValues];
 }
 
-- (void)setValues {
+- (void)viewWillAppear:(BOOL)animated {
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:animated];
+    [self updateValues];
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [SVProgressHUD dismiss];
+}
+
+- (void)updateValues {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    if (![[defaults stringForKey:@"apiKey"] isEqualToString:GiantBombDefaultAPIKey]) {
+    if ([self accountIsLinked]) {
         self.accountLinkedLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"apiKey"];
+        self.accountLinkedCell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     } else {
         self.accountLinkedLabel.text = @"Not Linked";
+        self.accountLinkedCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
 
     self.pocketSwitch.on = self.pocket.loggedIn;
@@ -51,10 +59,41 @@
     self.versionDetailLabel.text = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 }
 
+- (void)unlinkAccount {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"apiKey"];
+}
+
+- (BOOL)accountIsLinked {
+    return ![[[NSUserDefaults standardUserDefaults] stringForKey:@"apiKey"] isEqualToString:GiantBombDefaultAPIKey];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
+#pragma mark - TableViewDelegate protocol methods
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    if (cell == self.accountLinkedCell && [self accountIsLinked]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unlink"
+                                                        message:@"Do you want to unlink your account?"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:@"Yep", nil];
+        alert.delegate = self;
+        [alert show];
+    }
+}
+
+#pragma mark - UIAlertViewDelegate protocol methods
+
+- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != 0) {
+        [self unlinkAccount];
+        [self updateValues];
+    }
+}
 
 #pragma mark - IB Actions
 
@@ -77,22 +116,6 @@
     [[NSUserDefaults standardUserDefaults] setBool:control.on forKey:@"lockRotation"];
 }
 
-#pragma mark - Link Giant Bomb account
-
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-//    if (cell == self.accountLinkedCell) {
-//        [self linkAccount];
-//    }
-//}
-//
-//- (void)linkAccount {
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Link Account" message:@"giantbomb.com/boxee" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Link", nil];
-//
-//    [alert show];
-//}
-
 #pragma mark - Pocket
 
 - (IBAction)pocketSwitchChanged:(id)sender {
@@ -108,7 +131,8 @@
 - (void)pocketLogin {
     [self.pocket loginWithHandler: ^(PocketAPI *API, NSError *error){
         if (error != nil) {
-            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+            NSLog(@"%@", error.localizedDescription);
+            [SVProgressHUD showErrorWithStatus:@"Login failed."];
         } else {
             [SVProgressHUD showSuccessWithStatus:@"Logged in!"];
         }
@@ -121,6 +145,15 @@
     [self.pocket logout];
     [SVProgressHUD showSuccessWithStatus:@"Logged out"];
     self.pocketSwitch.on = NO;
+}
+
+#pragma mark - Navigation
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"linkAccountSegue"] && [self accountIsLinked]) {
+        return NO;
+    }
+    return YES;
 }
 
 @end
