@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 enum {
-    PER_PAGE = 25,
+    PER_PAGE = 50,
 };
 
 @interface BWVideoListViewController : UITableViewController

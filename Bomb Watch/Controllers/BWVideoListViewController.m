@@ -11,6 +11,7 @@
 #import "GiantBombAPIClient.h"
 #import "GBVideo.h"
 #import "UIImageView+AFNetworking.h"
+#import "SVProgressHUD.h"
 
 @interface BWVideoListViewController ()
 
@@ -26,18 +27,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    [self.navigationController.navigationBar setBarTintColor:[UIColor blackColor]];
-//    [self.view setBackgroundColor:[UIColor blackColor]];
     [self setTitle:self.category];
 
     self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(loadVideos) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(refreshControlActivated) forControlEvents:UIControlEventValueChanged];
 
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
     [self.dateFormatter setTimeStyle:NSDateFormatterLongStyle];
 
-    [self loadVideos];
+    self.page = 1;
+    [SVProgressHUD show];
+    [self loadNextPage];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -45,21 +46,15 @@
     [super viewWillAppear:animated];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
 #pragma mark - Giant Bomb API querying methods
 
 - (NSDictionary *)queryParams {
-    //2:reviews
-    //3:quicklooks
-    //4:tang
-    //5:endurancerun
-    //6:events
-    //7:traileres
-    //8:features
-    //10:subscriber
     NSString *offset = [NSString stringWithFormat:@"%d", (PER_PAGE * (self.page - 1))];
     NSString *perPage = [NSString stringWithFormat:@"%d", PER_PAGE];
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[perPage, offset]
-                                                                     forKeys:@[@"limit", @"offset"]];
 
     // TODO: Constantize these at some point
     NSArray *videoCategories = @[@"Latest", @"Quick Looks", @"Features", @"Events",
@@ -70,37 +65,53 @@
     NSDictionary *dict = [[NSDictionary alloc] initWithObjects:videoEndpoints
                                                        forKeys:videoCategories];
 
-    if (![self.category isEqualToString:@"Latest"])
-        [params addEntriesFromDictionary:@{@"video_type": dict[self.category]}];
+    NSString *filterValue;
 
-    return params;
+    if (![self.category isEqualToString:@"Latest"]) {
+        filterValue = [NSString stringWithFormat:@"video_type:%@", dict[self.category]];
+    } else {
+        filterValue = @"video_type:3|8|6|5|4|2";
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showTrailersInLatest"]) {
+            filterValue = [filterValue stringByAppendingString:@"|7"];
+        }
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showPremiumInLatest"]) {
+            filterValue = [filterValue stringByAppendingString:@"|10"];
+        }
+    }
+
+    return @{@"limit": perPage, @"offset": offset, @"filter": filterValue};
 }
 
-- (void)loadVideos {
-    NSDictionary *params = [self queryParams];
-    [[GiantBombAPIClient defaultClient] GET:@"videos" parameters:params success:^(NSHTTPURLResponse *response, id responseObject) {
+- (void)refreshControlActivated {
+    self.page = 1;
+    [self loadNextPage];
+}
 
+
+- (GBVideo *)videoForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [self.videos objectAtIndex:indexPath.row];
+}
+
+- (void)loadNextPage {
+    __block NSDictionary *params = [self queryParams];
+    
+    [[GiantBombAPIClient defaultClient] GET:@"videos" parameters:params success:^(NSHTTPURLResponse *response, id responseObject) {
         NSMutableArray *results = [NSMutableArray array];
         for (id gameDictionary in [responseObject valueForKey:@"results"]) {
             GBVideo *video = [[GBVideo alloc] initWithDictionary:gameDictionary];
             [results addObject:video];
         }
 
-        self.videos = results;
-        self.page = 1;
+        if([params[@"offset"] isEqualToString:@"0"])
+            self.videos = results;
+        else
+            [self.videos addObjectsFromArray:results];
+
+        [SVProgressHUD dismiss];
         [self updateTableView];
     } failure:^(NSError *error) {
         NSLog(@"%@", error);
     }];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (GBVideo *)videoForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.videos objectAtIndex:indexPath.row];
 }
 
 #pragma mark - UITableViewDelegate methods
@@ -125,12 +136,6 @@
     return cell;
 }
 
-/*
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //
-}
-*/
-
 #pragma mark - UIScrollView delegate methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -145,21 +150,6 @@
             [self loadNextPage];
         }
     }
-}
-
-- (void)loadNextPage {
-    [[GiantBombAPIClient defaultClient] GET:@"videos" parameters:[self queryParams] success:^(NSHTTPURLResponse *response, id responseObject) {
-        NSMutableArray *results = [NSMutableArray array];
-        for (id gameDictionary in [responseObject valueForKey:@"results"]) {
-            GBVideo *video = [[GBVideo alloc] initWithDictionary:gameDictionary];
-            [results addObject:video];
-        }
-        [self.videos addObjectsFromArray:results];
-        [self updateTableView];
-
-    } failure:^(NSError *error) {
-        NSLog(@"%@", error);
-    }];
 }
 
 #pragma mark - Navigation

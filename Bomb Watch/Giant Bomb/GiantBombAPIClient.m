@@ -41,7 +41,6 @@
     [newParams addEntriesFromDictionary:parameters];
     [newParams setObject:@"json" forKey:@"format"];
     [newParams setObject:GiantBombAPIToken forKey:@"api_key"];
-    [newParams setObject:@"25" forKey:@"limit"];
 
     return [super requestWithMethod:method URLString:URLString parameters:newParams];
 }
