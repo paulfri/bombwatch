@@ -25,11 +25,11 @@
             </objects>
             <point key="canvasLocation" x="-7580" y="-2672"/>
         </scene>
-        <!--Navigation Controller - First-->
+        <!--Navigation Controller - Videos-->
         <scene sceneID="eu2-WT-2z1">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UCZ-NZ-ex6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="First" image="first" id="u1e-5L-l1D"/>
+                    <tabBarItem key="tabBarItem" title="Videos" image="first" id="u1e-5L-l1D"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Df8-wf-qOz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -42,9 +42,9 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aQv-tR-ypB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6765" y="-3301"/>
+            <point key="canvasLocation" x="-7053" y="-3389"/>
         </scene>
-        <!--Settings View Controller-->
+        <!--Settings View Controller - Settings-->
         <scene sceneID="4Ta-Sb-O0d">
             <objects>
                 <tableViewController id="ZdN-nA-4Yy" customClass="BWSettingsViewController" sceneMemberID="viewController">
@@ -261,7 +261,7 @@
                             <outlet property="delegate" destination="ZdN-nA-4Yy" id="thG-Oo-qQD"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="cVu-bj-Z1X">
+                    <navigationItem key="navigationItem" title="Settings" id="cVu-bj-Z1X">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="sEk-ZO-8IC">
                             <connections>
                                 <action selector="doneButtonPressed:" destination="ZdN-nA-4Yy" id="9V4-Er-i0e"/>
@@ -280,9 +280,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JmZ-tH-7Ky" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5876" y="-4021"/>
+            <point key="canvasLocation" x="-6164" y="-4109"/>
         </scene>
-        <!--Link Account View Controller-->
+        <!--Link Account View Controller - Link Account-->
         <scene sceneID="5sB-kX-og9">
             <objects>
                 <tableViewController id="3Kq-jo-Ttf" customClass="BWLinkAccountViewController" sceneMemberID="viewController">
@@ -324,7 +324,7 @@
                             <outlet property="delegate" destination="3Kq-jo-Ttf" id="MLF-Xv-ycY"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="l8E-eb-IJf">
+                    <navigationItem key="navigationItem" title="Link Account" id="l8E-eb-IJf">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="LCQ-6l-DI1">
                             <connections>
                                 <action selector="savePressed:" destination="3Kq-jo-Ttf" id="sgZ-hb-bEp"/>
@@ -337,9 +337,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="drr-Zf-pla" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5426" y="-4020"/>
+            <point key="canvasLocation" x="-5714" y="-4108"/>
         </scene>
-        <!--Categories View Controller-->
+        <!--Categories View Controller - Videos-->
         <scene sceneID="KZt-04-Cha">
             <objects>
                 <tableViewController storyboardIdentifier="categoriesViewController" id="HlT-IB-UZg" customClass="BWCategoriesViewController" sceneMemberID="viewController">
@@ -375,7 +375,7 @@
                             <outlet property="delegate" destination="HlT-IB-UZg" id="kyA-U3-cGf"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="bLF-MQ-ZYj">
+                    <navigationItem key="navigationItem" title="Videos" id="bLF-MQ-ZYj">
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="2aM-5Q-gEi">
                             <connections>
                                 <segue destination="Maf-TN-V1b" kind="modal" id="9Kc-r7-xUm"/>
@@ -385,7 +385,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OWQ-CU-I0n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6323" y="-3301"/>
+            <point key="canvasLocation" x="-6611" y="-3389"/>
         </scene>
         <!--Video List View Controller-->
         <scene sceneID="JvP-0V-ydo">
@@ -426,7 +426,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="77p-Nc-MiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5876" y="-3301"/>
+            <point key="canvasLocation" x="-6164" y="-3389"/>
         </scene>
         <!--Table View Controller - Search-->
         <scene sceneID="MFO-EJ-weo">
@@ -476,18 +476,18 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lnZ-NS-Led" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-7214" y="-1794"/>
+            <point key="canvasLocation" x="-8490" y="-3658"/>
         </scene>
-        <!--Table View Controller - Downloads-->
+        <!--Downloads View Controller - Downloads-->
         <scene sceneID="CKA-pp-gz8">
             <objects>
-                <tableViewController id="Ei6-Rn-7Ys" sceneMemberID="viewController">
+                <tableViewController id="Ei6-Rn-7Ys" customClass="BWDownloadsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9dc-PQ-870">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="sid-nf-WsS">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DownloadCell" id="sid-nf-WsS">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sid-nf-WsS" id="gFa-0k-1Ro">
@@ -501,7 +501,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BMH-ZF-jbP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6638" y="-1696"/>
+            <point key="canvasLocation" x="-8246" y="-2050"/>
         </scene>
         <!--Video Detail View Controller-->
         <scene sceneID="ydC-mI-Byj">
@@ -579,13 +579,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LyQ-xl-och" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5164" y="-3301"/>
+            <point key="canvasLocation" x="-5452" y="-3389"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller - Downloads-->
         <scene sceneID="lPw-44-Nmf">
             <objects>
                 <navigationController definesPresentationContext="YES" id="1HR-rw-kVr" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Qod-h7-3wb"/>
+                    <tabBarItem key="tabBarItem" title="Downloads" id="Qod-h7-3wb"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SAb-7Q-JsQ">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -595,13 +595,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fNd-eg-638" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6677" y="-1738"/>
+            <point key="canvasLocation" x="-8781" y="-2050"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller - Favorites-->
         <scene sceneID="lwF-0Q-J9F">
             <objects>
                 <navigationController definesPresentationContext="YES" id="H1S-QW-o0I" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Kip-zE-6b9"/>
+                    <tabBarItem key="tabBarItem" title="Favorites" id="Kip-zE-6b9"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MQu-ZJ-muA">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -611,13 +611,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P1v-0R-Ug6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-7275" y="-1838"/>
+            <point key="canvasLocation" x="-8551" y="-3702"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller - Search-->
         <scene sceneID="yjs-Da-RDa">
             <objects>
                 <navigationController definesPresentationContext="YES" id="Qdn-yg-2JO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="DL3-vx-pEA"/>
+                    <tabBarItem key="tabBarItem" title="Search" id="DL3-vx-pEA"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Kn-9b-8yn">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -645,7 +645,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yom-p9-280" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6402" y="-4021"/>
+            <point key="canvasLocation" x="-6690" y="-4109"/>
         </scene>
     </scenes>
     <resources>

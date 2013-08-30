@@ -15,6 +15,8 @@
 #import "PocketAPI.h"
 #import "SVProgressHUD.h"
 #import "AFNetworking.h"
+#import "AFDownloadRequestOperation.h"
+#import "GiantBombAPIClient.h"
 
 @interface BWVideoDetailViewController ()
 
@@ -120,28 +122,33 @@
 }
 
 - (IBAction)downloadButtonPressed:(id)sender {
-//    [SVProgressHUD show];
-    NSLog(@"download button pressed");
+    [SVProgressHUD showSuccessWithStatus:@"Added to downloads"];
+    [self download];
 }
 
-
 - (void)download {
-    // request the video file from server
-//    NSURLRequest *request = [NSURLRequest requestWithURL:self.video.videoHighURL];
-//    AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:request targetPath:videoFile shouldResume:YES];
-//
-//    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"Done downloading %@", videoFile);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Error: %ld", (long)[error code]);
-//    }];
-//    
-//    [operation setProgressiveDownloadProgressBlock:^(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile) {
-//        float progress = ((float)totalBytesReadForFile) / totalBytesExpectedToReadForFile;
+    NSURLRequest *request = [NSURLRequest requestWithURL:self.video.videoLowURL];
+    NSString *relativePath = [NSString stringWithFormat:@"Documents/%@", self.video.videoID];
+    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:relativePath];
+
+    AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:request
+                                                                                     targetPath:path
+                                                                                   shouldResume:YES];
+
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Done downloading %@", path);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %ld", (long)[error code]);
+    }];
+
+    // can i set this later???
+    [operation setProgressiveDownloadProgressBlock:^(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile) {
+        float progress = ((float)totalBytesReadForFile) / totalBytesExpectedToReadForFile;
 //        [progressBar setProgress:progress];
-//    }];
-//
-//    [operation start];
+        NSLog(@"%f", progress);
+    }];
+
+    [[GiantBombAPIClient defaultClient] enqueueHTTPRequestOperation:operation];
 }
 
 @end
