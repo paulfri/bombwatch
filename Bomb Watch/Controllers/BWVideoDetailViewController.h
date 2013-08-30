@@ -18,5 +18,6 @@
 
 - (IBAction)playButtonPressed:(id)sender;
 - (IBAction)actionButtonPressed:(id)sender;
+- (IBAction)downloadButtonPressed:(id)sender;
 
 @end

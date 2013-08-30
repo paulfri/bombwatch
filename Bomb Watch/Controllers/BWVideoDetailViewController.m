@@ -13,6 +13,8 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "PocketAPIActivity.h"
 #import "PocketAPI.h"
+#import "SVProgressHUD.h"
+#import "AFNetworking.h"
 
 @interface BWVideoDetailViewController ()
 
@@ -115,6 +117,31 @@
                                                     initWithActivityItems:activityItems
                                                     applicationActivities:applicationActivities];
     [self presentViewController:activityController animated:YES completion:nil];
+}
+
+- (IBAction)downloadButtonPressed:(id)sender {
+//    [SVProgressHUD show];
+    NSLog(@"download button pressed");
+}
+
+
+- (void)download {
+    // request the video file from server
+//    NSURLRequest *request = [NSURLRequest requestWithURL:self.video.videoHighURL];
+//    AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:request targetPath:videoFile shouldResume:YES];
+//
+//    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSLog(@"Done downloading %@", videoFile);
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"Error: %ld", (long)[error code]);
+//    }];
+//    
+//    [operation setProgressiveDownloadProgressBlock:^(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile) {
+//        float progress = ((float)totalBytesReadForFile) / totalBytesExpectedToReadForFile;
+//        [progressBar setProgress:progress];
+//    }];
+//
+//    [operation start];
 }
 
 @end
