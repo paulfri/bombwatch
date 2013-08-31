@@ -121,9 +121,9 @@
     return current;
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    //
-}
+//- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+//    //
+//}
 
 #pragma mark - UIPickerViewDataSource protocol methods
 
@@ -144,18 +144,62 @@
 #pragma mark - IBActions
 
 - (IBAction)playButtonPressed:(id)sender {
-    self.player = [[MPMoviePlayerViewController alloc] initWithContentURL:self.video.videoLowURL];
+    self.player = [[MPMoviePlayerViewController alloc] init];
 
-    [self.player.moviePlayer setFullscreen:YES animated:YES];
-    [self.player.moviePlayer setMovieSourceType:MPMovieSourceTypeStreaming];
-    [self.player.moviePlayer setControlStyle:MPMovieSourceTypeStreaming];
-    [self.player.moviePlayer setAllowsAirPlay:YES];
-    [self.player.moviePlayer setContentURL:self.video.videoLowURL];
+    NSURL *contentURL = [self videoURL];
+
+//    [self.player.moviePlayer setFullscreen:YES animated:YES];
+    self.player.moviePlayer.fullscreen = YES;
+    self.player.moviePlayer.allowsAirPlay = YES;
+
+    if ([contentURL isFileURL]) { // for downloaded
+        self.player.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
+    } else { // for streamed
+        self.player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
+    }
+
     // [self.player.moviePlayer setInitialPlaybackTime:NSTimeInterval]
 
+    self.player.moviePlayer.contentURL = contentURL;
     [self presentMoviePlayerViewControllerAnimated:self.player];
     [self.player.moviePlayer play];
+}
 
+- (NSURL *)videoURL {
+    NSURL *path;
+    NSInteger quality = [self.qualityPicker selectedRowInComponent:0];
+
+    for (BWDownload *download in self.downloads) {
+        if ([download.quality intValue] == quality && download.complete) {
+            NSString *filename = [NSString stringWithFormat:@"%@-%d", download.videoID, [download.quality intValue]];
+            NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+            path = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@.mp4", documentsPath, filename]];
+            break;
+        }
+    }
+    
+    if (path == nil) {
+        switch (quality) {
+            case BWDownloadVideoQualityMobile:
+                // TODO: use mobile URL when avail
+                path = self.video.videoLowURL;
+                break;
+            case BWDownloadVideoQualityLow:
+                path = self.video.videoLowURL;
+                break;
+            case BWDownloadVideoQualityHigh:
+                path = self.video.videoHighURL;
+                break;
+            case BWDownloadVideoQualityHD:
+                path = self.video.videoHDURL;
+                break;
+            default: // not sure what happened
+                path = self.video.videoLowURL;
+                break;
+        }
+    }
+
+    return path;
 }
 
 - (IBAction)actionButtonPressed:(id)sender {

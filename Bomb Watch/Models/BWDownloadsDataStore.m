@@ -71,10 +71,13 @@
             break;
     }
 //    download.path = [video.videoLowURL absoluteString];
-    
-    
-    NSString *relativePath = [NSString stringWithFormat:@"Documents/%@-%d.mp4", download.videoID, [download.quality intValue]];
-    download.localPath = [NSHomeDirectory() stringByAppendingPathComponent:relativePath];
+    //    download.localPath = [NSHomeDirectory() stringByAppendingPathComponent:relativePath];
+    //    download.localPath = [NSString stringWithFormat:@"Documents/%@-%d.mp4", download.videoID, [download.quality intValue]];
+
+    NSString *filename = [NSString stringWithFormat:@"%@-%d.mp4", download.videoID, [download.quality intValue]];
+    NSString *docs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    download.localPath = [docs stringByAppendingPathComponent:filename];
+//    download.localPath = [[[NSBundle mainBundle] URLForResource:relativePath withExtension:@"mp4" subdirectory:@"Documents"] relativePath];
 
     [self insertDownload:download];
     [self resumeDownload:download];
@@ -148,7 +151,6 @@
                                                                                    shouldResume:YES];
 
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"download complete success");
         download.complete = [NSDate date];
         download.paused = nil;
         download.progress = nil;
