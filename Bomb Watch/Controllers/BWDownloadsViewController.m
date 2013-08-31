@@ -7,6 +7,9 @@
 //
 
 #import "BWDownloadsViewController.h"
+#import "BWDownloadsDataStore.h"
+#import "BWDownload.h"
+#import "EVCircularProgressView.h"
 
 @interface BWDownloadsViewController ()
 
@@ -16,16 +19,14 @@
 
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
-    if (self) {
-        //
-    }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTitle:@"Downloads"];
+
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [[BWDownloadsDataStore defaultStore] setTableView:self.tableView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -33,6 +34,7 @@
                                              selector:@selector(updateProgress:)
                                                  name:@"VideoProgressUpdateNotification"
                                                object:nil];
+    [self.tableView reloadData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -45,44 +47,46 @@
     [super didReceiveMemoryWarning];
 }
 
+// this works!!
 - (void)updateProgress:(NSNotification *)notification {
     NSDictionary *dict = [notification userInfo];
+    BWDownload *download = dict[@"download"];
+    NSNumber *progress = dict[@"progress"];
+    NSIndexPath *path = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] indexPathForObject:download];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+    EVCircularProgressView *progressView = (EVCircularProgressView *)[cell viewWithTag:990];
+    [progressView setProgress:[progress floatValue] animated:YES];
     NSLog(@"%@", dict);
 }
 
 #pragma mark - UITableViewDataSource protocol methods
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return [[[[BWDownloadsDataStore defaultStore] fetchedResultsController] sections] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 15;
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] sections][section];
+    return [sectionInfo numberOfObjects];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"DownloadCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    cell.textLabel.text = @"download";
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"DownloadCell" forIndexPath:indexPath];
+    BWDownload *download = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:indexPath];
+
+    cell.textLabel.text = download.name;
+
+    if (![download downloadComplete]) {
+        EVCircularProgressView *progressView = (EVCircularProgressView *)[cell viewWithTag:990];
+    }
 
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
+        [[BWDownloadsDataStore defaultStore] deleteDownloadWithIndexPath:indexPath];
+    }
 }
-
 /*
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath

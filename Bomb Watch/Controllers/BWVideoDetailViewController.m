@@ -18,6 +18,7 @@
 #import "AFDownloadRequestOperation.h"
 #import "GiantBombAPIClient.h"
 #import "EVCircularProgressView.h"
+#import "BWDownloadsDataStore.h"
 
 @interface BWVideoDetailViewController ()
 
@@ -139,6 +140,7 @@
     // TODO: add file format
     NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:relativePath];
 
+    __block BWDownload *download = [[BWDownloadsDataStore defaultStore] createDownloadWithVideo:self.video];
     AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:request
                                                                                      targetPath:path
                                                                                    shouldResume:YES];
@@ -159,7 +161,7 @@
         [self.progressView setProgress:progress animated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoProgressUpdateNotification"
                                                             object:self
-                                                          userInfo:@{@"video": self.video.videoID,
+                                                          userInfo:@{@"download": download,
                                                                      @"progress": [NSNumber numberWithFloat:progress]}];
     }];
 
