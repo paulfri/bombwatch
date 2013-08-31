@@ -19,7 +19,8 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:[self defaultPreferences]];
 
     NSString *defaultView = [[NSUserDefaults standardUserDefaults] stringForKey:@"initialView"];
-    
+
+    // custom app launch screen - set in preferences
     if (![defaultView isEqualToString:@"Categories"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
         UITabBarController *root = [storyboard instantiateViewControllerWithIdentifier:@"mainTabBarVC"];
@@ -28,7 +29,7 @@
         [nav.topViewController performSegueWithIdentifier:@"videoListSegue"
                                                    sender:defaultView];
     }
-
+    
     return YES;
 }
 

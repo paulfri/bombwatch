@@ -142,10 +142,10 @@
 				DA5F110617CFE7AA00E7FEA6 /* BWLinkAccountViewController.m */,
 				DACB2DCD17CE8C71004BBC88 /* BWCategoriesViewController.h */,
 				DACB2DCE17CE8C71004BBC88 /* BWCategoriesViewController.m */,
-				DACE827C17CD035800E23051 /* BWVideoListViewController.h */,
-				DACE827D17CD035800E23051 /* BWVideoListViewController.m */,
 				DA4127F517CE2BDB003C4F59 /* BWSettingsViewController.h */,
 				DA4127F617CE2BDB003C4F59 /* BWSettingsViewController.m */,
+				DACE827C17CD035800E23051 /* BWVideoListViewController.h */,
+				DACE827D17CD035800E23051 /* BWVideoListViewController.m */,
 				DA4C7E4917CD29DF00783060 /* BWVideoDetailViewController.h */,
 				DA4C7E4A17CD29DF00783060 /* BWVideoDetailViewController.m */,
 			);

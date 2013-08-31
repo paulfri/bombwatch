@@ -19,6 +19,7 @@
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @property NSInteger page;
+@property BOOL reachedEnd;
 
 @end
 
@@ -36,6 +37,7 @@
     [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
     [self.dateFormatter setTimeStyle:NSDateFormatterLongStyle];
 
+    self.reachedEnd = NO;
     self.page = 1;
     [SVProgressHUD show];
     [self loadNextPage];
@@ -54,6 +56,13 @@
     [super didReceiveMemoryWarning];
 }
 
+- (BOOL)isEnduranceRun {
+    NSArray *enduranceRuns = @[@"Persona 4", @"Deadly Premonition BR", @"Deadly Premonition VJ",
+                               @"The Matrix Online", @"Chrono Trigger"];
+
+    return [enduranceRuns containsObject:self.category];
+}
+
 #pragma mark - Giant Bomb API querying methods
 
 - (NSDictionary *)queryParams {
@@ -61,33 +70,45 @@
     NSString *perPage = [NSString stringWithFormat:@"%d", PER_PAGE];
 
     // TODO: Constantize these at some point
-    NSArray *videoCategories = @[@"Latest", @"Quick Looks", @"Features", @"Events",
+    NSArray *videoCategories = @[@"Quick Looks", @"Features", @"Events",
                              @"Endurance Run", @"TANG", @"Reviews", @"Trailers",
                              @"Premium"];
-    NSArray *videoEndpoints  = @[@"", @"3", @"8", @"6", @"5", @"4", @"2", @"7", @"10"];
+    NSArray *videoEndpoints  = @[@"3", @"8", @"6", @"5", @"4", @"2", @"7", @"10"];
 
     NSDictionary *dict = [[NSDictionary alloc] initWithObjects:videoEndpoints
                                                        forKeys:videoCategories];
 
-    NSString *filterValue;
+    NSString *filter;
+    NSString *query = @"";
 
-    if (![self.category isEqualToString:@"Latest"]) {
-        filterValue = [NSString stringWithFormat:@"video_type:%@", dict[self.category]];
+    if ([videoCategories containsObject:self.category]) {
+        // standard categories
+        filter = [NSString stringWithFormat:@"video_type:%@", dict[self.category]];
+    } else if ([self isEnduranceRun]) {
+        // endurance runs
+        filter = @"video_type:5";
+        query = self.category;
     } else {
-        filterValue = @"video_type:3|8|6|5|4|2";
+        // latest videos
+        filter = @"video_type:3|8|6|5|4|2";
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showTrailersInLatest"]) {
-            filterValue = [filterValue stringByAppendingString:@"|7"];
+            filter = [filter stringByAppendingString:@"|7"];
         }
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showPremiumInLatest"]) {
-            filterValue = [filterValue stringByAppendingString:@"|10"];
+            filter = [filter stringByAppendingString:@"|10"];
         }
     }
 
-    return @{@"limit": perPage, @"offset": offset, @"filter": filterValue};
+    if ([self isEnduranceRun]) {
+        return @{@"limit": perPage, @"offset": offset, @"filter": filter, @"resources": @"video", @"sort": @"publish_date"};
+    }
+
+    return @{@"limit": perPage, @"offset": offset, @"filter": filter};
 }
 
 - (void)refreshControlActivated {
     self.page = 1;
+    self.reachedEnd = NO;
     [self loadNextPage];
 }
 
@@ -97,27 +118,43 @@
 }
 
 - (void)loadNextPage {
-    __block NSDictionary *params = [self queryParams];
-    
-    [[GiantBombAPIClient defaultClient] GET:@"videos" parameters:params success:^(NSHTTPURLResponse *response, id responseObject) {
+    if ([self reachedEnd]) return;
 
-        // TODO: handle error codes
+    NSString *endpoint = @"videos";
+    __block NSDictionary *params = [self queryParams];
+
+    [[GiantBombAPIClient defaultClient] GET:endpoint parameters:params success:^(NSHTTPURLResponse *response, id responseObject) {
+
+// TODO: handle error codes
 //        100:Invalid API Key
 //        101:Object Not Found
 //        104:Filter Error
 //        105:Subscriber only video is for subscribers only
+        if ((self.videos.count + [responseObject[@"results"] count]) >= [[responseObject valueForKey:@"number_of_total_results"] integerValue]) {
+            self.reachedEnd = YES;
+        }
 
         NSMutableArray *results = [NSMutableArray array];
         for (id gameDictionary in [responseObject valueForKey:@"results"]) {
             GBVideo *video = [[GBVideo alloc] initWithDictionary:gameDictionary];
-            [results addObject:video];
+//            if ([self isEnduranceRun]) {
+//                if ([video.name rangeOfString:self.category].location != NSNotFound) [results addObject:video];
+//            } else
+                [results addObject:video];
         }
-        NSLog(@"%@", responseObject);
-        
+
         if([params[@"offset"] isEqualToString:@"0"])
             self.videos = results;
         else
             [self.videos addObjectsFromArray:results];
+
+//        NSArray *sortedArray;
+//        sortedArray = [self.videos sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+//            NSDate *first = [(GBVideo *)a publishDate];
+//            NSDate *second = [(GBVideo *)b publishDate];
+//            return [first compare:second];
+//        }];
+//        self.videos = [sortedArray mutableCopy];
 
         [SVProgressHUD dismiss];
         [self updateTableView];

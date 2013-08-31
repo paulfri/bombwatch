@@ -27,6 +27,10 @@
         self.videoLowURL = [NSURL URLWithString:[dictionary objectForKey:@"low_url"]];
         self.videoHighURL = [NSURL URLWithString:[dictionary objectForKey:@"high_url"]];
         self.videoHDURL = [NSURL URLWithString:[dictionary objectForKey:@"hd_url"]];
+
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        self.publishDate = [df dateFromString: [dictionary objectForKey:@"publish_date"]];
         // this one is a relative path -- not sure what to do with it
         // self.videoURL = [NSURL URLWithString:[dictionary objectForKey:@"url"]];
     }

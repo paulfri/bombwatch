@@ -13,7 +13,9 @@
 @interface BWCategoriesViewController ()
 
 // TODO: this should be constantized somewhere
-@property (strong, nonatomic) NSArray *videoCategories;
+@property (strong, nonatomic) NSArray *featuredCategories;
+@property (strong, nonatomic) NSArray *enduranceRuns;
+@property (strong, nonatomic) NSArray *otherCategories;
 
 @end
 
@@ -28,10 +30,21 @@
     [super viewDidLoad];
     self.title = @"Videos";
 
+    self.navigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Videos"
+                                                  image:[UIImage imageNamed:@"VideosTabIcon"]
+                                          selectedImage:[UIImage imageNamed:@"VideosTabIconFull"]];
+
     // TODO: this should be constantized somewhere
-    self.videoCategories = @[@"Latest", @"Quick Looks", @"Features", @"Events",
-                             @"Endurance Run", @"TANG", @"Reviews", @"Trailers",
-                             @"Premium"];
+//    self.videoCategories = @[@"Latest", @"Quick Looks", @"Features", @"Events",
+//                             @"Endurance Run", @"TANG", @"Reviews", @"Trailers",
+//                             @"Premium"];
+    self.featuredCategories = @[@"Latest", @"Quick Looks", @"Features", @"Events", @"Trailers"];
+
+    self.enduranceRuns = @[@"Persona 4", @"The Matrix Online", @"Deadly Premonition BR",
+                           @"Deadly Premonition VJ", @"Chrono Trigger"];
+
+    self.otherCategories = @[@"TANG", @"Reviews", @"Premium"];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -45,22 +58,37 @@
 
 #pragma mark - UITableViewDataSource protocol methods
 
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 3;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.videoCategories.count;
+//    NSArray *sectionCounts = @[self.videoCategories.count, 2];
+    if (section == 0) {
+        return self.featuredCategories.count;
+    } else if (section == 1) {
+        return self.enduranceRuns.count;
+    } else {
+        return self.otherCategories.count;
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 0)
-        return @"Categories";
-    else
-        return nil;
+    NSArray *sectionTitles = @[@"Featured", @"Endurance Run", @"Other"];
+    return sectionTitles[section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString* cellIdentifier = @"CategoryCell";
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 
-    cell.textLabel.text = [self.videoCategories objectAtIndex:[indexPath row]];
+    if ([indexPath section] == 0) {
+        cell.textLabel.text = [self.featuredCategories objectAtIndex:[indexPath row]];
+    } else if ([indexPath section] == 1) {
+        cell.textLabel.text = [self.enduranceRuns objectAtIndex:[indexPath row]];
+    } else {
+        cell.textLabel.text = [self.otherCategories objectAtIndex:[indexPath row]];
+    }
 
     return cell;
 }

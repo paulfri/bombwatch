@@ -25,11 +25,11 @@
             </objects>
             <point key="canvasLocation" x="-7580" y="-2672"/>
         </scene>
-        <!--Navigation Controller - Videos-->
+        <!--Navigation Controller - Vdeos-->
         <scene sceneID="eu2-WT-2z1">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UCZ-NZ-ex6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Videos" image="first" id="u1e-5L-l1D"/>
+                    <tabBarItem key="tabBarItem" title="Vdeos" image="VideosTabIcon" id="u1e-5L-l1D"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Df8-wf-qOz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -376,7 +376,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Videos" id="bLF-MQ-ZYj">
-                        <barButtonItem key="rightBarButtonItem" title="Settings" id="2aM-5Q-gEi">
+                        <barButtonItem key="rightBarButtonItem" image="SettingsIcon" id="2aM-5Q-gEi">
                             <connections>
                                 <segue destination="Maf-TN-V1b" kind="modal" id="9Kc-r7-xUm"/>
                             </connections>
@@ -581,11 +581,11 @@
             </objects>
             <point key="canvasLocation" x="-5452" y="-3389"/>
         </scene>
-        <!--Navigation Controller - Downloads-->
+        <!--Navigation Controller-->
         <scene sceneID="lPw-44-Nmf">
             <objects>
                 <navigationController definesPresentationContext="YES" id="1HR-rw-kVr" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Downloads" id="Qod-h7-3wb"/>
+                    <tabBarItem key="tabBarItem" systemItem="downloads" id="Qod-h7-3wb"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SAb-7Q-JsQ">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -597,11 +597,11 @@
             </objects>
             <point key="canvasLocation" x="-8781" y="-2050"/>
         </scene>
-        <!--Navigation Controller - Favorites-->
+        <!--Navigation Controller-->
         <scene sceneID="lwF-0Q-J9F">
             <objects>
                 <navigationController definesPresentationContext="YES" id="H1S-QW-o0I" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favorites" id="Kip-zE-6b9"/>
+                    <tabBarItem key="tabBarItem" systemItem="favorites" id="Kip-zE-6b9"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MQu-ZJ-muA">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -613,11 +613,11 @@
             </objects>
             <point key="canvasLocation" x="-8551" y="-3702"/>
         </scene>
-        <!--Navigation Controller - Search-->
+        <!--Navigation Controller-->
         <scene sceneID="yjs-Da-RDa">
             <objects>
                 <navigationController definesPresentationContext="YES" id="Qdn-yg-2JO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" id="DL3-vx-pEA"/>
+                    <tabBarItem key="tabBarItem" systemItem="search" id="DL3-vx-pEA"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Kn-9b-8yn">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -649,7 +649,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
+        <image name="SettingsIcon" width="30" height="30"/>
+        <image name="VideosTabIcon" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
