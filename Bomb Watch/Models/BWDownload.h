@@ -15,6 +15,7 @@
 // metadata about the download
 @property (strong, nonatomic) NSDate *complete;
 @property (strong, nonatomic) NSString *path;
+@property (strong, nonatomic) NSString *localPath;
 @property (strong, nonatomic) NSDate *paused;
 @property (strong, nonatomic) NSNumber *progress;
 

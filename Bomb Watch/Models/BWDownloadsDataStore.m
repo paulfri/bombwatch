@@ -46,8 +46,10 @@
                                                         inManagedObjectContext:[self managedObjectContext]];
     download.video = video;
     download.path = [video.videoLowURL absoluteString];
-//    download.paused = NO;
-    NSLog(@"path is %@", download.path);
+
+    NSString *relativePath = [NSString stringWithFormat:@"Documents/%@.mp4", video.videoID];
+    download.localPath = [NSHomeDirectory() stringByAppendingPathComponent:relativePath];
+
     [self insertDownload:download];
     [self resumeDownload:download];
     return download;
@@ -70,6 +72,7 @@
 -(BOOL)deleteDownloadWithIndexPath:(NSIndexPath *)indexPath {
     NSManagedObjectContext *context = [[BWDownloadsDataStore defaultStore] managedObjectContext];
     BWDownload *download = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:indexPath];
+    [[NSFileManager defaultManager] removeItemAtPath:download.localPath error:nil];
     [self cancelRequestForDownload:download];
     [context deleteObject:download];
 
@@ -107,23 +110,17 @@
 }
 
 - (void)resumeDownload:(BWDownload *)download {
-    GBVideo *video = (GBVideo *)download.video;
     download.paused = nil;
     download.complete = nil;
     download.progress = nil;
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:video.videoLowURL];
-    NSString *relativePath = [NSString stringWithFormat:@"Documents/%@", video.videoID];
-    
-    // TODO: add file format
-    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:relativePath];
-    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:download.path]];
 
     __block BWDownload *blockDownload = download;
     AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:request
-                                                                                     targetPath:path
+                                                                                     targetPath:download.localPath
                                                                                    shouldResume:YES];
-    
+
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"download complete success");
         download.complete = [NSDate date];

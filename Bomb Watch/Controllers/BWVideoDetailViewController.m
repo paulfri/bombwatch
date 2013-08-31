@@ -52,6 +52,40 @@
     [self.qualityPicker reloadAllComponents];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(markDownloadProgress:)
+                                                 name:@"VideoProgressUpdateNotification"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(markDownloadComplete:)
+                                                 name:@"VideoDownloadCompleteNotification"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(markDownloadError:)
+                                                 name:@"VideoDownloadErrorNotification"
+                                               object:nil];
+    
+    [self.tableView reloadData];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"VideoProgressUpdateNotification"
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"VideoDownloadCompleteNotification"
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"VideoDownloadErrorNotification"
+                                                  object:nil];
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -132,6 +166,33 @@
     [SVProgressHUD showSuccessWithStatus:@"Added to downloads"];
     self.progressView.hidden = NO;
     [[BWDownloadsDataStore defaultStore] createDownloadWithVideo:self.video];
+}
+
+- (void)markDownloadProgress:(NSNotification *)notification {
+    NSDictionary *dict = [notification userInfo];
+    BWDownload *download = dict[@"download"];
+    if ([download.video isEqual:self.video]) {
+        [self.progressView setProgress:[dict[@"progress"] floatValue] animated:YES];
+        self.progressView.hidden = NO;
+    }
+}
+
+- (void)markDownloadComplete:(NSNotification *)notification {
+    NSDictionary *dict = [notification userInfo];
+    BWDownload *download = dict[@"download"];
+    if ([download.video isEqual:self.video]) {
+        [self.progressView setProgress:0 animated:NO];
+        self.progressView.hidden = YES;
+    }
+}
+
+- (void)markDownloadError:(NSNotification *)notification {
+    NSDictionary *dict = [notification userInfo];
+    BWDownload *download = dict[@"download"];
+    if ([download.video isEqual:self.video]) {
+        [self.progressView setProgress:0 animated:NO];
+        self.progressView.hidden = NO;
+    }
 }
 
 @end

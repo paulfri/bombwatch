@@ -13,6 +13,7 @@
 @dynamic video;
 @dynamic complete;
 @dynamic path;
+@dynamic localPath;
 @dynamic paused;
 @dynamic progress;
 
