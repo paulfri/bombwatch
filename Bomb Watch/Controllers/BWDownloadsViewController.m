@@ -16,7 +16,6 @@
 #import "AFDownloadRequestOperation.h"
 #import "GBVideo.h"
 
-
 @interface BWDownloadsViewController ()
 
 @end

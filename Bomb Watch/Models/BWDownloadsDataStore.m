@@ -42,42 +42,38 @@
 #pragma mark - Data Store Helpers
 
 -(BWDownload *)createDownloadWithVideo:(GBVideo *)video {
-    return [self createDownloadWithVideo:video quality:0];
+    return [self createDownloadWithVideo:video quality:BWDownloadVideoQualityLow];
 }
 
 -(BWDownload *)createDownloadWithVideo:(GBVideo *)video quality:(NSInteger)quality {
     BWDownload *download = [NSEntityDescription insertNewObjectForEntityForName:@"Download"
                                                         inManagedObjectContext:[self managedObjectContext]];
-    download.video = video;
+    download.video = (NSData *)video;
     download.videoID = video.videoID;
     download.started = [NSDate date];
     download.quality = [NSNumber numberWithInt:quality];
 
     switch (quality) {
-        case 0: // mobile
-            download.path = [video.videoLowURL absoluteString];
-            // TODO: grep the low path and replace with '.ipod'
-            break;
-        case 1: // low
+        case BWDownloadVideoQualityMobile:
+            // TODO: grep the low path and replace '_800' with '.ipod'
             download.path = [video.videoLowURL absoluteString];
             break;
-        case 2: // high
+        case BWDownloadVideoQualityLow:
+            download.path = [video.videoLowURL absoluteString];
+            break;
+        case BWDownloadVideoQualityHigh:
             download.path = [video.videoHighURL absoluteString];
             break;
-        case 3: // hd
+        case BWDownloadVideoQualityHD:
             download.path = [video.videoHDURL absoluteString];
             break;
         default:
             break;
     }
-//    download.path = [video.videoLowURL absoluteString];
-    //    download.localPath = [NSHomeDirectory() stringByAppendingPathComponent:relativePath];
-    //    download.localPath = [NSString stringWithFormat:@"Documents/%@-%d.mp4", download.videoID, [download.quality intValue]];
 
     NSString *filename = [NSString stringWithFormat:@"%@-%d.mp4", download.videoID, [download.quality intValue]];
     NSString *docs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     download.localPath = [docs stringByAppendingPathComponent:filename];
-//    download.localPath = [[[NSBundle mainBundle] URLForResource:relativePath withExtension:@"mp4" subdirectory:@"Documents"] relativePath];
 
     [self insertDownload:download];
     [self resumeDownload:download];
@@ -87,11 +83,10 @@
 -(void)insertDownload:(BWDownload *)download {
     NSManagedObjectContext *context = [self managedObjectContext];
     [context insertObject:download];
-    
-    // Save the context.
+
     NSError *error = nil;
     if (![context save:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
+        // TODO: Replace this implementation with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
@@ -107,7 +102,7 @@
 
     NSError *error = nil;
     if (![context save:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
+        // TODO: Replace this implementation with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
@@ -161,9 +156,9 @@
 
         // all of this seems to be unncessary and maybe not even work.
         // saving on the main thread for now. who knows what fun bugs will happen
+        // TODO maybe try this (2nd answer) http://stackoverflow.com/questions/2138252/core-data-multi-thread-application
 
-#warning maybe try this (2nd answer) http://stackoverflow.com/questions/2138252/core-data-multi-thread-application
-//        NSManagedObjectContext * backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        //        NSManagedObjectContext * backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
 //        [backgroundContext setParentContext:self.managedObjectContext];
         //Use backgroundContext to insert/update...
         //Then just save the context, it will automatically sync to your primary context
@@ -203,8 +198,6 @@
 
 #pragma mark - Core Data stack
 
-// Returns the managed object context for the application.
-// If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
 - (NSManagedObjectContext *)managedObjectContext {
     if (_managedObjectContext != nil) {
         return _managedObjectContext;
@@ -218,8 +211,6 @@
     return _managedObjectContext;
 }
 
-// Returns the managed object model for the application.
-// If the model doesn't already exist, it is created from the application's model.
 - (NSManagedObjectModel *)managedObjectModel {
     if (_managedObjectModel != nil) {
         return _managedObjectModel;
@@ -229,8 +220,6 @@
     return _managedObjectModel;
 }
 
-// Returns the persistent store coordinator for the application.
-// If the coordinator doesn't already exist, it is created and the application's store added to it.
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
     if (_persistentStoreCoordinator != nil) {
         return _persistentStoreCoordinator;
@@ -250,7 +239,6 @@
 
 #pragma mark - Application's Documents directory
 
-// Returns the URL to the application's Documents directory.
 - (NSURL *)applicationDocumentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
@@ -263,14 +251,10 @@
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    // Edit the entity name as appropriate.
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Download" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
-    
-    // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
-    
-    // Edit the sort key as appropriate.
+
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"started" ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptor];
 

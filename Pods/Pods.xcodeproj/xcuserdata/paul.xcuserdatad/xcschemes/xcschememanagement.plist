@@ -14,6 +14,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>Pods-MKiCloudSync.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>Pods-PocketAPI.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -77,6 +82,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3D6E62D0026D434B9A045C34</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3E9929375C1C419596BFD750</key>
 		<dict>
 			<key>primary</key>
@@ -127,12 +137,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>94D7627A3DA34013AAD5AC45</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>983C7F0232B44517BF81C405</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>9BA64869A0E544078E5BEB28</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>A60152BFF9E4468886F21F18</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A86CBBF33E6541838C9A467C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -143,6 +168,16 @@
 			<true/>
 		</dict>
 		<key>AD417351FA1648AAB49253FF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ADDE77A2EA1D430C94A31B33</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B9A41DC43B33451F9D59574D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

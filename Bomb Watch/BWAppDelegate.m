@@ -9,6 +9,7 @@
 #import "PocketAPI.h"
 #import "GiantBombAPIClient.h"
 #import "BWDownloadsDataStore.h"
+#import "MKiCloudSync.h"
 
 #define PocketConsumerKey @"17866-6c522817c89aaee6ae6da74f"
 
@@ -36,6 +37,7 @@
                                                    sender:defaultView];
     }
     
+    [MKiCloudSync start];
     return YES;
 }
 
@@ -51,7 +53,9 @@
               @"showPremiumInLatest": @NO,
                @"rotationLockVideos": @NO,
                       @"initialView": @"Categories",
-                           @"apiKey": GiantBombDefaultAPIKey};
+                           @"apiKey": GiantBombDefaultAPIKey,
+                    @"videosWatched": @[],
+                    @"videoProgress": @{}};
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

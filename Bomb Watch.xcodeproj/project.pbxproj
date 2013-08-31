@@ -51,6 +51,7 @@
 /* Begin PBXFileReference section */
 		40FCD5D8F7DD4243AC1A2E48 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D03B65A058C4AD9BB095CF3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		DA2FC43617D2AEBA005E7408 /* Bomb Watch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Bomb Watch.entitlements"; sourceTree = "<group>"; };
 		DA4127F317CE28D3003C4F59 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DA4127F517CE2BDB003C4F59 /* BWSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSettingsViewController.h; sourceTree = "<group>"; };
 		DA4127F617CE2BDB003C4F59 /* BWSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWSettingsViewController.m; sourceTree = "<group>"; };
@@ -196,6 +197,7 @@
 		DACE826A17CD035700E23051 /* Bomb Watch */ = {
 			isa = PBXGroup;
 			children = (
+				DA2FC43617D2AEBA005E7408 /* Bomb Watch.entitlements */,
 				DACE827317CD035800E23051 /* BWAppDelegate.h */,
 				DACE827417CD035800E23051 /* BWAppDelegate.m */,
 				DACE827617CD035800E23051 /* Main_iPhone.storyboard */,
@@ -313,6 +315,14 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Laika Cosmonautics";
 				TargetAttributes = {
+					DACE826017CD035700E23051 = {
+						DevelopmentTeam = 7KGB78B22T;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
 					DACE828717CD035800E23051 = {
 						TestTargetID = DACE826017CD035700E23051;
 					};
@@ -545,10 +555,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "Bomb Watch/Bomb Watch.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bomb Watch/Bomb Watch-Prefix.pch";
 				INFOPLIST_FILE = "Bomb Watch/Bomb Watch-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -559,10 +573,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "Bomb Watch/Bomb Watch.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bomb Watch/Bomb Watch-Prefix.pch";
 				INFOPLIST_FILE = "Bomb Watch/Bomb Watch-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

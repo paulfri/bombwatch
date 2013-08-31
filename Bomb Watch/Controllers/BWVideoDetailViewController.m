@@ -158,11 +158,34 @@
         self.player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
     }
 
-    // [self.player.moviePlayer setInitialPlaybackTime:NSTimeInterval]
+    NSNumber *playbackTime = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"][[NSString stringWithFormat:@"%@",self.video.videoID]];
+    [self.player.moviePlayer setInitialPlaybackTime:[playbackTime doubleValue]];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(movieFinishedPlaying:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+                                               object:self.player.moviePlayer];
 
     self.player.moviePlayer.contentURL = contentURL;
     [self presentMoviePlayerViewControllerAnimated:self.player];
     [self.player.moviePlayer play];
+}
+
+-(void) movieFinishedPlaying: (NSNotification *) note {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:MPMoviePlayerPlaybackDidFinishNotification
+                                                  object:self.player.moviePlayer];
+
+    NSMutableDictionary *mdict = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"] mutableCopy];
+    NSNumber *playback = [NSNumber numberWithDouble:self.player.moviePlayer.currentPlaybackTime];
+    NSString *key = [NSString stringWithFormat:@"%@", self.video.videoID];
+
+    if (self.player.moviePlayer.currentPlaybackTime >= self.player.moviePlayer.duration)
+        [mdict removeObjectForKey:key];
+    else
+        [mdict setObject:playback forKey:key];
+
+    [[NSUserDefaults standardUserDefaults] setObject:[mdict copy] forKey:@"videoProgress"];
 }
 
 - (NSURL *)videoURL {

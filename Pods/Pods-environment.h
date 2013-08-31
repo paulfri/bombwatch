@@ -30,6 +30,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit_AFNetworking 0
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit_AFNetworking 0
 
+// MKiCloudSync
+#define COCOAPODS_POD_AVAILABLE_MKiCloudSync
+#define COCOAPODS_VERSION_MAJOR_MKiCloudSync 0
+#define COCOAPODS_VERSION_MINOR_MKiCloudSync 0
+#define COCOAPODS_VERSION_PATCH_MKiCloudSync 1
+
 // PocketAPI
 #define COCOAPODS_POD_AVAILABLE_PocketAPI
 #define COCOAPODS_VERSION_MAJOR_PocketAPI 1
