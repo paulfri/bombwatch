@@ -47,7 +47,7 @@
     [self.previewImage setImageWithURL:self.video.imageMediumURL placeholderImage:[UIImage imageNamed:@"VideoPlaceholder"]];
 
 //    self.progressView.hidden = YES;
-    
+
     self.qualityPicker.delegate = self;
     self.qualityPicker.dataSource = self;
     [self.qualityPicker reloadAllComponents];
@@ -158,7 +158,7 @@
         self.player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
     }
 
-    NSNumber *playbackTime = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"][[NSString stringWithFormat:@"%@",self.video.videoID]];
+    NSNumber *playbackTime = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"][[NSString stringWithFormat:@"%@", self.video.videoID]];
     [self.player.moviePlayer setInitialPlaybackTime:[playbackTime doubleValue]];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -176,16 +176,19 @@
                                                     name:MPMoviePlayerPlaybackDidFinishNotification
                                                   object:self.player.moviePlayer];
 
-    NSMutableDictionary *mdict = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"] mutableCopy];
+    NSMutableDictionary *progress = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"] mutableCopy];
     NSNumber *playback = [NSNumber numberWithDouble:self.player.moviePlayer.currentPlaybackTime];
     NSString *key = [NSString stringWithFormat:@"%@", self.video.videoID];
 
-    if (self.player.moviePlayer.currentPlaybackTime >= self.player.moviePlayer.duration)
-        [mdict removeObjectForKey:key];
-    else
-        [mdict setObject:playback forKey:key];
+    if (self.player.moviePlayer.currentPlaybackTime >= self.player.moviePlayer.duration) {
+        NSMutableArray *watched = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"videosWatched"] mutableCopy];
+        [watched addObject:self.video.videoID];
+        [[NSUserDefaults standardUserDefaults] setObject:watched forKey:@"videosWatched"];
+        [progress removeObjectForKey:key];
+    } else
+        [progress setObject:playback forKey:key];
 
-    [[NSUserDefaults standardUserDefaults] setObject:[mdict copy] forKey:@"videoProgress"];
+    [[NSUserDefaults standardUserDefaults] setObject:[progress copy] forKey:@"videoProgress"];
 }
 
 - (NSURL *)videoURL {
