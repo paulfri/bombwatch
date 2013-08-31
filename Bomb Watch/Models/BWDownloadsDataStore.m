@@ -42,6 +42,8 @@
     BWDownload *download = [NSEntityDescription insertNewObjectForEntityForName:@"Download"
                                                         inManagedObjectContext:[self managedObjectContext]];
     download.name = video.name;
+    download.path = [video.videoLowURL absoluteString];
+    NSLog(@"path is %@", download.path);
     [self insertDownload:download];
     return download;
 }

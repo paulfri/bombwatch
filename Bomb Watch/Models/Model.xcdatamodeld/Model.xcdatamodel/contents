@@ -3,6 +3,7 @@
     <entity name="Download" syncable="YES">
         <attribute name="downloadComplete" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="path" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>

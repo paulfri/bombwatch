@@ -10,6 +10,9 @@
 #import "BWDownloadsDataStore.h"
 #import "BWDownload.h"
 #import "EVCircularProgressView.h"
+#import "GiantBombAPIClient.h"
+#import "SVProgressHUD.h"
+#import "AFDownloadRequestOperation.h"
 
 @interface BWDownloadsViewController ()
 
@@ -56,10 +59,11 @@
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
     EVCircularProgressView *progressView = (EVCircularProgressView *)[cell viewWithTag:990];
     [progressView setProgress:[progress floatValue] animated:YES];
-    NSLog(@"%@", dict);
+//    NSLog(@"%@", dict);
 }
 
 #pragma mark - UITableViewDataSource protocol methods
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [[[[BWDownloadsDataStore defaultStore] fetchedResultsController] sections] count];
 }
@@ -74,13 +78,37 @@
     BWDownload *download = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:indexPath];
 
     cell.textLabel.text = download.name;
-
-    if (![download downloadComplete]) {
-        EVCircularProgressView *progressView = (EVCircularProgressView *)[cell viewWithTag:990];
+    EVCircularProgressView *progressView = (EVCircularProgressView *)[cell viewWithTag:990];
+    
+    if ([download downloadComplete]) {
+        progressView.hidden = YES;
     }
+
+    [progressView addTarget:self action:@selector(progressViewPressed:) forControlEvents:UIControlEventTouchUpInside];
 
     return cell;
 }
+
+- (void)progressViewPressed:(id)sender {
+    EVCircularProgressView *view = (EVCircularProgressView *)sender;
+    UITableViewCell *cell = (UITableViewCell *)view.superview.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    BWDownload *download = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:indexPath];
+    [SVProgressHUD showSuccessWithStatus:@"Download paused"];
+
+    NSLog(@"%@", download.path);
+    for (NSOperation *op in [[[GiantBombAPIClient defaultClient] operationQueue] operations]) {
+        if ([op isKindOfClass:[AFDownloadRequestOperation class]]) {
+            AFDownloadRequestOperation *dl = (AFDownloadRequestOperation *)op;
+            NSLog(@"%@ and %@", [dl.request.URL absoluteString], download.path);
+            if ([[dl.request.URL absoluteString] isEqualToString:download.path])
+                [op cancel];
+        }
+    }
+//    [[[GiantBombAPIClient defaultClient] operationQueue] operations];
+//    [[GiantBombAPIClient defaultClient] cancelAllHTTPOperationsWithMethod:nil path:download.path];
+}
+
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {

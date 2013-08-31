@@ -14,5 +14,6 @@
 @dynamic name;
 @dynamic summary;
 @dynamic downloadComplete;
+@dynamic path;
 
 @end

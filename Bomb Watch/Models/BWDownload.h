@@ -14,5 +14,6 @@
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *summary;
 @property (strong, nonatomic) NSNumber *videoID;
+@property (strong, nonatomic) NSString *path;
 
 @end

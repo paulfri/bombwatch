@@ -19,6 +19,7 @@
 #import "GiantBombAPIClient.h"
 #import "EVCircularProgressView.h"
 #import "BWDownloadsDataStore.h"
+#import "BWDownload.h"
 
 @interface BWVideoDetailViewController ()
 
@@ -162,7 +163,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoProgressUpdateNotification"
                                                             object:self
                                                           userInfo:@{@"download": download,
-                                                                     @"progress": [NSNumber numberWithFloat:progress]}];
+                                                                     @"progress": [NSNumber numberWithFloat:progress],
+                                                                     @"path": download.path}];
     }];
 
     [[GiantBombAPIClient defaultClient] enqueueHTTPRequestOperation:operation];
