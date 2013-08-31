@@ -11,6 +11,7 @@
 
 @class BWDownload;
 @class GBVideo;
+@class EVCircularProgressView;
 
 @interface BWDownloadsDataStore : NSObject <NSFetchedResultsControllerDelegate>
 
@@ -27,5 +28,7 @@
 - (void)insertDownload:(BWDownload *)download;
 - (BWDownload *)createDownloadWithVideo:(GBVideo *)video;
 - (BOOL)deleteDownloadWithIndexPath:(NSIndexPath *)indexPath;
+- (void)cancelRequestForDownload:(BWDownload *)download withProgressView:(EVCircularProgressView *)progressView;
+- (void)resumeDownload:(BWDownload *)download;
 
 @end

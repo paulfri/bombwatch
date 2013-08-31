@@ -225,4 +225,32 @@
     [self.refreshControl endRefreshing];
 }
 
+#warning Here's how the GB Boxee client implemented the ER list views
+//if cat_id == 'latest':
+//response = mc.Http().Get(API_PATH + '/videos/?api_key=' + API_KEY + '&sort=-publish_date&format=json')
+//elif cat_id == 'search':
+//query = mc.ShowDialogKeyboard("Search", "", False).replace(' ', '%20')
+//response = mc.Http().Get(API_PATH + '/search/?api_key=' + API_KEY + '&resources=video&query=' + query + '&format=json')
+//elif cat_id == '5-CT':
+//response = mc.Http().Get(API_PATH + '/videos/?api_key=' + API_KEY + '&video_type=5&offset=240&format=json')
+//elif cat_id == '5-DP':
+//response = mc.Http().Get(API_PATH + '/videos/?api_key=' + API_KEY + '&video_type=5&offset=161&limit=79&format=json')
+//elif cat_id == '5-P4':
+//response = mc.Http().Get(API_PATH + '/videos/?api_key=' + API_KEY + '&video_type=5&format=json')
+//elif cat_id == '5-MO':
+//response = mc.Http().Get(API_PATH + '/videos/?api_key=' + API_KEY + '&video_type=5&offset=105&limit=21&format=json')
+//else:
+//response = mc.Http().Get(API_PATH + '/videos/?api_key=' + API_KEY + '&video_type=' + cat_id + '&sort=-publish_date&format=json')
+//
+//video_data = simplejson.loads(response)['results']
+//
+//if cat_id == '5-P4':
+//response = mc.Http().Get(API_PATH + '/videos/?api_key=' + API_KEY + '&video_type=5&offset=100&limit=61&format=json')
+//video_data += simplejson.loads(response)['results']
+//video_data = [video for video in video_data if not video['name'].startswith('The Matrix Online')]
+//elif cat_id == '5-MO':
+//video_data = [video for video in video_data if video['name'].startswith('The Matrix Online')]
+
+
+
 @end

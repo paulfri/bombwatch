@@ -10,6 +10,9 @@
 #import "BWDownloadsDataStore.h"
 #import "BWDownload.h"
 #import "GBVideo.h"
+#import "GiantBombAPIClient.h"
+#import "AFDownloadRequestOperation.h"
+#import "EVCircularProgressView.h"
 
 @implementation BWDownloadsDataStore
 
@@ -46,6 +49,7 @@
 //    download.paused = NO;
     NSLog(@"path is %@", download.path);
     [self insertDownload:download];
+    [self resumeDownload:download];
     return download;
 }
 
@@ -65,7 +69,9 @@
 
 -(BOOL)deleteDownloadWithIndexPath:(NSIndexPath *)indexPath {
     NSManagedObjectContext *context = [[BWDownloadsDataStore defaultStore] managedObjectContext];
-    [context deleteObject:[[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:indexPath]];
+    BWDownload *download = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:indexPath];
+    [self cancelRequestForDownload:download];
+    [context deleteObject:download];
 
     NSError *error = nil;
     if (![context save:&error]) {
@@ -77,6 +83,94 @@
     return YES;
     
 }
+
+#pragma mark - Downloading helpers
+
+- (void)cancelRequestForDownload:(BWDownload *)download {
+    [self cancelRequestForDownload:download withProgressView:nil];
+}
+
+- (void)cancelRequestForDownload:(BWDownload *)download withProgressView:(EVCircularProgressView *)progressView {
+    for (NSOperation *op in [[[GiantBombAPIClient defaultClient] operationQueue] operations]) {
+        if ([op isKindOfClass:[AFDownloadRequestOperation class]]) {
+            AFDownloadRequestOperation *dl = (AFDownloadRequestOperation *)op;
+            if ([[dl.request.URL absoluteString] isEqualToString:download.path]) {
+                [op cancel];
+                download.complete = nil;
+                if (progressView != nil) {
+                    download.paused = [NSDate date];
+                    download.progress = [NSNumber numberWithFloat:progressView.progress];
+                }
+            }
+        }
+    }
+}
+
+- (void)resumeDownload:(BWDownload *)download {
+    GBVideo *video = (GBVideo *)download.video;
+    download.paused = nil;
+    download.complete = nil;
+    download.progress = nil;
+
+    NSURLRequest *request = [NSURLRequest requestWithURL:video.videoLowURL];
+    NSString *relativePath = [NSString stringWithFormat:@"Documents/%@", video.videoID];
+    
+    // TODO: add file format
+    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:relativePath];
+    
+
+    __block BWDownload *blockDownload = download;
+    AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:request
+                                                                                     targetPath:path
+                                                                                   shouldResume:YES];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"download complete success");
+        download.complete = [NSDate date];
+        download.paused = nil;
+        download.progress = nil;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoDownloadCompleteNotification"
+                                                            object:self
+                                                          userInfo:@{@"download": blockDownload,
+                                                                     @"path": blockDownload.path}];
+
+        NSManagedObjectContext * backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        [backgroundContext setParentContext:self.managedObjectContext];
+        //Use backgroundContext to insert/update...
+        //Then just save the context, it will automatically sync to your primary context
+        NSLog(@"%@", backgroundContext.parentContext);
+        NSError *error = nil;
+        if (![backgroundContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %ld", (long)[error code]);
+        if (!((long)[error code]) == 999) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoDownloadErrorNotification"
+                                                                object:self
+                                                              userInfo:@{@"download": blockDownload,
+                                                                         @"path": blockDownload.path}];            
+        }
+    }];
+    
+    // can i set this later???
+    [operation setProgressiveDownloadProgressBlock:^(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile) {
+        float progress = ((float)totalBytesReadForFile) / totalBytesExpectedToReadForFile;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoProgressUpdateNotification"
+                                                            object:self
+                                                          userInfo:@{@"download": blockDownload,
+                                                                     @"progress": [NSNumber numberWithFloat:progress],
+                                                                     @"path": blockDownload.path}];
+    }];
+    
+    [[GiantBombAPIClient defaultClient] enqueueHTTPRequestOperation:operation];
+}
+
+
+
 #pragma mark - Core Data stack
 
 // Returns the managed object context for the application.
@@ -88,7 +182,7 @@
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
         [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
     return _managedObjectContext;
@@ -147,9 +241,9 @@
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"downloadComplete" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"complete" ascending:NO];
     NSArray *sortDescriptors = @[sortDescriptor];
-    
+
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     // Edit the section name key path and cache name if appropriate.

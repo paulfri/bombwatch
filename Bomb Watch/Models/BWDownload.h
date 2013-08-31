@@ -10,9 +10,12 @@
 
 @interface BWDownload : NSManagedObject
 
-@property (strong, nonatomic) NSDate *downloadComplete;
 @property (strong, nonatomic) NSData *video;
+
+// metadata about the download
+@property (strong, nonatomic) NSDate *complete;
 @property (strong, nonatomic) NSString *path;
 @property (strong, nonatomic) NSDate *paused;
+@property (strong, nonatomic) NSNumber *progress;
 
 @end

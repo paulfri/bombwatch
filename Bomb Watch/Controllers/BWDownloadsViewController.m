@@ -35,9 +35,20 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateProgress:)
+                                             selector:@selector(markDownloadProgress:)
                                                  name:@"VideoProgressUpdateNotification"
                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(markDownloadComplete:)
+                                                 name:@"VideoDownloadCompleteNotification"
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(markDownloadError:)
+                                                 name:@"VideoDownloadErrorNotification"
+                                               object:nil];
+
     [self.tableView reloadData];
 }
 
@@ -45,21 +56,49 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"VideoProgressUpdateNotification"
                                                   object:nil];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"VideoDownloadCompleteNotification"
+                                                  object:nil];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"VideoDownloadErrorNotification"
+                                                  object:nil];
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-- (void)updateProgress:(NSNotification *)notification {
+- (void)markDownloadProgress:(NSNotification *)notification {
     NSDictionary *dict = [notification userInfo];
     BWDownload *download = dict[@"download"];
     NSNumber *progress = dict[@"progress"];
     NSIndexPath *path = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] indexPathForObject:download];
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
-    EVCircularProgressView *progressView = (EVCircularProgressView *)[cell viewWithTag:990];
+    EVCircularProgressView *progressView = (EVCircularProgressView *)[[self.tableView cellForRowAtIndexPath:path] accessoryView];
     [progressView setProgress:[progress floatValue] animated:YES];
 //    NSLog(@"%@", dict);
+}
+
+- (void)markDownloadComplete:(NSNotification *)notification {
+    NSDictionary *dict = [notification userInfo];
+    BWDownload *download = dict[@"download"];
+    NSIndexPath *path = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] indexPathForObject:download];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+    cell.accessoryView = nil;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+//    [self.tableView reloadData];
+}
+
+- (void)markDownloadError:(NSNotification *)notification {
+    NSDictionary *dict = [notification userInfo];
+    BWDownload *download = dict[@"download"];
+    NSIndexPath *path = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] indexPathForObject:download];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+    EVCircularProgressView *progressView = (EVCircularProgressView *)[cell accessoryView];
+    [progressView setProgress:0];
 }
 
 #pragma mark - UITableViewDataSource protocol methods
@@ -78,13 +117,27 @@
     BWDownload *download = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:indexPath];
 
     cell.textLabel.text = ((GBVideo *)download.video).name;
-    EVCircularProgressView *progressView = (EVCircularProgressView *)[cell viewWithTag:990];
-    
-//    if ([download downloadComplete]) {
-//        progressView.hidden = YES;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; // this will get ignored if set to progress view later
+//    if (download.complete) {
+//        cell.textLabel.text = @"complete";
 //    }
+//    if (download.paused) {
+//        cell.textLabel.text = [NSString stringWithFormat:@"%@", download.progress];
+//    }
+    NSLog(@"%@", download.complete);
 
-    [progressView addTarget:self action:@selector(progressViewPressed:) forControlEvents:UIControlEventTouchUpInside];
+    EVCircularProgressView *progressView = [[EVCircularProgressView alloc] init];
+    if (download.complete) {
+        NSLog(@"test");
+        cell.accessoryView = nil;
+    } else {
+        progressView.userInteractionEnabled = YES;
+        progressView.frame = CGRectMake(0, 0, 28.0, 28.0);
+        [progressView addTarget:self action:@selector(progressViewPressed:) forControlEvents:UIControlEventTouchUpInside];
+        if (download.paused)
+            [progressView setProgress:[download.progress floatValue] animated:NO];
+        cell.accessoryView = progressView;
+    }
 
     return cell;
 }
@@ -123,61 +176,24 @@
  */
 
 #pragma mark - pausing/resuming downloads
+
 - (void)progressViewPressed:(id)sender {
     EVCircularProgressView *view = (EVCircularProgressView *)sender;
-    UITableViewCell *cell = (UITableViewCell *)view.superview.superview.superview;
+    UITableViewCell *cell = (UITableViewCell *)view.superview.superview;
     BWDownload *download = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:[self.tableView indexPathForCell:cell]];
-    
-    NSLog(@"%@", download.paused);
+
     if (download.paused) {
-        [SVProgressHUD showSuccessWithStatus:@"getting there! chin up :)"];
-        [self resumeDownload:download];
-        download.paused = nil;
+        // TODO: replace success with play image
+        [SVProgressHUD showSuccessWithStatus:@"Download resumed"];
+        [[BWDownloadsDataStore defaultStore] resumeDownload:download];
     } else {
-        for (NSOperation *op in [[[GiantBombAPIClient defaultClient] operationQueue] operations]) {
-            if ([op isKindOfClass:[AFDownloadRequestOperation class]]) {
-                AFDownloadRequestOperation *dl = (AFDownloadRequestOperation *)op;
-                if ([[dl.request.URL absoluteString] isEqualToString:download.path]) {
-                    [SVProgressHUD showSuccessWithStatus:@"Download paused"];
-                    [op cancel];
-                    download.paused = [NSDate date];
-                }
-            }
-        }
+        // TODO: replace success with pause image
+        [SVProgressHUD showSuccessWithStatus:@"Download paused"];
+        [[BWDownloadsDataStore defaultStore] cancelRequestForDownload:download withProgressView:view];
     }
+
+    [self.tableView reloadData];
 }
 
-#warning Deduplicate this -- very messy!!!
-- (void)resumeDownload:(BWDownload *)download {
-    GBVideo *video = (GBVideo *)download.video;
-    NSURLRequest *request = [NSURLRequest requestWithURL:video.videoLowURL];
-    NSString *relativePath = [NSString stringWithFormat:@"Documents/%@", video.videoID];
-    
-    // TODO: add file format
-    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:relativePath];
-    
-    __block BWDownload *dl = download;
-    AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:request
-                                                                                     targetPath:path
-                                                                                   shouldResume:YES];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Done downloading %@", path);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %ld", (long)[error code]);
-    }];
-    
-    // can i set this later???
-    [operation setProgressiveDownloadProgressBlock:^(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile) {
-        float progress = ((float)totalBytesReadForFile) / totalBytesExpectedToReadForFile;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoProgressUpdateNotification"
-                                                            object:self
-                                                          userInfo:@{@"download": dl,
-                                                                     @"progress": [NSNumber numberWithFloat:progress],
-                                                                     @"path": dl.path}];
-    }];
-
-    [[GiantBombAPIClient defaultClient] enqueueHTTPRequestOperation:operation];
-}
 
 @end

@@ -131,38 +131,7 @@
 - (IBAction)downloadButtonPressed:(id)sender {
     [SVProgressHUD showSuccessWithStatus:@"Added to downloads"];
     self.progressView.hidden = NO;
-    [self startDownload];
-}
-
-- (void)startDownload {
-    NSURLRequest *request = [NSURLRequest requestWithURL:self.video.videoLowURL];
-    NSString *relativePath = [NSString stringWithFormat:@"Documents/%@", self.video.videoID];
-
-    // TODO: add file format
-    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:relativePath];
-
-    __block BWDownload *download = [[BWDownloadsDataStore defaultStore] createDownloadWithVideo:self.video];
-    AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:request
-                                                                                     targetPath:path
-                                                                                   shouldResume:YES];
-
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Done downloading %@", path);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %ld", (long)[error code]);
-    }];
-
-    // can i set this later???
-    [operation setProgressiveDownloadProgressBlock:^(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile) {
-        float progress = ((float)totalBytesReadForFile) / totalBytesExpectedToReadForFile;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoProgressUpdateNotification"
-                                                            object:self
-                                                          userInfo:@{@"download": download,
-                                                                     @"progress": [NSNumber numberWithFloat:progress],
-                                                                     @"path": download.path}];
-    }];
-
-    [[GiantBombAPIClient defaultClient] enqueueHTTPRequestOperation:operation];
+    [[BWDownloadsDataStore defaultStore] createDownloadWithVideo:self.video];
 }
 
 @end
