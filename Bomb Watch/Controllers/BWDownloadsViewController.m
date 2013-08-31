@@ -7,6 +7,7 @@
 //
 
 #import "BWDownloadsViewController.h"
+#import "BWVideoDetailViewController.h"
 #import "BWDownloadsDataStore.h"
 #import "BWDownload.h"
 #import "EVCircularProgressView.h"
@@ -14,6 +15,7 @@
 #import "SVProgressHUD.h"
 #import "AFDownloadRequestOperation.h"
 #import "GBVideo.h"
+
 
 @interface BWDownloadsViewController ()
 
@@ -78,7 +80,6 @@
     NSIndexPath *path = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] indexPathForObject:download];
     EVCircularProgressView *progressView = (EVCircularProgressView *)[[self.tableView cellForRowAtIndexPath:path] accessoryView];
     [progressView setProgress:[progress floatValue] animated:YES];
-//    NSLog(@"%@", dict);
 }
 
 - (void)markDownloadComplete:(NSNotification *)notification {
@@ -88,8 +89,6 @@
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
     cell.accessoryView = nil;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
-//    [self.tableView reloadData];
 }
 
 - (void)markDownloadError:(NSNotification *)notification {
@@ -118,19 +117,13 @@
 
     cell.textLabel.text = ((GBVideo *)download.video).name;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; // this will get ignored if set to progress view later
-//    if (download.complete) {
-//        cell.textLabel.text = @"complete";
-//    }
-//    if (download.paused) {
-//        cell.textLabel.text = [NSString stringWithFormat:@"%@", download.progress];
-//    }
-    NSLog(@"%@", download.complete);
 
     EVCircularProgressView *progressView = [[EVCircularProgressView alloc] init];
     if (download.complete) {
-        NSLog(@"test");
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
         cell.accessoryView = nil;
     } else {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         progressView.userInteractionEnabled = YES;
         progressView.frame = CGRectMake(0, 0, 28.0, 28.0);
         [progressView addTarget:self action:@selector(progressViewPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -147,33 +140,27 @@
         [[BWDownloadsDataStore defaultStore] deleteDownloadWithIndexPath:indexPath];
     }
 }
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
 #pragma mark - Navigation
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    BWDownload *dl = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    if ([identifier isEqualToString:@"showVideoDetailSegue"] && dl.complete) {
+        return YES;
+    }
+    return NO;
+}
+
 // In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"showVideoDetailSegue"]) {
+        BWVideoDetailViewController *destination = [segue destinationViewController];
+        BWDownload *dl = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        destination.video = (GBVideo *)dl.video;
+    }
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-
- */
 
 #pragma mark - pausing/resuming downloads
 

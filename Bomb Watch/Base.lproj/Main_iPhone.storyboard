@@ -487,13 +487,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DownloadCell" id="sid-nf-WsS">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DownloadCell" id="sid-nf-WsS">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sid-nf-WsS" id="gFa-0k-1Ro">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="rJ6-uZ-0Hw" kind="push" identifier="showVideoDetailSegue" id="Qbr-f1-qbf"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                     </tableView>
@@ -501,7 +504,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BMH-ZF-jbP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-8246" y="-2050"/>
+            <point key="canvasLocation" x="-6086" y="-2666"/>
         </scene>
         <!--Video Detail View Controller-->
         <scene sceneID="ydC-mI-Byj">
@@ -601,7 +604,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fNd-eg-638" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-8781" y="-2050"/>
+            <point key="canvasLocation" x="-6621" y="-2666"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lwF-0Q-J9F">
@@ -663,4 +666,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="Qbr-f1-qbf"/>
+    </inferredMetricsTieBreakers>
 </document>

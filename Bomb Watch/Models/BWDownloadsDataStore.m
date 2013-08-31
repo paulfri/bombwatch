@@ -137,6 +137,7 @@
         // all of this seems to be unncessary and maybe not even work.
         // saving on the main thread for now. who knows what fun bugs will happen
 
+#warning maybe try this (2nd answer) http://stackoverflow.com/questions/2138252/core-data-multi-thread-application
 //        NSManagedObjectContext * backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
 //        [backgroundContext setParentContext:self.managedObjectContext];
         //Use backgroundContext to insert/update...
