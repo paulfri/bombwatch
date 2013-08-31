@@ -17,6 +17,7 @@
 #import "AFNetworking.h"
 #import "AFDownloadRequestOperation.h"
 #import "GiantBombAPIClient.h"
+#import "EVCircularProgressView.h"
 
 @interface BWVideoDetailViewController ()
 
@@ -41,6 +42,8 @@
 
     self.titleLabel.text = self.video.name;
     [self.previewImage setImageWithURL:self.video.imageMediumURL placeholderImage:[UIImage imageNamed:@"VideoPlaceholder"]];
+
+    self.progressView.hidden = YES;
 
     self.qualityPicker.delegate = self;
     self.qualityPicker.dataSource = self;
@@ -121,14 +124,19 @@
     [self presentViewController:activityController animated:YES completion:nil];
 }
 
+#pragma mark - Downloads
+
 - (IBAction)downloadButtonPressed:(id)sender {
     [SVProgressHUD showSuccessWithStatus:@"Added to downloads"];
+    self.progressView.hidden = NO;
     [self download];
 }
 
 - (void)download {
     NSURLRequest *request = [NSURLRequest requestWithURL:self.video.videoLowURL];
     NSString *relativePath = [NSString stringWithFormat:@"Documents/%@", self.video.videoID];
+
+    // TODO: add file format
     NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:relativePath];
 
     AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:request
@@ -137,15 +145,22 @@
 
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Done downloading %@", path);
+        self.progressView.hidden = YES;
+        [self.progressView setProgress:0 animated:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %ld", (long)[error code]);
+        self.progressView.hidden = YES;
+        [SVProgressHUD showErrorWithStatus:@"Download failed"];
     }];
 
     // can i set this later???
     [operation setProgressiveDownloadProgressBlock:^(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile) {
         float progress = ((float)totalBytesReadForFile) / totalBytesExpectedToReadForFile;
-//        [progressBar setProgress:progress];
-        NSLog(@"%f", progress);
+        [self.progressView setProgress:progress animated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoProgressUpdateNotification"
+                                                            object:self
+                                                          userInfo:@{@"video": self.video.videoID,
+                                                                     @"progress": [NSNumber numberWithFloat:progress]}];
     }];
 
     [[GiantBombAPIClient defaultClient] enqueueHTTPRequestOperation:operation];

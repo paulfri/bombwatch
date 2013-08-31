@@ -28,8 +28,26 @@
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateProgress:)
+                                                 name:@"VideoProgressUpdateNotification"
+                                               object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"VideoProgressUpdateNotification"
+                                                  object:nil];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)updateProgress:(NSNotification *)notification {
+    NSDictionary *dict = [notification userInfo];
+    NSLog(@"%@", dict);
 }
 
 #pragma mark - UITableViewDataSource protocol methods

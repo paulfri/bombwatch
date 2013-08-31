@@ -553,6 +553,11 @@
                                                         <action selector="downloadButtonPressed:" destination="rJ6-uZ-0Hw" eventType="touchUpInside" id="fu5-yO-bwb"/>
                                                     </connections>
                                                 </button>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OPx-7H-gLK" customClass="EVCircularProgressView">
+                                                    <rect key="frame" x="145" y="398" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -573,6 +578,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="previewImage" destination="yzN-jQ-Pbe" id="PFf-Ie-cPI"/>
+                        <outlet property="progressView" destination="OPx-7H-gLK" id="RtA-vf-0mK"/>
                         <outlet property="qualityPicker" destination="vV6-YS-5tW" id="CH8-mc-NHZ"/>
                         <outlet property="titleLabel" destination="7hG-Wh-dOt" id="M1z-MB-l7k"/>
                     </connections>

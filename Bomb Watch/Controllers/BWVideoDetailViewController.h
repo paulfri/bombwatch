@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class GBVideo;
+@class EVCircularProgressView;
 
 @interface BWVideoDetailViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
@@ -15,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *qualityPicker;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImage;
+@property (weak, nonatomic) IBOutlet EVCircularProgressView *progressView;
+
 
 - (IBAction)playButtonPressed:(id)sender;
 - (IBAction)actionButtonPressed:(id)sender;
