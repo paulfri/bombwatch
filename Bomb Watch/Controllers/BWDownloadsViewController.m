@@ -13,6 +13,7 @@
 #import "GiantBombAPIClient.h"
 #import "SVProgressHUD.h"
 #import "AFDownloadRequestOperation.h"
+#import "GBVideo.h"
 
 @interface BWDownloadsViewController ()
 
@@ -50,7 +51,6 @@
     [super didReceiveMemoryWarning];
 }
 
-// this works!!
 - (void)updateProgress:(NSNotification *)notification {
     NSDictionary *dict = [notification userInfo];
     BWDownload *download = dict[@"download"];
@@ -77,38 +77,17 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"DownloadCell" forIndexPath:indexPath];
     BWDownload *download = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:indexPath];
 
-    cell.textLabel.text = download.name;
+    cell.textLabel.text = ((GBVideo *)download.video).name;
     EVCircularProgressView *progressView = (EVCircularProgressView *)[cell viewWithTag:990];
     
-    if ([download downloadComplete]) {
-        progressView.hidden = YES;
-    }
+//    if ([download downloadComplete]) {
+//        progressView.hidden = YES;
+//    }
 
     [progressView addTarget:self action:@selector(progressViewPressed:) forControlEvents:UIControlEventTouchUpInside];
 
     return cell;
 }
-
-- (void)progressViewPressed:(id)sender {
-    EVCircularProgressView *view = (EVCircularProgressView *)sender;
-    UITableViewCell *cell = (UITableViewCell *)view.superview.superview.superview;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    BWDownload *download = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:indexPath];
-    [SVProgressHUD showSuccessWithStatus:@"Download paused"];
-
-    NSLog(@"%@", download.path);
-    for (NSOperation *op in [[[GiantBombAPIClient defaultClient] operationQueue] operations]) {
-        if ([op isKindOfClass:[AFDownloadRequestOperation class]]) {
-            AFDownloadRequestOperation *dl = (AFDownloadRequestOperation *)op;
-            NSLog(@"%@ and %@", [dl.request.URL absoluteString], download.path);
-            if ([[dl.request.URL absoluteString] isEqualToString:download.path])
-                [op cancel];
-        }
-    }
-//    [[[GiantBombAPIClient defaultClient] operationQueue] operations];
-//    [[GiantBombAPIClient defaultClient] cancelAllHTTPOperationsWithMethod:nil path:download.path];
-}
-
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -142,5 +121,63 @@
 }
 
  */
+
+#pragma mark - pausing/resuming downloads
+- (void)progressViewPressed:(id)sender {
+    EVCircularProgressView *view = (EVCircularProgressView *)sender;
+    UITableViewCell *cell = (UITableViewCell *)view.superview.superview.superview;
+    BWDownload *download = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:[self.tableView indexPathForCell:cell]];
+    
+    NSLog(@"%@", download.paused);
+    if (download.paused) {
+        [SVProgressHUD showSuccessWithStatus:@"getting there! chin up :)"];
+        [self resumeDownload:download];
+        download.paused = nil;
+    } else {
+        for (NSOperation *op in [[[GiantBombAPIClient defaultClient] operationQueue] operations]) {
+            if ([op isKindOfClass:[AFDownloadRequestOperation class]]) {
+                AFDownloadRequestOperation *dl = (AFDownloadRequestOperation *)op;
+                if ([[dl.request.URL absoluteString] isEqualToString:download.path]) {
+                    [SVProgressHUD showSuccessWithStatus:@"Download paused"];
+                    [op cancel];
+                    download.paused = [NSDate date];
+                }
+            }
+        }
+    }
+}
+
+#warning Deduplicate this -- very messy!!!
+- (void)resumeDownload:(BWDownload *)download {
+    GBVideo *video = (GBVideo *)download.video;
+    NSURLRequest *request = [NSURLRequest requestWithURL:video.videoLowURL];
+    NSString *relativePath = [NSString stringWithFormat:@"Documents/%@", video.videoID];
+    
+    // TODO: add file format
+    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:relativePath];
+    
+    __block BWDownload *dl = download;
+    AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:request
+                                                                                     targetPath:path
+                                                                                   shouldResume:YES];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Done downloading %@", path);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %ld", (long)[error code]);
+    }];
+    
+    // can i set this later???
+    [operation setProgressiveDownloadProgressBlock:^(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile) {
+        float progress = ((float)totalBytesReadForFile) / totalBytesExpectedToReadForFile;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoProgressUpdateNotification"
+                                                            object:self
+                                                          userInfo:@{@"download": dl,
+                                                                     @"progress": [NSNumber numberWithFloat:progress],
+                                                                     @"path": dl.path}];
+    }];
+
+    [[GiantBombAPIClient defaultClient] enqueueHTTPRequestOperation:operation];
+}
 
 @end

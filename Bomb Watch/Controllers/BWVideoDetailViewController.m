@@ -45,7 +45,7 @@
     self.titleLabel.text = self.video.name;
     [self.previewImage setImageWithURL:self.video.imageMediumURL placeholderImage:[UIImage imageNamed:@"VideoPlaceholder"]];
 
-    self.progressView.hidden = YES;
+//    self.progressView.hidden = YES;
 
     self.qualityPicker.delegate = self;
     self.qualityPicker.dataSource = self;
@@ -131,10 +131,10 @@
 - (IBAction)downloadButtonPressed:(id)sender {
     [SVProgressHUD showSuccessWithStatus:@"Added to downloads"];
     self.progressView.hidden = NO;
-    [self download];
+    [self startDownload];
 }
 
-- (void)download {
+- (void)startDownload {
     NSURLRequest *request = [NSURLRequest requestWithURL:self.video.videoLowURL];
     NSString *relativePath = [NSString stringWithFormat:@"Documents/%@", self.video.videoID];
 
@@ -148,18 +148,13 @@
 
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Done downloading %@", path);
-        self.progressView.hidden = YES;
-        [self.progressView setProgress:0 animated:NO];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %ld", (long)[error code]);
-        self.progressView.hidden = YES;
-        [SVProgressHUD showErrorWithStatus:@"Download failed"];
     }];
 
     // can i set this later???
     [operation setProgressiveDownloadProgressBlock:^(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile) {
         float progress = ((float)totalBytesReadForFile) / totalBytesExpectedToReadForFile;
-        [self.progressView setProgress:progress animated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoProgressUpdateNotification"
                                                             object:self
                                                           userInfo:@{@"download": download,

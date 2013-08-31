@@ -41,8 +41,9 @@
 -(BWDownload *)createDownloadWithVideo:(GBVideo *)video {
     BWDownload *download = [NSEntityDescription insertNewObjectForEntityForName:@"Download"
                                                         inManagedObjectContext:[self managedObjectContext]];
-    download.name = video.name;
+    download.video = video;
     download.path = [video.videoLowURL absoluteString];
+//    download.paused = NO;
     NSLog(@"path is %@", download.path);
     [self insertDownload:download];
     return download;

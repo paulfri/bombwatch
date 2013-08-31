@@ -10,10 +10,9 @@
 
 @implementation BWDownload
 
-@dynamic videoID;
-@dynamic name;
-@dynamic summary;
+@dynamic video;
 @dynamic downloadComplete;
 @dynamic path;
+@dynamic paused;
 
 @end

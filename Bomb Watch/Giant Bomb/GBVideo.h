@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GBVideo : NSObject
+@interface GBVideo : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSNumber *videoID;
 @property (strong, nonatomic) NSString *name;

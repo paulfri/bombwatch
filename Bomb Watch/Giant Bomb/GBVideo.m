@@ -26,7 +26,7 @@
 
         self.videoLowURL = [NSURL URLWithString:[dictionary objectForKey:@"low_url"]];
         self.videoHighURL = [NSURL URLWithString:[dictionary objectForKey:@"high_url"]];
-        self.videoHDURL = [NSURL URLWithString:[dictionary objectForKey:@"hd_url"]];
+//        self.videoHDURL = [NSURL URLWithString:[dictionary objectForKey:@"hd_url"]];
 
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
         [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -36,6 +36,29 @@
     }
 
     return self;
+}
+
+#pragma mark - NSCoding protocol
+
+- (void) encodeWithCoder:(NSCoder *)encoder {
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+
+    NSDictionary *dict = @{@"id": self.videoID,
+                           @"name":self.name,
+                           @"deck":self.summary,
+                           @"image":@{@"icon_url": [self.imageIconURL absoluteString], @"medium_url": [self.imageMediumURL absoluteString]},
+                           @"low_url":[self.videoLowURL absoluteString],
+                           @"high_url":[self.videoHighURL absoluteString],
+//                           @"hd_url":self.videoHDURL,
+                           @"publish_date":[df stringFromDate:self.publishDate]};
+
+    [encoder encodeObject:dict forKey:@"dictionary"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    NSDictionary *dict = [decoder decodeObjectForKey:@"dictionary"];
+    return [self initWithDictionary:dict];
 }
 
 @end
