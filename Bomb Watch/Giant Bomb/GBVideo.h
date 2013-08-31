@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define GiantBombVideoEmptyURL @"http://v.giantbomb.com/null"
+
 @interface GBVideo : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSNumber *videoID;

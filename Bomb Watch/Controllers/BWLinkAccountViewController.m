@@ -23,7 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTitle:@"Link Account"];
 
     self.accountCode.delegate = self;
     self.accountCode.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;

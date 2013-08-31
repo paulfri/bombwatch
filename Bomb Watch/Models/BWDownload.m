@@ -11,8 +11,12 @@
 @implementation BWDownload
 
 @dynamic video;
+@dynamic videoID;
+
 @dynamic complete;
+@dynamic started;
 @dynamic path;
+@dynamic quality;
 @dynamic localPath;
 @dynamic paused;
 @dynamic progress;

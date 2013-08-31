@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+enum {
+    BWDownloadVideoQualityMobile = 0,
+    BWDownloadVideoQualityLow = 1,
+    BWDownloadVideoQualityHigh = 2,
+    BWDownloadVideoQualityHD = 3,
+};
+
 @class BWDownload;
 @class GBVideo;
 @class EVCircularProgressView;
@@ -26,8 +33,12 @@
 + (BWDownloadsDataStore *)defaultStore;
 
 - (void)insertDownload:(BWDownload *)download;
+
 - (BWDownload *)createDownloadWithVideo:(GBVideo *)video;
+- (BWDownload *)createDownloadWithVideo:(GBVideo *)video quality:(NSInteger)quality;
+
 - (BOOL)deleteDownloadWithIndexPath:(NSIndexPath *)indexPath;
+
 - (void)cancelRequestForDownload:(BWDownload *)download withProgressView:(EVCircularProgressView *)progressView;
 - (void)resumeDownload:(BWDownload *)download;
 

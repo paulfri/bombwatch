@@ -19,6 +19,11 @@
     [[PocketAPI sharedAPI] setConsumerKey:PocketConsumerKey];
     [[NSUserDefaults standardUserDefaults] registerDefaults:[self defaultPreferences]];
 
+    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
+                                                         diskCapacity:20 * 1024 * 1024
+                                                             diskPath:nil];
+    [NSURLCache setSharedURLCache:URLCache];
+    
     NSString *defaultView = [[NSUserDefaults standardUserDefaults] stringForKey:@"initialView"];
 
     // custom app launch screen - set in preferences

@@ -26,7 +26,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTitle:@"Settings"];
 
     self.pocket = [PocketAPI sharedAPI];
 }

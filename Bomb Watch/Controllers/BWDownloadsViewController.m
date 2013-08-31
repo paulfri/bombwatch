@@ -116,6 +116,7 @@
     BWDownload *download = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:indexPath];
 
     cell.textLabel.text = ((GBVideo *)download.video).name;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", download.quality];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; // this will get ignored if set to progress view later
 
     EVCircularProgressView *progressView = [[EVCircularProgressView alloc] init];

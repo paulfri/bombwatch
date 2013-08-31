@@ -24,6 +24,7 @@
 @interface BWVideoDetailViewController ()
 
 @property (strong, nonatomic) MPMoviePlayerViewController *player;
+@property (strong, nonatomic) NSArray *downloads;
 
 @end
 
@@ -46,10 +47,12 @@
     [self.previewImage setImageWithURL:self.video.imageMediumURL placeholderImage:[UIImage imageNamed:@"VideoPlaceholder"]];
 
 //    self.progressView.hidden = YES;
-
+    
     self.qualityPicker.delegate = self;
     self.qualityPicker.dataSource = self;
     [self.qualityPicker reloadAllComponents];
+
+    [self refreshDownloadList];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -68,6 +71,7 @@
                                                  name:@"VideoDownloadErrorNotification"
                                                object:nil];
     
+    [self refreshDownloadList];
     [self.tableView reloadData];
 }
 
@@ -88,7 +92,13 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+
+- (void)refreshDownloadList {
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Download"];
+    fetchRequest.fetchBatchSize = 5;
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"videoID == %@", self.video.videoID];
+    self.downloads = [[[BWDownloadsDataStore defaultStore] managedObjectContext] executeFetchRequest:fetchRequest error:nil];
 }
 
 #pragma mark - UIPickerViewDelegate protocol methods
@@ -98,7 +108,17 @@
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return @"Test!!";
+    NSArray *qualities = @[@"Mobile", @"Low", @"High", @"HD"];
+    NSString *current = qualities[row];
+
+    for (BWDownload *download in self.downloads) {
+        if ([download.quality intValue] == row && download.complete) {
+            current = [current stringByAppendingString:@" [DL]"];
+            break;
+        }
+    }
+
+    return current;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
@@ -112,19 +132,14 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return 5;
+    if ([self isPremium])
+        return 4;
+    return 3;
 }
 
-#pragma mark - Navigation
-
-/*
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-
+- (BOOL)isPremium {
+    return ![[self.video.videoHDURL absoluteString] isEqual: GiantBombVideoEmptyURL];
 }
-*/
 
 #pragma mark - IBActions
 
@@ -165,13 +180,16 @@
 - (IBAction)downloadButtonPressed:(id)sender {
     [SVProgressHUD showSuccessWithStatus:@"Added to downloads"];
     self.progressView.hidden = NO;
-    [[BWDownloadsDataStore defaultStore] createDownloadWithVideo:self.video];
+
+    [[BWDownloadsDataStore defaultStore] createDownloadWithVideo:self.video
+                                                         quality:[self.qualityPicker selectedRowInComponent:0]];
 }
 
 - (void)markDownloadProgress:(NSNotification *)notification {
     NSDictionary *dict = [notification userInfo];
     BWDownload *download = dict[@"download"];
-    if ([download.video isEqual:self.video]) {
+    GBVideo *video = (GBVideo *)download.video;
+    if ([video.videoID isEqualToNumber:self.video.videoID]) {
         [self.progressView setProgress:[dict[@"progress"] floatValue] animated:YES];
         self.progressView.hidden = NO;
     }
@@ -180,16 +198,20 @@
 - (void)markDownloadComplete:(NSNotification *)notification {
     NSDictionary *dict = [notification userInfo];
     BWDownload *download = dict[@"download"];
-    if ([download.video isEqual:self.video]) {
+    GBVideo *video = (GBVideo *)download.video;
+    if ([video.videoID isEqualToNumber:self.video.videoID]) {
         [self.progressView setProgress:0 animated:NO];
         self.progressView.hidden = YES;
     }
+    [self refreshDownloadList];
+    [self.qualityPicker reloadAllComponents];
 }
 
 - (void)markDownloadError:(NSNotification *)notification {
     NSDictionary *dict = [notification userInfo];
     BWDownload *download = dict[@"download"];
-    if ([download.video isEqual:self.video]) {
+    GBVideo *video = (GBVideo *)download.video;
+    if ([video.videoID isEqualToNumber:self.video.videoID]) {
         [self.progressView setProgress:0 animated:NO];
         self.progressView.hidden = NO;
     }

@@ -42,12 +42,38 @@
 #pragma mark - Data Store Helpers
 
 -(BWDownload *)createDownloadWithVideo:(GBVideo *)video {
+    return [self createDownloadWithVideo:video quality:0];
+}
+
+-(BWDownload *)createDownloadWithVideo:(GBVideo *)video quality:(NSInteger)quality {
     BWDownload *download = [NSEntityDescription insertNewObjectForEntityForName:@"Download"
                                                         inManagedObjectContext:[self managedObjectContext]];
     download.video = video;
-    download.path = [video.videoLowURL absoluteString];
+    download.videoID = video.videoID;
+    download.started = [NSDate date];
+    download.quality = [NSNumber numberWithInt:quality];
 
-    NSString *relativePath = [NSString stringWithFormat:@"Documents/%@.mp4", video.videoID];
+    switch (quality) {
+        case 0: // mobile
+            download.path = [video.videoLowURL absoluteString];
+            // TODO: grep the low path and replace with '.ipod'
+            break;
+        case 1: // low
+            download.path = [video.videoLowURL absoluteString];
+            break;
+        case 2: // high
+            download.path = [video.videoHighURL absoluteString];
+            break;
+        case 3: // hd
+            download.path = [video.videoHDURL absoluteString];
+            break;
+        default:
+            break;
+    }
+//    download.path = [video.videoLowURL absoluteString];
+    
+    
+    NSString *relativePath = [NSString stringWithFormat:@"Documents/%@-%d.mp4", download.videoID, [download.quality intValue]];
     download.localPath = [NSHomeDirectory() stringByAppendingPathComponent:relativePath];
 
     [self insertDownload:download];
@@ -243,7 +269,7 @@
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"complete" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"started" ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptor];
 
     [fetchRequest setSortDescriptors:sortDescriptors];

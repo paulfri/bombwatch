@@ -14,25 +14,27 @@
 - (id)initWithDictionary:(NSDictionary *)dictionary {
     self = [super init];
     if (self) {
-        self.videoID = [NSNumber numberWithInt:[[dictionary objectForKey:@"id"] intValue]];
-        self.name = [dictionary objectForKey:@"name"];
-        self.summary = [dictionary objectForKey:@"deck"];
+        self.videoID = [NSNumber numberWithInt:[dictionary[@"id"] intValue]];
+        self.name = dictionary[@"name"];
+        self.summary = dictionary[@"deck"];
 
         // this shouldn't be necessary for images of videos, but leaving it in just in case
-        if([dictionary objectForKey:@"image"] != (id)[NSNull null]) {
-            self.imageIconURL = [NSURL URLWithString:[[dictionary objectForKey:@"image"] objectForKey:@"icon_url"]];
-            self.imageMediumURL = [NSURL URLWithString:[[dictionary objectForKey:@"image"] objectForKey:@"medium_url"]];
+        if(dictionary[@"image"] != (id)[NSNull null]) {
+            self.imageIconURL = [NSURL URLWithString:dictionary[@"image"][@"icon_url"]];
+            self.imageMediumURL = [NSURL URLWithString:dictionary[@"image"][@"medium_url"]];
         }
 
-        self.videoLowURL = [NSURL URLWithString:[dictionary objectForKey:@"low_url"]];
-        self.videoHighURL = [NSURL URLWithString:[dictionary objectForKey:@"high_url"]];
-//        self.videoHDURL = [NSURL URLWithString:[dictionary objectForKey:@"hd_url"]];
+        self.videoLowURL = [NSURL URLWithString:dictionary[@"low_url"]];
+        self.videoHighURL = [NSURL URLWithString:dictionary[@"high_url"]];
+
+        if(dictionary[@"hd_url"] != nil)
+            self.videoHDURL = [NSURL URLWithString:dictionary[@"hd_url"]];
+        else
+            self.videoHDURL = [NSURL URLWithString:GiantBombVideoEmptyURL];
 
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
         [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         self.publishDate = [df dateFromString: [dictionary objectForKey:@"publish_date"]];
-        // this one is a relative path -- not sure what to do with it
-        // self.videoURL = [NSURL URLWithString:[dictionary objectForKey:@"url"]];
     }
 
     return self;
@@ -50,7 +52,7 @@
                            @"image":@{@"icon_url": [self.imageIconURL absoluteString], @"medium_url": [self.imageMediumURL absoluteString]},
                            @"low_url":[self.videoLowURL absoluteString],
                            @"high_url":[self.videoHighURL absoluteString],
-//                           @"hd_url":self.videoHDURL,
+                           @"hd_url":[self.videoHDURL absoluteString],
                            @"publish_date":[df stringFromDate:self.publishDate]};
 
     [encoder encodeObject:dict forKey:@"dictionary"];
