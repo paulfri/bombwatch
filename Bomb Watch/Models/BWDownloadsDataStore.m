@@ -134,18 +134,22 @@
                                                           userInfo:@{@"download": blockDownload,
                                                                      @"path": blockDownload.path}];
 
-        NSManagedObjectContext * backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        [backgroundContext setParentContext:self.managedObjectContext];
+        // all of this seems to be unncessary and maybe not even work.
+        // saving on the main thread for now. who knows what fun bugs will happen
+
+//        NSManagedObjectContext * backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+//        [backgroundContext setParentContext:self.managedObjectContext];
         //Use backgroundContext to insert/update...
         //Then just save the context, it will automatically sync to your primary context
-        NSLog(@"%@", backgroundContext.parentContext);
-        NSError *error = nil;
-        if (![backgroundContext save:&error]) {
+//        NSLog(@"%@", backgroundContext.parentContext);
+//        NSError *error = nil;
+//        if (![backgroundContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
+//            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//            abort();
+//        }
+        [self.managedObjectContext save:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %ld", (long)[error code]);
         if (!((long)[error code]) == 999) {
