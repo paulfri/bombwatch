@@ -79,6 +79,15 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Download"];
+    fetchRequest.fetchBatchSize = 5;
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"complete == nil"];
+    NSArray *incompletes = [[[BWDownloadsDataStore defaultStore] managedObjectContext] executeFetchRequest:fetchRequest error:nil];
+
+    for (BWDownload *download in incompletes) {
+        [[BWDownloadsDataStore defaultStore] deleteDownload:download];
+    }
+
     [[[BWDownloadsDataStore defaultStore] managedObjectContext] save:nil];
 }
 

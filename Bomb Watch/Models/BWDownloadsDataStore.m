@@ -93,9 +93,13 @@
     }
 }
 
--(BOOL)deleteDownloadWithIndexPath:(NSIndexPath *)indexPath {
-    NSManagedObjectContext *context = [[BWDownloadsDataStore defaultStore] managedObjectContext];
+- (BOOL)deleteDownloadWithIndexPath:(NSIndexPath *)indexPath {
     BWDownload *download = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:indexPath];
+    return [self deleteDownload:download];
+}
+
+- (BOOL)deleteDownload:(BWDownload *)download {
+    NSManagedObjectContext *context = [[BWDownloadsDataStore defaultStore] managedObjectContext];
     [[NSFileManager defaultManager] removeItemAtPath:download.localPath error:nil];
     [self cancelRequestForDownload:download];
     [context deleteObject:download];
@@ -108,7 +112,6 @@
         abort();
     }
     return YES;
-    
 }
 
 #pragma mark - Downloading helpers

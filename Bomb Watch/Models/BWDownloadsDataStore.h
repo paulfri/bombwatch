@@ -37,6 +37,7 @@ enum {
 - (BWDownload *)createDownloadWithVideo:(GBVideo *)video;
 - (BWDownload *)createDownloadWithVideo:(GBVideo *)video quality:(NSInteger)quality;
 
+- (BOOL)deleteDownload:(BWDownload *)download;
 - (BOOL)deleteDownloadWithIndexPath:(NSIndexPath *)indexPath;
 
 - (void)cancelRequestForDownload:(BWDownload *)download withProgressView:(EVCircularProgressView *)progressView;
