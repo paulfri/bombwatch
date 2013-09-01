@@ -17,7 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImage;
 @property (weak, nonatomic) IBOutlet EVCircularProgressView *progressView;
-
+@property (strong, nonatomic) UIImageView *imageView;
+@property CGRect cachedImageViewSize;
 
 - (IBAction)playButtonPressed:(id)sender;
 - (IBAction)actionButtonPressed:(id)sender;

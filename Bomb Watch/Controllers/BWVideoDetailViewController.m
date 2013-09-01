@@ -42,12 +42,41 @@
     [super viewDidLoad];
     [self setTitle:self.video.name];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-    self.titleLabel.text = self.video.name;
-    [self.previewImage setImageWithURL:self.video.imageMediumURL placeholderImage:[UIImage imageNamed:@"VideoPlaceholder"]];
-
 //    self.progressView.hidden = YES;
+    self.titleLabel.text = self.video.name;
 
+    
+    /////
+    CGRect screenRect = [UIScreen mainScreen].bounds;
+    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, 180)];
+//    CGRect value = self.imageView.frame;
+//
+//    float hfactor = value.size.width / screenRect.size.width;
+//    float vfactor = value.size.height / screenRect.size.height;
+//    float factor = fmax(hfactor, vfactor);
+//    
+//    // Divide the size by the greater of the vertical or horizontal shrinkage factor
+//    float newWidth = value.size.width / factor;
+//    float newHeight = value.size.height / factor;
+//    
+//    // Then figure out if you need to offset it to center vertically or horizontally
+//    float leftOffset = (screenRect.size.width - newWidth) / 2;
+//    float topOffset = (screenRect.size.height - newHeight) / 2;
+//    CGRect newRect = CGRectMake(leftOffset, topOffset, newWidth, newHeight);
+//    self.imageView.frame = newRect;
+
+    self.imageView.backgroundColor = [UIColor blackColor];
+//    self.imageView.clipsToBounds = YES;
+    [self.imageView setImageWithURL:self.video.imageMediumURL placeholderImage:[UIImage imageNamed:@"VideoPlaceholder"]];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.cachedImageViewSize = self.imageView.frame;
+    [self.tableView addSubview:self.imageView];
+    [self.tableView sendSubviewToBack:self.imageView];
+    self.edgesForExtendedLayout = UIRectEdgeBottom;
+    
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 180)];
+
+    //////
     self.qualityPicker.delegate = self;
     self.qualityPicker.dataSource = self;
     [self.qualityPicker reloadAllComponents];
@@ -99,6 +128,18 @@
     fetchRequest.fetchBatchSize = 5;
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"videoID == %@", self.video.videoID];
     self.downloads = [[[BWDownloadsDataStore defaultStore] managedObjectContext] executeFetchRequest:fetchRequest error:nil];
+}
+
+#pragma mark - UIScrollViewDelegate protocol methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGFloat y = -scrollView.contentOffset.y;
+    if (y > 0) {
+        self.imageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y, self.cachedImageViewSize.size.height+y);
+        self.imageView.center = CGPointMake(self.view.center.x, self.imageView.center.y);
+    }
+    
 }
 
 #pragma mark - UIPickerViewDelegate protocol methods

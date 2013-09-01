@@ -85,7 +85,8 @@
     NSArray *incompletes = [[[BWDownloadsDataStore defaultStore] managedObjectContext] executeFetchRequest:fetchRequest error:nil];
 
     for (BWDownload *download in incompletes) {
-        [[BWDownloadsDataStore defaultStore] deleteDownload:download];
+        // TODO: figure out how to save the progress of the download - notification listening?
+//        [[BWDownloadsDataStore defaultStore] cancelRequestForDownload:download];
     }
 
     [[[BWDownloadsDataStore defaultStore] managedObjectContext] save:nil];

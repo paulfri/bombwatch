@@ -533,25 +533,21 @@
                         <sections>
                             <tableViewSection id="djw-aQ-iHH">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="449" id="QsY-zC-yjc">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="449"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="320" id="QsY-zC-yjc">
+                                        <rect key="frame" x="0.0" y="64" width="320" height="320"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QsY-zC-yjc" id="v1o-0r-t71">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="448"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="319"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yzN-jQ-Pbe">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="226"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7hG-Wh-dOt">
-                                                    <rect key="frame" x="5" y="182" width="309" height="25"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This is the name of the video to display on two lines" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="309" translatesAutoresizingMaskIntoConstraints="NO" id="7hG-Wh-dOt">
+                                                    <rect key="frame" x="6" y="0.0" width="309" height="54"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="102" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3c0-r1-K1c">
-                                                    <rect key="frame" x="20" y="398" width="30" height="30"/>
+                                                    <rect key="frame" x="13" y="274" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Play"/>
                                                     <connections>
@@ -559,11 +555,11 @@
                                                     </connections>
                                                 </button>
                                                 <pickerView tag="99" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vV6-YS-5tW">
-                                                    <rect key="frame" x="0.0" y="202" width="320" height="162"/>
+                                                    <rect key="frame" x="-5" y="62" width="320" height="162"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                 </pickerView>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQg-Mf-qIe">
-                                                    <rect key="frame" x="231" y="398" width="69" height="30"/>
+                                                    <rect key="frame" x="238" y="274" width="69" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Download">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -596,7 +592,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="previewImage" destination="yzN-jQ-Pbe" id="PFf-Ie-cPI"/>
                         <outlet property="progressView" destination="OPx-7H-gLK" id="RtA-vf-0mK"/>
                         <outlet property="qualityPicker" destination="vV6-YS-5tW" id="CH8-mc-NHZ"/>
                         <outlet property="titleLabel" destination="7hG-Wh-dOt" id="M1z-MB-l7k"/>
