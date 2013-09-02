@@ -178,8 +178,12 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     GBVideo *video = [self videoForRowAtIndexPath:indexPath];
-
+    NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:@"videosWatched"];
+    
     cell.textLabel.text = video.name;
+    if ([array containsObject:[NSString stringWithFormat:@"%@", video.videoID]]) {
+        cell.textLabel.textColor = [UIColor grayColor];
+    }
     [cell.imageView setImageWithURL:(NSURL *)video.imageIconURL placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"]];
 
     return cell;

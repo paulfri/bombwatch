@@ -51,6 +51,10 @@
     self.pickerVisible = NO;
     
     self.titleLabel.text = self.video.name;
+//    NSAttributedString *titleLabel = [[NSAttributedString alloc] initWithString:self.video.name attributes:@{NSTextEffectAttributeName: NSTextEffectLetterpressStyle}];
+//    self.titleLabel.font = [UIFont fontWithDescriptor:descriptor size:10];
+//    self.titleLabel.attributedText = titleLabel;
+//    self.titleLabel.textSt
     self.descriptionLabel.text = self.video.summary;
     self.bylineLabel.text = [self bylineLabelText];
     self.durationLabel.text = [self durationLabelText];
@@ -138,11 +142,21 @@
 }
 
 - (NSString *)durationLabelText {
+    NSTimeInterval played = [[[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"] objectForKey:[NSString stringWithFormat:@"%@", self.video.videoID]] doubleValue];
     NSTimeInterval duration = [self.video.lengthInSeconds intValue];
+    
+    if (played != 0)
+        return [NSString stringWithFormat:@"Duration: %@ / %@", [self stringFromDuration:played], [self stringFromDuration:duration]];
+
+    return [NSString stringWithFormat:@"Duration: %@", [self stringFromDuration:duration]];
+}
+
+- (NSString *)stringFromDuration:(NSTimeInterval)duration {
     long seconds = lroundf(duration); // Modulo (%) operator below needs int or long
     int hour = seconds / 3600;
     int mins = (seconds % 3600) / 60;
     int secs = seconds % 60;
+
     if (hour > 0)
         return [NSString stringWithFormat:@"%d:%02d:%02d", hour, mins, secs];
     return [NSString stringWithFormat:@"%d:%02d", mins, secs];
@@ -280,7 +294,7 @@
     [self.player.moviePlayer play];
 }
 
--(void) movieFinishedPlaying: (NSNotification *) note {
+- (void) movieFinishedPlaying: (NSNotification *)notification {
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:MPMoviePlayerPlaybackDidFinishNotification
                                                   object:self.player.moviePlayer];
@@ -298,6 +312,7 @@
         [progress setObject:playback forKey:key];
 
     [[NSUserDefaults standardUserDefaults] setObject:[progress copy] forKey:@"videoProgress"];
+    self.durationLabel.text = [self durationLabelText];
 }
 
 // TODO: make this take quality as an input
@@ -361,13 +376,35 @@
 
 - (IBAction)watchedButtonPressed:(id)sender {
     // TODO: show image with status
-    [SVProgressHUD showSuccessWithStatus:@"Watched"];
+    NSMutableArray *array = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"videosWatched"] mutableCopy];
+    if (![array containsObject:self.video.videoID]) {
+        [array addObject:self.video.videoID];
+        [[NSUserDefaults standardUserDefaults] setObject:[array copy] forKey:@"videosWatched"];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(dismiss)
+                                                     name:SVProgressHUDDidDisappearNotification
+                                                   object:nil];
+        [SVProgressHUD showSuccessWithStatus:@"Watched"];
+
+    
+    } else {
+        [array removeObject:self.video.videoID];
+        [[NSUserDefaults standardUserDefaults] setObject:[array copy] forKey:@"videosWatched"];
+        [SVProgressHUD showSuccessWithStatus:@"Unwatched"];
+    }
+}
+
+- (void)dismiss {
+    [self.navigationController popViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:SVProgressHUDDidDisappearNotification
+                                                  object:nil];
 }
 
 #pragma mark - Downloads
 
 - (IBAction)downloadButtonPressed:(id)sender {
-    [SVProgressHUD showSuccessWithStatus:@"Added to downloads"];
+    [SVProgressHUD showSuccessWithStatus:@"Downloading"];
     self.progressView.hidden = NO;
 
     [[BWDownloadsDataStore defaultStore] createDownloadWithVideo:self.video
@@ -403,23 +440,4 @@
 //    }
 }
 
-//#pragma mark - something
-//
-//+ (CGFloat)heightOfCellWithIngredientLine:(NSString *)ingredientLine
-//                       withSuperviewWidth:(CGFloat)superviewWidth
-//{
-//    CGFloat labelWidth                  = superviewWidth - 30.0f;
-//    //    use the known label width with a maximum height of 100 points
-//    CGSize labelContraints              = CGSizeMake(labelWidth, 100.0f);
-//    
-//    NSStringDrawingContext *context     = [[NSStringDrawingContext alloc] init];
-//    
-//    CGRect labelRect                    = [ingredientLine boundingRectWithSize:labelContraints
-//                                                                       options:NSStringDrawingUsesLineFragmentOrigin
-//                                                                    attributes:nil
-//                                                                       context:context];
-//    
-//    //    return the calculated required height of the cell considering the label
-//    return labelRect.size.height;
-//}
 @end

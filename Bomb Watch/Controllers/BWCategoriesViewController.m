@@ -43,7 +43,7 @@
     self.enduranceRuns = @[@"Persona 4", @"The Matrix Online", @"Deadly Premonition BR",
                            @"Deadly Premonition VJ", @"Chrono Trigger"];
 
-    self.otherCategories = @[@"TANG", @"Reviews", @"Premium"];
+    self.otherCategories = @[@"TANG", @"Reviews", @"Subscriber"];
 
 }
 

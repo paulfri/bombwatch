@@ -29,6 +29,11 @@
     self.accountCode.autocorrectionType = UITextAutocorrectionTypeNo;
     self.accountCode.enablesReturnKeyAutomatically = NO;
     [self.accountCode becomeFirstResponder];
+    
+//    NSString *start = @"Link your premium Giant Bomb account to access subscriber-only content and features. Get your code at";
+//    NSURL *url = [NSURL URLWithString:@"http://www.giantbomb.com/boxee"];
+//    NSAttributedString *urlstring = [[NSAttributedString alloc] initWithString:@"giantbomb.com/boxee" attributes:@{NSLinkAttributeName: url}];
+//    footerView.attributedText = urlstring;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -55,11 +60,11 @@
         NSString *apiKey = responseDict[@"api_key"];
         if ([apiKey isKindOfClass:[NSString class]] && [apiKey length] > 0) {
             [[NSUserDefaults standardUserDefaults] setObject:apiKey forKey:@"apiKey"];
-            [SVProgressHUD showSuccessWithStatus:@"Linked!"];
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(dismiss)
                                                          name:SVProgressHUDDidDisappearNotification
                                                        object:nil];
+            [SVProgressHUD showSuccessWithStatus:@"Linked!"];
         } else {
             [SVProgressHUD showErrorWithStatus:@"Link failed!"];
         }
@@ -89,6 +94,9 @@
 
 - (void)dismiss {
     [self.navigationController popViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name:SVProgressHUDDidDisappearNotification
+                                               object:nil];
 }
 
 @end
