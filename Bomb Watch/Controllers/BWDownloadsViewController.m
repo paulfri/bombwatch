@@ -115,8 +115,21 @@
     BWDownload *download = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:indexPath];
 
     cell.textLabel.text = ((GBVideo *)download.video).name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", download.quality];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; // this will get ignored if set to progress view later
+
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", download.quality];
+    switch ([download.quality intValue]) {
+        case BWDownloadVideoQualityMobile:
+            cell.detailTextLabel.text = @"Mobile"; break;
+        case BWDownloadVideoQualityLow:
+            cell.detailTextLabel.text = @"Low"; break;
+        case BWDownloadVideoQualityHigh:
+            cell.detailTextLabel.text = @"High"; break;
+        case BWDownloadVideoQualityHD:
+            cell.detailTextLabel.text = @"HD"; break;
+        default:
+            cell.detailTextLabel.text = @"Unknown"; break;
+    }
 
     EVCircularProgressView *progressView = [[EVCircularProgressView alloc] init];
     if (download.complete) {

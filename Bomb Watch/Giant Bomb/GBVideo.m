@@ -17,9 +17,10 @@
         self.videoID = [NSNumber numberWithInt:[dictionary[@"id"] intValue]];
         self.name = dictionary[@"name"];
         self.summary = dictionary[@"deck"];
-
+        self.user = dictionary[@"user"];
+        
         // this shouldn't be necessary for images of videos, but leaving it in just in case
-        if(dictionary[@"image"] != (id)[NSNull null]) {
+        if(dictionary[@"image"] != nil && dictionary[@"image"] != (id)[NSNull null]) {
             self.imageIconURL = [NSURL URLWithString:dictionary[@"image"][@"icon_url"]];
             self.imageMediumURL = [NSURL URLWithString:dictionary[@"image"][@"medium_url"]];
         }
@@ -35,6 +36,9 @@
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
         [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         self.publishDate = [df dateFromString: [dictionary objectForKey:@"publish_date"]];
+        
+        self.siteDetailURL = [NSURL URLWithString:dictionary[@"site_detail_url"]];
+        self.lengthInSeconds = dictionary[@"length_seconds"];
     }
 
     return self;
@@ -49,11 +53,13 @@
     NSDictionary *dict = @{@"id": self.videoID,
                            @"name":self.name,
                            @"deck":self.summary,
+                           @"user":self.user,
                            @"image":@{@"icon_url": [self.imageIconURL absoluteString], @"medium_url": [self.imageMediumURL absoluteString]},
                            @"low_url":[self.videoLowURL absoluteString],
                            @"high_url":[self.videoHighURL absoluteString],
                            @"hd_url":[self.videoHDURL absoluteString],
-                           @"publish_date":[df stringFromDate:self.publishDate]};
+                           @"publish_date":[df stringFromDate:self.publishDate],
+                           @"site_detail_url":[self.siteDetailURL absoluteString]};
 
     [encoder encodeObject:dict forKey:@"dictionary"];
 }

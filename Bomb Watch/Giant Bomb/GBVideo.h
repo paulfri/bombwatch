@@ -25,6 +25,7 @@
 @property (strong, nonatomic) NSURL *imageMediumURL;
 @property (strong, nonatomic) NSNumber *lengthInSeconds;
 @property (strong, nonatomic) NSDate *publishDate;
+@property (strong, nonatomic) NSString *user;
 
 // missing: user
 // missing: video_type
