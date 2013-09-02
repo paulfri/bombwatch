@@ -415,26 +415,53 @@
         <scene sceneID="JvP-0V-ydo">
             <objects>
                 <tableViewController id="3qt-wd-5me" customClass="BWVideoListViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wXq-pT-ciJ">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="89" sectionHeaderHeight="22" sectionFooterHeight="22" id="wXq-pT-ciJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="9oz-c0-RDA" style="IBUITableViewCellStyleDefault" id="dGh-Uw-0zD">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="VideoCell" rowHeight="89" id="dGh-Uw-0zD">
+                                <rect key="frame" x="0.0" y="86" width="320" height="89"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dGh-Uw-0zD" id="iTB-0S-FaB">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="88"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9oz-c0-RDA">
-                                            <rect key="frame" x="15" y="0.0" width="270" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2VI-OL-Dr6">
+                                            <rect key="frame" x="2" y="2" width="82" height="84"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="82" id="bLi-MN-qhx"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unprofessional Fridays" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTw-zb-PR2">
+                                            <rect key="frame" x="89" y="0.0" width="198" height="34"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This application is so unprofessional!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="198" translatesAutoresizingMaskIntoConstraints="NO" id="yK7-zF-QGL">
+                                            <rect key="frame" x="89" y="25" width="198" height="34"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="VTw-zb-PR2" firstAttribute="top" secondItem="iTB-0S-FaB" secondAttribute="top" id="3xY-ck-icu"/>
+                                        <constraint firstItem="yK7-zF-QGL" firstAttribute="top" secondItem="iTB-0S-FaB" secondAttribute="top" constant="25" id="5wA-FZ-x58"/>
+                                        <constraint firstAttribute="trailing" secondItem="VTw-zb-PR2" secondAttribute="trailing" id="Hca-5s-sJ1"/>
+                                        <constraint firstItem="VTw-zb-PR2" firstAttribute="leading" secondItem="2VI-OL-Dr6" secondAttribute="trailing" constant="5" id="NQl-Kf-aZd"/>
+                                        <constraint firstAttribute="bottom" secondItem="2VI-OL-Dr6" secondAttribute="bottom" constant="2" id="ZU5-Cl-xoV"/>
+                                        <constraint firstItem="2VI-OL-Dr6" firstAttribute="leading" secondItem="iTB-0S-FaB" secondAttribute="leading" constant="2" id="ahG-pI-sEN"/>
+                                        <constraint firstItem="yK7-zF-QGL" firstAttribute="width" secondItem="VTw-zb-PR2" secondAttribute="width" id="b3v-71-9dp"/>
+                                        <constraint firstItem="yK7-zF-QGL" firstAttribute="leading" secondItem="iTB-0S-FaB" secondAttribute="leading" constant="89" id="cnG-an-jEd"/>
+                                        <constraint firstItem="2VI-OL-Dr6" firstAttribute="top" secondItem="iTB-0S-FaB" secondAttribute="top" constant="2" id="l6y-dc-nbq"/>
+                                        <constraint firstAttribute="bottom" secondItem="VTw-zb-PR2" secondAttribute="bottom" constant="54" id="p7X-MW-rBa"/>
+                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="yK7-zF-QGL" secondAttribute="bottom" constant="4" id="tcP-A9-DFn"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <segue destination="rJ6-uZ-0Hw" kind="push" identifier="showVideoDetailSegue" id="KBT-si-Lhj"/>
@@ -722,6 +749,7 @@
                         <outlet property="qualityLabel" destination="TVB-C7-xTl" id="4Ie-7A-8nY"/>
                         <outlet property="qualityPicker" destination="fub-Vv-pO4" id="BRT-7W-MlK"/>
                         <outlet property="titleLabel" destination="7hG-Wh-dOt" id="M1z-MB-l7k"/>
+                        <outlet property="watchedButton" destination="VBI-zx-gqi" id="Bpn-Es-igc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LyQ-xl-och" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -808,6 +836,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Qbr-f1-qbf"/>
+        <segue reference="KBT-si-Lhj"/>
     </inferredMetricsTieBreakers>
 </document>

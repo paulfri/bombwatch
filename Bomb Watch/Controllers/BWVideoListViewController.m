@@ -176,20 +176,24 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"VideoCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
     GBVideo *video = [self videoForRowAtIndexPath:indexPath];
-    NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:@"videosWatched"];
-    
-    cell.textLabel.text = video.name;
-    if ([array containsObject:video.videoID]) {
-        cell.textLabel.textColor = [UIColor grayColor];
-    } else {
-        cell.textLabel.textColor = [UIColor blackColor];
-    }
-    [cell.imageView setImageWithURL:(NSURL *)video.imageIconURL placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"]];
 
+    UILabel *titleLabel = (UILabel *)[cell viewWithTag:2];
+    titleLabel.text = video.name;
+    if ([video isWatched])
+        titleLabel.textColor = [UIColor grayColor];
+    else
+        titleLabel.textColor = [UIColor blackColor];
+
+    UILabel *summaryLabel = (UILabel *)[cell viewWithTag:3];
+    summaryLabel.text = video.summary;
+    
+    UIImageView *imagePreview = (UIImageView *)[cell viewWithTag:1];
+    [imagePreview setImageWithURL:(NSURL *)video.imageIconURL placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"]];
+    cell.separatorInset = UIEdgeInsetsMake(0, imagePreview.bounds.size.width + 12, 0, 0);
+    
     return cell;
 }
 

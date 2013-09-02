@@ -24,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *durationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *watchedButton;
+
 // ?
 @property (weak, nonatomic) IBOutlet EVCircularProgressView *progressView;
 

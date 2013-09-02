@@ -50,11 +50,9 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.pickerVisible = NO;
     
+    self.navigationController.navigationBar.translucent = NO;
+    
     self.titleLabel.text = self.video.name;
-//    NSAttributedString *titleLabel = [[NSAttributedString alloc] initWithString:self.video.name attributes:@{NSTextEffectAttributeName: NSTextEffectLetterpressStyle}];
-//    self.titleLabel.font = [UIFont fontWithDescriptor:descriptor size:10];
-//    self.titleLabel.attributedText = titleLabel;
-//    self.titleLabel.textSt
     self.descriptionLabel.text = self.video.summary;
     self.bylineLabel.text = [self bylineLabelText];
     self.durationLabel.text = [self durationLabelText];
@@ -62,7 +60,6 @@
     // Tweetbot-style image pulldown
     CGRect screenRect = [UIScreen mainScreen].bounds;
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, 180)];
-//    self.imageView.backgroundColor = [UIColor blackColor];
     [self.imageView setImageWithURL:self.video.imageMediumURL placeholderImage:[UIImage imageNamed:@"VideoPlaceholder"]];
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.cachedImageViewSize = self.imageView.frame;
@@ -78,6 +75,7 @@
 
     // downloads
     [self selectBestQuality];
+    [self updateWatchedButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -271,7 +269,6 @@
 
     NSURL *contentURL = [self videoURLForQuality:[self.qualityPicker selectedRowInComponent:0]];
 
-//    [self.player.moviePlayer setFullscreen:YES animated:YES];
     self.player.moviePlayer.fullscreen = YES;
     self.player.moviePlayer.allowsAirPlay = YES;
 
@@ -304,15 +301,14 @@
     NSString *key = [NSString stringWithFormat:@"%@", self.video.videoID];
 
     if (self.player.moviePlayer.currentPlaybackTime >= self.player.moviePlayer.duration) {
-        NSMutableArray *watched = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"videosWatched"] mutableCopy];
-        [watched addObject:self.video.videoID];
-        [[NSUserDefaults standardUserDefaults] setObject:watched forKey:@"videosWatched"];
+        [self.video setWatched];
         [progress removeObjectForKey:key];
     } else
         [progress setObject:playback forKey:key];
 
     [[NSUserDefaults standardUserDefaults] setObject:[progress copy] forKey:@"videoProgress"];
     self.durationLabel.text = [self durationLabelText];
+    [self updateWatchedButton];
 }
 
 // TODO: make this take quality as an input
@@ -343,7 +339,7 @@
             case BWDownloadVideoQualityHD:
                 path = self.video.videoHDURL;
                 break;
-            default: // not sure what happened
+            default:
                 path = self.video.videoLowURL;
                 break;
         }
@@ -376,21 +372,26 @@
 
 - (IBAction)watchedButtonPressed:(id)sender {
     // TODO: show image with status
-    NSMutableArray *array = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"videosWatched"] mutableCopy];
-    if (![array containsObject:self.video.videoID]) {
-        [array addObject:self.video.videoID];
-        [[NSUserDefaults standardUserDefaults] setObject:[array copy] forKey:@"videosWatched"];
+    if (![self.video isWatched]) {
+        [self.video setWatched];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(dismiss)
                                                      name:SVProgressHUDDidDisappearNotification
                                                    object:nil];
         [SVProgressHUD showSuccessWithStatus:@"Watched"];
-
-    
     } else {
-        [array removeObject:self.video.videoID];
-        [[NSUserDefaults standardUserDefaults] setObject:[array copy] forKey:@"videosWatched"];
+        [self.video setUnwatched];
         [SVProgressHUD showSuccessWithStatus:@"Unwatched"];
+    }
+    
+    [self updateWatchedButton];
+}
+
+- (void)updateWatchedButton {
+    if ([self.video isWatched]) {
+        self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheckFull"];
+    } else {
+        self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheck"];
     }
 }
 
@@ -439,5 +440,6 @@
 //        self.progressView.hidden = NO;
 //    }
 }
+
 
 @end

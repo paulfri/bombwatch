@@ -27,14 +27,16 @@
 @property (strong, nonatomic) NSDate *publishDate;
 @property (strong, nonatomic) NSString *user;
 
-// missing: user
 // missing: video_type
 // missing: youtube_id
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 
-@end
+- (BOOL)isWatched;
+- (void)setWatched;
+- (void)setUnwatched;
 
+@end
 
 //{
 //    "id": 7880,

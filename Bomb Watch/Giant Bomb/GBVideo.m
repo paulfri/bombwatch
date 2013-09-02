@@ -69,4 +69,27 @@
     return [self initWithDictionary:dict];
 }
 
+#pragma mark - watch status
+
+- (BOOL)isWatched {
+    NSMutableArray *array = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"videosWatched"] mutableCopy];
+    return [array containsObject:self.videoID];
+}
+
+- (void)setWatched {
+    NSMutableArray *array = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"videosWatched"] mutableCopy];
+    if (![array containsObject:self.videoID]) {
+        [array addObject:self.videoID];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:[array copy] forKey:@"videosWatched"];
+}
+
+- (void)setUnwatched {
+    NSMutableArray *array = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"videosWatched"] mutableCopy];
+    if ([array containsObject:self.videoID]) {
+        [array removeObject:self.videoID];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:[array copy] forKey:@"videosWatched"];
+}
+
 @end
