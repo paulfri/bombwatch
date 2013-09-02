@@ -45,6 +45,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:animated];
+    [self.tableView reloadData];
     [super viewWillAppear:animated];
 }
 
@@ -148,6 +149,7 @@
         else
             [self.videos addObjectsFromArray:results];
 
+// TODO: this might be useful for the endurance run lists
 //        NSArray *sortedArray;
 //        sortedArray = [self.videos sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
 //            NSDate *first = [(GBVideo *)a publishDate];
@@ -181,8 +183,10 @@
     NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:@"videosWatched"];
     
     cell.textLabel.text = video.name;
-    if ([array containsObject:[NSString stringWithFormat:@"%@", video.videoID]]) {
+    if ([array containsObject:video.videoID]) {
         cell.textLabel.textColor = [UIColor grayColor];
+    } else {
+        cell.textLabel.textColor = [UIColor blackColor];
     }
     [cell.imageView setImageWithURL:(NSURL *)video.imageIconURL placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"]];
 
