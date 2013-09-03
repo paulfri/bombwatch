@@ -11,9 +11,15 @@
 #import "PocketAPI.h"
 #import "SVProgressHUD.h"
 
+#define kDefaultViewSection     2
+#define kDefaultViewCell        4
+#define kDefaultViewPickerCell  5
+
 @interface BWSettingsViewController ()
 
 @property (strong, nonatomic) PocketAPI *pocket;
+@property (strong, nonatomic) NSArray *defaultViewOptions;
+@property BOOL pickerVisible;
 
 @end
 
@@ -26,8 +32,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.pocket = [PocketAPI sharedAPI];
+
+    self.defaultViewOptions = @[@"Videos", @"Latest", @"Quick Looks", @"Features", @"Trailers"];
+    NSString *initialView = [[NSUserDefaults standardUserDefaults] stringForKey:@"initialView"];
+    self.initialViewLabel.text = initialView;
+    [self.initialViewPicker selectRow:[self.defaultViewOptions indexOfObject:initialView] inComponent:0 animated:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -85,6 +95,23 @@
         alert.delegate = self;
         [alert show];
     }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == kDefaultViewSection && indexPath.row == kDefaultViewCell) {
+        self.pickerVisible = !self.pickerVisible;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == kDefaultViewPickerCell) {
+        if (self.pickerVisible) return 162;
+        else return 0;
+    }
+    return 44;
 }
 
 #pragma mark - UIAlertViewDelegate protocol methods
@@ -155,5 +182,33 @@
     }
     return YES;
 }
+
+#pragma mark - UIPickerViewDelegate protocol methods
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    return 30.0;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return self.defaultViewOptions[row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    NSString *initialView = [self pickerView:pickerView titleForRow:row forComponent:component];
+    [[NSUserDefaults standardUserDefaults] setObject:initialView
+                                              forKey:@"initialView"];
+    self.initialViewLabel.text = initialView;
+}
+
+#pragma mark - UIPickerViewDataSource protocol methods
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.defaultViewOptions.count;
+}
+
 
 @end

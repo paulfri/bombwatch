@@ -20,15 +20,13 @@
     [[PocketAPI sharedAPI] setConsumerKey:PocketConsumerKey];
     [[NSUserDefaults standardUserDefaults] registerDefaults:[self defaultPreferences]];
 
-    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
-                                                         diskCapacity:20 * 1024 * 1024
-                                                             diskPath:nil];
-    [NSURLCache setSharedURLCache:URLCache];
-    
-    NSString *defaultView = [[NSUserDefaults standardUserDefaults] stringForKey:@"initialView"];
+    [NSURLCache setSharedURLCache:[[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
+                                                                diskCapacity:20 * 1024 * 1024
+                                                                    diskPath:nil]];
 
     // custom app launch screen - set in preferences
-    if (![defaultView isEqualToString:@"Categories"]) {
+    NSString *defaultView = [[NSUserDefaults standardUserDefaults] stringForKey:@"initialView"];
+    if (![defaultView isEqualToString:@"Videos"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
         UITabBarController *root = [storyboard instantiateViewControllerWithIdentifier:@"mainTabBarVC"];
         self.window.rootViewController = root;
@@ -36,8 +34,10 @@
         [nav.topViewController performSegueWithIdentifier:@"videoListSegue"
                                                    sender:defaultView];
     }
-    
+
+    // iCloud key-value sync
     [MKiCloudSync start];
+
     return YES;
 }
 
@@ -52,7 +52,7 @@
     return @{@"showTrailersInLatest": @YES,
               @"showPremiumInLatest": @NO,
                @"rotationLockVideos": @NO,
-                      @"initialView": @"Categories",
+                      @"initialView": @"Videos",
                            @"apiKey": GiantBombDefaultAPIKey,
                     @"videosWatched": @[],
                     @"videoProgress": @{}};

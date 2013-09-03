@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BWSettingsViewController : UITableViewController <UIAlertViewDelegate>
+@interface BWSettingsViewController : UITableViewController <UIAlertViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UISwitch *pocketSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *versionDetailLabel;
@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UISwitch *lockRotationSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *accountLinkedLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *accountLinkedCell;
+@property (weak, nonatomic) IBOutlet UILabel *initialViewLabel;
+@property (weak, nonatomic) IBOutlet UIPickerView *initialViewPicker;
 
 - (IBAction)pocketSwitchChanged:(id)sender;
 - (IBAction)doneButtonPressed:(id)sender;
