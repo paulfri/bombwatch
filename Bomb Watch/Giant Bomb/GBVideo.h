@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSURL *apiDetailURL;
 @property (strong, nonatomic) NSURL *siteDetailURL;
 @property (strong, nonatomic) NSURL *videoURL;
+@property (strong, nonatomic) NSURL *videoMobileURL;
 @property (strong, nonatomic) NSURL *videoLowURL;
 @property (strong, nonatomic) NSURL *videoHighURL;
 @property (strong, nonatomic) NSURL *videoHDURL;

@@ -170,9 +170,8 @@
         BWVideoDetailViewController *destination = [segue destinationViewController];
         BWDownload *dl = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
         destination.video = (GBVideo *)dl.video;
+        destination.preselectedQuality = [dl.quality copy];
     }
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
 
 #pragma mark - pausing/resuming downloads

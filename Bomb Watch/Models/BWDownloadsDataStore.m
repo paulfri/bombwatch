@@ -55,20 +55,15 @@
 
     switch (quality) {
         case BWDownloadVideoQualityMobile:
-            // TODO: grep the low path and replace '_800' with '.ipod'
-            download.path = [video.videoLowURL absoluteString];
-            break;
+            download.path = [video.videoMobileURL absoluteString]; break;
         case BWDownloadVideoQualityLow:
-            download.path = [video.videoLowURL absoluteString];
-            break;
+            download.path = [video.videoLowURL absoluteString]; break;
         case BWDownloadVideoQualityHigh:
-            download.path = [video.videoHighURL absoluteString];
-            break;
+            download.path = [video.videoHighURL absoluteString]; break;
         case BWDownloadVideoQualityHD:
-            download.path = [video.videoHDURL absoluteString];
-            break;
+            download.path = [video.videoHDURL absoluteString]; break;
         default:
-            break;
+            download.path = [video.videoLowURL absoluteString]; break;
     }
 
     NSString *filename = [NSString stringWithFormat:@"%@-%d.mp4", download.videoID, [download.quality intValue]];

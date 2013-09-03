@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 @class GBVideo;
-@class EVCircularProgressView;
 
 @interface BWVideoDetailViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
@@ -25,12 +24,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *watchedButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *downloadButton;
 
-// ?
-@property (weak, nonatomic) IBOutlet EVCircularProgressView *progressView;
+// used for preloading the quality when coming from downloads view
+@property (strong, nonatomic) NSNumber *preselectedQuality;
 
 - (IBAction)actionButtonPressed:(id)sender;
-
 - (IBAction)playButtonPressed:(id)sender;
 - (IBAction)downloadButtonPressed:(id)sender;
 - (IBAction)favoriteButtonPressed:(id)sender;

@@ -25,6 +25,9 @@
             self.imageMediumURL = [NSURL URLWithString:dictionary[@"image"][@"medium_url"]];
         }
 
+        NSString *mobileURLString = [((NSString *)dictionary[@"low_url"]) stringByReplacingOccurrencesOfString:@"_800"
+                                                                                                    withString:@".ipod"];
+        self.videoMobileURL = [NSURL URLWithString:mobileURLString];
         self.videoLowURL = [NSURL URLWithString:dictionary[@"low_url"]];
         self.videoHighURL = [NSURL URLWithString:dictionary[@"high_url"]];
 
@@ -59,7 +62,8 @@
                            @"high_url":[self.videoHighURL absoluteString],
                            @"hd_url":[self.videoHDURL absoluteString],
                            @"publish_date":[df stringFromDate:self.publishDate],
-                           @"site_detail_url":[self.siteDetailURL absoluteString]};
+                           @"site_detail_url":[self.siteDetailURL absoluteString],
+                           @"length_seconds":self.lengthInSeconds};
 
     [encoder encodeObject:dict forKey:@"dictionary"];
 }

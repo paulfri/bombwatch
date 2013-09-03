@@ -9,7 +9,6 @@
 #import "BWVideoDetailViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "GBVideo.h"
-//#import <MobileCoreServices/UTCoreTypes.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "PocketAPIActivity.h"
 #import "PocketAPI.h"
@@ -17,7 +16,7 @@
 #import "AFNetworking.h"
 #import "AFDownloadRequestOperation.h"
 #import "GiantBombAPIClient.h"
-#import "EVCircularProgressView.h"
+//#import "EVCircularProgressView.h"
 #import "BWDownloadsDataStore.h"
 #import "BWDownload.h"
 
@@ -71,11 +70,14 @@
     // quality picker
     self.qualityPicker.delegate = self;
     self.qualityPicker.dataSource = self;
-    [self.qualityPicker reloadAllComponents];
+}
 
-    // downloads
-    [self selectBestQuality];
-    [self updateWatchedButton];
+- (void)viewWillAppear:(BOOL)animated {
+    if (self.preselectedQuality)
+        [self selectQuality:[self.preselectedQuality intValue]];
+    else
+        [self selectBestQuality];
+    [self refreshViews];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -93,9 +95,6 @@
                                              selector:@selector(markDownloadError:)
                                                  name:@"VideoDownloadErrorNotification"
                                                object:nil];
-    
-    [self refreshDownloadList];
-    [self.tableView reloadData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -118,7 +117,6 @@
 }
 
 - (void)refreshDownloadList {
-    // TODO: consider refactoring this to only include completed downloads
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Download"];
     fetchRequest.fetchBatchSize = 5;
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"videoID == %@", self.video.videoID];
@@ -128,15 +126,17 @@
 
 - (void)selectBestQuality {
     [self refreshDownloadList];
-    [self.qualityPicker reloadAllComponents];
     if (self.downloads.count > 0) {
-        BWDownload *highestQualityDL = (BWDownload *)self.downloads[0];
-        [self.qualityPicker selectRow:[highestQualityDL.quality intValue] inComponent:0 animated:NO];
-        [self pickerView:self.qualityPicker didSelectRow:[highestQualityDL.quality intValue] inComponent:0];
+        int quality = [((BWDownload *)self.downloads[0]).quality intValue];
+        [self selectQuality:quality];
     } else {
-        [self.qualityPicker selectRow:kDefaultQuality inComponent:0 animated:NO];
-        [self pickerView:self.qualityPicker didSelectRow:kDefaultQuality inComponent:0];
+        [self selectQuality:kDefaultQuality];
     }
+}
+
+- (void)selectQuality:(int)quality {
+    [self.qualityPicker selectRow:quality inComponent:0 animated:NO];
+    [self pickerView:self.qualityPicker didSelectRow:quality inComponent:0];
 }
 
 - (NSString *)durationLabelText {
@@ -232,8 +232,11 @@
     NSString *current = qualities[row];
 
     for (BWDownload *download in self.downloads) {
-        if ([download.quality intValue] == row && download.complete) {
-            current = [current stringByAppendingString:@" (saved)"];
+        if ([download.quality intValue] == row) {
+            if (download.complete)
+                current = [current stringByAppendingString:@" (downloaded)"];
+            else
+                current = [current stringByAppendingString:@" (downloading)"];
             break;
         }
     }
@@ -242,8 +245,7 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-#warning make this update the download toolbar item to grey it out if it's already downloaded/downloading for the selected quality
-    self.qualityLabel.text = [self pickerView:pickerView titleForRow:row forComponent:component];
+    [self refreshViews];
 }
 
 #pragma mark - UIPickerViewDataSource protocol methods
@@ -262,7 +264,7 @@
     return ![[self.video.videoHDURL absoluteString] isEqual: GiantBombVideoEmptyURL];
 }
 
-#pragma mark - IBActions
+#pragma mark - Video player control
 
 - (IBAction)playButtonPressed:(id)sender {
     self.player = [[MPMoviePlayerViewController alloc] init];
@@ -272,11 +274,10 @@
     self.player.moviePlayer.fullscreen = YES;
     self.player.moviePlayer.allowsAirPlay = YES;
 
-    if ([contentURL isFileURL]) { // for downloaded
+    if ([contentURL isFileURL])
         self.player.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
-    } else { // for streamed
+    else
         self.player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
-    }
 
     NSNumber *playbackTime = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"][[NSString stringWithFormat:@"%@", self.video.videoID]];
     [self.player.moviePlayer setInitialPlaybackTime:[playbackTime doubleValue]];
@@ -303,15 +304,15 @@
     if (self.player.moviePlayer.currentPlaybackTime >= self.player.moviePlayer.duration) {
         [self.video setWatched];
         [progress removeObjectForKey:key];
-    } else
+    } else if (self.player.moviePlayer.currentPlaybackTime > 0) {
         [progress setObject:playback forKey:key];
+    }
 
     [[NSUserDefaults standardUserDefaults] setObject:[progress copy] forKey:@"videoProgress"];
     self.durationLabel.text = [self durationLabelText];
     [self updateWatchedButton];
 }
 
-// TODO: make this take quality as an input
 - (NSURL *)videoURLForQuality:(int)quality {
     NSURL *path;
 
@@ -327,48 +328,96 @@
     if (path == nil) {
         switch (quality) {
             case BWDownloadVideoQualityMobile:
-                // TODO: use mobile URL when avail
-                path = self.video.videoLowURL;
-                break;
+                path = self.video.videoMobileURL; break;
             case BWDownloadVideoQualityLow:
-                path = self.video.videoLowURL;
-                break;
+                path = self.video.videoLowURL; break;
             case BWDownloadVideoQualityHigh:
-                path = self.video.videoHighURL;
-                break;
+                path = self.video.videoHighURL; break;
             case BWDownloadVideoQualityHD:
-                path = self.video.videoHDURL;
-                break;
+                path = self.video.videoHDURL; break;
             default:
-                path = self.video.videoLowURL;
-                break;
+                path = self.video.videoLowURL; break;
         }
     }
 
     return path;
 }
 
+#pragma mark - Action sheet
+
 - (IBAction)actionButtonPressed:(id)sender {
     NSArray *activityItems;
     NSArray *applicationActivities;
-
+    
     if([PocketAPI sharedAPI].loggedIn) {
         PocketAPIActivity *pocketActivity = [[PocketAPIActivity alloc] init];
         applicationActivities = @[pocketActivity];
     }
-
+    
     activityItems = @[self.video];
-
+    
     UIActivityViewController *activityController = [[UIActivityViewController alloc]
                                                     initWithActivityItems:activityItems
                                                     applicationActivities:applicationActivities];
     [self presentViewController:activityController animated:YES completion:nil];
 }
 
+#pragma mark - Favorites
+
 - (IBAction)favoriteButtonPressed:(id)sender {
     // TODO: show image with status
     [SVProgressHUD showSuccessWithStatus:@"Favorited"];
 }
+
+#pragma mark - Downloads
+
+- (IBAction)downloadButtonPressed:(id)sender {
+    [[BWDownloadsDataStore defaultStore] createDownloadWithVideo:self.video
+                                                         quality:[self.qualityPicker selectedRowInComponent:0]];
+    [SVProgressHUD showSuccessWithStatus:@"Downloading"];
+    [self refreshViews];
+}
+
+- (void)updateDownloadButton {
+    int quality = [self.qualityPicker selectedRowInComponent:0];
+    BOOL enabled = YES;
+
+    for (BWDownload *download in self.downloads) {
+        if ([download.quality intValue] == quality) {
+            if (download.complete)
+                self.downloadButton.image = [UIImage imageNamed:@"ToolbarDownloadFull"];
+            else
+                self.downloadButton.image = [UIImage imageNamed:@"ToolbarDownload"];
+            enabled = NO;
+            break;
+        }
+    }
+
+    if (enabled)
+        self.downloadButton.image = [UIImage imageNamed:@"ToolbarDownload"];
+    
+    self.downloadButton.enabled = enabled;
+}
+
+- (void)markDownloadProgress:(NSNotification *)notification {
+//    NSDictionary *dict = [notification userInfo];
+//    BWDownload *download = dict[@"download"];
+//    GBVideo *video = (GBVideo *)download.video;
+//    if ([video.videoID isEqualToNumber:self.video.videoID]) {
+//        [self.progressView setProgress:[dict[@"progress"] floatValue] animated:YES];
+//        self.progressView.hidden = NO;
+//    }
+}
+
+- (void)markDownloadComplete:(NSNotification *)notification {
+    [self refreshViews];
+}
+
+- (void)markDownloadError:(NSNotification *)notification {
+    [self refreshViews];
+}
+
+#pragma mark - Watched status
 
 - (IBAction)watchedButtonPressed:(id)sender {
     // TODO: show image with status
@@ -383,17 +432,19 @@
         [self.video setUnwatched];
         [SVProgressHUD showSuccessWithStatus:@"Unwatched"];
     }
-    
+
     [self updateWatchedButton];
 }
 
 - (void)updateWatchedButton {
-    if ([self.video isWatched]) {
+    if ([self.video isWatched])
         self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheckFull"];
-    } else {
+    else
         self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheck"];
-    }
 }
+
+
+#pragma mark - Utility
 
 - (void)dismiss {
     [self.navigationController popViewControllerAnimated:YES];
@@ -402,44 +453,15 @@
                                                   object:nil];
 }
 
-#pragma mark - Downloads
-
-- (IBAction)downloadButtonPressed:(id)sender {
-    [SVProgressHUD showSuccessWithStatus:@"Downloading"];
-    self.progressView.hidden = NO;
-
-    [[BWDownloadsDataStore defaultStore] createDownloadWithVideo:self.video
-                                                         quality:[self.qualityPicker selectedRowInComponent:0]];
+- (void)refreshViews {
+    [self refreshDownloadList];
+    [self updateDownloadButton];
+    [self updateWatchedButton];
+    [self.qualityPicker reloadAllComponents];
+    self.qualityLabel.text = [self pickerView:self.qualityPicker
+                                  titleForRow:[self.qualityPicker selectedRowInComponent:0]
+                                 forComponent:0];
+    [self.tableView reloadData];
 }
-
-- (void)markDownloadProgress:(NSNotification *)notification {
-//    NSDictionary *dict = [notification userInfo];
-//    BWDownload *download = dict[@"download"];
-//    GBVideo *video = (GBVideo *)download.video;
-//    if ([video.videoID isEqualToNumber:self.video.videoID]) {
-//        [self.progressView setProgress:[dict[@"progress"] floatValue] animated:YES];
-//        self.progressView.hidden = NO;
-//    }
-}
-
-- (void)markDownloadComplete:(NSNotification *)notification {
-    NSDictionary *dict = [notification userInfo];
-    BWDownload *download = dict[@"download"];
-    GBVideo *video = (GBVideo *)download.video;
-    if ([video.videoID isEqualToNumber:self.video.videoID]) {
-        [self selectBestQuality];
-    }
-}
-
-- (void)markDownloadError:(NSNotification *)notification {
-//    NSDictionary *dict = [notification userInfo];
-//    BWDownload *download = dict[@"download"];
-//    GBVideo *video = (GBVideo *)download.video;
-//    if ([video.videoID isEqualToNumber:self.video.videoID]) {
-//        [self.progressView setProgress:0 animated:NO];
-//        self.progressView.hidden = NO;
-//    }
-}
-
 
 @end

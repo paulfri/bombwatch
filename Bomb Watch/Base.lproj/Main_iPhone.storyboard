@@ -415,52 +415,52 @@
         <scene sceneID="JvP-0V-ydo">
             <objects>
                 <tableViewController id="3qt-wd-5me" customClass="BWVideoListViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="89" sectionHeaderHeight="22" sectionFooterHeight="22" id="wXq-pT-ciJ">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" id="wXq-pT-ciJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="VideoCell" rowHeight="89" id="dGh-Uw-0zD">
-                                <rect key="frame" x="0.0" y="86" width="320" height="89"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="VideoCell" rowHeight="65" id="dGh-Uw-0zD">
+                                <rect key="frame" x="0.0" y="86" width="320" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dGh-Uw-0zD" id="iTB-0S-FaB">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="88"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="64"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2VI-OL-Dr6">
-                                            <rect key="frame" x="2" y="2" width="82" height="84"/>
+                                            <rect key="frame" x="2" y="2" width="60" height="60"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="82" id="bLi-MN-qhx"/>
+                                                <constraint firstAttribute="width" constant="60" id="raH-HB-Pxf"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unprofessional Fridays" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTw-zb-PR2">
-                                            <rect key="frame" x="89" y="0.0" width="198" height="34"/>
+                                            <rect key="frame" x="67" y="-6" width="222" height="34"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This application is so unprofessional!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="198" translatesAutoresizingMaskIntoConstraints="NO" id="yK7-zF-QGL">
-                                            <rect key="frame" x="89" y="25" width="198" height="34"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="This application is so unprofessional!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="yK7-zF-QGL">
+                                            <rect key="frame" x="67" y="20" width="222" height="34"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="VTw-zb-PR2" firstAttribute="top" secondItem="iTB-0S-FaB" secondAttribute="top" id="3xY-ck-icu"/>
-                                        <constraint firstItem="yK7-zF-QGL" firstAttribute="top" secondItem="iTB-0S-FaB" secondAttribute="top" constant="25" id="5wA-FZ-x58"/>
-                                        <constraint firstAttribute="trailing" secondItem="VTw-zb-PR2" secondAttribute="trailing" id="Hca-5s-sJ1"/>
-                                        <constraint firstItem="VTw-zb-PR2" firstAttribute="leading" secondItem="2VI-OL-Dr6" secondAttribute="trailing" constant="5" id="NQl-Kf-aZd"/>
-                                        <constraint firstAttribute="bottom" secondItem="2VI-OL-Dr6" secondAttribute="bottom" constant="2" id="ZU5-Cl-xoV"/>
-                                        <constraint firstItem="2VI-OL-Dr6" firstAttribute="leading" secondItem="iTB-0S-FaB" secondAttribute="leading" constant="2" id="ahG-pI-sEN"/>
-                                        <constraint firstItem="yK7-zF-QGL" firstAttribute="width" secondItem="VTw-zb-PR2" secondAttribute="width" id="b3v-71-9dp"/>
-                                        <constraint firstItem="yK7-zF-QGL" firstAttribute="leading" secondItem="iTB-0S-FaB" secondAttribute="leading" constant="89" id="cnG-an-jEd"/>
-                                        <constraint firstItem="2VI-OL-Dr6" firstAttribute="top" secondItem="iTB-0S-FaB" secondAttribute="top" constant="2" id="l6y-dc-nbq"/>
-                                        <constraint firstAttribute="bottom" secondItem="VTw-zb-PR2" secondAttribute="bottom" constant="54" id="p7X-MW-rBa"/>
-                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="yK7-zF-QGL" secondAttribute="bottom" constant="4" id="tcP-A9-DFn"/>
+                                        <constraint firstItem="yK7-zF-QGL" firstAttribute="top" secondItem="VTw-zb-PR2" secondAttribute="bottom" constant="-8" id="Glu-bZ-emg"/>
+                                        <constraint firstItem="2VI-OL-Dr6" firstAttribute="top" secondItem="iTB-0S-FaB" secondAttribute="top" constant="2" id="M4c-s2-Kaw"/>
+                                        <constraint firstItem="VTw-zb-PR2" firstAttribute="top" secondItem="iTB-0S-FaB" secondAttribute="top" constant="-6" id="NLW-Do-sz2"/>
+                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="yK7-zF-QGL" secondAttribute="bottom" constant="2" id="WoV-aq-Sel"/>
+                                        <constraint firstItem="2VI-OL-Dr6" firstAttribute="leading" secondItem="iTB-0S-FaB" secondAttribute="leading" constant="2" id="a2c-wt-iVm"/>
+                                        <constraint firstItem="2VI-OL-Dr6" firstAttribute="centerY" secondItem="iTB-0S-FaB" secondAttribute="centerY" id="dq2-I8-wFU"/>
+                                        <constraint firstItem="VTw-zb-PR2" firstAttribute="leading" secondItem="2VI-OL-Dr6" secondAttribute="trailing" constant="5" id="gMu-IS-XPe"/>
+                                        <constraint firstItem="yK7-zF-QGL" firstAttribute="width" secondItem="VTw-zb-PR2" secondAttribute="width" id="gSR-IW-1h2"/>
+                                        <constraint firstItem="VTw-zb-PR2" firstAttribute="leading" secondItem="yK7-zF-QGL" secondAttribute="leading" id="jkG-yS-kRe"/>
+                                        <constraint firstItem="yK7-zF-QGL" firstAttribute="top" secondItem="iTB-0S-FaB" secondAttribute="top" constant="20" symbolic="YES" id="rKG-cS-Dk9"/>
+                                        <constraint firstAttribute="trailing" secondItem="VTw-zb-PR2" secondAttribute="trailing" constant="-2" id="vBJ-Pr-Sd1"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -473,7 +473,13 @@
                             <outlet property="delegate" destination="3qt-wd-5me" id="Nzv-8m-scm"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="QVR-4a-3md"/>
+                    <navigationItem key="navigationItem" id="QVR-4a-3md">
+                        <barButtonItem key="rightBarButtonItem" image="SettingsIcon" id="vp0-cN-VtD">
+                            <connections>
+                                <segue destination="Maf-TN-V1b" kind="modal" id="8Ix-D9-JwK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="77p-Nc-MiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -595,7 +601,7 @@
                                                     <rect key="frame" x="0.0" y="-1" width="320" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                     <items>
-                                                        <barButtonItem systemItem="play" id="L4u-j2-O6B">
+                                                        <barButtonItem image="ToolbarPlay" id="L4u-j2-O6B">
                                                             <connections>
                                                                 <action selector="playButtonPressed:" destination="rJ6-uZ-0Hw" id="KFD-3i-5Hv"/>
                                                             </connections>
@@ -745,6 +751,7 @@
                     <connections>
                         <outlet property="bylineLabel" destination="87e-zv-WJu" id="VOJ-tj-hfT"/>
                         <outlet property="descriptionLabel" destination="HGw-PS-Nur" id="Vee-iZ-fr3"/>
+                        <outlet property="downloadButton" destination="0J2-tD-fnd" id="qOb-rE-3tY"/>
                         <outlet property="durationLabel" destination="OII-OA-uWP" id="sx2-Qw-aBO"/>
                         <outlet property="qualityLabel" destination="TVB-C7-xTl" id="4Ie-7A-8nY"/>
                         <outlet property="qualityPicker" destination="fub-Vv-pO4" id="BRT-7W-MlK"/>
@@ -825,9 +832,11 @@
     </scenes>
     <resources>
         <image name="SettingsIcon" width="30" height="30"/>
+        <image name="SettingsIcon" width="30" height="30"/>
         <image name="ToolbarCheck" width="30" height="30"/>
         <image name="ToolbarDownload" width="30" height="30"/>
         <image name="ToolbarFavorite" width="30" height="30"/>
+        <image name="ToolbarPlay" width="30" height="30"/>
         <image name="VideosTabIcon" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -837,5 +846,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="KBT-si-Lhj"/>
+        <segue reference="8Ix-D9-JwK"/>
     </inferredMetricsTieBreakers>
 </document>
