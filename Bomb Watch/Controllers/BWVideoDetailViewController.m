@@ -58,14 +58,33 @@
     // Tweetbot-style image pulldown
     CGRect screenRect = [UIScreen mainScreen].bounds;
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, 180)];
-    [self.imageView setImageWithURL:self.video.imageMediumURL placeholderImage:[UIImage imageNamed:@"VideoPlaceholder"]];
+
+    __block UIImageView *imagePreview = self.imageView;
+    NSURLRequest *request = [NSURLRequest requestWithURL:self.video.imageMediumURL];
+    [self.imageView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        UIImage *playBtn = [UIImage imageNamed:@"video-play-sm"];
+        
+        UIGraphicsBeginImageContextWithOptions(image.size, FALSE, 0.0);
+        [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [playBtn drawInRect:CGRectMake(image.size.width/2 - (playBtn.size.width/2), image.size.height/2 - (playBtn.size.height/2), playBtn.size.width, playBtn.size.height)];
+        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        imagePreview.image = newImage;
+    } failure:nil];
+    
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.cachedImageViewSize = self.imageView.frame;
     [self.tableView addSubview:self.imageView];
     [self.tableView sendSubviewToBack:self.imageView];
     self.edgesForExtendedLayout = UIRectEdgeBottom;
-    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 180)];
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, 180)];
+    self.tableView.tableHeaderView.userInteractionEnabled = YES;
 
+    self.imageView.userInteractionEnabled = YES;
+//    UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(testing)];
+//    [self.imageView addGestureRecognizer:tapped];
+    
     // quality picker
     self.qualityPicker.delegate = self;
     self.qualityPicker.dataSource = self;

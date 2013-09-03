@@ -202,11 +202,11 @@
     __block UIImageView *preview = imagePreview;
     
     [imagePreview setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        UIImage *fgImage = [UIImage imageNamed:@"video-play-sm"];
+        UIImage *playBtn = [UIImage imageNamed:@"video-play-sm"];
 
         UIGraphicsBeginImageContextWithOptions(image.size, FALSE, 0.0);
         [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
-        [fgImage drawInRect:CGRectMake(8, 8, fgImage.size.width, fgImage.size.height)];
+        [playBtn drawInRect:CGRectMake(image.size.width/2 - (playBtn.size.width/2), image.size.height/2 - (playBtn.size.height/2), playBtn.size.width, playBtn.size.height)];
         UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
 

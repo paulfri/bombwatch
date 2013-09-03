@@ -116,7 +116,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Settings" id="nR2-LW-6cu">
+                            <tableViewSection headerTitle="Settings" footerTitle="Default video quality determines what quality will used when selecting the play shortcut from a video list." id="nR2-LW-6cu">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="kUD-8F-TnV">
                                         <rect key="frame" x="0.0" y="303" width="320" height="44"/>
@@ -302,7 +302,7 @@
                             <tableViewSection headerTitle="About" id="ncY-ba-N78">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="SLy-Jm-1jK" style="IBUITableViewCellStyleDefault" id="aka-OZ-0KW">
-                                        <rect key="frame" x="0.0" y="895" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="955" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aka-OZ-0KW" id="slS-bR-hj1">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -319,7 +319,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="9UP-8K-Szh" style="IBUITableViewCellStyleDefault" id="xcJ-aa-Eto">
-                                        <rect key="frame" x="0.0" y="939" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="999" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xcJ-aa-Eto" id="0qo-46-35e">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -336,7 +336,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="DwV-Gv-j2Y" detailTextLabel="WRE-7G-lCp" style="IBUITableViewCellStyleValue1" id="TeB-vr-vel">
-                                        <rect key="frame" x="0.0" y="983" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="1043" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TeB-vr-vel" id="mry-6H-YNO">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -446,7 +446,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="drr-Zf-pla" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5730" y="-4109"/>
+            <point key="canvasLocation" x="-5580" y="-4613"/>
         </scene>
         <!--Categories View Controller - Videos-->
         <scene sceneID="KZt-04-Cha">
@@ -900,6 +900,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="SettingsIcon" width="30" height="30"/>
         <image name="SettingsIcon" width="30" height="30"/>
         <image name="ToolbarCheck" width="30" height="30"/>
         <image name="ToolbarDownload" width="30" height="30"/>
