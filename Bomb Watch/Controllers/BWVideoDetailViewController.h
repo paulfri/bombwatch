@@ -35,4 +35,6 @@
 - (IBAction)favoriteButtonPressed:(id)sender;
 - (IBAction)watchedButtonPressed:(id)sender;
 
+- (void)playVideo;
+
 @end

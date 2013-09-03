@@ -7,6 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import "BWVideoListViewController.h"
 #import "BWVideoDetailViewController.h"
 #import "GiantBombAPIClient.h"
@@ -194,31 +195,56 @@
     if ([video isPremium])
         titleLabel.textColor = [UIColor greenColor];
     
-    UILabel *summaryLabel = (UILabel *)[cell viewWithTag:3];
-    summaryLabel.text = video.summary;
-    
+    ((UILabel *)[cell viewWithTag:3]).text = video.summary;
+
     UIImageView *imagePreview = (UIImageView *)[cell viewWithTag:1];
-    [imagePreview setImageWithURL:(NSURL *)video.imageIconURL placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"]];
-    cell.separatorInset = UIEdgeInsetsMake(0, imagePreview.bounds.size.width + 12, 0, 0);
-
-    if (!imagePreview.layer.masksToBounds) {
-        CALayer *mask = [CALayer layer];
-        mask.contents = (id)[[UIImage imageNamed:@"VideoListImageMask"] CGImage];
-        mask.frame = CGRectMake(0, 0, imagePreview.bounds.size.width, imagePreview.bounds.size.height);
-        imagePreview.layer.mask = mask;
-        imagePreview.layer.masksToBounds = YES;
-    }
-
-    if (cell.gestureRecognizers.count == 0) {
-        UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-        [imagePreview addGestureRecognizer:tapped];
-    }
+    NSURLRequest *request = [NSURLRequest requestWithURL:video.imageIconURL];
+    __block UIImageView *preview = imagePreview;
     
+    [imagePreview setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        UIImage *fgImage = [UIImage imageNamed:@"video-play-sm"];
+
+        UIGraphicsBeginImageContextWithOptions(image.size, FALSE, 0.0);
+        [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [fgImage drawInRect:CGRectMake(8, 8, fgImage.size.width, fgImage.size.height)];
+        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+
+        preview.image = newImage;
+    } failure:nil];
+
+    // one-time configuration
+    if (cell.gestureRecognizers.count == 0) {
+        UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playVideo:)];
+        [imagePreview addGestureRecognizer:tapped];
+
+        imagePreview.layer.masksToBounds = YES;
+        imagePreview.layer.cornerRadius = 4;
+        cell.separatorInset = UIEdgeInsetsMake(0, imagePreview.bounds.size.width + 11, 0, 0);
+    }
+
     return cell;
 }
 
-- (void)handleTap:(id)sender {
-    NSLog(@"tap");
+- (void)playVideo:(id)sender {
+    UITapGestureRecognizer *senderRec = (UITapGestureRecognizer *)sender;
+    UITableViewCell *cell = (UITableViewCell *)senderRec.view.superview.superview.superview;
+//    NSLog(@"%@", [senderRec.view.superview.superview.superview class]);
+    GBVideo *video = [self videoForRowAtIndexPath:[self.tableView indexPathForCell:cell]];
+
+//    NSLog(@"%@", [self.tableView indexPathForCell:cell]);
+//
+    MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] init];
+    player.moviePlayer.fullscreen = YES;
+    player.moviePlayer.allowsAirPlay = YES;
+//
+//    // TODO: support default quality and local playback
+    NSURL *contentURL = video.videoMobileURL;
+    player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
+    
+    player.moviePlayer.contentURL = contentURL;
+    [self presentMoviePlayerViewControllerAnimated:player];
+    [player.moviePlayer play];
 }
 
 #pragma mark - UIScrollView delegate methods

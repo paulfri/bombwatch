@@ -274,18 +274,20 @@
 #pragma mark - Video player control
 
 - (IBAction)playButtonPressed:(id)sender {
+    [self playVideo];
+}
+
+- (void)playVideo {
     self.player = [[MPMoviePlayerViewController alloc] init];
-
-    NSURL *contentURL = [self videoURLForQuality:[self.qualityPicker selectedRowInComponent:0]];
-
     self.player.moviePlayer.fullscreen = YES;
     self.player.moviePlayer.allowsAirPlay = YES;
 
+    NSURL *contentURL = [self videoURLForQuality:[self.qualityPicker selectedRowInComponent:0]];
     if ([contentURL isFileURL])
         self.player.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
     else
         self.player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
-
+    
     NSNumber *playbackTime = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"][[NSString stringWithFormat:@"%@", self.video.videoID]];
     [self.player.moviePlayer setInitialPlaybackTime:[playbackTime doubleValue]];
 
@@ -294,13 +296,13 @@
                                              selector:@selector(movieFinishedPlaying:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:self.player.moviePlayer];
-
+    
     self.player.moviePlayer.contentURL = contentURL;
     [self presentMoviePlayerViewControllerAnimated:self.player];
     [self.player.moviePlayer play];
 }
 
-- (void) movieFinishedPlaying: (NSNotification *)notification {
+- (void)movieFinishedPlaying: (NSNotification *)notification {
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:MPMoviePlayerPlaybackDidFinishNotification
                                                   object:self.player.moviePlayer];

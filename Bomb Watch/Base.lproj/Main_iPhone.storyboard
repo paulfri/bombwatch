@@ -901,7 +901,6 @@
     </scenes>
     <resources>
         <image name="SettingsIcon" width="30" height="30"/>
-        <image name="SettingsIcon" width="30" height="30"/>
         <image name="ToolbarCheck" width="30" height="30"/>
         <image name="ToolbarDownload" width="30" height="30"/>
         <image name="ToolbarFavorite" width="30" height="30"/>
