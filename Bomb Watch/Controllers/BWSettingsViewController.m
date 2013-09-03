@@ -12,8 +12,8 @@
 #import "SVProgressHUD.h"
 
 #define kDefaultViewSection     2
-#define kDefaultViewCell        4
-#define kDefaultViewPickerCell  5
+#define kDefaultViewCell        3
+#define kDefaultViewPickerCell  4
 
 @interface BWSettingsViewController ()
 
@@ -66,7 +66,6 @@
     self.pocketSwitch.on = self.pocket.loggedIn;
     self.lockRotationSwitch.on = [defaults boolForKey:@"lockRotation"];
     self.showTrailersSwitch.on = [defaults boolForKey:@"showTrailersInLatest"];
-    self.showPremiumSwitch.on = [defaults boolForKey:@"showPremiumInLatest"];
     self.versionDetailLabel.text = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 }
 
@@ -132,11 +131,6 @@
 - (IBAction)showTrailersSwitchChanged:(id)sender {
     UISwitch *control = (UISwitch *)sender;
     [[NSUserDefaults standardUserDefaults] setBool:control.on forKey:@"showTrailersInLatest"];
-}
-
-- (IBAction)showPremiumSwitchChanged:(id)sender {
-    UISwitch *control = (UISwitch *)sender;
-    [[NSUserDefaults standardUserDefaults] setBool:control.on forKey:@"showPremiumInLatest"];
 }
 
 - (IBAction)lockRotationSwitchChanged:(id)sender {

@@ -50,7 +50,6 @@
 
 - (NSDictionary *)defaultPreferences {
     return @{@"showTrailersInLatest": @YES,
-              @"showPremiumInLatest": @NO,
                @"rotationLockVideos": @NO,
                       @"initialView": @"Videos",
                            @"apiKey": GiantBombDefaultAPIKey,

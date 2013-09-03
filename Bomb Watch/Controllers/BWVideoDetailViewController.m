@@ -302,11 +302,12 @@
     NSNumber *playback = [NSNumber numberWithDouble:self.player.moviePlayer.currentPlaybackTime];
     NSString *key = [NSString stringWithFormat:@"%@", self.video.videoID];
 
-    if (self.player.moviePlayer.currentPlaybackTime >= self.player.moviePlayer.duration) {
-        [self.video setWatched];
-        [progress removeObjectForKey:key];
-    } else if (self.player.moviePlayer.currentPlaybackTime > 0) {
-        [progress setObject:playback forKey:key];
+    if (self.player.moviePlayer.currentPlaybackTime > 0) {
+        if (self.player.moviePlayer.currentPlaybackTime >= self.player.moviePlayer.duration) {
+            [self.video setWatched];
+            [progress removeObjectForKey:key];
+        } else
+            [progress setObject:playback forKey:key];
     }
 
     [[NSUserDefaults standardUserDefaults] setObject:[progress copy] forKey:@"videoProgress"];

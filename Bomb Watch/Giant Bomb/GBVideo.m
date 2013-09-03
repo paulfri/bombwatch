@@ -31,9 +31,10 @@
         self.videoLowURL = [NSURL URLWithString:dictionary[@"low_url"]];
         self.videoHighURL = [NSURL URLWithString:dictionary[@"high_url"]];
 
-        if(dictionary[@"hd_url"] != nil)
-            self.videoHDURL = [NSURL URLWithString:dictionary[@"hd_url"]];
-        else
+        if(dictionary[@"hd_url"] != nil) {
+            NSString *hdURL = [NSString stringWithFormat:@"%@%@%@", (NSString *)dictionary[@"hd_url"], @"&api_key=", [[NSUserDefaults standardUserDefaults] stringForKey:@"apiKey"]];
+            self.videoHDURL = [NSURL URLWithString:hdURL];
+        } else
             self.videoHDURL = [NSURL URLWithString:GiantBombVideoEmptyURL];
 
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
