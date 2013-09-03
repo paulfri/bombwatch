@@ -16,8 +16,12 @@
 @property (weak, nonatomic) IBOutlet UISwitch *lockRotationSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *accountLinkedLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *accountLinkedCell;
+
 @property (weak, nonatomic) IBOutlet UILabel *initialViewLabel;
 @property (weak, nonatomic) IBOutlet UIPickerView *initialViewPicker;
+
+@property (weak, nonatomic) IBOutlet UIPickerView *defaultQualityPicker;
+@property (weak, nonatomic) IBOutlet UILabel *defaultQualityLabel;
 
 - (IBAction)pocketSwitchChanged:(id)sender;
 - (IBAction)doneButtonPressed:(id)sender;

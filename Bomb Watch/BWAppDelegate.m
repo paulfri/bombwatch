@@ -52,6 +52,7 @@
     return @{@"showTrailersInLatest": @YES,
                @"rotationLockVideos": @NO,
                       @"initialView": @"Videos",
+                   @"defaultQuality": @"Mobile",
                            @"apiKey": GiantBombDefaultAPIKey,
                     @"videosWatched": @[],
                     @"videoProgress": @{}};

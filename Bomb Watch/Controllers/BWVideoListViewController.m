@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Laika Cosmonautics. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "BWVideoListViewController.h"
 #import "BWVideoDetailViewController.h"
 #import "GiantBombAPIClient.h"
@@ -190,9 +191,8 @@
     else
         titleLabel.textColor = [UIColor blackColor];
 
-    if ([video isPremium]) {
+    if ([video isPremium])
         titleLabel.textColor = [UIColor greenColor];
-    }
     
     UILabel *summaryLabel = (UILabel *)[cell viewWithTag:3];
     summaryLabel.text = video.summary;
@@ -200,6 +200,12 @@
     UIImageView *imagePreview = (UIImageView *)[cell viewWithTag:1];
     [imagePreview setImageWithURL:(NSURL *)video.imageIconURL placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"]];
     cell.separatorInset = UIEdgeInsetsMake(0, imagePreview.bounds.size.width + 12, 0, 0);
+
+    CALayer *mask = [CALayer layer];
+    mask.contents = (id)[[UIImage imageNamed:@"VideoListImageMask"] CGImage];
+    mask.frame = CGRectMake(0, 0, imagePreview.bounds.size.width, imagePreview.bounds.size.height);
+    imagePreview.layer.mask = mask;
+    imagePreview.layer.masksToBounds = YES;
     
     return cell;
 }

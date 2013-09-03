@@ -29,12 +29,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Videos";
-
     self.navigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Videos"
                                                   image:[UIImage imageNamed:@"VideosTabIcon"]
                                           selectedImage:[UIImage imageNamed:@"VideosTabIconFull"]];
 
 
+    // bomb table header
     CGRect screenRect = [UIScreen mainScreen].bounds;
     UIImageView *bombImageView = [[UIImageView alloc] initWithFrame:CGRectMake(screenRect.size.width / 2 - 10, 0, 20, 40)];
     [bombImageView setImage:[UIImage imageNamed:@"BombTableHeader"]];
@@ -43,12 +43,9 @@
     [headerView sendSubviewToBack:bombImageView];
     self.tableView.tableHeaderView = headerView;
     [self.tableView setContentInset:UIEdgeInsetsMake(-bombImageView.bounds.size.height, 0.0f, 0.0f, 0.0f)];
-    
+
     self.featuredCategories = @[@"Latest", @"Quick Looks", @"Features", @"Events", @"Trailers"];
-
-    self.enduranceRuns = @[@"Persona 4", @"The Matrix Online", @"Deadly Premonition BR",
-                           @"Deadly Premonition VJ", @"Chrono Trigger"];
-
+    self.enduranceRuns = @[@"Persona 4", @"The Matrix Online", @"Deadly Premonition", @"Chrono Trigger"];
     self.otherCategories = @[@"TANG", @"Reviews", @"Subscriber"];
 
 }

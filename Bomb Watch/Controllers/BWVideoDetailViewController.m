@@ -21,7 +21,6 @@
 #import "BWDownload.h"
 
 // default quality when no downloads are present
-#define kDefaultQuality     BWDownloadVideoQualityLow
 #define kQualityCell        1
 #define kQualityPickerCell  2
 #define kVideoTitleCell     3
@@ -130,13 +129,21 @@
         int quality = [((BWDownload *)self.downloads[0]).quality intValue];
         [self selectQuality:quality];
     } else {
-        [self selectQuality:kDefaultQuality];
+        [self selectQuality:[self defaultQuality]];
     }
 }
 
 - (void)selectQuality:(int)quality {
     [self.qualityPicker selectRow:quality inComponent:0 animated:NO];
     [self pickerView:self.qualityPicker didSelectRow:quality inComponent:0];
+}
+
+- (int)defaultQuality {
+    NSArray *qualities = @[@"Mobile", @"Low", @"High", @"HD"];
+    int qual = [qualities indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:@"defaultQuality"]];
+    if (qual >= 0)
+        return qual;
+    return BWDownloadVideoQualityLow;
 }
 
 - (NSString *)durationLabelText {
@@ -303,7 +310,7 @@
     NSString *key = [NSString stringWithFormat:@"%@", self.video.videoID];
 
     if (self.player.moviePlayer.currentPlaybackTime > 0) {
-        if (self.player.moviePlayer.currentPlaybackTime >= self.player.moviePlayer.duration) {
+        if (self.player.moviePlayer.currentPlaybackTime >= (self.player.moviePlayer.duration * 0.95)) {
             [self.video setWatched];
             [progress removeObjectForKey:key];
         } else

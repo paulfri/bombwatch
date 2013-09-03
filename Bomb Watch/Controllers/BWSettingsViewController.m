@@ -15,11 +15,17 @@
 #define kDefaultViewCell        3
 #define kDefaultViewPickerCell  4
 
+#define kDefaultQualitySection    2
+#define kDefaultQualityCell       5
+#define kDefaultQualityPickerCell 6
+
 @interface BWSettingsViewController ()
 
 @property (strong, nonatomic) PocketAPI *pocket;
 @property (strong, nonatomic) NSArray *defaultViewOptions;
-@property BOOL pickerVisible;
+@property (strong, nonatomic) NSArray *defaultQualityOptions;
+@property BOOL viewPickerVisible;
+@property BOOL qualityPickerVisible;
 
 @end
 
@@ -38,6 +44,11 @@
     NSString *initialView = [[NSUserDefaults standardUserDefaults] stringForKey:@"initialView"];
     self.initialViewLabel.text = initialView;
     [self.initialViewPicker selectRow:[self.defaultViewOptions indexOfObject:initialView] inComponent:0 animated:NO];
+
+    self.defaultQualityOptions = @[@"Mobile", @"Low", @"High", @"HD"];
+    NSString *defaultQuality = [[NSUserDefaults standardUserDefaults] stringForKey:@"defaultQuality"];
+    self.defaultQualityLabel.text = defaultQuality;
+    [self.defaultQualityPicker selectRow:[self.defaultQualityOptions indexOfObject:defaultQuality] inComponent:0 animated:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -98,7 +109,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == kDefaultViewSection && indexPath.row == kDefaultViewCell) {
-        self.pickerVisible = !self.pickerVisible;
+        self.viewPickerVisible = !self.viewPickerVisible;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    } else if (indexPath.section == kDefaultQualitySection && indexPath.row == kDefaultQualityCell) {
+        self.qualityPickerVisible = !self.qualityPickerVisible;
         [self.tableView beginUpdates];
         [self.tableView endUpdates];
     }
@@ -107,7 +122,10 @@
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == kDefaultViewPickerCell) {
-        if (self.pickerVisible) return 162;
+        if (self.viewPickerVisible) return 162;
+        else return 0;
+    } else if (indexPath.row == kDefaultQualityPickerCell) {
+        if (self.qualityPickerVisible) return 162;
         else return 0;
     }
     return 44;
@@ -183,15 +201,16 @@
     return 30.0;
 }
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return self.defaultViewOptions[row];
-}
-
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    NSString *initialView = [self pickerView:pickerView titleForRow:row forComponent:component];
-    [[NSUserDefaults standardUserDefaults] setObject:initialView
-                                              forKey:@"initialView"];
-    self.initialViewLabel.text = initialView;
+    if (pickerView == self.initialViewPicker) {
+        NSString *initialView = [self pickerView:pickerView titleForRow:row forComponent:component];
+        [[NSUserDefaults standardUserDefaults] setObject:initialView forKey:@"initialView"];
+        self.initialViewLabel.text = initialView;
+    } else if (pickerView == self.defaultQualityPicker) {
+        NSString *defaultQuality = [self pickerView:pickerView titleForRow:row forComponent:component];
+        [[NSUserDefaults standardUserDefaults] setObject:defaultQuality forKey:@"defaultQuality"];
+        self.defaultQualityLabel.text = defaultQuality;
+    }
 }
 
 #pragma mark - UIPickerViewDataSource protocol methods
@@ -201,8 +220,19 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return self.defaultViewOptions.count;
+    if (pickerView == self.initialViewPicker)
+        return self.defaultViewOptions.count;
+    else if (pickerView == self.defaultQualityPicker)
+        return self.defaultQualityOptions.count;
+    return 0;
 }
 
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    if (pickerView == self.initialViewPicker)
+        return self.defaultViewOptions[row];
+    else if (pickerView == self.defaultQualityPicker)
+        return self.defaultQualityOptions[row];
+    return @"Unknown";
+}
 
 @end
