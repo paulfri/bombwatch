@@ -19,6 +19,7 @@
 //#import "EVCircularProgressView.h"
 #import "BWDownloadsDataStore.h"
 #import "BWDownload.h"
+#import "OpenOnGBActivity.h"
 
 // default quality when no downloads are present
 #define kQualityCell        1
@@ -160,7 +161,7 @@
 - (int)defaultQuality {
     NSArray *qualities = @[@"Mobile", @"Low", @"High", @"HD"];
     int qual = [qualities indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:@"defaultQuality"]];
-    if (qual >= 0)
+    if (qual >= 0 && qual <= 3)
         return qual;
     return BWDownloadVideoQualityLow;
 }
@@ -376,19 +377,16 @@
 #pragma mark - Action sheet
 
 - (IBAction)actionButtonPressed:(id)sender {
-    NSArray *activityItems;
+    NSArray *activityItems = @[self.video, self.video.siteDetailURL];
     NSArray *applicationActivities;
-    
-    if([PocketAPI sharedAPI].loggedIn) {
-        PocketAPIActivity *pocketActivity = [[PocketAPIActivity alloc] init];
-        applicationActivities = @[pocketActivity];
-    }
-    
-    activityItems = @[self.video];
-    
+
+    PocketAPIActivity *pocketActivity = [[PocketAPIActivity alloc] init];
+    OpenOnGBActivity *gbActivity = [[OpenOnGBActivity alloc] init];
+    applicationActivities = @[gbActivity, pocketActivity];
     UIActivityViewController *activityController = [[UIActivityViewController alloc]
                                                     initWithActivityItems:activityItems
                                                     applicationActivities:applicationActivities];
+
     [self presentViewController:activityController animated:YES completion:nil];
 }
 

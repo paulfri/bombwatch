@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BWTableViewController.h"
 
-@interface BWCategoriesViewController : UITableViewController
+@interface BWCategoriesViewController : BWTableViewController
 
 @end

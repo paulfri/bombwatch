@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BWTableViewController.h"
 
-@interface BWSettingsViewController : UITableViewController <UIAlertViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface BWSettingsViewController : BWTableViewController <UIAlertViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UISwitch *pocketSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *versionDetailLabel;
