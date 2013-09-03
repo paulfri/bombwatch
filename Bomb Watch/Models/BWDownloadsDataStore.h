@@ -40,7 +40,8 @@ enum {
 - (BOOL)deleteDownload:(BWDownload *)download;
 - (BOOL)deleteDownloadWithIndexPath:(NSIndexPath *)indexPath;
 
-- (void)cancelRequestForDownload:(BWDownload *)download withProgressView:(EVCircularProgressView *)progressView;
+- (void)cancelRequestForDownload:(BWDownload *)download;
+- (void)cancelRequestForDownload:(BWDownload *)download withProgress:(float)progress;
 - (void)resumeDownload:(BWDownload *)download;
 
 @end

@@ -441,52 +441,41 @@
         <scene sceneID="JvP-0V-ydo">
             <objects>
                 <tableViewController id="3qt-wd-5me" customClass="BWVideoListViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" id="wXq-pT-ciJ">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="54" sectionHeaderHeight="22" sectionFooterHeight="22" id="wXq-pT-ciJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="VideoCell" rowHeight="65" id="dGh-Uw-0zD">
-                                <rect key="frame" x="0.0" y="86" width="320" height="65"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="VideoCell" rowHeight="54" id="dGh-Uw-0zD">
+                                <rect key="frame" x="0.0" y="86" width="320" height="54"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dGh-Uw-0zD" id="iTB-0S-FaB">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="64"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="53"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2VI-OL-Dr6">
-                                            <rect key="frame" x="2" y="2" width="60" height="60"/>
+                                            <rect key="frame" x="2" y="2" width="48" height="48"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="60" id="raH-HB-Pxf"/>
+                                                <constraint firstAttribute="width" constant="48" id="ZP7-uc-HF0"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unprofessional Fridays" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTw-zb-PR2">
-                                            <rect key="frame" x="67" y="-6" width="222" height="34"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unprofessional Fridays" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="VTw-zb-PR2">
+                                            <rect key="frame" x="58" y="2" width="229" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="This application is so unprofessional!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="yK7-zF-QGL">
-                                            <rect key="frame" x="67" y="20" width="222" height="34"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="yK7-zF-QGL" firstAttribute="top" secondItem="VTw-zb-PR2" secondAttribute="bottom" constant="-8" id="Glu-bZ-emg"/>
-                                        <constraint firstItem="2VI-OL-Dr6" firstAttribute="top" secondItem="iTB-0S-FaB" secondAttribute="top" constant="2" id="M4c-s2-Kaw"/>
-                                        <constraint firstItem="VTw-zb-PR2" firstAttribute="top" secondItem="iTB-0S-FaB" secondAttribute="top" constant="-6" id="NLW-Do-sz2"/>
-                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="yK7-zF-QGL" secondAttribute="bottom" constant="2" id="WoV-aq-Sel"/>
-                                        <constraint firstItem="2VI-OL-Dr6" firstAttribute="leading" secondItem="iTB-0S-FaB" secondAttribute="leading" constant="2" id="a2c-wt-iVm"/>
-                                        <constraint firstItem="2VI-OL-Dr6" firstAttribute="centerY" secondItem="iTB-0S-FaB" secondAttribute="centerY" id="dq2-I8-wFU"/>
-                                        <constraint firstItem="VTw-zb-PR2" firstAttribute="leading" secondItem="2VI-OL-Dr6" secondAttribute="trailing" constant="5" id="gMu-IS-XPe"/>
-                                        <constraint firstItem="yK7-zF-QGL" firstAttribute="width" secondItem="VTw-zb-PR2" secondAttribute="width" id="gSR-IW-1h2"/>
-                                        <constraint firstItem="VTw-zb-PR2" firstAttribute="leading" secondItem="yK7-zF-QGL" secondAttribute="leading" id="jkG-yS-kRe"/>
-                                        <constraint firstItem="yK7-zF-QGL" firstAttribute="top" secondItem="iTB-0S-FaB" secondAttribute="top" constant="20" symbolic="YES" id="rKG-cS-Dk9"/>
-                                        <constraint firstAttribute="trailing" secondItem="VTw-zb-PR2" secondAttribute="trailing" constant="-2" id="vBJ-Pr-Sd1"/>
+                                        <constraint firstItem="2VI-OL-Dr6" firstAttribute="centerY" secondItem="iTB-0S-FaB" secondAttribute="centerY" id="15m-8V-zJu"/>
+                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="VTw-zb-PR2" secondAttribute="bottom" constant="2" id="2kR-XJ-Pf9"/>
+                                        <constraint firstAttribute="trailing" secondItem="VTw-zb-PR2" secondAttribute="trailing" id="4DX-7A-28l"/>
+                                        <constraint firstItem="2VI-OL-Dr6" firstAttribute="top" secondItem="iTB-0S-FaB" secondAttribute="top" constant="2" id="Bb6-1u-ehE"/>
+                                        <constraint firstItem="VTw-zb-PR2" firstAttribute="leading" secondItem="2VI-OL-Dr6" secondAttribute="trailing" constant="8" symbolic="YES" id="MNS-1Y-xSh"/>
+                                        <constraint firstItem="2VI-OL-Dr6" firstAttribute="leading" secondItem="iTB-0S-FaB" secondAttribute="leading" constant="2" id="RRr-HU-R1o"/>
+                                        <constraint firstItem="VTw-zb-PR2" firstAttribute="top" secondItem="2VI-OL-Dr6" secondAttribute="top" id="m3l-dA-nDM"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -857,6 +846,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="SettingsIcon" width="30" height="30"/>
         <image name="SettingsIcon" width="30" height="30"/>
         <image name="ToolbarCheck" width="30" height="30"/>
         <image name="ToolbarDownload" width="30" height="30"/>

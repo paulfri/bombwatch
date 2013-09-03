@@ -42,7 +42,7 @@
     [SVProgressHUD show];
     [self loadNextPage];
 
-    //TODO find better way to do this
+    // TODO find better way to do this
     self.navigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Videos"
                                                                          image:[UIImage imageNamed:@"VideosTabIcon"]
                                                                  selectedImage:[UIImage imageNamed:@"VideosTabIconFull"]];

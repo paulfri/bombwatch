@@ -83,6 +83,7 @@
 
 - (void)markDownloadComplete:(NSNotification *)notification {
     NSDictionary *dict = [notification userInfo];
+#warning this might not be working because it's matching against objects - check IDs/qualities instead?
     BWDownload *download = dict[@"download"];
     NSIndexPath *path = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] indexPathForObject:download];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
@@ -188,7 +189,7 @@
     } else {
         // TODO: replace success with pause image
         [SVProgressHUD showSuccessWithStatus:@"Download paused"];
-        [[BWDownloadsDataStore defaultStore] cancelRequestForDownload:download withProgressView:view];
+        [[BWDownloadsDataStore defaultStore] cancelRequestForDownload:download withProgress:view.progress];
     }
 
     [self.tableView reloadData];

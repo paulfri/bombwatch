@@ -112,19 +112,19 @@
 #pragma mark - Downloading helpers
 
 - (void)cancelRequestForDownload:(BWDownload *)download {
-    [self cancelRequestForDownload:download withProgressView:nil];
+    [self cancelRequestForDownload:download withProgress:0];
 }
 
-- (void)cancelRequestForDownload:(BWDownload *)download withProgressView:(EVCircularProgressView *)progressView {
+- (void)cancelRequestForDownload:(BWDownload *)download withProgress:(float)progress {
     for (NSOperation *op in [[[GiantBombAPIClient defaultClient] operationQueue] operations]) {
         if ([op isKindOfClass:[AFDownloadRequestOperation class]]) {
             AFDownloadRequestOperation *dl = (AFDownloadRequestOperation *)op;
             if ([[dl.request.URL absoluteString] isEqualToString:download.path]) {
                 [op cancel];
                 download.complete = nil;
-                if (progressView != nil) {
+                if (progress != 0) {
                     download.paused = [NSDate date];
-                    download.progress = [NSNumber numberWithFloat:progressView.progress];
+                    download.progress = [NSNumber numberWithFloat:progress];
                 }
             }
         }
