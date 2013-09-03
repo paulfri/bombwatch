@@ -12,11 +12,15 @@
 
 @interface OpenOnGBActivity ()
 
-@property (strong, nonatomic) NSArray *videoURLs;
+@property (strong, nonatomic) NSURL *theURL;
 
 @end
 
 @implementation OpenOnGBActivity
+
++ (UIActivityCategory)activityCategory {
+    return UIActivityCategoryAction;
+}
 
 - (NSString *)activityType {
 	return @"OpenOnGB";
@@ -38,30 +42,20 @@
 }
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems {
-	NSMutableArray *urls = [NSMutableArray array];
-	
 	for (id activityItem in activityItems) {
 		if ([activityItem isKindOfClass:[NSURL class]]) {
-			[urls addObject:activityItem];
+			self.theURL = activityItem;
+            return;
 		}
 	}
-
-	self.videoURLs = [urls copy];
 }
 
 - (void)performActivity {
-//	__block NSUInteger urlsLeft = self.videoURLs.count;
-//	__block BOOL videoFailed = NO;
-
-	for (NSURL *url in self.videoURLs) {
-        // do something
-	}
-}
-
-- (void)activityDidFinish:(BOOL)completed {
-    if (!completed)
-        [SVProgressHUD showErrorWithStatus:@"Error"];
-    [super activityDidFinish:completed];
+    if (self.theURL != nil && [self.theURL isKindOfClass:[NSURL class]]) {
+        [[UIApplication sharedApplication] openURL:self.theURL];
+        [self activityDidFinish:YES];
+    }
+    [self activityDidFinish:NO];
 }
 
 @end

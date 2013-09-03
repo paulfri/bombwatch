@@ -80,4 +80,9 @@
     [super activityDidFinish:completed];
 }
 
+
++ (UIActivityCategory)activityCategory {
+    return UIActivityCategoryShare;
+}
+
 @end
