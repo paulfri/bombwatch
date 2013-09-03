@@ -309,7 +309,7 @@
     
     NSNumber *playbackTime = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"][[NSString stringWithFormat:@"%@", self.video.videoID]];
     [self.player.moviePlayer setInitialPlaybackTime:[playbackTime doubleValue]];
-
+    
     // TODO try using MPMoviePlayerDidExitFullscreenNotification instead
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(movieFinishedPlaying:)
