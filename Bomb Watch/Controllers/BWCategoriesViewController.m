@@ -34,10 +34,16 @@
                                                   image:[UIImage imageNamed:@"VideosTabIcon"]
                                           selectedImage:[UIImage imageNamed:@"VideosTabIconFull"]];
 
-    // TODO: this should be constantized somewhere
-//    self.videoCategories = @[@"Latest", @"Quick Looks", @"Features", @"Events",
-//                             @"Endurance Run", @"TANG", @"Reviews", @"Trailers",
-//                             @"Premium"];
+
+    CGRect screenRect = [UIScreen mainScreen].bounds;
+    UIImageView *bombImageView = [[UIImageView alloc] initWithFrame:CGRectMake(screenRect.size.width / 2 - 10, 0, 20, 40)];
+    [bombImageView setImage:[UIImage imageNamed:@"BombTableHeader"]];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, bombImageView.bounds.size.width, bombImageView.bounds.size.height)];
+    [headerView addSubview:bombImageView];
+    [headerView sendSubviewToBack:bombImageView];
+    self.tableView.tableHeaderView = headerView;
+    [self.tableView setContentInset:UIEdgeInsetsMake(-bombImageView.bounds.size.height, 0.0f, 0.0f, 0.0f)];
+    
     self.featuredCategories = @[@"Latest", @"Quick Looks", @"Features", @"Events", @"Trailers"];
 
     self.enduranceRuns = @[@"Persona 4", @"The Matrix Online", @"Deadly Premonition BR",

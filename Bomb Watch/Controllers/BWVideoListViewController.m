@@ -79,7 +79,7 @@
     // TODO: Constantize these at some point
     NSArray *videoCategories = @[@"Quick Looks", @"Features", @"Events",
                              @"Endurance Run", @"TANG", @"Reviews", @"Trailers",
-                             @"Premium"];
+                             @"Subscriber"];
     NSArray *videoEndpoints  = @[@"3", @"8", @"6", @"5", @"4", @"2", @"7", @"10"];
 
     NSDictionary *dict = [[NSDictionary alloc] initWithObjects:videoEndpoints
@@ -97,12 +97,9 @@
         query = self.category;
     } else {
         // latest videos
-        filter = @"video_type:3|8|6|5|4|2";
+        filter = @"video_type:3|8|6|5|4|2|10";
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showTrailersInLatest"]) {
             filter = [filter stringByAppendingString:@"|7"];
-        }
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showPremiumInLatest"]) {
-            filter = [filter stringByAppendingString:@"|10"];
         }
     }
 
@@ -193,6 +190,10 @@
     else
         titleLabel.textColor = [UIColor blackColor];
 
+    if ([video isPremium]) {
+        titleLabel.textColor = [UIColor greenColor];
+    }
+    
     UILabel *summaryLabel = (UILabel *)[cell viewWithTag:3];
     summaryLabel.text = video.summary;
     

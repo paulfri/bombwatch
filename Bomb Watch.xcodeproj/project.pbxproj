@@ -24,7 +24,6 @@
 		DACE827117CD035800E23051 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DACE827017CD035800E23051 /* main.m */; };
 		DACE827517CD035800E23051 /* BWAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DACE827417CD035800E23051 /* BWAppDelegate.m */; };
 		DACE827817CD035800E23051 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DACE827617CD035800E23051 /* Main_iPhone.storyboard */; };
-		DACE827B17CD035800E23051 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DACE827917CD035800E23051 /* Main_iPad.storyboard */; };
 		DACE827E17CD035800E23051 /* BWVideoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DACE827D17CD035800E23051 /* BWVideoListViewController.m */; };
 		DACE828A17CD035800E23051 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE828917CD035800E23051 /* XCTest.framework */; };
 		DACE828B17CD035800E23051 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826417CD035700E23051 /* Foundation.framework */; };
@@ -79,7 +78,6 @@
 		DACE827317CD035800E23051 /* BWAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BWAppDelegate.h; sourceTree = "<group>"; };
 		DACE827417CD035800E23051 /* BWAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BWAppDelegate.m; sourceTree = "<group>"; };
 		DACE827717CD035800E23051 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		DACE827A17CD035800E23051 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		DACE827C17CD035800E23051 /* BWVideoListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BWVideoListViewController.h; sourceTree = "<group>"; };
 		DACE827D17CD035800E23051 /* BWVideoListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BWVideoListViewController.m; sourceTree = "<group>"; };
 		DACE828817CD035800E23051 /* Bomb WatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bomb WatchTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -201,7 +199,6 @@
 				DACE827317CD035800E23051 /* BWAppDelegate.h */,
 				DACE827417CD035800E23051 /* BWAppDelegate.m */,
 				DACE827617CD035800E23051 /* Main_iPhone.storyboard */,
-				DACE827917CD035800E23051 /* Main_iPad.storyboard */,
 				DA41280517CE38C5003C4F59 /* Images.xcassets */,
 				DA68EBD717D02F9F00451F14 /* Activities */,
 				DADDA78317D193E70076D2EA /* Models */,
@@ -352,7 +349,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DACE827B17CD035800E23051 /* Main_iPad.storyboard in Resources */,
 				DA41280617CE38C5003C4F59 /* Images.xcassets in Resources */,
 				DACE827817CD035800E23051 /* Main_iPhone.storyboard in Resources */,
 				DACE826F17CD035800E23051 /* InfoPlist.strings in Resources */,
@@ -460,14 +456,6 @@
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
 		};
-		DACE827917CD035800E23051 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DACE827A17CD035800E23051 /* Base */,
-			);
-			name = Main_iPad.storyboard;
-			sourceTree = "<group>";
-		};
 		DACE829217CD035800E23051 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -563,6 +551,7 @@
 				INFOPLIST_FILE = "Bomb Watch/Bomb Watch-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -581,6 +570,7 @@
 				INFOPLIST_FILE = "Bomb Watch/Bomb Watch-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -27,6 +27,7 @@
 @property (strong, nonatomic) NSNumber *lengthInSeconds;
 @property (strong, nonatomic) NSDate *publishDate;
 @property (strong, nonatomic) NSString *user;
+@property (strong, nonatomic) NSString *videoType;
 
 // missing: video_type
 // missing: youtube_id
@@ -36,6 +37,8 @@
 - (BOOL)isWatched;
 - (void)setWatched;
 - (void)setUnwatched;
+
+- (BOOL)isPremium;
 
 @end
 

@@ -18,6 +18,7 @@
         self.name = dictionary[@"name"];
         self.summary = dictionary[@"deck"];
         self.user = dictionary[@"user"];
+        self.videoType = dictionary[@"video_type"];
         
         // this shouldn't be necessary for images of videos, but leaving it in just in case
         if(dictionary[@"image"] != nil && dictionary[@"image"] != (id)[NSNull null]) {
@@ -54,11 +55,13 @@
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
 
-    NSDictionary *dict = @{@"id": self.videoID,
+    NSDictionary *dict = @{@"id":self.videoID,
                            @"name":self.name,
                            @"deck":self.summary,
                            @"user":self.user,
-                           @"image":@{@"icon_url": [self.imageIconURL absoluteString], @"medium_url": [self.imageMediumURL absoluteString]},
+                           @"video_type":self.videoType,
+                           @"image": @{@"icon_url": [self.imageIconURL absoluteString], @"medium_url": [self.imageMediumURL absoluteString]},
+                           @"mobile_url":[self.videoMobileURL absoluteString],
                            @"low_url":[self.videoLowURL absoluteString],
                            @"high_url":[self.videoHighURL absoluteString],
                            @"hd_url":[self.videoHDURL absoluteString],
@@ -95,6 +98,12 @@
         [array removeObject:self.videoID];
     }
     [[NSUserDefaults standardUserDefaults] setObject:[array copy] forKey:@"videosWatched"];
+}
+
+#pragma mark - premium
+
+- (BOOL)isPremium {
+    return [self.videoType isEqualToString:@"Subscriber"];
 }
 
 @end
