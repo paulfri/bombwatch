@@ -512,7 +512,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="53"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2VI-OL-Dr6">
+                                        <imageView tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2VI-OL-Dr6">
                                             <rect key="frame" x="2" y="3" width="48" height="48"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <constraints>
@@ -901,6 +901,7 @@
     </scenes>
     <resources>
         <image name="SettingsIcon" width="30" height="30"/>
+        <image name="SettingsIcon" width="30" height="30"/>
         <image name="ToolbarCheck" width="30" height="30"/>
         <image name="ToolbarDownload" width="30" height="30"/>
         <image name="ToolbarFavorite" width="30" height="30"/>
@@ -913,7 +914,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="9Kc-r7-xUm"/>
+        <segue reference="8Ix-D9-JwK"/>
         <segue reference="KBT-si-Lhj"/>
     </inferredMetricsTieBreakers>
 </document>

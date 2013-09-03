@@ -201,13 +201,24 @@
     [imagePreview setImageWithURL:(NSURL *)video.imageIconURL placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"]];
     cell.separatorInset = UIEdgeInsetsMake(0, imagePreview.bounds.size.width + 12, 0, 0);
 
-    CALayer *mask = [CALayer layer];
-    mask.contents = (id)[[UIImage imageNamed:@"VideoListImageMask"] CGImage];
-    mask.frame = CGRectMake(0, 0, imagePreview.bounds.size.width, imagePreview.bounds.size.height);
-    imagePreview.layer.mask = mask;
-    imagePreview.layer.masksToBounds = YES;
+    if (!imagePreview.layer.masksToBounds) {
+        CALayer *mask = [CALayer layer];
+        mask.contents = (id)[[UIImage imageNamed:@"VideoListImageMask"] CGImage];
+        mask.frame = CGRectMake(0, 0, imagePreview.bounds.size.width, imagePreview.bounds.size.height);
+        imagePreview.layer.mask = mask;
+        imagePreview.layer.masksToBounds = YES;
+    }
+
+    if (cell.gestureRecognizers.count == 0) {
+        UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        [imagePreview addGestureRecognizer:tapped];
+    }
     
     return cell;
+}
+
+- (void)handleTap:(id)sender {
+    NSLog(@"tap");
 }
 
 #pragma mark - UIScrollView delegate methods
