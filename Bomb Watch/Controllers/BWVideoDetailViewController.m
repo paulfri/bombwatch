@@ -46,20 +46,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = self.video.name;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.pickerVisible = NO;
-    
     self.navigationController.navigationBar.translucent = NO;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    [self drawImagePulldown];
+
     self.titleLabel.text = self.video.name;
     self.descriptionLabel.text = self.video.summary;
     self.bylineLabel.text = [self bylineLabelText];
     self.durationLabel.text = [self durationLabelText];
+}
 
     // Tweetbot-style image pulldown
+- (void)drawImagePulldown {
     CGRect screenRect = [UIScreen mainScreen].bounds;
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, 180)];
-
+    
     __block UIImageView *imagePreview = self.imageView;
     NSURLRequest *request = [NSURLRequest requestWithURL:self.video.imageMediumURL];
     [self.imageView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
@@ -73,7 +75,7 @@
         
         imagePreview.image = newImage;
     } failure:nil];
-    
+
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.cachedImageViewSize = self.imageView.frame;
     [self.tableView addSubview:self.imageView];
@@ -81,14 +83,8 @@
     self.edgesForExtendedLayout = UIRectEdgeBottom;
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, 180)];
     self.tableView.tableHeaderView.userInteractionEnabled = YES;
-
-    self.imageView.userInteractionEnabled = YES;
-//    UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(testing)];
-//    [self.imageView addGestureRecognizer:tapped];
-    
-    // quality picker
-    self.qualityPicker.delegate = self;
-    self.qualityPicker.dataSource = self;
+    UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playVideo)];
+    [self.tableView.tableHeaderView addGestureRecognizer:tapped];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

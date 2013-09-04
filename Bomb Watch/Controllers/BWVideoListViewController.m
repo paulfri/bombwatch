@@ -39,7 +39,6 @@
     [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
     [self.dateFormatter setTimeStyle:NSDateFormatterLongStyle];
 
-    self.reachedEnd = NO;
     self.page = 1;
     [SVProgressHUD show];
     [self loadNextPage];
@@ -66,9 +65,7 @@
 }
 
 - (BOOL)isEnduranceRun {
-    NSArray *enduranceRuns = @[@"Persona 4", @"Deadly Premonition BR", @"Deadly Premonition VJ",
-                               @"The Matrix Online", @"Chrono Trigger"];
-
+    NSArray *enduranceRuns = @[@"Persona 4", @"Deadly Premonition", @"The Matrix Online", @"Chrono Trigger"];
     return [enduranceRuns containsObject:self.category];
 }
 
@@ -185,26 +182,37 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     GBVideo *video = [self videoForRowAtIndexPath:indexPath];
 
+//    ((UILabel *)[cell viewWithTag:3]).text = video.summary;
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:2];
     titleLabel.text = video.name;
     if ([video isWatched])
         titleLabel.textColor = [UIColor grayColor];
     else
         titleLabel.textColor = [UIColor blackColor];
-
+    
     if ([video isPremium])
         titleLabel.textColor = [UIColor greenColor];
-    
-    ((UILabel *)[cell viewWithTag:3]).text = video.summary;
 
     UIImageView *imagePreview = (UIImageView *)[cell viewWithTag:1];
+    // one-time configuration
+    if (cell.gestureRecognizers.count == 0) {
+        UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playVideo:)];
+        [imagePreview addGestureRecognizer:tapped];
+        cell.separatorInset = UIEdgeInsetsMake(0, imagePreview.bounds.size.width + 11, 0, 0);
+    }
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:video.imageIconURL];
     __block UIImageView *preview = imagePreview;
-    
     [imagePreview setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         UIImage *playBtn = [UIImage imageNamed:@"video-play-sm"];
-
+        
+        // For the corner radius effect I previously used:
+        //     imagePreview.layer.masksToBounds = YES;
+        //     imagePreview.layer.cornerRadius = 4;
+        // ...but this CoreGraphics nonsense is vastly more performant
         UIGraphicsBeginImageContextWithOptions(image.size, FALSE, 0.0);
+        UIBezierPath *roundedRect = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, image.size.width, image.size.height) cornerRadius:4.0];
+        [roundedRect addClip];
         [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
         [playBtn drawInRect:CGRectMake(image.size.width/2 - (playBtn.size.width/2), image.size.height/2 - (playBtn.size.height/2), playBtn.size.width, playBtn.size.height)];
         UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -213,31 +221,18 @@
         preview.image = newImage;
     } failure:nil];
 
-    // one-time configuration
-    if (cell.gestureRecognizers.count == 0) {
-        UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playVideo:)];
-        [imagePreview addGestureRecognizer:tapped];
-
-        imagePreview.layer.masksToBounds = YES;
-        imagePreview.layer.cornerRadius = 4;
-        cell.separatorInset = UIEdgeInsetsMake(0, imagePreview.bounds.size.width + 11, 0, 0);
-    }
-
     return cell;
 }
 
 - (void)playVideo:(id)sender {
     UITapGestureRecognizer *senderRec = (UITapGestureRecognizer *)sender;
     UITableViewCell *cell = (UITableViewCell *)senderRec.view.superview.superview.superview;
-//    NSLog(@"%@", [senderRec.view.superview.superview.superview class]);
     GBVideo *video = [self videoForRowAtIndexPath:[self.tableView indexPathForCell:cell]];
 
-//    NSLog(@"%@", [self.tableView indexPathForCell:cell]);
-//
     MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] init];
     player.moviePlayer.fullscreen = YES;
     player.moviePlayer.allowsAirPlay = YES;
-//
+
 //    // TODO: support default quality and local playback
     NSURL *contentURL = video.videoMobileURL;
     player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
