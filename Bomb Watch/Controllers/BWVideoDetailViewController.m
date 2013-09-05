@@ -65,7 +65,7 @@
     __block UIImageView *imagePreview = self.imageView;
     NSURLRequest *request = [NSURLRequest requestWithURL:self.video.imageMediumURL];
     [self.imageView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        UIImage *playBtn = [UIImage imageNamed:@"video-play-sm"];
+        UIImage *playBtn = [UIImage imageNamed:@"video-play-lg"];
         
         UIGraphicsBeginImageContextWithOptions(image.size, FALSE, 0.0);
         [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
