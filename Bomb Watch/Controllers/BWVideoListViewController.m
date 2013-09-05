@@ -263,6 +263,7 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"showVideoDetailSegue"]) {
         BWVideoDetailViewController *controller = [segue destinationViewController];
+        controller.hidesBottomBarWhenPushed = YES;
         controller.video = [self videoForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
     } else {
         //

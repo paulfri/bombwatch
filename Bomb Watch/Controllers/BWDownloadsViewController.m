@@ -170,6 +170,7 @@
     if ([[segue identifier] isEqualToString:@"showVideoDetailSegue"]) {
         BWVideoDetailViewController *destination = [segue destinationViewController];
         BWDownload *dl = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        destination.hidesBottomBarWhenPushed = YES;
         destination.video = (GBVideo *)dl.video;
         destination.preselectedQuality = [dl.quality copy];
     }
