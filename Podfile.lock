@@ -1,6 +1,6 @@
 PODS:
   - AFDownloadRequestOperation (0.0.2):
-    - AFNetworking (>= 1.1)
+    - AFNetworking (~> 1.1)
   - AFNetworking (2.0.0-RC2):
     - AFNetworking/Core
     - AFNetworking/UIKit+AFNetworking
@@ -8,6 +8,7 @@ PODS:
   - AFNetworking/UIKit+AFNetworking (2.0.0-RC2)
   - MKiCloudSync (0.0.1)
   - PocketAPI (1.0.2)
+  - Reachability (3.1.1)
   - SVProgressHUD (HEAD based on 0.9)
 
 DEPENDENCIES:
@@ -15,13 +16,15 @@ DEPENDENCIES:
   - AFNetworking (~> 2.0.0-RC2)
   - MKiCloudSync
   - PocketAPI (~> 1.0.2)
+  - Reachability
   - SVProgressHUD (HEAD)
 
 SPEC CHECKSUMS:
-  AFDownloadRequestOperation: f8ec82ee8a6273defa5e3a74fdd0be9b0d937fde
+  AFDownloadRequestOperation: cd6a69e0ffbb70dd2a929d9e7ad664d01d873546
   AFNetworking: 6b19d8a0793f342d8c879cd0af9d7488e54addcf
   MKiCloudSync: f3b777b165c893cb6339cc5729b170cba495140e
   PocketAPI: 2ed51391e6ea7a48c707528f782f5a2cb0eab80e
+  Reachability: 2be6bc2fd2bd31d97f5db33e75e4b29c79e95883
   SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
 
 COCOAPODS: 0.23.0

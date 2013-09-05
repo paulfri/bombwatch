@@ -24,6 +24,11 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>Pods-Reachability.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 		<key>Pods-SVProgressHUD.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -43,6 +48,11 @@
 			<true/>
 		</dict>
 		<key>069FCAEEE6F4440AB8F18647</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0D3A08C327C84FB9AF09EC9C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,7 +82,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>2EF35B26EBB945599D49F974</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>31316E1B99EF4E56B969DA5E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>37BE3C68ADD84C5C911B8341</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,7 +122,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>4D6D7872E135416891FBD17A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>53A1B0F1CB2546D8980675A7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>579F91E85EB74E2CBB08D6AB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -132,7 +162,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>8A1D79009A6647C49D80D4FD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>8B9DAD2D983147228E9F6D44</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>937C6B17854F425789EA3B1F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

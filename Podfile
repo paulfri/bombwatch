@@ -5,3 +5,4 @@ pod 'AFDownloadRequestOperation'
 pod 'PocketAPI', '~> 1.0.2'
 pod 'SVProgressHUD', :head
 pod 'MKiCloudSync'
+pod 'Reachability'

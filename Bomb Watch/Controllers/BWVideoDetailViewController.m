@@ -191,7 +191,7 @@
                               @"alex": @"Alex Navarro",
                               @"brad": @"Brad Shoemaker",
                               @"snide": @"Dave Snider",
-                              @"mattbodega": @"Matt Bodega",
+                              @"mattbodega": @"Matthew Kessler",
                               @"marino": @"Marino",
                               @"ryan": @"Ryan Davis",
                               @"rorie": @"Matt Rorie",
@@ -201,6 +201,8 @@
     if (users[self.video.user]) return users[self.video.user];
     return self.video.user;
 }
+
+//
 
 #pragma mark - UITableViewDelegate protocol methods
 
@@ -466,7 +468,6 @@
     else
         self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheck"];
 }
-
 
 #pragma mark - Utility
 
