@@ -61,22 +61,29 @@
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    __block UIBackgroundTaskIdentifier backgroundTaskIdentifier = [application beginBackgroundTaskWithExpirationHandler:^(void) {
+        [application endBackgroundTask:backgroundTaskIdentifier];
+
+        // Need to pause all pending downloads before termination - not sure if it's in here or in applicationWillTerminate:.
+        
+        //    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Download"];
+        //    fetchRequest.fetchBatchSize = 5;
+        //    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"complete == nil"];
+        //    NSArray *incompletes = [[[BWDownloadsDataStore defaultStore] managedObjectContext] executeFetchRequest:fetchRequest error:nil];
+        //
+        //    for (BWDownload *download in incompletes) {
+        //        // TODO: figure out how to save the progress of the download
+        //        [[BWDownloadsDataStore defaultStore] cancelRequestForDownload:download];
+        //    }
+        //    [[[BWDownloadsDataStore defaultStore] managedObjectContext] save:nil];
+        
+        [[GiantBombAPIClient defaultClient] cancelAllOperations];
+    }];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Download"];
-    fetchRequest.fetchBatchSize = 5;
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"complete == nil"];
-    NSArray *incompletes = [[[BWDownloadsDataStore defaultStore] managedObjectContext] executeFetchRequest:fetchRequest error:nil];
-    
-    for (BWDownload *download in incompletes) {
-        // TODO: figure out how to save the progress of the download - notification listening?
-        [[BWDownloadsDataStore defaultStore] cancelRequestForDownload:download];
-    }
-    
-    [[[BWDownloadsDataStore defaultStore] managedObjectContext] save:nil];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -89,6 +96,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [[[BWDownloadsDataStore defaultStore] managedObjectContext] save:nil];
 }
 
 @end

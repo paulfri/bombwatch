@@ -57,7 +57,7 @@
     self.bylineLabel.text = [self bylineLabelText];
     self.durationLabel.text = [self durationLabelText];
     
-    BWSeparatorView *view = [[BWSeparatorView alloc] initWithFrame:CGRectMake(30, 43, 290, 1/[[UIScreen mainScreen] scale])];
+    BWSeparatorView *view = [[BWSeparatorView alloc] initWithFrame:CGRectMake(20, 43, 300, 1/[[UIScreen mainScreen] scale])];
     view.backgroundColor = UIColorFromRGB(0xc8c7cc);
     view.selectColor = UIColorFromRGB(0xd9d9d9);
     [self.qualityCell addSubview:view];

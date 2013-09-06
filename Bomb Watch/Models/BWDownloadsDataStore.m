@@ -152,6 +152,10 @@
                                                           userInfo:@{@"download": blockDownload,
                                                                      @"path": blockDownload.path}];
 
+        UILocalNotification *completion = [[UILocalNotification alloc] init];
+        completion.alertBody = [NSString stringWithFormat:@"\"%@\" finished downloading.", ((GBVideo *)download.video).name];
+        [[UIApplication sharedApplication] presentLocalNotificationNow:completion];
+        
         // all of this seems to be unncessary and maybe not even work.
         // saving on the main thread for now. who knows what fun bugs will happen
         // TODO maybe try this (2nd answer) http://stackoverflow.com/questions/2138252/core-data-multi-thread-application
