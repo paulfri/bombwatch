@@ -2,13 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "PocketActivity~iphone.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "PocketActivity@2x~iphone.png"
+      "filename" : "mail.png"
     }
   ],
   "info" : {

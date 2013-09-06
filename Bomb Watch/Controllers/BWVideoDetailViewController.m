@@ -20,6 +20,7 @@
 #import "BWDownloadsDataStore.h"
 #import "BWDownload.h"
 #import "OpenOnGBActivity.h"
+#import "BWSeparatorView.h"
 
 // default quality when no downloads are present
 #define kQualityCell        1
@@ -55,6 +56,11 @@
     self.descriptionLabel.text = self.video.summary;
     self.bylineLabel.text = [self bylineLabelText];
     self.durationLabel.text = [self durationLabelText];
+    
+    BWSeparatorView *view = [[BWSeparatorView alloc] initWithFrame:CGRectMake(30, 43, 290, 1/[[UIScreen mainScreen] scale])];
+    view.backgroundColor = UIColorFromRGB(0xc8c7cc);
+    view.selectColor = UIColorFromRGB(0xd9d9d9);
+    [self.qualityCell addSubview:view];
 }
 
     // Tweetbot-style image pulldown
@@ -223,14 +229,11 @@
         else
             return 0;
     } else if (indexPath.row == kVideoTitleCell) {
-        // TODO: calculate this
-        return 64;
+        return [self.titleLabel sizeThatFits:self.titleLabel.frame.size].height + 10;
     } else if (indexPath.row == kVideoBylineCell) {
-        return 44;
+        return 40;
     } else if (indexPath.row == kVideoDetailCell) {
-//        return [[self class] heightOfCellWithIngredientLine:self.descriptionLabel.text
-//                                         withSuperviewWidth:[UIScreen mainScreen].bounds.size.width];
-        return self.descriptionLabel.bounds.size.height * 1.05;
+        return [self.descriptionLabel sizeThatFits:self.descriptionLabel.frame.size].height + 10;
     }
     return 44;
 }
