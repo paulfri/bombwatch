@@ -72,6 +72,15 @@
     [audioSession setActive:YES error:nil];
     [audioSession setMode:AVAudioSessionModeMoviePlayback error:nil];
     
+    NSDictionary *nowPlayingInfo = @{MPMediaItemPropertyTitle:self.video.name,
+                                     MPMediaItemPropertyArtist:@"Giant Bomb",
+                                     MPMediaItemPropertyPlaybackDuration:self.video.lengthInSeconds};
+
+    // TODO
+//    MPNowPlayingInfoPropertyElapsedPlaybackTime:[NSNumber numberWithDouble:self.moviePlayer.currentPlaybackTime]
+//    MPMediaItemPropertyArtwork
+
+    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nowPlayingInfo;
     [self.moviePlayer play];
 }
 
