@@ -10,6 +10,7 @@
 #import "GiantBombAPIClient.h"
 #import "BWDownloadsDataStore.h"
 #import "MKiCloudSync.h"
+#import <AVFoundation/AVFoundation.h>
 
 #define PocketConsumerKey @"17866-6c522817c89aaee6ae6da74f"
 
@@ -19,7 +20,8 @@
     [self.window setTintColor:[UIColor colorWithRed:178.0/255 green:34.0/255 blue:34.0/255 alpha:1]];
     [[PocketAPI sharedAPI] setConsumerKey:PocketConsumerKey];
     [[NSUserDefaults standardUserDefaults] registerDefaults:[self defaultPreferences]];
-
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    
     [NSURLCache setSharedURLCache:[[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
                                                                 diskCapacity:20 * 1024 * 1024
                                                                     diskPath:nil]];
@@ -61,6 +63,7 @@
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+
     __block UIBackgroundTaskIdentifier backgroundTaskIdentifier = [application beginBackgroundTaskWithExpirationHandler:^(void) {
         [application endBackgroundTask:backgroundTaskIdentifier];
 
@@ -97,6 +100,10 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [[[BWDownloadsDataStore defaultStore] managedObjectContext] save:nil];
+}
+
+-(void)remoteControlReceivedWithEvent:(UIEvent *)event {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"BWRemoteControlEventReceived" object:event];
 }
 
 @end

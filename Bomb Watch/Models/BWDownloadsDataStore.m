@@ -191,6 +191,9 @@
                                                           userInfo:@{@"download": blockDownload,
                                                                      @"progress": [NSNumber numberWithFloat:progress],
                                                                      @"path": blockDownload.path}];
+
+#warning set blockDownload.progress in here - maybe modulate it to reduce cpu (don't think IO is an issue)
+
     }];
     
     [[GiantBombAPIClient defaultClient] enqueueHTTPRequestOperation:operation];

@@ -14,6 +14,7 @@
 #import "GBVideo.h"
 #import "UIImageView+AFNetworking.h"
 #import "SVProgressHUD.h"
+#import "BWVideoPlayerViewController.h"
 
 @interface BWVideoListViewController ()
 
@@ -229,17 +230,9 @@
     UITableViewCell *cell = (UITableViewCell *)senderRec.view.superview.superview.superview;
     GBVideo *video = [self videoForRowAtIndexPath:[self.tableView indexPathForCell:cell]];
 
-    MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] init];
-    player.moviePlayer.fullscreen = YES;
-    player.moviePlayer.allowsAirPlay = YES;
-
-//    // TODO: support default quality and local playback
-    NSURL *contentURL = video.videoMobileURL;
-    player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
-    
-    player.moviePlayer.contentURL = contentURL;
+    BWVideoPlayerViewController *player = [[BWVideoPlayerViewController alloc] initWithVideo:video];
     [self presentMoviePlayerViewControllerAnimated:player];
-    [player.moviePlayer play];
+    [player play];
 }
 
 #pragma mark - UIScrollView delegate methods

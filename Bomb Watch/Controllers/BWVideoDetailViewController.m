@@ -21,6 +21,7 @@
 #import "BWDownload.h"
 #import "OpenOnGBActivity.h"
 #import "BWSeparatorView.h"
+#import "BWVideoPlayerViewController.h"
 
 // default quality when no downloads are present
 #define kQualityCell        1
@@ -31,7 +32,7 @@
 
 @interface BWVideoDetailViewController ()
 
-@property (strong, nonatomic) MPMoviePlayerViewController *player;
+@property (strong, nonatomic) BWVideoPlayerViewController *player;
 @property (strong, nonatomic) NSArray *downloads;
 @property BOOL pickerVisible;
 
@@ -89,7 +90,7 @@
     self.edgesForExtendedLayout = UIRectEdgeBottom;
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, 180)];
     self.tableView.tableHeaderView.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playVideo)];
+    UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playButtonPressed:)];
     [self.tableView.tableHeaderView addGestureRecognizer:tapped];
 }
 
@@ -208,8 +209,6 @@
     return self.video.user;
 }
 
-//
-
 #pragma mark - UITableViewDelegate protocol methods
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -289,90 +288,18 @@
 }
 
 - (BOOL)isPremium {
-    return ![[self.video.videoHDURL absoluteString] isEqual: GiantBombVideoEmptyURL];
+    return ![[self.video.videoHDURL absoluteString] isEqual:GiantBombVideoEmptyURL];
 }
 
 #pragma mark - Video player control
 
 - (IBAction)playButtonPressed:(id)sender {
-    [self playVideo];
-}
+    self.player = [[BWVideoPlayerViewController alloc] initWithVideo:self.video
+                                                             quality:[self.qualityPicker selectedRowInComponent:0]
+                                                           downloads:self.downloads];
 
-- (void)playVideo {
-    self.player = [[MPMoviePlayerViewController alloc] init];
-    self.player.moviePlayer.fullscreen = YES;
-    self.player.moviePlayer.allowsAirPlay = YES;
-
-    NSURL *contentURL = [self videoURLForQuality:[self.qualityPicker selectedRowInComponent:0]];
-    if ([contentURL isFileURL])
-        self.player.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
-    else
-        self.player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
-    
-    NSNumber *playbackTime = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"][[NSString stringWithFormat:@"%@", self.video.videoID]];
-    [self.player.moviePlayer setInitialPlaybackTime:[playbackTime doubleValue]];
-    
-    // TODO try using MPMoviePlayerDidExitFullscreenNotification instead
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(movieFinishedPlaying:)
-                                                 name:MPMoviePlayerPlaybackDidFinishNotification
-                                               object:self.player.moviePlayer];
-    
-    self.player.moviePlayer.contentURL = contentURL;
     [self presentMoviePlayerViewControllerAnimated:self.player];
-    [self.player.moviePlayer play];
-}
-
-- (void)movieFinishedPlaying: (NSNotification *)notification {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:MPMoviePlayerPlaybackDidFinishNotification
-                                                  object:self.player.moviePlayer];
-
-    NSMutableDictionary *progress = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"] mutableCopy];
-    NSNumber *playback = [NSNumber numberWithDouble:self.player.moviePlayer.currentPlaybackTime];
-    NSString *key = [NSString stringWithFormat:@"%@", self.video.videoID];
-
-    if (self.player.moviePlayer.currentPlaybackTime > 0) {
-        if (self.player.moviePlayer.currentPlaybackTime >= (self.player.moviePlayer.duration * 0.95)) {
-            [self.video setWatched];
-            [progress removeObjectForKey:key];
-        } else
-            [progress setObject:playback forKey:key];
-    }
-
-    [[NSUserDefaults standardUserDefaults] setObject:[progress copy] forKey:@"videoProgress"];
-    self.durationLabel.text = [self durationLabelText];
-    [self updateWatchedButton];
-}
-
-- (NSURL *)videoURLForQuality:(int)quality {
-    NSURL *path;
-
-    for (BWDownload *download in self.downloads) {
-        if ([download.quality intValue] == quality && download.complete) {
-            NSString *filename = [NSString stringWithFormat:@"%@-%d", download.videoID, [download.quality intValue]];
-            NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-            path = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@.mp4", documentsPath, filename]];
-            break;
-        }
-    }
-    
-    if (path == nil) {
-        switch (quality) {
-            case BWDownloadVideoQualityMobile:
-                path = self.video.videoMobileURL; break;
-            case BWDownloadVideoQualityLow:
-                path = self.video.videoLowURL; break;
-            case BWDownloadVideoQualityHigh:
-                path = self.video.videoHighURL; break;
-            case BWDownloadVideoQualityHD:
-                path = self.video.videoHDURL; break;
-            default:
-                path = self.video.videoLowURL; break;
-        }
-    }
-
-    return path;
+    [self.player play];
 }
 
 #pragma mark - Action sheet
