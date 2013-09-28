@@ -56,7 +56,7 @@
     self.titleLabel.text = self.video.name;
     self.descriptionLabel.text = self.video.summary;
     self.bylineLabel.text = [self bylineLabelText];
-    self.durationLabel.text = [self durationLabelText];
+    [self updateDurationLabel];
     
     BWSeparatorView *view = [[BWSeparatorView alloc] initWithFrame:CGRectMake(20, 43, 300, 1/[[UIScreen mainScreen] scale])];
     view.backgroundColor = UIColorFromRGB(0xc8c7cc);
@@ -169,14 +169,14 @@
     return BWDownloadVideoQualityLow;
 }
 
-- (NSString *)durationLabelText {
+- (void)updateDurationLabel {
     NSTimeInterval played = [[[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"] objectForKey:[NSString stringWithFormat:@"%@", self.video.videoID]] doubleValue];
     NSTimeInterval duration = [self.video.lengthInSeconds intValue];
     
     if (played != 0)
-        return [NSString stringWithFormat:@"Duration: %@ / %@", [self stringFromDuration:played], [self stringFromDuration:duration]];
-
-    return [NSString stringWithFormat:@"Duration: %@", [self stringFromDuration:duration]];
+        self.durationLabel.text = [NSString stringWithFormat:@"Duration: %@ / %@", [self stringFromDuration:played], [self stringFromDuration:duration]];
+    else
+        self.durationLabel.text = [NSString stringWithFormat:@"Duration: %@", [self stringFromDuration:duration]];
 }
 
 - (NSString *)stringFromDuration:(NSTimeInterval)duration {
@@ -297,9 +297,16 @@
     self.player = [[BWVideoPlayerViewController alloc] initWithVideo:self.video
                                                              quality:[self.qualityPicker selectedRowInComponent:0]
                                                            downloads:self.downloads];
-
+    self.player.delegate = self;
     [self presentMoviePlayerViewControllerAnimated:self.player];
     [self.player play];
+}
+
+#pragma mark - BWVideoPlayerDelegate protocol methods
+
+- (void)videoDidFinishPlaying {
+    [self updateWatchedButton];
+    [self updateDurationLabel];
 }
 
 #pragma mark - Action sheet

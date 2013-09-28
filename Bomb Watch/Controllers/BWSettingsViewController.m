@@ -142,10 +142,6 @@
 
 #pragma mark - IB Actions
 
-- (IBAction)doneButtonPressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (IBAction)showTrailersSwitchChanged:(id)sender {
     UISwitch *control = (UISwitch *)sender;
     [[NSUserDefaults standardUserDefaults] setBool:control.on forKey:@"showTrailersInLatest"];

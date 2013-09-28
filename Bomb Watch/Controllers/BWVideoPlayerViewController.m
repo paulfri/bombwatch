@@ -23,7 +23,6 @@
     self = [super init];
     if (self)
         self.video = video;
-#warning set downloads
     return self;
 }
 
@@ -48,6 +47,14 @@
                                                object:nil];
 
     [self setContentURL];
+    
+    if (self.downloads.count == 0) {
+        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Download"];
+        fetchRequest.fetchBatchSize = 5;
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"videoID == %@", self.video.videoID];
+        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"quality" ascending:NO]];
+        self.downloads = [[[BWDownloadsDataStore defaultStore] managedObjectContext] executeFetchRequest:fetchRequest error:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,15 +62,10 @@
 }
 
 - (void)play {
-    // TODO try using MPMoviePlayerDidExitFullscreenNotification instead
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(movieFinishedPlayingNotification:)
-                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+                                                 name:MPMoviePlayerDidExitFullscreenNotification
                                                object:self.moviePlayer];
-
-    NSString *key = [NSString stringWithFormat:@"%@", self.video.videoID];
-    NSNumber *playback = (NSNumber *)[[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"] objectForKey:key];
-    self.moviePlayer.currentPlaybackTime = [playback doubleValue];
 
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
 
@@ -75,17 +77,19 @@
     NSDictionary *nowPlayingInfo = @{MPMediaItemPropertyTitle:self.video.name,
                                      MPMediaItemPropertyArtist:@"Giant Bomb",
                                      MPMediaItemPropertyPlaybackDuration:self.video.lengthInSeconds};
+    //    MPNowPlayingInfoPropertyElapsedPlaybackTime:[NSNumber numberWithDouble:self.moviePlayer.currentPlaybackTime]
+    //    MPMediaItemPropertyArtwork
 
-    // TODO
-//    MPNowPlayingInfoPropertyElapsedPlaybackTime:[NSNumber numberWithDouble:self.moviePlayer.currentPlaybackTime]
-//    MPMediaItemPropertyArtwork
-
+    self.moviePlayer.initialPlaybackTime = [[[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"] objectForKey:[NSString stringWithFormat:@"%@", self.video.videoID]] doubleValue];
+    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"]);
+    
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nowPlayingInfo;
     [self.moviePlayer play];
 }
 
 #pragma mark - Notification handlers
 
+// This is forwarded by the app delegate
 - (void)remoteControlEventNotification:(NSNotification *)notification {
     UIEvent *event = notification.object;
     if (event.type == UIEventTypeRemoteControl) {
@@ -126,9 +130,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:[progress copy] forKey:@"videoProgress"];
     [self dismissMoviePlayerViewControllerAnimated];
 
-#warning create a delegate(?)/protocol to handle finished callbacks
-    //    self.durationLabel.text = [self durationLabelText];
-//    [self updateWatchedButton];
+    [self.delegate videoDidFinishPlaying];
 }
 
 #pragma mark - helpers
@@ -173,6 +175,21 @@
         self.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
 
     self.moviePlayer.contentURL = path;
+}
+
+#pragma mark - Interface orientation
+
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    BOOL landscapeLock = [[NSUserDefaults standardUserDefaults] boolForKey:@"lockRotation"];
+    if (landscapeLock) {
+        return UIInterfaceOrientationMaskLandscape;
+    } else {
+        return UIInterfaceOrientationMaskAllButUpsideDown;
+    }
 }
 
 @end

@@ -52,7 +52,7 @@
 
 - (NSDictionary *)defaultPreferences {
     return @{@"showTrailersInLatest": @NO,
-               @"rotationLockVideos": @YES,
+                     @"lockRotation": @YES,
                       @"initialView": @"Latest",
                    @"defaultQuality": @"Mobile",
                            @"apiKey": GiantBombDefaultAPIKey,
@@ -80,7 +80,7 @@
         //    }
         //    [[[BWDownloadsDataStore defaultStore] managedObjectContext] save:nil];
         
-        [[GiantBombAPIClient defaultClient] cancelAllOperations];
+//        [[GiantBombAPIClient defaultClient] cancelAllOperations];
     }];
 }
 
@@ -102,7 +102,7 @@
     [[[BWDownloadsDataStore defaultStore] managedObjectContext] save:nil];
 }
 
--(void)remoteControlReceivedWithEvent:(UIEvent *)event {
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BWRemoteControlEventReceived" object:event];
 }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4504" systemVersion="13A569" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A584" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3734.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -16,9 +16,9 @@
                     </tabBar>
                     <connections>
                         <segue destination="UCZ-NZ-ex6" kind="relationship" relationship="viewControllers" id="SUk-Ux-ee1"/>
-                        <segue destination="H1S-QW-o0I" kind="relationship" relationship="viewControllers" id="hNz-Hl-Miq"/>
                         <segue destination="1HR-rw-kVr" kind="relationship" relationship="viewControllers" id="Air-1O-d4k"/>
                         <segue destination="Qdn-yg-2JO" kind="relationship" relationship="viewControllers" id="2Q7-LL-jIN"/>
+                        <segue destination="Maf-TN-V1b" kind="relationship" relationship="viewControllers" id="yTx-E0-0yw"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
@@ -353,13 +353,7 @@
                             <outlet property="delegate" destination="ZdN-nA-4Yy" id="thG-Oo-qQD"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Settings" id="cVu-bj-Z1X">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="sEk-ZO-8IC">
-                            <connections>
-                                <action selector="doneButtonPressed:" destination="ZdN-nA-4Yy" id="9V4-Er-i0e"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Settings" id="cVu-bj-Z1X"/>
                     <connections>
                         <outlet property="accountLinkedCell" destination="ymL-Zt-ono" id="4RA-VI-fe0"/>
                         <outlet property="accountLinkedLabel" destination="qfR-kz-bfG" id="rNj-r9-Lga"/>
@@ -375,7 +369,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JmZ-tH-7Ky" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6164" y="-4109"/>
+            <point key="canvasLocation" x="-6596" y="-4077"/>
         </scene>
         <!--About View Controller - About-->
         <scene sceneID="5y6-Z6-wxt">
@@ -490,7 +484,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cpf-XZ-F96" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5714" y="-4109"/>
+            <point key="canvasLocation" x="-6146" y="-4077"/>
         </scene>
         <!--Link Account View Controller - Link Account-->
         <scene sceneID="5sB-kX-og9">
@@ -547,7 +541,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="drr-Zf-pla" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5714" y="-4842"/>
+            <point key="canvasLocation" x="-6146" y="-4810"/>
         </scene>
         <!--Categories View Controller - Videos-->
         <scene sceneID="KZt-04-Cha">
@@ -585,13 +579,7 @@
                             <outlet property="delegate" destination="HlT-IB-UZg" id="kyA-U3-cGf"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Videos" id="bLF-MQ-ZYj">
-                        <barButtonItem key="rightBarButtonItem" image="SettingsIcon" id="2aM-5Q-gEi">
-                            <connections>
-                                <segue destination="Maf-TN-V1b" kind="modal" id="9Kc-r7-xUm"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Videos" id="bLF-MQ-ZYj"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OWQ-CU-I0n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -648,13 +636,7 @@
                             <outlet property="delegate" destination="3qt-wd-5me" id="Nzv-8m-scm"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="QVR-4a-3md">
-                        <barButtonItem key="rightBarButtonItem" image="SettingsIcon" id="vp0-cN-VtD">
-                            <connections>
-                                <segue destination="Maf-TN-V1b" kind="modal" id="8Ix-D9-JwK"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="QVR-4a-3md"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="77p-Nc-MiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -684,31 +666,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xOy-sG-pwQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-6611" y="-1984"/>
-        </scene>
-        <!--Table View Controller - Favorites-->
-        <scene sceneID="VBC-X3-JCk">
-            <objects>
-                <tableViewController id="keY-hV-DQ4" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="uE1-KE-bIk">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="j0e-o9-SdD">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="j0e-o9-SdD" id="THg-Sm-KmV">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Favorites" id="rl8-C8-Q8j"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lnZ-NS-Led" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-8490" y="-3658"/>
         </scene>
         <!--Downloads View Controller - Downloads-->
         <scene sceneID="CKA-pp-gz8">
@@ -964,22 +921,6 @@
             <point key="canvasLocation" x="-7053" y="-2672"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="lwF-0Q-J9F">
-            <objects>
-                <navigationController definesPresentationContext="YES" id="H1S-QW-o0I" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="Kip-zE-6b9"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MQu-ZJ-muA">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="keY-hV-DQ4" kind="relationship" relationship="rootViewController" id="adX-Ff-8Tg"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="P1v-0R-Ug6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-8551" y="-3702"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="yjs-Da-RDa">
             <objects>
                 <navigationController definesPresentationContext="YES" id="Qdn-yg-2JO" sceneMemberID="viewController">
@@ -995,10 +936,11 @@
             </objects>
             <point key="canvasLocation" x="-7053" y="-1984"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller - Settings-->
         <scene sceneID="lRu-aD-adh">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Maf-TN-V1b" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" image="SettingsIcon" id="AmY-0B-qS1"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="u1a-TX-2ER">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1011,7 +953,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yom-p9-280" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6611" y="-4109"/>
+            <point key="canvasLocation" x="-7043" y="-4077"/>
         </scene>
     </scenes>
     <resources>
@@ -1030,7 +972,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="9Kc-r7-xUm"/>
         <segue reference="KBT-si-Lhj"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -25,7 +25,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *defaultQualityLabel;
 
 - (IBAction)pocketSwitchChanged:(id)sender;
-- (IBAction)doneButtonPressed:(id)sender;
 - (IBAction)showTrailersSwitchChanged:(id)sender;
 - (IBAction)lockRotationSwitchChanged:(id)sender;
 
