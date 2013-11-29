@@ -11,13 +11,14 @@
 #import "GBVideo.h"
 #import "BWVideoFetcher.h"
 #import "UIImageView+AFNetworking.h"
+#import "UIImage+ImageEffects.h"
 
 static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
-#define kBWLeftSwipeFraction 0.01
-#define kBWFarLeftSwipeFraction 0.6
-#define kBWRightSwipeFraction 0.01
-#define kBWFarRightSwipeFraction 0.6
+#define kBWLeftSwipeFraction 0.25
+#define kBWFarLeftSwipeFraction 0.65
+#define kBWRightSwipeFraction 0.25
+#define kBWFarRightSwipeFraction 0.65
 
 @implementation BWListController
 
@@ -34,6 +35,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
         self.tableView = tableView;
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
+        self.tableView.enabled = YES;
         
         self.page = 1;
         self.category = category;
@@ -43,10 +45,12 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
         tableViewController.tableView = self.tableView;
         
         self.refreshControl = [[UIRefreshControl alloc] init];
-        [self.refreshControl addTarget:self action:@selector(refreshControlActivated) forControlEvents:UIControlEventValueChanged];
+        [self.refreshControl addTarget:self
+                                action:@selector(refreshControlActivated)
+                      forControlEvents:UIControlEventValueChanged];
         tableViewController.refreshControl = self.refreshControl;
         
-        [self loadVideosForPage:1];
+        [self loadVideosForPage:self.page];
     }
 
     return self;
@@ -60,7 +64,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 - (void)refreshControlActivated
 {
     self.page = 1;
-    [self loadVideosForPage:1];
+    [self loadVideosForPage:self.page];
 }
 
 #pragma mark - table view data source
@@ -68,11 +72,6 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.videos.count;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
 }
 
 - (UITableViewCell *)tableView:(PDGesturedTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -83,11 +82,25 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
         cell = [self initializeCell];
     }
     
-    GBVideo *video = (GBVideo *)self.videos[indexPath.row];
+    GBVideo *video = [self videoAtIndexPath:indexPath];
     cell.textLabel.text = video.name;
-    [cell.imageView setImageWithURL:video.imageIconURL
-                   placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"]];
-    
+
+    UIImageView *imageView = [[UIImageView alloc] init];
+    __block UIImageView *blockView = imageView;
+    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:video.imageMediumURL]
+                     placeholderImage:[UIImage imageNamed:@"black_rectangle"]
+                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    {
+        UIImage *blurredImage = [image applyBlurWithRadius:3.0f
+                                                 tintColor:[UIColor colorWithWhite:0.0 alpha:0.30]
+                                     saturationDeltaFactor:0.9f
+                                                 maskImage:nil];
+        blockView.image = blurredImage;
+    }
+                              failure:nil];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    cell.backgroundView = imageView;
+
     return cell;
 }
 
@@ -184,7 +197,9 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
     [cell addSlidingFraction:brownSlidingFraction];
     
     
+    cell.backgroundColor = [UIColor clearColor];
     [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:18]];
+    cell.textLabel.textColor = [UIColor whiteColor];
     
     return cell;
 }

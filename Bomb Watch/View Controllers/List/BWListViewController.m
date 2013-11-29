@@ -16,9 +16,10 @@
 {
     [super viewDidLoad];
     self.title = self.category;
-    self.listController = [[BWListController alloc] initWithTableView:self.tableView category:self.category];
+    self.listController = [[BWListController alloc] initWithTableView:self.tableView
+                                                             category:self.category];
     self.listController.delegate = self;
-    self.tableView.enabled = YES;
+    self.tableView.backgroundColor = [UIColor blackColor];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -32,6 +33,12 @@
 - (void)videoSelected:(GBVideo *)video
 {
     [self performSegueWithIdentifier:@"kBWVideoDetailSegue" sender:video];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathsForSelectedRows].firstObject
+                                  animated:NO];
 }
 
 @end
