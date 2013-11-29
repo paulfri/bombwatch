@@ -614,10 +614,6 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="AAd-IK-oxx" id="24i-MK-DW4"/>
-                                    <outlet property="delegate" destination="AAd-IK-oxx" id="ufg-lG-iZt"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

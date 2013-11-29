@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "PDGesturedTableView.h"
+#import "BWListController.h"
 
-@interface BWListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
-
-@property (strong, nonatomic) NSMutableArray *videos;
+@interface BWListViewController : UIViewController <UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet PDGesturedTableView *tableView;
+@property (strong, nonatomic) BWListController *listController;
 
 @end
