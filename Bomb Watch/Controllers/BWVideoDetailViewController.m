@@ -13,8 +13,8 @@
 #import "PocketAPIActivity.h"
 #import "PocketAPI.h"
 #import "SVProgressHUD.h"
-#import "AFNetworking.h"
-#import "AFDownloadRequestOperation.h"
+//#import "AFNetworking.h"
+//#import "AFDownloadRequestOperation.h"
 #import "GiantBombAPIClient.h"
 //#import "EVCircularProgressView.h"
 #import "BWDownloadsDataStore.h"
@@ -47,7 +47,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = self.video.name;
     self.navigationController.navigationBar.translucent = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -64,7 +63,7 @@
     [self.qualityCell addSubview:view];
 }
 
-    // Tweetbot-style image pulldown
+// Tweetbot-style image pulldown
 - (void)drawImagePulldown {
     CGRect screenRect = [UIScreen mainScreen].bounds;
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, 180)];
@@ -192,18 +191,18 @@
 
 - (NSString *)bylineLabelText {
     NSDictionary *users = @{@"jeff": @"Jeff Gerstmann",
-                              @"drewbert": @"Drew Scanlon",
-                              @"vinny": @"Vinny Caravella",
-                              @"patrickklepek": @"Patrick Klepek",
-                              @"alex": @"Alex Navarro",
-                              @"brad": @"Brad Shoemaker",
-                              @"snide": @"Dave Snider",
-                              @"mattbodega": @"Matthew Kessler",
-                              @"marino": @"Marino",
-                              @"ryan": @"Ryan Davis",
-                              @"rorie": @"Matt Rorie",
-                              @"abauman": @"Andy Bauman",
-                              @"danielcomfort": @"Daniel Comfort"};
+                            @"drewbert": @"Drew Scanlon",
+                            @"vinny": @"Vinny Caravella",
+                            @"patrickklepek": @"Patrick Klepek",
+                            @"alex": @"Alex Navarro",
+                            @"brad": @"Brad Shoemaker",
+                            @"snide": @"Dave Snider",
+                            @"mattbodega": @"Matthew Kessler",
+                            @"marino": @"Marino",
+                            @"ryan": @"Ryan Davis",
+                            @"rorie": @"Matt Rorie",
+                            @"abauman": @"Andy Bauman",
+                            @"danielcomfort": @"Daniel Comfort"};
     
     if (users[self.video.user]) return users[self.video.user];
     return self.video.user;

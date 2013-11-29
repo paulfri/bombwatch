@@ -22,42 +22,76 @@
 
 #import "UIActivityIndicatorView+AFNetworking.h"
 
-#import "AFURLConnectionOperation.h"
+#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
+
+#import "AFHTTPRequestOperation.h"
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
+#import "AFURLSessionManager.h"
+#endif
 
 @implementation UIActivityIndicatorView (AFNetworking)
 
-- (void)setAnimatingWithStateOfOperation:(AFURLConnectionOperation *)operation {
-    [operation addObserver:self forKeyPath:@"isExecuting" options:0 context:nil];
-    [operation addObserver:self forKeyPath:@"isFinished" options:0 context:nil];
-}
-
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
 - (void)setAnimatingWithStateOfTask:(NSURLSessionTask *)task {
-    [task addObserver:self forKeyPath:@"state" options:0 context:nil];
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+
+    [notificationCenter removeObserver:self name:AFNetworkingTaskDidStartNotification object:nil];
+    [notificationCenter removeObserver:self name:AFNetworkingTaskDidSuspendNotification object:nil];
+    [notificationCenter removeObserver:self name:AFNetworkingTaskDidFinishNotification object:nil];
+
+    if (task) {
+        if (task.state != NSURLSessionTaskStateCompleted) {
+            if (task.state == NSURLSessionTaskStateRunning) {
+                [self startAnimating];
+            } else {
+                [self stopAnimating];
+            }
+
+            [notificationCenter addObserver:self selector:@selector(af_startAnimating) name:AFNetworkingTaskDidStartNotification object:task];
+            [notificationCenter addObserver:self selector:@selector(af_stopAnimating) name:AFNetworkingTaskDidFinishNotification object:task];
+            [notificationCenter addObserver:self selector:@selector(af_stopAnimating) name:AFNetworkingTaskDidSuspendNotification object:task];
+        }
+    }
 }
+#endif
 
-#pragma mark NSKeyValueObserving
+#pragma mark -
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    // TODO invoke supersequent implementation
+- (void)setAnimatingWithStateOfOperation:(AFURLConnectionOperation *)operation {
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 
-    if ([object isKindOfClass:[NSURLSessionTask class]]) {
-        if ([keyPath isEqualToString:@"state"]) {
-            [object state] == NSURLSessionTaskStateRunning ? [self startAnimating] : [self stopAnimating];
-        }
+    [notificationCenter removeObserver:self name:AFNetworkingOperationDidStartNotification object:nil];
+    [notificationCenter removeObserver:self name:AFNetworkingOperationDidFinishNotification object:nil];
 
-        if ([object state] == NSURLSessionTaskStateCompleted) {
-            [object removeObserver:self];
-        }
-    } else if ([object isKindOfClass:[AFURLConnectionOperation class]]) {
-        if ([keyPath isEqualToString:@"isExecuting"]) {
-            [object isExecuting] ? [self startAnimating] : [self stopAnimating];
-        }
+    if (operation) {
+        if (![operation isFinished]) {
+            if ([operation isExecuting]) {
+                [self startAnimating];
+            } else {
+                [self stopAnimating];
+            }
 
-        if ([object isFinished]) {
-            [object removeObserver:self];
+            [notificationCenter addObserver:self selector:@selector(af_startAnimating) name:AFNetworkingOperationDidStartNotification object:operation];
+            [notificationCenter addObserver:self selector:@selector(af_stopAnimating) name:AFNetworkingOperationDidFinishNotification object:operation];
         }
     }
 }
 
+#pragma mark -
+
+- (void)af_startAnimating {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self startAnimating];
+    });
+}
+
+- (void)af_stopAnimating {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self stopAnimating];
+    });
+}
+
 @end
+
+#endif

@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AFNetworking.h"
+#import "AFHTTPSessionManager.h"
 
 #define GiantBombAPIBaseURLString @"http://www.giantbomb.com/api"
-#define GiantBombDefaultAPIKey  @"e5ab8850b03bcec7ce6590ca705c9a26395dddf1"
+#define GiantBombDefaultAPIKey    @"e5ab8850b03bcec7ce6590ca705c9a26395dddf1"
 
-@interface GiantBombAPIClient : AFHTTPClient
+@interface GiantBombAPIClient : AFHTTPSessionManager
 
 + (id)defaultClient;
 

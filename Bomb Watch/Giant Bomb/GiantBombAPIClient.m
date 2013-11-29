@@ -15,7 +15,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         __defaultClient = [[GiantBombAPIClient alloc] initWithBaseURL:
-                            [NSURL URLWithString:GiantBombAPIBaseURLString]];
+                           [NSURL URLWithString:GiantBombAPIBaseURLString]];
     });
     
     return __defaultClient;
@@ -23,26 +23,23 @@
 
 - (id)initWithBaseURL:(NSURL *)url {
     self = [super initWithBaseURL:url];
-    if (self) {
-        self.responseSerializer = [AFJSONSerializer serializer];
-    }
+    if (self)
+        self.responseSerializer = [AFJSONResponseSerializer serializer];
     
     return self;
 }
 
-- (NSMutableURLRequest *)requestWithMethod:(NSString *)method
-                                 URLString:(NSString *)URLString
-                                parameters:(NSDictionary *)parameters
+- (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
+                            completionHandler:(void (^)(NSURLResponse *, id, NSError *))completionHandler
 {
-    NSMutableDictionary *newParams = [[NSMutableDictionary alloc] init];
-    NSString *token = [[NSUserDefaults standardUserDefaults] stringForKey:@"apiKey"];
-
-    [newParams addEntriesFromDictionary:parameters];
-    [newParams setObject:@"json" forKey:@"format"];
-    [newParams setObject:token   forKey:@"api_key"];
-
-    NSLog(@"%@", newParams);
-    return [super requestWithMethod:method URLString:URLString parameters:newParams];
+    
+    NSURL *url = request.URL;
+    NSString *queryString = [NSString stringWithFormat:@"format=json&api_key=%@", GiantBombDefaultAPIKey];
+    
+    NSString *URLString = [[NSString alloc] initWithFormat:@"%@%@%@", [url absoluteString],
+                           [url query] ? @"&" : @"?", queryString];
+    
+    return [super dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]] completionHandler:completionHandler];
 }
 
 @end

@@ -52,7 +52,7 @@
     NSDictionary *params = @{@"link_code": self.accountCode.text};
     
     [SVProgressHUD showWithStatus:@"Linking..."];
-    [[GiantBombAPIClient defaultClient] GET:@"validate" parameters:params success:^(NSHTTPURLResponse *response, id responseObject) {
+    [[GiantBombAPIClient defaultClient] GET:@"validate" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *responseDict = (NSDictionary *)responseObject;
         NSLog(@"%@", responseObject);
         // TODO: check that apikey actually gets returned so we don't get a runtime crash
@@ -69,7 +69,7 @@
             [SVProgressHUD showErrorWithStatus:@"Link failed!"];
         }
 
-    } failure:^(NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [SVProgressHUD showErrorWithStatus:@"Link failed!"];
         NSLog(@"%@", error);
     }];

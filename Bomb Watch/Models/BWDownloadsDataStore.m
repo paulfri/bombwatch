@@ -11,7 +11,7 @@
 #import "BWDownload.h"
 #import "GBVideo.h"
 #import "GiantBombAPIClient.h"
-#import "AFDownloadRequestOperation.h"
+//#import "AFDownloadRequestOperation.h"
 #import "EVCircularProgressView.h"
 
 @implementation BWDownloadsDataStore
@@ -116,87 +116,89 @@
 }
 
 - (void)cancelRequestForDownload:(BWDownload *)download withProgress:(float)progress {
-    for (NSOperation *op in [[[GiantBombAPIClient defaultClient] operationQueue] operations]) {
-        if ([op isKindOfClass:[AFDownloadRequestOperation class]]) {
-            AFDownloadRequestOperation *dl = (AFDownloadRequestOperation *)op;
-            if ([[dl.request.URL absoluteString] isEqualToString:download.path]) {
-                [op cancel];
-                download.complete = nil;
-                if (progress != 0) {
-                    download.paused = [NSDate date];
-                    download.progress = [NSNumber numberWithFloat:progress];
-                }
-            }
-        }
-    }
+#warning fix cancelRequestForDownload
+//    for (NSOperation *op in [[[GiantBombAPIClient defaultClient] operationQueue] operations]) {
+//        if ([op isKindOfClass:[AFDownloadRequestOperation class]]) {
+//            AFDownloadRequestOperation *dl = (AFDownloadRequestOperation *)op;
+//            if ([[dl.request.URL absoluteString] isEqualToString:download.path]) {
+//                [op cancel];
+//                download.complete = nil;
+//                if (progress != 0) {
+//                    download.paused = [NSDate date];
+//                    download.progress = [NSNumber numberWithFloat:progress];
+//                }
+//            }
+//        }
+//    }
 }
 
 - (void)resumeDownload:(BWDownload *)download {
-    download.paused = nil;
-    download.complete = nil;
-    download.progress = nil;
-
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:download.path]];
-
-    __block BWDownload *blockDownload = download;
-    AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:request
-                                                                                     targetPath:download.localPath
-                                                                                   shouldResume:YES];
-
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        download.complete = [NSDate date];
-        download.paused = nil;
-        download.progress = nil;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoDownloadCompleteNotification"
-                                                            object:self
-                                                          userInfo:@{@"download": blockDownload,
-                                                                     @"path": blockDownload.path}];
-
-        UILocalNotification *completion = [[UILocalNotification alloc] init];
-        completion.alertBody = [NSString stringWithFormat:@"\"%@\" finished downloading.", ((GBVideo *)download.video).name];
-        [[UIApplication sharedApplication] presentLocalNotificationNow:completion];
-        
-        // all of this seems to be unncessary and maybe not even work.
-        // saving on the main thread for now. who knows what fun bugs will happen
-        // TODO maybe try this (2nd answer) http://stackoverflow.com/questions/2138252/core-data-multi-thread-application
-
-        //        NSManagedObjectContext * backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-//        [backgroundContext setParentContext:self.managedObjectContext];
-        //Use backgroundContext to insert/update...
-        //Then just save the context, it will automatically sync to your primary context
-//        NSLog(@"%@", backgroundContext.parentContext);
-//        NSError *error = nil;
-//        if (![backgroundContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//            abort();
+#warning fix resumeDownload:
+//    download.paused = nil;
+//    download.complete = nil;
+//    download.progress = nil;
+//
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:download.path]];
+//
+//    __block BWDownload *blockDownload = download;
+//    AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:request
+//                                                                                     targetPath:download.localPath
+//                                                                                   shouldResume:YES];
+//
+//    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        download.complete = [NSDate date];
+//        download.paused = nil;
+//        download.progress = nil;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoDownloadCompleteNotification"
+//                                                            object:self
+//                                                          userInfo:@{@"download": blockDownload,
+//                                                                     @"path": blockDownload.path}];
+//
+//        UILocalNotification *completion = [[UILocalNotification alloc] init];
+//        completion.alertBody = [NSString stringWithFormat:@"\"%@\" finished downloading.", ((GBVideo *)download.video).name];
+//        [[UIApplication sharedApplication] presentLocalNotificationNow:completion];
+//        
+//        // all of this seems to be unncessary and maybe not even work.
+//        // saving on the main thread for now. who knows what fun bugs will happen
+//        // TODO maybe try this (2nd answer) http://stackoverflow.com/questions/2138252/core-data-multi-thread-application
+//
+//        //        NSManagedObjectContext * backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+////        [backgroundContext setParentContext:self.managedObjectContext];
+//        //Use backgroundContext to insert/update...
+//        //Then just save the context, it will automatically sync to your primary context
+////        NSLog(@"%@", backgroundContext.parentContext);
+////        NSError *error = nil;
+////        if (![backgroundContext save:&error]) {
+//            // Replace this implementation with code to handle the error appropriately.
+//            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+////            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+////            abort();
+////        }
+//        [self.managedObjectContext save:nil];
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"Error: %ld", (long)[error code]);
+//        if (!((long)[error code]) == 999) {
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoDownloadErrorNotification"
+//                                                                object:self
+//                                                              userInfo:@{@"download": blockDownload,
+//                                                                         @"path": blockDownload.path}];            
 //        }
-        [self.managedObjectContext save:nil];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %ld", (long)[error code]);
-        if (!((long)[error code]) == 999) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoDownloadErrorNotification"
-                                                                object:self
-                                                              userInfo:@{@"download": blockDownload,
-                                                                         @"path": blockDownload.path}];            
-        }
-    }];
-    
-    // can i set this later???
-    [operation setProgressiveDownloadProgressBlock:^(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile) {
-        float progress = ((float)totalBytesReadForFile) / totalBytesExpectedToReadForFile;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoProgressUpdateNotification"
-                                                            object:self
-                                                          userInfo:@{@"download": blockDownload,
-                                                                     @"progress": [NSNumber numberWithFloat:progress],
-                                                                     @"path": blockDownload.path}];
-
-#warning set blockDownload.progress in here - maybe modulate it to reduce cpu (don't think IO is an issue)
-
-    }];
-    
-    [[GiantBombAPIClient defaultClient] enqueueHTTPRequestOperation:operation];
+//    }];
+//    
+//    // can i set this later???
+//    [operation setProgressiveDownloadProgressBlock:^(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile) {
+//        float progress = ((float)totalBytesReadForFile) / totalBytesExpectedToReadForFile;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoProgressUpdateNotification"
+//                                                            object:self
+//                                                          userInfo:@{@"download": blockDownload,
+//                                                                     @"progress": [NSNumber numberWithFloat:progress],
+//                                                                     @"path": blockDownload.path}];
+//
+//#warning set blockDownload.progress in here - maybe modulate it to reduce cpu (don't think IO is an issue)
+//
+//    }];
+//    
+//    [[GiantBombAPIClient defaultClient] enqueueHTTPRequestOperation:operation];
 }
 
 

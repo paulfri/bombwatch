@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A584" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -711,7 +711,7 @@
             </objects>
             <point key="canvasLocation" x="-6611" y="-2672"/>
         </scene>
-        <!--Video Detail View Controller-->
+        <!--Video Detail View Controller - Video-->
         <scene sceneID="ydC-mI-Byj">
             <objects>
                 <tableViewController id="rJ6-uZ-0Hw" customClass="BWVideoDetailViewController" sceneMemberID="viewController">
@@ -803,30 +803,8 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="60" id="QsY-zC-yjc">
-                                        <rect key="frame" x="0.0" y="247" width="320" height="60"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QsY-zC-yjc" id="v1o-0r-t71">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unprofessional Fridays 12/14/1988" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="290" translatesAutoresizingMaskIntoConstraints="NO" id="7hG-Wh-dOt">
-                                                    <rect key="frame" x="15" y="2" width="290" height="55"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="18"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="7hG-Wh-dOt" firstAttribute="top" secondItem="v1o-0r-t71" secondAttribute="top" constant="2" id="4X9-1m-Vgs"/>
-                                                <constraint firstItem="7hG-Wh-dOt" firstAttribute="centerX" secondItem="v1o-0r-t71" secondAttribute="centerX" id="JoY-c2-MkN"/>
-                                                <constraint firstItem="7hG-Wh-dOt" firstAttribute="centerY" secondItem="v1o-0r-t71" secondAttribute="centerY" id="KwB-XX-6gf"/>
-                                                <constraint firstItem="7hG-Wh-dOt" firstAttribute="leading" secondItem="v1o-0r-t71" secondAttribute="leading" constant="15" id="r1w-4E-0gb"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="39" id="Qua-HO-9WS">
-                                        <rect key="frame" x="0.0" y="307" width="320" height="39"/>
+                                        <rect key="frame" x="0.0" y="247" width="320" height="39"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qua-HO-9WS" id="wlE-j6-2EJ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
@@ -849,7 +827,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="DvO-o2-Os0">
-                                        <rect key="frame" x="0.0" y="346" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="286" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DvO-o2-Os0" id="BjL-iR-ZfH">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -881,7 +859,7 @@
                             <outlet property="delegate" destination="rJ6-uZ-0Hw" id="fMg-0c-4YX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="vju-kW-fSh">
+                    <navigationItem key="navigationItem" title="Video" id="vju-kW-fSh">
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="yFh-Xl-VLN">
                             <connections>
                                 <action selector="actionButtonPressed:" destination="rJ6-uZ-0Hw" id="gJb-4S-jEi"/>
@@ -896,7 +874,6 @@
                         <outlet property="qualityCell" destination="GhI-iZ-xzI" id="cD7-qI-5Mz"/>
                         <outlet property="qualityLabel" destination="TVB-C7-xTl" id="4Ie-7A-8nY"/>
                         <outlet property="qualityPicker" destination="fub-Vv-pO4" id="BRT-7W-MlK"/>
-                        <outlet property="titleLabel" destination="7hG-Wh-dOt" id="M1z-MB-l7k"/>
                         <outlet property="watchedButton" destination="VBI-zx-gqi" id="Bpn-Es-igc"/>
                     </connections>
                 </tableViewController>
@@ -972,6 +949,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="KBT-si-Lhj"/>
+        <segue reference="Qbr-f1-qbf"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -13,7 +13,7 @@
 #import "EVCircularProgressView.h"
 #import "GiantBombAPIClient.h"
 #import "SVProgressHUD.h"
-#import "AFDownloadRequestOperation.h"
+//#import "AFDownloadRequestOperation.h"
 #import "GBVideo.h"
 
 @interface BWDownloadsViewController ()
@@ -170,7 +170,7 @@
     if ([[segue identifier] isEqualToString:@"showVideoDetailSegue"]) {
         BWVideoDetailViewController *destination = [segue destinationViewController];
         BWDownload *dl = [[[BWDownloadsDataStore defaultStore] fetchedResultsController] objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
-        destination.hidesBottomBarWhenPushed = YES;
+//        destination.hidesBottomBarWhenPushed = YES;
         destination.video = (GBVideo *)dl.video;
         destination.preselectedQuality = [dl.quality copy];
     }

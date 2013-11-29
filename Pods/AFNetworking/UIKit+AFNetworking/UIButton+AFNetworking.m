@@ -20,28 +20,56 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
-
-#import "AFHTTPRequestOperation.h"
-#import "AFHTTPClient.h"
-
-#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 #import "UIButton+AFNetworking.h"
 
-@implementation UIButton (AFNetworking)
+#import <objc/message.h>
 
-+ (AFHTTPClient *)af_sharedHTTPClient {
-    static AFHTTPClient *_af_sharedHTTPClient = nil;
+#if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
+
+#import "AFHTTPRequestOperation.h"
+
+static char kAFImageRequestOperationKey;
+static char kAFBackgroundImageRequestOperationKey;
+
+@interface UIButton (_AFNetworking)
+@property (readwrite, nonatomic, strong, setter = af_setImageRequestOperation:) AFHTTPRequestOperation *af_imageRequestOperation;
+@property (readwrite, nonatomic, strong, setter = af_setBackgroundImageRequestOperation:) AFHTTPRequestOperation *af_backgroundImageRequestOperation;
+@end
+
+@implementation UIButton (_AFNetworking)
+
++ (NSOperationQueue *)af_sharedImageRequestOperationQueue {
+    static NSOperationQueue *_af_sharedImageRequestOperationQueue = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _af_sharedHTTPClient = [[AFHTTPClient alloc] init];
-        _af_sharedHTTPClient.responseSerializer = [AFImageSerializer serializer];
+        _af_sharedImageRequestOperationQueue = [[NSOperationQueue alloc] init];
+        _af_sharedImageRequestOperationQueue.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
     });
 
-    return _af_sharedHTTPClient;
+    return _af_sharedImageRequestOperationQueue;
 }
 
+- (AFHTTPRequestOperation *)af_imageRequestOperation {
+    return (AFHTTPRequestOperation *)objc_getAssociatedObject(self, &kAFImageRequestOperationKey);
+}
+
+- (void)af_setImageRequestOperation:(AFHTTPRequestOperation *)imageRequestOperation {
+    objc_setAssociatedObject(self, &kAFImageRequestOperationKey, imageRequestOperation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (AFHTTPRequestOperation *)af_backgroundImageRequestOperation {
+    return (AFHTTPRequestOperation *)objc_getAssociatedObject(self, &kAFBackgroundImageRequestOperationKey);
+}
+
+- (void)af_setBackgroundImageRequestOperation:(AFHTTPRequestOperation *)imageRequestOperation {
+    objc_setAssociatedObject(self, &kAFBackgroundImageRequestOperationKey, imageRequestOperation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+@end
+
 #pragma mark -
+
+@implementation UIButton (AFNetworking)
 
 - (void)setImageForState:(UIControlState)state
                  withURL:(NSURL *)url
@@ -65,7 +93,32 @@
                  success:(void (^)(NSHTTPURLResponse *response, UIImage *image))success
                  failure:(void (^)(NSError *error))failure
 {
-    [self setImageAtKeyPath:@"image" forState:state withURLRequest:urlRequest placeholderImage:placeholderImage success:success failure:failure];
+    [self cancelImageRequestOperation];
+
+    [self setImage:placeholderImage forState:state];
+
+    __weak __typeof(self)weakSelf = self;
+    self.af_imageRequestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
+    [self.af_imageRequestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        if ([[urlRequest URL] isEqual:[operation.request URL]]) {
+            if (success) {
+                success(operation.response, responseObject);
+            } else if (responseObject) {
+                [strongSelf setImage:responseObject forState:state];
+            }
+        } else {
+
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if ([[urlRequest URL] isEqual:[operation.response URL]]) {
+            if (failure) {
+                failure(error);
+            }
+        }
+    }];
+
+    [[[self class] af_sharedImageRequestOperationQueue] addOperation:self.af_imageRequestOperation];
 }
 
 #pragma mark -
@@ -92,37 +145,44 @@
                            success:(void (^)(NSHTTPURLResponse *response, UIImage *image))success
                            failure:(void (^)(NSError *error))failure
 {
-    [self setImageAtKeyPath:@"backgroundImage" forState:state withURLRequest:urlRequest placeholderImage:placeholderImage success:success failure:failure];
+    [self cancelBackgroundImageRequestOperation];
+
+    [self setBackgroundImage:placeholderImage forState:state];
+
+    __weak __typeof(self)weakSelf = self;
+    self.af_backgroundImageRequestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
+    [self.af_backgroundImageRequestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        if ([[urlRequest URL] isEqual:[operation.request URL]]) {
+            if (success) {
+                success(operation.response, responseObject);
+            } else if (responseObject) {
+                [strongSelf setBackgroundImage:responseObject forState:state];
+            }
+        } else {
+
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if ([[urlRequest URL] isEqual:[operation.response URL]]) {
+            if (failure) {
+                failure(error);
+            }
+        }
+    }];
+
+    [[[self class] af_sharedImageRequestOperationQueue] addOperation:self.af_backgroundImageRequestOperation];
 }
 
 #pragma mark -
 
-- (void)setImageAtKeyPath:(NSString *)keyPath
-                 forState:(UIControlState)state
-           withURLRequest:(NSURLRequest *)urlRequest
-         placeholderImage:(UIImage *)placeholderImage
-                  success:(void (^)(NSHTTPURLResponse *response, UIImage *image))success
-                  failure:(void (^)(NSError *error))failure
-{
-    [self setValue:placeholderImage forKeyPath:keyPath];
-
-    NSURLSessionTask *task = [[[self class] af_sharedHTTPClient] dataTaskWithRequest:urlRequest success:^(NSURLResponse *response, id responseObject) {
-        if (success) {
-            success((NSHTTPURLResponse *)response, responseObject);
-        } else if (responseObject) {
-            [self setValue:responseObject forKeyPath:keyPath];
-        }
-    } failure:^(NSError *error) {
-        if (failure) {
-            failure(error);
-        }
-    }];
-
-    [task resume];
+- (void)cancelImageRequestOperation {
+    [self.af_imageRequestOperation cancel];
+    self.af_imageRequestOperation = nil;
 }
 
-- (void)cancelImageDataTasks {
-    [[[[self class] af_sharedHTTPClient] tasks] makeObjectsPerformSelector:@selector(cancel)];
+- (void)cancelBackgroundImageRequestOperation {
+    [self.af_backgroundImageRequestOperation cancel];
+    self.af_backgroundImageRequestOperation = nil;
 }
 
 @end

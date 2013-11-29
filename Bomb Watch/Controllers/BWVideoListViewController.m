@@ -124,46 +124,45 @@
 - (void)loadNextPage {
     if ([self reachedEnd]) return;
 
-    NSString *endpoint = @"videos";
     __block NSDictionary *params = [self queryParams];
 
-    [[GiantBombAPIClient defaultClient] GET:endpoint parameters:params success:^(NSHTTPURLResponse *response, id responseObject) {
-
-// TODO: handle error codes
-//        100:Invalid API Key
-//        101:Object Not Found
-//        104:Filter Error
-//        105:Subscriber only video is for subscribers only
+    [[GiantBombAPIClient defaultClient] GET:@"videos" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        // TODO: handle error codes
+        //        100:Invalid API Key
+        //        101:Object Not Found
+        //        104:Filter Error
+        //        105:Subscriber only video is for subscribers only
         if ((self.videos.count + [responseObject[@"results"] count]) >= [[responseObject valueForKey:@"number_of_total_results"] integerValue]) {
             self.reachedEnd = YES;
         }
-
+        
         NSMutableArray *results = [NSMutableArray array];
         for (id gameDictionary in [responseObject valueForKey:@"results"]) {
             GBVideo *video = [[GBVideo alloc] initWithDictionary:gameDictionary];
-//            if ([self isEnduranceRun]) {
-//                if ([video.name rangeOfString:self.category].location != NSNotFound) [results addObject:video];
-//            } else
-                [results addObject:video];
+            //            if ([self isEnduranceRun]) {
+            //                if ([video.name rangeOfString:self.category].location != NSNotFound) [results addObject:video];
+            //            } else
+            [results addObject:video];
         }
-
+        
         if([params[@"offset"] isEqualToString:@"0"])
             self.videos = results;
         else
             [self.videos addObjectsFromArray:results];
-
-// TODO: this might be useful for the endurance run lists
-//        NSArray *sortedArray;
-//        sortedArray = [self.videos sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-//            NSDate *first = [(GBVideo *)a publishDate];
-//            NSDate *second = [(GBVideo *)b publishDate];
-//            return [first compare:second];
-//        }];
-//        self.videos = [sortedArray mutableCopy];
-
+        
+        // TODO: this might be useful for the endurance run lists
+        //        NSArray *sortedArray;
+        //        sortedArray = [self.videos sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        //            NSDate *first = [(GBVideo *)a publishDate];
+        //            NSDate *second = [(GBVideo *)b publishDate];
+        //            return [first compare:second];
+        //        }];
+        //        self.videos = [sortedArray mutableCopy];
+        
         [SVProgressHUD dismiss];
         [self updateTableView];
-    } failure:^(NSError *error) {
+
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@", error);
     }];
 }
@@ -256,10 +255,8 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"showVideoDetailSegue"]) {
         BWVideoDetailViewController *controller = [segue destinationViewController];
-        controller.hidesBottomBarWhenPushed = YES;
+//        controller.hidesBottomBarWhenPushed = YES;
         controller.video = [self videoForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-    } else {
-        //
     }
 }
 

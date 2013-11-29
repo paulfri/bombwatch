@@ -9,23 +9,21 @@
 #import "PocketAPI.h"
 #import "GiantBombAPIClient.h"
 #import "BWDownloadsDataStore.h"
-#import "MKiCloudSync.h"
 #import <AVFoundation/AVFoundation.h>
 
-#define PocketConsumerKey @"17866-6c522817c89aaee6ae6da74f"
+#define PocketConsumerKey    @"17866-6c522817c89aaee6ae6da74f"
+#define kBWGiantBombRedColor [UIColor colorWithRed:178.0/255 green:34.0/255 blue:34.0/255 alpha:1]
 
 @implementation BWAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [self.window setTintColor:[UIColor colorWithRed:178.0/255 green:34.0/255 blue:34.0/255 alpha:1]];
+    [self configureInterface];
+    [self configureURLCache];
+    [self configurePreferences];
     [[PocketAPI sharedAPI] setConsumerKey:PocketConsumerKey];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:[self defaultPreferences]];
+    
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     
-    [NSURLCache setSharedURLCache:[[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
-                                                                diskCapacity:20 * 1024 * 1024
-                                                                    diskPath:nil]];
-
     // custom app launch screen - set in preferences
     NSString *defaultView = [[NSUserDefaults standardUserDefaults] stringForKey:@"initialView"];
     if (![defaultView isEqualToString:@"Videos"]) {
@@ -37,11 +35,36 @@
                                                    sender:defaultView];
     }
 
-    // iCloud key-value sync
-    [MKiCloudSync start];
-
     return YES;
 }
+
+- (void)configurePreferences
+{
+    NSDictionary *defaultPreferences =  @{@"showTrailersInLatest": @NO,
+                                                 @"lockRotation": @YES,
+                                                  @"initialView": @"Latest",
+                                               @"defaultQuality": @"Mobile",
+                                                       @"apiKey": GiantBombDefaultAPIKey,
+                                                @"videosWatched": @[],
+                                                @"videoProgress": @{}};
+
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPreferences];
+}
+
+- (void)configureURLCache
+{
+    [NSURLCache setSharedURLCache:[[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
+                                                                diskCapacity:20 * 1024 * 1024
+                                                                    diskPath:nil]];
+}
+
+- (void)configureInterface
+{
+    [self.window setTintColor:kBWGiantBombRedColor];
+    [[UINavigationBar appearance] setBarTintColor:kBWGiantBombRedColor];
+}
+
+#pragma mark - App Delegate methods
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
     if([[PocketAPI sharedAPI] handleOpenURL:url])
@@ -50,51 +73,13 @@
         return NO;
 }
 
-- (NSDictionary *)defaultPreferences {
-    return @{@"showTrailersInLatest": @NO,
-                     @"lockRotation": @YES,
-                      @"initialView": @"Latest",
-                   @"defaultQuality": @"Mobile",
-                           @"apiKey": GiantBombDefaultAPIKey,
-                    @"videosWatched": @[],
-                    @"videoProgress": @{}};
-}
-
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-
+    
     __block UIBackgroundTaskIdentifier backgroundTaskIdentifier = [application beginBackgroundTaskWithExpirationHandler:^(void) {
         [application endBackgroundTask:backgroundTaskIdentifier];
-
-        // Need to pause all pending downloads before termination - not sure if it's in here or in applicationWillTerminate:.
-        
-        //    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Download"];
-        //    fetchRequest.fetchBatchSize = 5;
-        //    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"complete == nil"];
-        //    NSArray *incompletes = [[[BWDownloadsDataStore defaultStore] managedObjectContext] executeFetchRequest:fetchRequest error:nil];
-        //
-        //    for (BWDownload *download in incompletes) {
-        //        // TODO: figure out how to save the progress of the download
-        //        [[BWDownloadsDataStore defaultStore] cancelRequestForDownload:download];
-        //    }
-        //    [[[BWDownloadsDataStore defaultStore] managedObjectContext] save:nil];
-        
-//        [[GiantBombAPIClient defaultClient] cancelAllOperations];
     }];
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
