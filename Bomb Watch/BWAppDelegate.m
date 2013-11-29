@@ -62,6 +62,11 @@
 {
     [self.window setTintColor:kBWGiantBombRedColor];
     [[UINavigationBar appearance] setBarTintColor:kBWGiantBombRedColor];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UITabBar appearance] setBarTintColor:kBWGiantBombRedColor];
+    [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 #pragma mark - App Delegate methods

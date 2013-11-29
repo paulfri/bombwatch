@@ -15,7 +15,7 @@
 #define kMailCell       1
 
 //static NSURL *mailURL = [NSURL URLWithString:@"https://twitter.com/bombwatch"];
-static NSString *twitterName = @"bombwatch";
+static NSString *kBWTwitterHandle = @"bombwatch";
 
 @implementation BWAboutViewController
 
@@ -27,10 +27,12 @@ static NSString *twitterName = @"bombwatch";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == kTwitterSection && indexPath.row == kTwitterCell) {
 
-        NSURL *tweetbotURL = [NSURL URLWithString:[NSString stringWithFormat:@"tweetbot://%@/timeline", twitterName]];
-        NSURL *twitterifficURL = [NSURL URLWithString:[NSString stringWithFormat:@"twitteriffic://account/%@/tweets", twitterName]];
-        NSURL *twitterAppURL = [NSURL URLWithString:[NSString stringWithFormat:@"twitter:@%@", twitterName]];
-        NSURL *twitterURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/%@", twitterName]];
+        // TODO make these static
+        NSURL *tweetbotURL = [NSURL URLWithString:[NSString stringWithFormat:@"tweetbot://%@/timeline", kBWTwitterHandle]];
+        NSURL *twitterifficURL = [NSURL URLWithString:[NSString stringWithFormat:@"twitteriffic://account/%@/tweets", kBWTwitterHandle]];
+        NSURL *twitterAppURL = [NSURL URLWithString:[NSString stringWithFormat:@"twitter:@%@", kBWTwitterHandle]];
+        NSURL *twitterURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/%@", kBWTwitterHandle]];
+
         if ([[UIApplication sharedApplication] canOpenURL:tweetbotURL]) {
             [[UIApplication sharedApplication] openURL:tweetbotURL];
         } else if ([[UIApplication sharedApplication] canOpenURL:twitterifficURL]) {

@@ -10,12 +10,8 @@
 
 @implementation BWSeparatorView
 
-- (id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    return self;
-}
-
-- (void)setBackgroundColor:(UIColor *)backgroundColor {
+- (void)setBackgroundColor:(UIColor *)backgroundColor
+{
     CGFloat alpha = CGColorGetAlpha(backgroundColor.CGColor);
     if (alpha != 0) {
         [super setBackgroundColor:backgroundColor];
@@ -23,10 +19,5 @@
         [super setBackgroundColor:self.selectColor];
     }
 }
-
-//-(void)setHighlighted:(BOOL)highlighted {
-////    NSLog(@"%@", self.selectColor);
-//    [self setBackgroundColor:[UIColor redColor]];
-//}
 
 @end

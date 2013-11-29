@@ -10,18 +10,12 @@
 #import "GiantBombAPIClient.h"
 #import "SVProgressHUD.h"
 
-@interface BWLinkAccountViewController ()
-
-@end
+#define kBWLinkCodeLength 6
 
 @implementation BWLinkAccountViewController
 
-- (id)initWithStyle:(UITableViewStyle)style {
-    self = [super initWithStyle:style];
-    return self;
-}
-
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 
     self.accountCode.delegate = self;
@@ -29,26 +23,20 @@
     self.accountCode.autocorrectionType = UITextAutocorrectionTypeNo;
     self.accountCode.enablesReturnKeyAutomatically = NO;
     [self.accountCode becomeFirstResponder];
-    
-//    NSString *start = @"Link your premium Giant Bomb account to access subscriber-only content and features. Get your code at";
-//    NSURL *url = [NSURL URLWithString:@"http://www.giantbomb.com/boxee"];
-//    NSAttributedString *urlstring = [[NSAttributedString alloc] initWithString:@"giantbomb.com/boxee" attributes:@{NSLinkAttributeName: url}];
-//    footerView.attributedText = urlstring;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     self.accountCode.text = @"";
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated
+{
     [SVProgressHUD dismiss];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-- (IBAction)savePressed:(id)sender {
+- (IBAction)savePressed:(id)sender
+{
     NSDictionary *params = @{@"link_code": self.accountCode.text};
     
     [SVProgressHUD showWithStatus:@"Linking..."];
@@ -76,7 +64,8 @@
 }
 
 #pragma mark - UITextField delegate
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
     NSUInteger oldLength = [textField.text length];
     NSUInteger replacementLength = [string length];
     NSUInteger rangeLength = range.length;
@@ -84,15 +73,17 @@
     NSUInteger newLength = oldLength - rangeLength + replacementLength;
     BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
 
-    return newLength <= LINK_CODE_LENGTH || returnKey;
+    return newLength <= kBWLinkCodeLength || returnKey;
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     [self savePressed:nil];
     return YES;
 }
 
-- (void)dismiss {
+- (void)dismiss
+{
     [self.navigationController popViewControllerAnimated:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                  name:SVProgressHUDDidDisappearNotification

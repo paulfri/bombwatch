@@ -8,13 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-enum {
-    LINK_CODE_LENGTH = 6,
-};
-
 @interface BWLinkAccountViewController : UITableViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *accountCode;
+
 - (IBAction)savePressed:(id)sender;
 
 @end

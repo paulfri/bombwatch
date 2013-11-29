@@ -45,7 +45,8 @@
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.navigationController.navigationBar.translucent = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -64,36 +65,20 @@
 }
 
 // Tweetbot-style image pulldown
-- (void)drawImagePulldown {
-    CGRect screenRect = [UIScreen mainScreen].bounds;
-    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, 180)];
+- (void)drawImagePulldown
+{
+    self.imagePulldownView = [[BWImagePulldownView alloc] initWithTitle:self.video.name
+                                                               imageURL:self.video.imageMediumURL];
+    self.tableView.tableHeaderView = self.imagePulldownView;
+    [self.tableView sendSubviewToBack:self.tableView.tableHeaderView];
     
-    __block UIImageView *imagePreview = self.imageView;
-    NSURLRequest *request = [NSURLRequest requestWithURL:self.video.imageMediumURL];
-    [self.imageView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        UIImage *playBtn = [UIImage imageNamed:@"video-play-lg"];
-        
-        UIGraphicsBeginImageContextWithOptions(image.size, FALSE, 0.0);
-        [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
-        [playBtn drawInRect:CGRectMake(image.size.width/2 - (playBtn.size.width/2), image.size.height/2 - (playBtn.size.height/2), playBtn.size.width, playBtn.size.height)];
-        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        imagePreview.image = newImage;
-    } failure:nil];
-
-    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.cachedImageViewSize = self.imageView.frame;
-    [self.tableView addSubview:self.imageView];
-    [self.tableView sendSubviewToBack:self.imageView];
-    self.edgesForExtendedLayout = UIRectEdgeBottom;
-    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, 180)];
-    self.tableView.tableHeaderView.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playButtonPressed:)];
-    [self.tableView.tableHeaderView addGestureRecognizer:tapped];
+//    self.tableView.tableHeaderView.userInteractionEnabled = YES;
+//    UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playButtonPressed:)];
+//    [self.tableView.tableHeaderView addGestureRecognizer:tapped];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     if (self.preselectedQuality)
         [self selectQuality:[self.preselectedQuality intValue]];
     else
@@ -238,22 +223,20 @@
 
 #pragma mark - UIScrollViewDelegate protocol methods
 
-// used for Tweetbot-style image pulldown
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat y = -scrollView.contentOffset.y;
-    if (y > 0) {
-        self.imageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y, self.cachedImageViewSize.size.height+y);
-        self.imageView.center = CGPointMake(self.view.center.x, self.imageView.center.y);
-    }
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.imagePulldownView scrollViewDidScroll:scrollView];
 }
 
 #pragma mark - UIPickerViewDelegate protocol methods
 
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
+{
     return 30.0;
 }
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
     NSArray *qualities = @[@"Mobile", @"Low", @"High", @"HD"];
     NSString *current = qualities[row];
 
@@ -310,7 +293,8 @@
 
 #pragma mark - Action sheet
 
-- (IBAction)actionButtonPressed:(id)sender {
+- (IBAction)actionButtonPressed:(id)sender
+{
     NSArray *activityItems = @[self.video, self.video.siteDetailURL];
     NSArray *applicationActivities;
 

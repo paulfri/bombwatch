@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4E21EDCE00254B9EA7AE7D38 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40FCD5D8F7DD4243AC1A2E48 /* libPods.a */; };
+		DA0A718718490BC4004750F1 /* BWImagePulldownView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A718618490BC4004750F1 /* BWImagePulldownView.m */; };
 		DA39B4AD17D6A22B00E7935D /* BWTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA39B4AC17D6A22B00E7935D /* BWTableViewController.m */; };
 		DA39B4B417D6A56000E7935D /* OpenOnGBActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = DA39B4B317D6A56000E7935D /* OpenOnGBActivity.m */; };
 		DA4127F417CE28D3003C4F59 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4127F317CE28D3003C4F59 /* Security.framework */; };
@@ -19,6 +20,8 @@
 		DA68EBDA17D0305300451F14 /* EVCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA68EBD917D0305300451F14 /* EVCircularProgressView.m */; };
 		DA68EBDD17D0313E00451F14 /* BWDownloadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA68EBDC17D0313E00451F14 /* BWDownloadsViewController.m */; };
 		DA6AFA3917D6ACC3008764D7 /* BWAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6AFA3817D6ACC3008764D7 /* BWAboutViewController.m */; };
+		DA852999184908C40049C752 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DA852996184908C40049C752 /* NSString+Extensions.m */; };
+		DA85299A184908C40049C752 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = DA852998184908C40049C752 /* UIImage+ImageEffects.m */; };
 		DAABDE5917D981AA00A32E35 /* BWSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAABDE5817D981AA00A32E35 /* BWSeparatorView.m */; };
 		DAAFC2B117DB8B1B0095E494 /* BWVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAAFC2B017DB8B1B0095E494 /* BWVideoPlayerViewController.m */; };
 		DACB2DCF17CE8C71004BBC88 /* BWCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DACB2DCE17CE8C71004BBC88 /* BWCategoriesViewController.m */; };
@@ -55,6 +58,8 @@
 /* Begin PBXFileReference section */
 		40FCD5D8F7DD4243AC1A2E48 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D03B65A058C4AD9BB095CF3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		DA0A718518490BC4004750F1 /* BWImagePulldownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWImagePulldownView.h; sourceTree = "<group>"; };
+		DA0A718618490BC4004750F1 /* BWImagePulldownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWImagePulldownView.m; sourceTree = "<group>"; };
 		DA2FC43617D2AEBA005E7408 /* Bomb Watch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Bomb Watch.entitlements"; sourceTree = "<group>"; };
 		DA39B4AB17D6A22B00E7935D /* BWTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWTableViewController.h; path = ../BWTableViewController.h; sourceTree = "<group>"; };
 		DA39B4AC17D6A22B00E7935D /* BWTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWTableViewController.m; path = ../BWTableViewController.m; sourceTree = "<group>"; };
@@ -76,6 +81,10 @@
 		DA68EBDC17D0313E00451F14 /* BWDownloadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWDownloadsViewController.m; sourceTree = "<group>"; };
 		DA6AFA3717D6ACC3008764D7 /* BWAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWAboutViewController.h; sourceTree = "<group>"; };
 		DA6AFA3817D6ACC3008764D7 /* BWAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWAboutViewController.m; sourceTree = "<group>"; };
+		DA852995184908C40049C752 /* NSString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
+		DA852996184908C40049C752 /* NSString+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
+		DA852997184908C40049C752 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		DA852998184908C40049C752 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		DAABDE5717D981AA00A32E35 /* BWSeparatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSeparatorView.h; sourceTree = "<group>"; };
 		DAABDE5817D981AA00A32E35 /* BWSeparatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWSeparatorView.m; sourceTree = "<group>"; };
 		DAAFC2AF17DB8B1B0095E494 /* BWVideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoPlayerViewController.h; sourceTree = "<group>"; };
@@ -154,6 +163,8 @@
 				DAABDE5817D981AA00A32E35 /* BWSeparatorView.m */,
 				DA68EBD817D0305300451F14 /* EVCircularProgressView.h */,
 				DA68EBD917D0305300451F14 /* EVCircularProgressView.m */,
+				DA0A718518490BC4004750F1 /* BWImagePulldownView.h */,
+				DA0A718618490BC4004750F1 /* BWImagePulldownView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -192,6 +203,17 @@
 				DAAFC2B017DB8B1B0095E494 /* BWVideoPlayerViewController.m */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		DA852994184908A60049C752 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DA852995184908C40049C752 /* NSString+Extensions.h */,
+				DA852996184908C40049C752 /* NSString+Extensions.m */,
+				DA852997184908C40049C752 /* UIImage+ImageEffects.h */,
+				DA852998184908C40049C752 /* UIImage+ImageEffects.m */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		DACE825817CD035700E23051 = {
@@ -236,6 +258,7 @@
 				DACE827617CD035800E23051 /* Main_iPhone.storyboard */,
 				DA41280517CE38C5003C4F59 /* Images.xcassets */,
 				DA68EBD717D02F9F00451F14 /* Activities */,
+				DA852994184908A60049C752 /* Extensions */,
 				DADDA78317D193E70076D2EA /* Models */,
 				DACE829F17CD04D100E23051 /* Giant Bomb */,
 				DA73CCA617CD15BC00976570 /* Controllers */,
@@ -438,11 +461,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA852999184908C40049C752 /* NSString+Extensions.m in Sources */,
 				DAAFC2B117DB8B1B0095E494 /* BWVideoPlayerViewController.m in Sources */,
 				DACE82A817CD0B2600E23051 /* GBVideo.m in Sources */,
 				DACE827E17CD035800E23051 /* BWVideoListViewController.m in Sources */,
+				DA85299A184908C40049C752 /* UIImage+ImageEffects.m in Sources */,
 				DA39B4AD17D6A22B00E7935D /* BWTableViewController.m in Sources */,
 				DA6AFA3917D6ACC3008764D7 /* BWAboutViewController.m in Sources */,
+				DA0A718718490BC4004750F1 /* BWImagePulldownView.m in Sources */,
 				DAABDE5917D981AA00A32E35 /* BWSeparatorView.m in Sources */,
 				DA4C7E4B17CD29DF00783060 /* BWVideoDetailViewController.m in Sources */,
 				DA39B4B417D6A56000E7935D /* OpenOnGBActivity.m in Sources */,
