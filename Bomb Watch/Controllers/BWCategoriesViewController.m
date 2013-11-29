@@ -89,17 +89,17 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     BWVideoListViewController *destinationVC = (BWVideoListViewController *)[segue destinationViewController];
 
-    if([[segue identifier] isEqualToString:@"videoListSegue"]) {
-        if ([sender isKindOfClass:[NSString class]]) {
-            // when this view is instantiated from the app delegate it doesn't seem to set its
-            // title properly, which can mess up the nav controller's back button label
-            self.title = @"Videos";
-            destinationVC.category = sender;
-        } else {
-            UITableViewCell *selectedCell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
-            destinationVC.category = selectedCell.textLabel.text;
-        }
-    }
+//    if([[segue identifier] isEqualToString:@"videoListSegue"]) {
+//        if ([sender isKindOfClass:[NSString class]]) {
+//            // when this view is instantiated from the app delegate it doesn't seem to set its
+//            // title properly, which can mess up the nav controller's back button label
+//            self.title = @"Videos";
+//            destinationVC.category = sender;
+//        } else {
+//            UITableViewCell *selectedCell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+//            destinationVC.category = selectedCell.textLabel.text;
+//        }
+//    }
 }
 
 @end

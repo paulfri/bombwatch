@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "94D7627A3DA34013AAD5AC45"
-               BuildableName = "libPods-MKiCloudSync.a"
-               BlueprintName = "Pods-MKiCloudSync"
+               BlueprintIdentifier = "B9F66D2F02174F00BCDF0703"
+               BuildableName = "libPods-PDGesturedTableView.a"
+               BlueprintName = "Pods-PDGesturedTableView"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

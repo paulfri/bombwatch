@@ -569,7 +569,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="3qt-wd-5me" kind="push" identifier="videoListSegue" id="qOc-7j-wZf"/>
+                                    <segue destination="AAd-IK-oxx" kind="push" identifier="videoListSegue" id="jk8-kQ-Uc4"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -585,62 +585,51 @@
             </objects>
             <point key="canvasLocation" x="-6611" y="-3389"/>
         </scene>
-        <!--Video List View Controller-->
-        <scene sceneID="JvP-0V-ydo">
+        <!--List View Controller-->
+        <scene sceneID="MsO-MU-Sf2">
             <objects>
-                <tableViewController id="3qt-wd-5me" customClass="BWVideoListViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="54" sectionHeaderHeight="22" sectionFooterHeight="22" id="wXq-pT-ciJ">
+                <viewController id="AAd-IK-oxx" customClass="BWListViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="huC-46-oio"/>
+                        <viewControllerLayoutGuide type="bottom" id="A0G-ay-u7N"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nQs-Oh-sgd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="VideoCell" rowHeight="54" id="dGh-Uw-0zD">
-                                <rect key="frame" x="0.0" y="86" width="320" height="54"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dGh-Uw-0zD" id="iTB-0S-FaB">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="53"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2VI-OL-Dr6">
-                                            <rect key="frame" x="2" y="3" width="48" height="48"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="48" id="5e5-Bw-QAp"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unprofessional Fridays" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="VTw-zb-PR2">
-                                            <rect key="frame" x="58" y="1" width="229" height="52"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="VTw-zb-PR2" secondAttribute="bottom" id="3zy-rA-ygd"/>
-                                        <constraint firstAttribute="bottom" secondItem="2VI-OL-Dr6" secondAttribute="bottom" constant="2" id="6dy-FL-cdH"/>
-                                        <constraint firstItem="2VI-OL-Dr6" firstAttribute="leading" secondItem="iTB-0S-FaB" secondAttribute="leading" constant="2" id="LYj-6u-go5"/>
-                                        <constraint firstAttribute="trailing" secondItem="VTw-zb-PR2" secondAttribute="trailing" id="P6M-X6-KII"/>
-                                        <constraint firstItem="VTw-zb-PR2" firstAttribute="leading" secondItem="2VI-OL-Dr6" secondAttribute="trailing" constant="8" symbolic="YES" id="SkU-xq-4ys"/>
-                                        <constraint firstItem="2VI-OL-Dr6" firstAttribute="top" secondItem="iTB-0S-FaB" secondAttribute="top" constant="3" id="myp-Iw-yLX"/>
-                                        <constraint firstItem="VTw-zb-PR2" firstAttribute="centerY" secondItem="2VI-OL-Dr6" secondAttribute="centerY" id="yfW-wG-l77"/>
-                                    </constraints>
-                                </tableViewCellContentView>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Lev-43-1mt" customClass="PDGesturedTableView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Snx-f1-d71">
+                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Snx-f1-d71">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="rJ6-uZ-0Hw" kind="push" identifier="kBWVideoDetailSegue" id="I8Y-fc-UNu"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
-                                    <segue destination="rJ6-uZ-0Hw" kind="push" identifier="showVideoDetailSegue" id="KBT-si-Lhj"/>
+                                    <outlet property="dataSource" destination="AAd-IK-oxx" id="24i-MK-DW4"/>
+                                    <outlet property="delegate" destination="AAd-IK-oxx" id="ufg-lG-iZt"/>
                                 </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="3qt-wd-5me" id="6gu-kV-TSx"/>
-                            <outlet property="delegate" destination="3qt-wd-5me" id="Nzv-8m-scm"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="QVR-4a-3md"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="77p-Nc-MiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="u9p-nl-zb9"/>
+                    <connections>
+                        <outlet property="tableView" destination="Lev-43-1mt" id="u0h-7e-ZAE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uim-5y-WX0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6164" y="-3389"/>
+            <point key="canvasLocation" x="-6149" y="-3383"/>
         </scene>
         <!--Table View Controller - Search-->
         <scene sceneID="MFO-EJ-weo">
@@ -949,6 +938,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Qbr-f1-qbf"/>
+        <segue reference="I8Y-fc-UNu"/>
     </inferredMetricsTieBreakers>
 </document>

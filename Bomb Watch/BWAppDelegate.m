@@ -24,16 +24,16 @@
     
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     
-    // custom app launch screen - set in preferences
-    NSString *defaultView = [[NSUserDefaults standardUserDefaults] stringForKey:@"initialView"];
-    if (![defaultView isEqualToString:@"Videos"]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-        UITabBarController *root = [storyboard instantiateViewControllerWithIdentifier:@"mainTabBarVC"];
-        self.window.rootViewController = root;
-        UINavigationController *nav = (UINavigationController *)root.viewControllers[0];
-        [nav.topViewController performSegueWithIdentifier:@"videoListSegue"
-                                                   sender:defaultView];
-    }
+//    // custom app launch screen - set in preferences
+//    NSString *defaultView = [[NSUserDefaults standardUserDefaults] stringForKey:@"initialView"];
+//    if (![defaultView isEqualToString:@"Videos"]) {
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+//        UITabBarController *root = [storyboard instantiateViewControllerWithIdentifier:@"mainTabBarVC"];
+//        self.window.rootViewController = root;
+//        UINavigationController *nav = (UINavigationController *)root.viewControllers[0];
+//        [nav.topViewController performSegueWithIdentifier:@"videoListSegue"
+//                                                   sender:defaultView];
+//    }
 
     return YES;
 }

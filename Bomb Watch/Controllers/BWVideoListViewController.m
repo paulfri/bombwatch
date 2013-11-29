@@ -123,7 +123,6 @@
 
 - (void)loadNextPage {
     if ([self reachedEnd]) return;
-
     __block NSDictionary *params = [self queryParams];
 
     [[GiantBombAPIClient defaultClient] GET:@"videos" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
