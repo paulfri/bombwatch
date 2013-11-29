@@ -21,8 +21,9 @@
 
 - (id)initWithVideo:(GBVideo *)video {
     self = [super init];
-    if (self)
+    if (self) {
         self.video = video;
+    }
     return self;
 }
 

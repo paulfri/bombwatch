@@ -25,14 +25,21 @@
 
 - (id)initWithTitle:(NSString *)title imageURL:(NSURL *)url
 {
-    CGRect frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 180);
-    self = [super initWithFrame:frame];
+    CGRect screen = [UIScreen mainScreen].bounds;
+    CGRect imageFrame = CGRectMake(0, 0, screen.size.width, 180);
+    self = [super initWithFrame:imageFrame];
+
     if (self) {
-        self.titleLabel = [[UILabel alloc] initWithFrame:frame];
+        CGRect labelFrame = CGRectMake(5, 50, screen.size.width, 180);
+        self.titleLabel = [[UILabel alloc] initWithFrame:labelFrame];
         self.titleLabel.text = title;
         self.titleLabel.textColor = [UIColor whiteColor];
+        self.titleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:24.0];
+        self.titleLabel.shadowColor = [UIColor grayColor];
+        self.titleLabel.shadowOffset = CGSizeMake(0,1);
+        self.titleLabel.numberOfLines = 0;
         
-        self.imageView = [[UIImageView alloc] initWithFrame:frame];
+        self.imageView = [[UIImageView alloc] initWithFrame:imageFrame];
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
         self.cachedImageViewSize = self.imageView.frame;
         
@@ -45,7 +52,6 @@
         {
             _self.image = image;
             [_self updateImageBlurWithRadius:kBWImageCoverBlurRadius];
-            NSLog(@"asdfafsd");
         }
                                        failure:nil];
 
