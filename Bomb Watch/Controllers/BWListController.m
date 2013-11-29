@@ -12,6 +12,7 @@
 #import "BWVideoFetcher.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+ImageEffects.h"
+#import "SVProgressHUD.h"
 
 static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
@@ -50,6 +51,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
                       forControlEvents:UIControlEventValueChanged];
         tableViewController.refreshControl = self.refreshControl;
         
+        [SVProgressHUD show];
         [self loadVideosForPage:self.page];
     }
 
@@ -117,6 +119,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
         }
         
         [self.tableView reloadData];
+        [SVProgressHUD dismiss];
         [self.refreshControl endRefreshing];
     }
                                                     failure:nil];

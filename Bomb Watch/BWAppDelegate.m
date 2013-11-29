@@ -21,19 +21,7 @@
     [self configureURLCache];
     [self configurePreferences];
     [[PocketAPI sharedAPI] setConsumerKey:PocketConsumerKey];
-    
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
-    
-//    // custom app launch screen - set in preferences
-//    NSString *defaultView = [[NSUserDefaults standardUserDefaults] stringForKey:@"initialView"];
-//    if (![defaultView isEqualToString:@"Videos"]) {
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-//        UITabBarController *root = [storyboard instantiateViewControllerWithIdentifier:@"mainTabBarVC"];
-//        self.window.rootViewController = root;
-//        UINavigationController *nav = (UINavigationController *)root.viewControllers[0];
-//        [nav.topViewController performSegueWithIdentifier:@"videoListSegue"
-//                                                   sender:defaultView];
-//    }
 
     return YES;
 }
@@ -72,25 +60,24 @@
 #pragma mark - App Delegate methods
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    if([[PocketAPI sharedAPI] handleOpenURL:url])
+    if([[PocketAPI sharedAPI] handleOpenURL:url]) {
         return YES;
-    else
+    } else {
         return NO;
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    
     __block UIBackgroundTaskIdentifier backgroundTaskIdentifier = [application beginBackgroundTaskWithExpirationHandler:^(void) {
         [application endBackgroundTask:backgroundTaskIdentifier];
     }];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [[[BWDownloadsDataStore defaultStore] managedObjectContext] save:nil];
 }
+
+#pragma mark - Remote control
 
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BWRemoteControlEventReceived" object:event];

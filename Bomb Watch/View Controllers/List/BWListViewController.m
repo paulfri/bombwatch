@@ -20,6 +20,7 @@
                                                              category:self.category];
     self.listController.delegate = self;
     self.tableView.backgroundColor = [UIColor blackColor];
+    self.tableView.separatorColor  = [UIColor grayColor];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
