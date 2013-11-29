@@ -9,14 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "PDGesturedTableView.h"
 #import "GBVideo.h"
+#import "BWListControllerDelegate.h"
 
-@interface BWListController : NSObject <UITableViewDataSource>
+@interface BWListController : NSObject <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *videos;
+@property (strong, nonatomic) NSString *category;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) PDGesturedTableView *tableView;
+@property (assign, nonatomic) NSInteger page;
+@property (weak, nonatomic) id<BWListControllerDelegate> delegate;
 
 - (id)initWithTableView:(PDGesturedTableView *)tableView;
+- (id)initWithTableView:(PDGesturedTableView *)tableView category:(NSString *)category;
 - (GBVideo *)videoAtIndexPath:(NSIndexPath *)indexPath;
-- (void)loadVideos;
 
 @end

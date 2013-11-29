@@ -15,26 +15,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.listController = [[BWListController alloc] initWithTableView:self.tableView];
-    
-    self.tableView.backgroundColor = [UIColor lightGrayColor];
-    self.tableView.rowHeight = 65.0;
-    self.tableView.allowsSelection = YES;
+    self.title = self.category;
+    self.listController = [[BWListController alloc] initWithTableView:self.tableView category:self.category];
+    self.listController.delegate = self;
     self.tableView.enabled = YES;
-    self.tableView.delegate = self;
-
-    [self.listController loadVideos];
 }
-
-- (void)tableView:(PDGesturedTableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    GBVideo *video = [self.listController videoAtIndexPath:indexPath];
-    
-    if (video) {
-        [self performSegueWithIdentifier:@"kBWVideoDetailSegue" sender:video];
-    }
-}
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -42,6 +27,11 @@
         BWVideoDetailViewController *controller = [segue destinationViewController];
         controller.video = sender;
     }
+}
+
+- (void)videoSelected:(GBVideo *)video
+{
+    [self performSegueWithIdentifier:@"kBWVideoDetailSegue" sender:video];
 }
 
 @end

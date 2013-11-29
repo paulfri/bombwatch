@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "PDGesturedTableView.h"
 #import "BWListController.h"
+#import "BWListControllerDelegate.h"
 
-@interface BWListViewController : UIViewController <UITableViewDelegate>
+@interface BWListViewController : UIViewController <BWListControllerDelegate>
 
+@property (strong, nonatomic) NSString *category;
 @property (weak, nonatomic) IBOutlet PDGesturedTableView *tableView;
 @property (strong, nonatomic) BWListController *listController;
 
