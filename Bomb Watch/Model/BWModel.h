@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Laika Cosmonautics. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Mantle/Mantle.h>
 
-@interface BWModel : NSObject
+@interface BWModel : MTLModel <MTLJSONSerializing>
 
 @end

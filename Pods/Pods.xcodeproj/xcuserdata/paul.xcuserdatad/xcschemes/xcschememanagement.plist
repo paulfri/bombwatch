@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Mantle.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-PDGesturedTableView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2C606FCD64CC4116AD92852C</key>
+		<key>0FB5B2CEF31F4F2CBD1F38C5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>55BF037E3DA64CB18DA6FFA8</key>
+		<key>1ABAF33E150B488DBF765433</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>68087A64744E4EC0A8898EEB</key>
+		<key>2ED1B104D781498BBCAD7ECC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>90BBF3F552B347208768D994</key>
+		<key>3EB16D46E032463E81D3F9FA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ADDDD6D1434849A2B11B8DDF</key>
+		<key>C92186EE6E3546C5BA86D1DF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC8F3FA16BC448DEB5C2633F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2C606FCD64CC4116AD92852C"
+               BlueprintIdentifier = "C92186EE6E3546C5BA86D1DF"
                BuildableName = "libPods-PDGesturedTableView.a"
                BlueprintName = "Pods-PDGesturedTableView"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -13,6 +13,7 @@
 		DA0A7191184930BD004750F1 /* BWListController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A7190184930BD004750F1 /* BWListController.m */; };
 		DA0A719518494688004750F1 /* BWVideoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A719418494688004750F1 /* BWVideoFetcher.m */; };
 		DA0A719C184979C0004750F1 /* BWModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A719B184979C0004750F1 /* BWModel.m */; };
+		DA0A71A218497CDF004750F1 /* BWVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A71A118497CDF004750F1 /* BWVideo.m */; };
 		DA39B4AD17D6A22B00E7935D /* BWTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA39B4AC17D6A22B00E7935D /* BWTableViewController.m */; };
 		DA39B4B417D6A56000E7935D /* OpenOnGBActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = DA39B4B317D6A56000E7935D /* OpenOnGBActivity.m */; };
 		DA4127F417CE28D3003C4F59 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4127F317CE28D3003C4F59 /* Security.framework */; };
@@ -68,6 +69,8 @@
 		DA0A719918494F23004750F1 /* BWListControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BWListControllerDelegate.h; sourceTree = "<group>"; };
 		DA0A719A184979C0004750F1 /* BWModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWModel.h; sourceTree = "<group>"; };
 		DA0A719B184979C0004750F1 /* BWModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWModel.m; sourceTree = "<group>"; };
+		DA0A71A018497CDF004750F1 /* BWVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideo.h; sourceTree = "<group>"; };
+		DA0A71A118497CDF004750F1 /* BWVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideo.m; sourceTree = "<group>"; };
 		DA2FC43617D2AEBA005E7408 /* Bomb Watch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Bomb Watch.entitlements"; sourceTree = "<group>"; };
 		DA39B4AB17D6A22B00E7935D /* BWTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWTableViewController.h; path = ../BWTableViewController.h; sourceTree = "<group>"; };
 		DA39B4AC17D6A22B00E7935D /* BWTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWTableViewController.m; path = ../BWTableViewController.m; sourceTree = "<group>"; };
@@ -347,6 +350,8 @@
 			children = (
 				DA0A719A184979C0004750F1 /* BWModel.h */,
 				DA0A719B184979C0004750F1 /* BWModel.m */,
+				DA0A71A018497CDF004750F1 /* BWVideo.h */,
+				DA0A71A118497CDF004750F1 /* BWVideo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -501,6 +506,7 @@
 				DA0A719C184979C0004750F1 /* BWModel.m in Sources */,
 				DA39B4AD17D6A22B00E7935D /* BWTableViewController.m in Sources */,
 				DA6AFA3917D6ACC3008764D7 /* BWAboutViewController.m in Sources */,
+				DA0A71A218497CDF004750F1 /* BWVideo.m in Sources */,
 				DA0A718718490BC4004750F1 /* BWImagePulldownView.m in Sources */,
 				DAABDE5917D981AA00A32E35 /* BWSeparatorView.m in Sources */,
 				DA4C7E4B17CD29DF00783060 /* BWVideoDetailViewController.m in Sources */,

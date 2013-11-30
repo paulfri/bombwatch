@@ -10,4 +10,9 @@
 
 @implementation BWModel
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey
+{
+    return @{};
+}
+
 @end
