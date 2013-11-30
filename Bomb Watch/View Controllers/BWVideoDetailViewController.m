@@ -80,7 +80,7 @@
 }
 
 - (void)updateDurationLabel {
-    NSTimeInterval played = [[[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"] objectForKey:[NSString stringWithFormat:@"%@", self.video.videoID]] doubleValue];
+    NSTimeInterval played = [[[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"] objectForKey:[NSString stringWithFormat:@"%@", [NSNumber numberWithInt:self.video.videoID]]] doubleValue];
     NSTimeInterval duration = self.video.length;
     
     if (played != 0)

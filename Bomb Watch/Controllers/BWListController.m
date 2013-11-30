@@ -95,7 +95,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
     
     BWVideo *video = [self videoAtIndexPath:indexPath];
     cell.textLabel.text = video.name;
-    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.textColor = [video cellTextColor];
 
     UIImageView *imageView = [[UIImageView alloc] init];
     __block UIImageView *blockView = imageView;
@@ -174,10 +174,14 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 {
     PDGesturedTableViewCell *cell = [[PDGesturedTableViewCell alloc] init];
     
-    void (^completionForReleaseBlocks)(PDGesturedTableView *, PDGesturedTableViewCell *) = ^(PDGesturedTableView * gesturedTableView, PDGesturedTableViewCell * cell)
+    __unsafe_unretained typeof(self) _self = self;
+    void (^completionForReleaseBlocks)(PDGesturedTableView*, PDGesturedTableViewCell*) = ^(PDGesturedTableView *gesturedTableView, PDGesturedTableViewCell *cell)
     {
-        
-        cell.textLabel.textColor = [UIColor grayColor];
+        BWVideo *video = [_self videoAtIndexPath:[gesturedTableView indexPathForCell:cell]];
+        [video setWatched:![video isWatched]];
+
+        cell.textColor = [video cellTextColor];
+
         [gesturedTableView updateAnimatedly:YES];
     };
     
@@ -185,7 +189,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
                                                                style:UITableViewCellStyleDefault
                                                      reuseIdentifier:cellIdentifier];
     
-    PDGesturedTableViewCellSlidingFraction * greenSlidingFraction =
+    PDGesturedTableViewCellSlidingFraction *greenSlidingFraction =
         [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"circle.png"]
                                                                   color:[UIColor colorWithRed:0.2 green:0.8 blue:0.2 alpha:1]
                                                      activationFraction:kBWLeftSwipeFraction];
@@ -193,30 +197,13 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
     [greenSlidingFraction setDidReleaseBlock:completionForReleaseBlocks];
     [cell addSlidingFraction:greenSlidingFraction];
     
-    PDGesturedTableViewCellSlidingFraction *redSlidingFraction =
-        [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"square.png"]
-                                                                  color:[UIColor redColor]
-                                                     activationFraction:kBWFarLeftSwipeFraction];
-    
-    [redSlidingFraction setDidReleaseBlock:completionForReleaseBlocks];
-    [cell addSlidingFraction:redSlidingFraction];
-    
-    PDGesturedTableViewCellSlidingFraction * yellowSlidingFraction =
+    PDGesturedTableViewCellSlidingFraction *yellowSlidingFraction =
         [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"circle.png"]
                                                                   color:[UIColor colorWithRed:239.0/255.0 green:222.0/255 blue:24.0/255 alpha:1]
                                                      activationFraction:-kBWRightSwipeFraction];
     
     [yellowSlidingFraction setDidReleaseBlock:completionForReleaseBlocks];
     [cell addSlidingFraction:yellowSlidingFraction];
-    
-    PDGesturedTableViewCellSlidingFraction * brownSlidingFraction =
-        [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"square.png"]
-                                                                  color:[UIColor brownColor]
-                                                     activationFraction:-kBWFarRightSwipeFraction];
-    
-    [brownSlidingFraction setDidReleaseBlock:completionForReleaseBlocks];
-    [cell addSlidingFraction:brownSlidingFraction];
-    
     
     cell.backgroundColor = [UIColor clearColor];
     [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:18]];

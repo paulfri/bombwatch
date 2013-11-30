@@ -48,5 +48,34 @@
     return nil;
 }
 
+#pragma mark - watch status
+
+- (BOOL)isWatched {
+    NSMutableArray *watched = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"videosWatched"] mutableCopy];
+    return [watched containsObject:[NSNumber numberWithInt:self.videoID]];
+}
+
+- (void)setWatched:(BOOL)watchedStatus {
+    NSMutableArray *watched = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"videosWatched"] mutableCopy];
+    NSNumber *videoID = [NSNumber numberWithInt:self.videoID];
+    
+    if (watchedStatus && ![watched containsObject:videoID]) {
+        [watched addObject:videoID];
+    } else if ([watched containsObject:videoID]) {
+        [watched removeObject:videoID];
+    }
+
+    [[NSUserDefaults standardUserDefaults] setObject:[watched copy] forKey:@"videosWatched"];
+}
+
+#warning break this out into a category
+- (UIColor *)cellTextColor
+{
+    if ([self isWatched]) {
+        return [UIColor grayColor];
+    }
+    
+    return [UIColor whiteColor];
+}
 
 @end

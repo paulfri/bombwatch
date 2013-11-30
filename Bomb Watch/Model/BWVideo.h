@@ -10,7 +10,7 @@
 
 @interface BWVideo : MTLModel <MTLJSONSerializing>
 
-@property (strong, nonatomic) NSNumber *videoID;
+@property (assign, nonatomic) NSInteger videoID;
 
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *summary;
@@ -28,5 +28,10 @@
 
 @property (strong, nonatomic) NSURL *imageIconURL;   // 1:1
 @property (strong, nonatomic) NSURL *imageMediumURL; // 16:9
+
+- (BOOL)isWatched;
+- (void)setWatched:(BOOL)watchedStatus;
+
+- (UIColor *)cellTextColor;
 
 @end
