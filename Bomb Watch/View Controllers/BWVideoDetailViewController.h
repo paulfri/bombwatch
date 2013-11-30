@@ -8,15 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "BWVideoPlayerDelegate.h"
-#import "BWImagePulldownView.h"
+@class BWImagePulldownView;
+@class BWVideo;
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@class GBVideo;
-
 @interface BWVideoDetailViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate, BWVideoPlayerDelegate>
 
-@property (strong, nonatomic) GBVideo *video;
+@property (strong, nonatomic) BWVideo *video;
 
 @property (strong, nonatomic) BWImagePulldownView *imagePulldownView;
 
@@ -31,9 +30,6 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *watchedButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *downloadButton;
-
-// used for preloading the quality when coming from downloads view
-@property (strong, nonatomic) NSNumber *preselectedQuality;
 
 - (IBAction)actionButtonPressed:(id)sender;
 - (IBAction)playButtonPressed:(id)sender;

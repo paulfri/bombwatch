@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PDGesturedTableView.h"
-#import "GBVideo.h"
+#import "BWVideo.h"
 #import "BWListControllerDelegate.h"
 
 @interface BWListController : NSObject <UITableViewDataSource, UITableViewDelegate>
@@ -22,6 +22,6 @@
 
 - (id)initWithTableView:(PDGesturedTableView *)tableView;
 - (id)initWithTableView:(PDGesturedTableView *)tableView category:(NSString *)category;
-- (GBVideo *)videoAtIndexPath:(NSIndexPath *)indexPath;
+- (BWVideo *)videoAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

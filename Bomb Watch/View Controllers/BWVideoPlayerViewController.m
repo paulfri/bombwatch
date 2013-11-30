@@ -17,7 +17,7 @@
 
 @implementation BWVideoPlayerViewController
 
-- (id)initWithVideo:(GBVideo *)video {
+- (id)initWithVideo:(BWVideo *)video {
     self = [super init];
     if (self) {
         self.video = video;
@@ -25,7 +25,7 @@
     return self;
 }
 
-- (id)initWithVideo:(GBVideo *)video quality:(NSInteger)quality downloads:(NSArray *)downloads {
+- (id)initWithVideo:(BWVideo *)video quality:(NSInteger)quality downloads:(NSArray *)downloads {
     self = [super init];
     if (self) {
         self.video = video;
@@ -63,7 +63,7 @@
     
     NSDictionary *nowPlayingInfo = @{MPMediaItemPropertyTitle:self.video.name,
                                      MPMediaItemPropertyArtist:@"Giant Bomb",
-                                     MPMediaItemPropertyPlaybackDuration:self.video.lengthInSeconds};
+                                     MPMediaItemPropertyPlaybackDuration:[NSNumber numberWithInt:self.video.length]};
     //    MPNowPlayingInfoPropertyElapsedPlaybackTime:[NSNumber numberWithDouble:self.moviePlayer.currentPlaybackTime]
     //    MPMediaItemPropertyArtwork
 
@@ -108,7 +108,7 @@
     
     if (self.moviePlayer.currentPlaybackTime > 0) {
         if (self.moviePlayer.currentPlaybackTime >= (self.moviePlayer.duration * 0.95)) {
-            [self.video setWatched];
+//            [self.video setWatched];
             [progress removeObjectForKey:key];
         } else
             [progress setObject:playback forKey:key];

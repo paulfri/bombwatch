@@ -8,7 +8,7 @@
 
 #import "BWListController.h"
 #import "GiantBombAPIClient.h"
-#import "GBVideo.h"
+#import "BWVideo.h"
 #import "BWVideoFetcher.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+ImageEffects.h"
@@ -58,7 +58,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
     return self;
 }
 
-- (GBVideo *)videoAtIndexPath:(NSIndexPath *)indexPath
+- (BWVideo *)videoAtIndexPath:(NSIndexPath *)indexPath
 {
     return self.videos[indexPath.row];
 }
@@ -84,7 +84,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
         cell = [self initializeCell];
     }
     
-    GBVideo *video = [self videoAtIndexPath:indexPath];
+    BWVideo *video = [self videoAtIndexPath:indexPath];
     cell.textLabel.text = video.name;
 
     UIImageView *imageView = [[UIImageView alloc] init];
@@ -129,7 +129,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
 - (void)tableView:(PDGesturedTableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GBVideo *video = [self videoAtIndexPath:indexPath];
+    BWVideo *video = [self videoAtIndexPath:indexPath];
     
     if (video && self.delegate && [self.delegate respondsToSelector:@selector(videoSelected:)]) {
         [self.delegate videoSelected:video];

@@ -8,7 +8,7 @@
 
 #import "PocketAPIActivity.h"
 #import "PocketAPI.h"
-#import "GBVideo.h"
+#import "BWVideo.h"
 #import "SVProgressHUD.h"
 
 @interface PocketAPIActivity ()
@@ -33,7 +33,7 @@
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
 	for (id activityItem in activityItems) {
-		if ([activityItem isKindOfClass:[GBVideo class]]) {
+		if ([activityItem isKindOfClass:BWVideo.class]) {
 			NSURL *pocketURL = [NSURL URLWithString:[[PocketAPI pocketAppURLScheme] stringByAppendingString:@":test"]];
 			if ([[UIApplication sharedApplication] canOpenURL:pocketURL] || [PocketAPI sharedAPI].loggedIn) {
 				return YES;
@@ -48,7 +48,7 @@
 	NSMutableArray *videos = [NSMutableArray array];
 	
 	for (id activityItem in activityItems) {
-		if ([activityItem isKindOfClass:[GBVideo class]]) {
+		if ([activityItem isKindOfClass:BWVideo.class]) {
 			[videos addObject:activityItem];
 		}
 	}
@@ -60,10 +60,11 @@
 	__block NSUInteger videosLeft = self.videos.count;
 	__block BOOL videoFailed = NO;
 
-	for (GBVideo *video in self.videos) {
+	for (BWVideo *video in self.videos) {
         [[PocketAPI sharedAPI] saveURL:video.videoHighURL
                              withTitle:video.name
-                               handler: ^(PocketAPI *api, NSURL *url, NSError *error) {
+                               handler: ^(PocketAPI *api, NSURL *url, NSError *error)
+        {
 			if (error != nil) videoFailed = YES;
 			videosLeft--;
 			if (videosLeft == 0) [self activityDidFinish:!videoFailed];

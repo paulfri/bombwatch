@@ -8,7 +8,8 @@
 
 #import "BWVideoFetcher.h"
 #import "GiantBombAPIClient.h"
-#import "GBVideo.h"
+#import "BWVideo.h"
+#import <Mantle/Mantle.h>
 
 @implementation BWVideoFetcher
 
@@ -36,7 +37,9 @@
          NSMutableArray *results = [NSMutableArray array];
 
          for (id gameDictionary in [responseObject valueForKey:@"results"]) {
-             GBVideo *video = [[GBVideo alloc] initWithDictionary:gameDictionary];
+             BWVideo *video = [MTLJSONAdapter modelOfClass:BWVideo.class
+                                        fromJSONDictionary:(NSDictionary *)gameDictionary
+                                                     error:NULL];
              [results addObject:video];
          }
 

@@ -8,7 +8,6 @@
 
 #import "BWVideoDetailViewController.h"
 #import "UIImageView+AFNetworking.h"
-#import "GBVideo.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "PocketAPIActivity.h"
 #import "PocketAPI.h"
@@ -18,6 +17,8 @@
 #import "OpenOnGBActivity.h"
 #import "BWSeparatorView.h"
 #import "BWVideoPlayerViewController.h"
+#import "BWImagePulldownView.h"
+#import "BWVideo.h"
 
 // default quality when no downloads are present
 #define kQualityCell        1
@@ -66,23 +67,12 @@
                                                                imageURL:self.video.imageMediumURL];
     self.tableView.tableHeaderView = self.imagePulldownView;
     [self.tableView sendSubviewToBack:self.tableView.tableHeaderView];
-    
-//    self.tableView.tableHeaderView.userInteractionEnabled = YES;
-//    UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playButtonPressed:)];
-//    [self.tableView.tableHeaderView addGestureRecognizer:tapped];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (self.preselectedQuality)
-        [self selectQuality:[self.preselectedQuality intValue]];
-    else
-        [self selectBestQuality];
-    [self refreshViews];
-}
-
-- (void)selectBestQuality {
     [self selectQuality:[self defaultQuality]];
+    [self refreshViews];
 }
 
 - (void)selectQuality:(int)quality {
@@ -101,7 +91,7 @@
 
 - (void)updateDurationLabel {
     NSTimeInterval played = [[[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"] objectForKey:[NSString stringWithFormat:@"%@", self.video.videoID]] doubleValue];
-    NSTimeInterval duration = [self.video.lengthInSeconds intValue];
+    NSTimeInterval duration = self.video.length;
     
     if (played != 0)
         self.durationLabel.text = [NSString stringWithFormat:@"Duration: %@ / %@", [self stringFromDuration:played], [self stringFromDuration:duration]];
@@ -206,7 +196,8 @@
 }
 
 - (BOOL)isPremium {
-    return ![[self.video.videoHDURL absoluteString] isEqual:GiantBombVideoEmptyURL];
+//    return ![[self.video.videoHDURL absoluteString] isEqual:GiantBombVideoEmptyURL];
+    return false;
 }
 
 #pragma mark - Video player control
@@ -270,38 +261,41 @@
 
 - (IBAction)watchedButtonPressed:(id)sender {
     // TODO: show image with status
-    if (![self.video isWatched]) {
-        [self.video setWatched];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(dismiss)
-                                                     name:SVProgressHUDDidDisappearNotification
-                                                   object:nil];
-        [SVProgressHUD showSuccessWithStatus:@"Watched"];
-    } else {
-        [self.video setUnwatched];
-        [SVProgressHUD showSuccessWithStatus:@"Unwatched"];
-    }
+//    if (![self.video isWatched]) {
+//        [self.video setWatched];
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(dismiss)
+//                                                     name:SVProgressHUDDidDisappearNotification
+//                                                   object:nil];
+//        [SVProgressHUD showSuccessWithStatus:@"Watched"];
+//    } else {
+//        [self.video setUnwatched];
+//        [SVProgressHUD showSuccessWithStatus:@"Unwatched"];
+//    }
 
     [self updateWatchedButton];
 }
 
-- (void)updateWatchedButton {
-    if ([self.video isWatched])
-        self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheckFull"];
-    else
-        self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheck"];
+- (void)updateWatchedButton
+{
+//    if ([self.video isWatched])
+//        self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheckFull"];
+//    else
+    self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheck"];
 }
 
 #pragma mark - Utility
 
-- (void)dismiss {
+- (void)dismiss
+{
     [self.navigationController popViewControllerAnimated:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:SVProgressHUDDidDisappearNotification
                                                   object:nil];
 }
 
-- (void)refreshViews {
+- (void)refreshViews
+{
     [self updateDownloadButton];
     [self updateWatchedButton];
     [self.qualityPicker reloadAllComponents];

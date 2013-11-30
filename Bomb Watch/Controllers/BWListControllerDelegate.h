@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-@class GBVideo;
+@class BWVideo;
 
 @protocol BWListControllerDelegate <NSObject>
 @optional
 
-- (void)videoSelected:(GBVideo *)video;
+- (void)videoSelected:(BWVideo *)video;
 
 @end

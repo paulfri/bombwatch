@@ -42,7 +42,6 @@
 		DACE829417CD035800E23051 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DACE829217CD035800E23051 /* InfoPlist.strings */; };
 		DACE829617CD035800E23051 /* Bomb_WatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DACE829517CD035800E23051 /* Bomb_WatchTests.m */; };
 		DACE82A517CD052300E23051 /* GiantBombAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DACE82A317CD052300E23051 /* GiantBombAPIClient.m */; };
-		DACE82A817CD0B2600E23051 /* GBVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = DACE82A717CD0B2600E23051 /* GBVideo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,8 +118,6 @@
 		DACE829517CD035800E23051 /* Bomb_WatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Bomb_WatchTests.m; sourceTree = "<group>"; };
 		DACE82A217CD052300E23051 /* GiantBombAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiantBombAPIClient.h; sourceTree = "<group>"; };
 		DACE82A317CD052300E23051 /* GiantBombAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiantBombAPIClient.m; sourceTree = "<group>"; };
-		DACE82A617CD0B2600E23051 /* GBVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBVideo.h; sourceTree = "<group>"; };
-		DACE82A717CD0B2600E23051 /* GBVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBVideo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -337,8 +334,6 @@
 			children = (
 				DACE82A217CD052300E23051 /* GiantBombAPIClient.h */,
 				DACE82A317CD052300E23051 /* GiantBombAPIClient.m */,
-				DACE82A617CD0B2600E23051 /* GBVideo.h */,
-				DACE82A717CD0B2600E23051 /* GBVideo.m */,
 				DA0A719318494688004750F1 /* BWVideoFetcher.h */,
 				DA0A719418494688004750F1 /* BWVideoFetcher.m */,
 			);
@@ -500,7 +495,6 @@
 				DA0A7191184930BD004750F1 /* BWListController.m in Sources */,
 				DA852999184908C40049C752 /* NSString+Extensions.m in Sources */,
 				DAAFC2B117DB8B1B0095E494 /* BWVideoPlayerViewController.m in Sources */,
-				DACE82A817CD0B2600E23051 /* GBVideo.m in Sources */,
 				DA85299A184908C40049C752 /* UIImage+ImageEffects.m in Sources */,
 				DA0A718D184919FC004750F1 /* BWListViewController.m in Sources */,
 				DA0A719C184979C0004750F1 /* BWModel.m in Sources */,

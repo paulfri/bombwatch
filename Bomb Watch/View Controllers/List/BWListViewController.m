@@ -8,7 +8,7 @@
 
 #import "BWListViewController.h"
 #import "BWVideoDetailViewController.h"
-#import "GBVideo.h"
+#import "BWVideo.h"
 
 @implementation BWListViewController
 
@@ -31,7 +31,7 @@
     }
 }
 
-- (void)videoSelected:(GBVideo *)video
+- (void)videoSelected:(BWVideo *)video
 {
     [self performSegueWithIdentifier:@"kBWVideoDetailSegue" sender:video];
 }

@@ -7,52 +7,57 @@
 //
 
 #import "OpenOnGBActivity.h"
-#import "GBVideo.h"
 #import "SVProgressHUD.h"
 
 @interface OpenOnGBActivity ()
 
-@property (strong, nonatomic) NSURL *theURL;
+@property (strong, nonatomic) NSURL *URL;
 
 @end
 
 @implementation OpenOnGBActivity
 
-+ (UIActivityCategory)activityCategory {
++ (UIActivityCategory)activityCategory
+{
     return UIActivityCategoryAction;
 }
 
-- (NSString *)activityType {
+- (NSString *)activityType
+{
 	return @"OpenOnGB";
 }
 
-- (NSString *)activityTitle {
+- (NSString *)activityTitle
+{
 	return NSLocalizedString(@"View on Giant Bomb", nil);
 }
 
-- (UIImage *)activityImage {
+- (UIImage *)activityImage
+{
 	return [UIImage imageNamed:@"BombTableHeader"];
 }
 
-- (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
+- (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
+{
 	for (id activityItem in activityItems) {
 		if ([activityItem isKindOfClass:[NSURL class]]) return YES;
 	}
 	return NO;
 }
 
-- (void)prepareWithActivityItems:(NSArray *)activityItems {
+- (void)prepareWithActivityItems:(NSArray *)activityItems
+{
 	for (id activityItem in activityItems) {
 		if ([activityItem isKindOfClass:[NSURL class]]) {
-			self.theURL = activityItem;
+			self.URL = activityItem;
             return;
 		}
 	}
 }
 
 - (void)performActivity {
-    if (self.theURL != nil && [self.theURL isKindOfClass:[NSURL class]]) {
-        [[UIApplication sharedApplication] openURL:self.theURL];
+    if (self.URL != nil && [self.URL isKindOfClass:[NSURL class]]) {
+        [[UIApplication sharedApplication] openURL:self.URL];
         [self activityDidFinish:YES];
     }
     [self activityDidFinish:NO];
