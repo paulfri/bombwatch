@@ -17,7 +17,7 @@
 
 static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
-#define kBWLeftSwipeFraction 0.25
+#define kBWLeftSwipeFraction 0.15
 #define kBWRightSwipeFraction 0.15
 
 #define kBWLeftSwipeColor  [UIColor colorWithRed:0 green:178.0/255 blue:51.0/255 alpha:1]

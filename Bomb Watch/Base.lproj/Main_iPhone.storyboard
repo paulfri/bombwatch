@@ -916,31 +916,6 @@
             </objects>
             <point key="canvasLocation" x="-7053" y="-1984"/>
         </scene>
-        <!--Table View Controller - Favorites-->
-        <scene sceneID="5hB-8z-CQx">
-            <objects>
-                <tableViewController id="cNp-pt-Vxj" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="H2w-Pi-fNa">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="2Sr-Aw-HNe">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Sr-Aw-HNe" id="mHD-6U-cIy">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Favorites" id="g4g-tv-Hfu"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hyT-Gm-ShJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-6978" y="-4083"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="RQh-kT-uDo">
             <objects>
@@ -952,12 +927,45 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="cNp-pt-Vxj" kind="relationship" relationship="rootViewController" id="swW-FO-5rE"/>
+                        <segue destination="9WX-NL-0XQ" kind="relationship" relationship="rootViewController" id="cct-6E-3Z5"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0lE-1J-KoQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-7043" y="-4083"/>
+        </scene>
+        <!--Favorites View Controller - Favorites-->
+        <scene sceneID="ctP-vp-mmg">
+            <objects>
+                <viewController id="9WX-NL-0XQ" customClass="BWFavoritesViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cyF-u8-oCG"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jy7-yn-LSp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="akC-fU-eWO">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="whB-ap-JKw" customClass="PDGesturedTableView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="9WX-NL-0XQ" id="B2p-Y1-OdU"/>
+                                    <outlet property="delegate" destination="9WX-NL-0XQ" id="Y0N-91-cci"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Favorites" id="L33-Gk-J16"/>
+                    <connections>
+                        <outlet property="tableView" destination="whB-ap-JKw" id="ujb-Qi-948"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="szw-29-fGL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-6978" y="-4083"/>
         </scene>
         <!--Navigation Controller - Settings-->
         <scene sceneID="lRu-aD-adh">

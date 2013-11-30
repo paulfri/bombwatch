@@ -25,8 +25,6 @@
     [[PocketAPI sharedAPI] setConsumerKey:PocketConsumerKey];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
 
-    NSLog(@"favorites: %d", [[BWVideo favorites] count]);
-    
     return YES;
 }
 

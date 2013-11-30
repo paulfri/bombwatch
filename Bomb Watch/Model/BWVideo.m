@@ -92,7 +92,6 @@ static NSString *kBWDefaultsWatchedKey   = @"videosWatched";
 
     [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:[favorites copy]]
                                               forKey:kBWDefaultsFavoritesKey];
-    NSLog(@"%d", favorites.count);
 }
 
 #pragma mark - utility
