@@ -27,5 +27,6 @@
 - (IBAction)pocketSwitchChanged:(id)sender;
 - (IBAction)showTrailersSwitchChanged:(id)sender;
 - (IBAction)lockRotationSwitchChanged:(id)sender;
+- (IBAction)donePressed:(id)sender;
 
 @end

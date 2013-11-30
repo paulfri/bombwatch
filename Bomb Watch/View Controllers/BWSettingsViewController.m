@@ -152,6 +152,12 @@
     [[NSUserDefaults standardUserDefaults] setBool:control.on forKey:@"lockRotation"];
 }
 
+
+- (void)donePressed:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - Pocket
 
 - (IBAction)pocketSwitchChanged:(id)sender {
