@@ -17,7 +17,8 @@
 
 @implementation BWAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
     [self configureInterface];
     [self configureURLCache];
     [self configurePreferences];
@@ -62,7 +63,8 @@
 
 #pragma mark - App Delegate methods
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
     if([[PocketAPI sharedAPI] handleOpenURL:url]) {
         return YES;
     } else {
@@ -70,15 +72,22 @@
     }
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
+- (void)applicationWillResignActive:(UIApplication *)application
+{
     __block UIBackgroundTaskIdentifier backgroundTaskIdentifier = [application beginBackgroundTaskWithExpirationHandler:^(void) {
         [application endBackgroundTask:backgroundTaskIdentifier];
     }];
 }
 
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 #pragma mark - Remote control
 
-- (void)remoteControlReceivedWithEvent:(UIEvent *)event {
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event
+{
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BWRemoteControlEventReceived" object:event];
 }
 

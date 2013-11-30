@@ -10,6 +10,4 @@
 
 @interface BWFavoriteView : UIView
 
-- (id)initWithTag:(NSInteger)tag;
-
 @end

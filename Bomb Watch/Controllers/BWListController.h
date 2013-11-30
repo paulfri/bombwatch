@@ -15,12 +15,14 @@
 
 @property (strong, nonatomic) NSMutableArray *videos;
 @property (strong, nonatomic) NSString *category;
-@property (strong, nonatomic) UIRefreshControl *refreshControl;
+
 @property (weak, nonatomic) PDGesturedTableView *tableView;
 @property (assign, nonatomic) NSInteger page;
+
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
+
 @property (weak, nonatomic) id<BWListControllerDelegate> delegate;
 
-- (id)initWithTableView:(PDGesturedTableView *)tableView;
 - (id)initWithTableView:(PDGesturedTableView *)tableView category:(NSString *)category;
 - (BWVideo *)videoAtIndexPath:(NSIndexPath *)indexPath;
 

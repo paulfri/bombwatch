@@ -10,20 +10,22 @@
 
 @implementation BWFavoriteView
 
-- (id)initWithTag:(NSInteger)tag
+- (id)init
 {
     self = [super init];
 
     if (self) {
-        self.tag = tag;
-        
-        UIImageView *starView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ToolbarFavorite"]];
-        starView.backgroundColor = [UIColor yellowColor];
+        UIImageView *starView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star-gold-filled"]];
+        self.frame = self.superview.frame;
 
         CGSize star = starView.image.size;
         CGSize screen = [UIScreen mainScreen].bounds.size;
         
-        starView.frame = CGRectMake(screen.width - star.width - 3, 3, star.width, star.height);
+        starView.frame = CGRectMake(screen.width - star.width - 3,
+                                    (65.0 / 2) - star.height / 2,
+                                    star.width,
+                                    star.height);
+        
         [self addSubview:starView];
     }
 

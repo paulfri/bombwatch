@@ -10,6 +10,8 @@
 
 @interface BWVideo : MTLModel <MTLJSONSerializing>
 
++ (NSMutableArray *)favorites;
+
 @property (assign, nonatomic) NSInteger videoID;
 
 @property (strong, nonatomic) NSString *name;
@@ -35,9 +37,5 @@
 
 - (BOOL)isFavorited;
 - (void)setFavorited:(BOOL)favoritedStatus;
-
-- (UIColor *)cellTextColor;
-
-+ (NSMutableArray *)favorites;
 
 @end

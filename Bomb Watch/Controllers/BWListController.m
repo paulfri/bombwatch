@@ -7,33 +7,22 @@
 //
 
 #import "BWListController.h"
-#import "GiantBombAPIClient.h"
 #import "BWVideo.h"
 #import "BWVideoFetcher.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+ImageEffects.h"
 #import "SVProgressHUD.h"
 #import "BWFavoriteView.h"
+#import "BWVideoTableViewCell.h"
 
 static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
-#define kBWFavoritedViewTag 1234
-
 #define kBWLeftSwipeFraction 0.25
-#define kBWFarLeftSwipeFraction 0.65
-#define kBWRightSwipeFraction 0.25
-#define kBWFarRightSwipeFraction 0.65
+#define kBWRightSwipeFraction 0.15
 
-#define kBWVideoCellFont [UIFont fontWithName:@"HelveticaNeue-Light" size:18]
 #define kBWLeftSwipeColor  [UIColor colorWithRed:0 green:178.0/255 blue:51.0/255 alpha:1]
-#define kBWRightSwipeColor [UIColor colorWithRed:1 green:252.0/255 blue:25.0/255 alpha:1]
 
 @implementation BWListController
-
-- (id)initWithTableView:(PDGesturedTableView *)tableView
-{
-    return [self initWithTableView:tableView category:nil];
-}
 
 - (id)initWithTableView:(PDGesturedTableView *)tableView category:(NSString *)category
 {
@@ -94,39 +83,58 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
 - (UITableViewCell *)tableView:(PDGesturedTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PDGesturedTableViewCell *cell = (PDGesturedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    BWVideoTableViewCell *cell = (BWVideoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (cell == nil) {
-        cell = [self initializeCell];
+        cell = [[BWVideoTableViewCell alloc] init];
+        __unsafe_unretained typeof(self) _self = self;
+        
+        void (^toggleWatched)(PDGesturedTableView*, PDGesturedTableViewCell*) = ^(PDGesturedTableView *tableView, PDGesturedTableViewCell *cell)
+        {
+            BWVideoTableViewCell *videoCell = (BWVideoTableViewCell *)cell;
+            BWVideo *video = [_self videoAtIndexPath:[tableView indexPathForCell:videoCell]];
+            [video setWatched:![video isWatched]];
+            [videoCell setWatched:[video isWatched] animated:YES];
+            [tableView updateAnimatedly:YES];
+        };
+        
+        void (^toggleFavorite)(PDGesturedTableView*, PDGesturedTableViewCell*) = ^(PDGesturedTableView *tableView, PDGesturedTableViewCell *cell)
+        {
+            BWVideoTableViewCell *videoCell = (BWVideoTableViewCell *)cell;
+            BWVideo *video = [_self videoAtIndexPath:[tableView indexPathForCell:videoCell]];
+            [video setFavorited:![video isFavorited]];
+            [videoCell setFavorited:[video isFavorited] animated:YES];
+            [tableView updateAnimatedly:YES];
+        };
+        
+        cell = [[BWVideoTableViewCell alloc] initForGesturedTableView:self.tableView
+                                                                style:UITableViewCellStyleDefault
+                                                      reuseIdentifier:cellIdentifier];
+        
+        PDGesturedTableViewCellSlidingFraction *watchedFraction =
+            [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"circle.png"]
+                                                                      color:kBWLeftSwipeColor
+                                                         activationFraction:kBWLeftSwipeFraction];
+        
+        [watchedFraction setDidReleaseBlock:toggleWatched];
+        [cell addSlidingFraction:watchedFraction];
+        
+        PDGesturedTableViewCellSlidingFraction *favoriteFraction =
+            [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"star-gold-outline"]
+                                                                      color:[UIColor blackColor]
+                                                         activationFraction:-kBWRightSwipeFraction];
+        
+        [favoriteFraction setDidReleaseBlock:toggleFavorite];
+        [cell addSlidingFraction:favoriteFraction];
     }
     
     BWVideo *video = [self videoAtIndexPath:indexPath];
     cell.textLabel.text = video.name;
-    cell.textLabel.textColor = [video cellTextColor];
 
-    UIImageView *imageView = [[UIImageView alloc] init];
-    __block UIImageView *blockView = imageView;
-    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:video.imageSmallURL]
-                     placeholderImage:[UIImage imageNamed:@"black_rectangle"]
-                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
-    {
-        UIImage *blurredImage = [image applyBlurWithRadius:3.0f
-                                                 tintColor:[UIColor colorWithWhite:0.0 alpha:0.30]
-                                     saturationDeltaFactor:0.9f
-                                                 maskImage:nil];
-        blockView.image = blurredImage;
-    }
-                              failure:nil];
-
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    cell.backgroundView = imageView;
+    [cell setFavorited:[video isFavorited] animated:NO];
+    [cell   setWatched:[video isWatched]   animated:NO];
+    [cell setBackgroundImageWithURL:video.imageSmallURL];
     
-    if ([video isFavorited] && ![cell.contentView viewWithTag:kBWFavoritedViewTag]) {
-        [cell.contentView addSubview:[[BWFavoriteView alloc] initWithTag:kBWFavoritedViewTag]];
-    } else if (![video isFavorited]) {
-        [[cell.contentView viewWithTag:kBWFavoritedViewTag] removeFromSuperview];
-    }
-
     return cell;
 }
 
@@ -179,67 +187,6 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
             [self loadVideosForPage:self.page];
         }
     }
-}
-
-#pragma mark - cell
-
-- (PDGesturedTableViewCell *)initializeCell
-{
-    PDGesturedTableViewCell *cell = [[PDGesturedTableViewCell alloc] init];
-    __unsafe_unretained typeof(self) _self = self;
-
-    void (^toggleWatched)(PDGesturedTableView*, PDGesturedTableViewCell*) = ^(PDGesturedTableView *tableView, PDGesturedTableViewCell *cell)
-    {
-        BWVideo *video = [_self videoAtIndexPath:[tableView indexPathForCell:cell]];
-        [video setWatched:![video isWatched]];
-
-        cell.textLabel.textColor = [video cellTextColor];
-
-        [tableView updateAnimatedly:YES];
-    };
-
-    void (^toggleFavorite)(PDGesturedTableView*, PDGesturedTableViewCell*) = ^(PDGesturedTableView *tableView, PDGesturedTableViewCell *cell)
-    {
-        BWVideo *video = [_self videoAtIndexPath:[tableView indexPathForCell:cell]];
-        [video setFavorited:![video isFavorited]];
-
-        if ([video isFavorited]) {
-            BWFavoriteView *favoriteView = [[BWFavoriteView alloc] initWithTag:kBWFavoritedViewTag];
-            favoriteView.alpha = 0.0;
-            [cell.contentView addSubview:favoriteView];
-            [UIView animateWithDuration:0.3 animations:^{ favoriteView.alpha = 1.0;}];
-        } else {
-            [[cell.contentView viewWithTag:kBWFavoritedViewTag] removeFromSuperview];
-        }
-
-        [tableView updateAnimatedly:YES];
-    };
-
-    cell = [[PDGesturedTableViewCell alloc] initForGesturedTableView:self.tableView
-                                                               style:UITableViewCellStyleDefault
-                                                     reuseIdentifier:cellIdentifier];
-    
-    PDGesturedTableViewCellSlidingFraction *watchedFraction =
-        [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"circle.png"]
-                                                                  color:kBWLeftSwipeColor
-                                                     activationFraction:kBWLeftSwipeFraction];
-    
-    [watchedFraction setDidReleaseBlock:toggleWatched];
-    [cell addSlidingFraction:watchedFraction];
-    
-    PDGesturedTableViewCellSlidingFraction *favoriteFraction =
-        [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"circle.png"]
-                                                                  color:kBWRightSwipeColor
-                                                     activationFraction:-kBWRightSwipeFraction];
-    
-    [favoriteFraction setDidReleaseBlock:toggleFavorite];
-    [cell addSlidingFraction:favoriteFraction];
-    
-    cell.backgroundColor = [UIColor clearColor];
-    cell.textLabel.font = kBWVideoCellFont;
-    cell.textLabel.textColor = [UIColor whiteColor];
-    
-    return cell;
 }
 
 @end

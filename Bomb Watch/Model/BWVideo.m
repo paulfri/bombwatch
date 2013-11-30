@@ -90,24 +90,16 @@ static NSString *kBWDefaultsWatchedKey   = @"videosWatched";
         [favorites removeObject:self];
     }
 
-    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:favorites]
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:[favorites copy]]
                                               forKey:kBWDefaultsFavoritesKey];
-}
-
-- (UIColor *)cellTextColor
-{
-    if ([self isWatched]) {
-        return [UIColor grayColor];
-    }
-    
-    return [UIColor whiteColor];
+    NSLog(@"%d", favorites.count);
 }
 
 #pragma mark - utility
 
 + (NSMutableArray *)favorites
 {
-    NSData *favoritedData    = [[NSUserDefaults standardUserDefaults] objectForKey:kBWDefaultsFavoritesKey];
+    NSData *favoritedData = [[NSUserDefaults standardUserDefaults] objectForKey:kBWDefaultsFavoritesKey];
     NSMutableArray *favorites;
     
     if (favoritedData)
