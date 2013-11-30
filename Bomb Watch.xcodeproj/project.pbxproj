@@ -11,25 +11,25 @@
 		DA01E175184A1CC5008B139F /* BWFavoriteView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E174184A1CC5008B139F /* BWFavoriteView.m */; };
 		DA01E178184A3516008B139F /* BWVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E177184A3516008B139F /* BWVideoTableViewCell.m */; };
 		DA01E17B184A5E59008B139F /* BWFavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E17A184A5E59008B139F /* BWFavoritesViewController.m */; };
+		DA01E182184A71CC008B139F /* BWAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E17D184A71CC008B139F /* BWAboutViewController.m */; };
+		DA01E183184A71CC008B139F /* BWLinkAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E17F184A71CC008B139F /* BWLinkAccountViewController.m */; };
+		DA01E184184A71CC008B139F /* BWSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E181184A71CC008B139F /* BWSettingsViewController.m */; };
+		DA01E187184A71D7008B139F /* BWTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E186184A71D7008B139F /* BWTableViewController.m */; };
+		DA01E18A184A71E3008B139F /* BWCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E189184A71E3008B139F /* BWCategoriesViewController.m */; };
+		DA01E18D184A71EB008B139F /* BWVideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E18C184A71EB008B139F /* BWVideoDetailViewController.m */; };
 		DA0A718718490BC4004750F1 /* BWImagePulldownView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A718618490BC4004750F1 /* BWImagePulldownView.m */; };
 		DA0A718D184919FC004750F1 /* BWListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A718C184919FC004750F1 /* BWListViewController.m */; };
 		DA0A7191184930BD004750F1 /* BWListController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A7190184930BD004750F1 /* BWListController.m */; };
 		DA0A719518494688004750F1 /* BWVideoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A719418494688004750F1 /* BWVideoFetcher.m */; };
 		DA0A71A218497CDF004750F1 /* BWVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A71A118497CDF004750F1 /* BWVideo.m */; };
-		DA39B4AD17D6A22B00E7935D /* BWTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA39B4AC17D6A22B00E7935D /* BWTableViewController.m */; };
 		DA39B4B417D6A56000E7935D /* OpenOnGBActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = DA39B4B317D6A56000E7935D /* OpenOnGBActivity.m */; };
 		DA4127F417CE28D3003C4F59 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4127F317CE28D3003C4F59 /* Security.framework */; };
-		DA4127F717CE2BDB003C4F59 /* BWSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4127F617CE2BDB003C4F59 /* BWSettingsViewController.m */; };
 		DA4127FA17CE30BE003C4F59 /* PocketAPIActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4127F917CE30BE003C4F59 /* PocketAPIActivity.m */; };
 		DA41280617CE38C5003C4F59 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA41280517CE38C5003C4F59 /* Images.xcassets */; };
-		DA4C7E4B17CD29DF00783060 /* BWVideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4C7E4A17CD29DF00783060 /* BWVideoDetailViewController.m */; };
-		DA5F110717CFE7AA00E7FEA6 /* BWLinkAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5F110617CFE7AA00E7FEA6 /* BWLinkAccountViewController.m */; };
 		DA68EBDA17D0305300451F14 /* EVCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA68EBD917D0305300451F14 /* EVCircularProgressView.m */; };
-		DA6AFA3917D6ACC3008764D7 /* BWAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6AFA3817D6ACC3008764D7 /* BWAboutViewController.m */; };
 		DA852999184908C40049C752 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DA852996184908C40049C752 /* NSString+Extensions.m */; };
 		DA85299A184908C40049C752 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = DA852998184908C40049C752 /* UIImage+ImageEffects.m */; };
 		DAAFC2B117DB8B1B0095E494 /* BWVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAAFC2B017DB8B1B0095E494 /* BWVideoPlayerViewController.m */; };
-		DACB2DCF17CE8C71004BBC88 /* BWCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DACB2DCE17CE8C71004BBC88 /* BWCategoriesViewController.m */; };
 		DACE826517CD035700E23051 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826417CD035700E23051 /* Foundation.framework */; };
 		DACE826717CD035700E23051 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826617CD035700E23051 /* CoreGraphics.framework */; };
 		DACE826917CD035700E23051 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826817CD035700E23051 /* UIKit.framework */; };
@@ -64,6 +64,18 @@
 		DA01E177184A3516008B139F /* BWVideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoTableViewCell.m; sourceTree = "<group>"; };
 		DA01E179184A5E59008B139F /* BWFavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWFavoritesViewController.h; sourceTree = "<group>"; };
 		DA01E17A184A5E59008B139F /* BWFavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWFavoritesViewController.m; sourceTree = "<group>"; };
+		DA01E17C184A71CC008B139F /* BWAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWAboutViewController.h; sourceTree = "<group>"; };
+		DA01E17D184A71CC008B139F /* BWAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWAboutViewController.m; sourceTree = "<group>"; };
+		DA01E17E184A71CC008B139F /* BWLinkAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWLinkAccountViewController.h; sourceTree = "<group>"; };
+		DA01E17F184A71CC008B139F /* BWLinkAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWLinkAccountViewController.m; sourceTree = "<group>"; };
+		DA01E180184A71CC008B139F /* BWSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSettingsViewController.h; sourceTree = "<group>"; };
+		DA01E181184A71CC008B139F /* BWSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWSettingsViewController.m; sourceTree = "<group>"; };
+		DA01E185184A71D7008B139F /* BWTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWTableViewController.h; sourceTree = "<group>"; };
+		DA01E186184A71D7008B139F /* BWTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWTableViewController.m; sourceTree = "<group>"; };
+		DA01E188184A71E3008B139F /* BWCategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWCategoriesViewController.h; sourceTree = "<group>"; };
+		DA01E189184A71E3008B139F /* BWCategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWCategoriesViewController.m; sourceTree = "<group>"; };
+		DA01E18B184A71EB008B139F /* BWVideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoDetailViewController.h; sourceTree = "<group>"; };
+		DA01E18C184A71EB008B139F /* BWVideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoDetailViewController.m; sourceTree = "<group>"; };
 		DA0A718518490BC4004750F1 /* BWImagePulldownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWImagePulldownView.h; sourceTree = "<group>"; };
 		DA0A718618490BC4004750F1 /* BWImagePulldownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWImagePulldownView.m; sourceTree = "<group>"; };
 		DA0A718B184919FC004750F1 /* BWListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWListViewController.h; sourceTree = "<group>"; };
@@ -76,24 +88,14 @@
 		DA0A71A018497CDF004750F1 /* BWVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideo.h; sourceTree = "<group>"; };
 		DA0A71A118497CDF004750F1 /* BWVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideo.m; sourceTree = "<group>"; };
 		DA2FC43617D2AEBA005E7408 /* Bomb Watch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Bomb Watch.entitlements"; sourceTree = "<group>"; };
-		DA39B4AB17D6A22B00E7935D /* BWTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWTableViewController.h; path = ../BWTableViewController.h; sourceTree = "<group>"; };
-		DA39B4AC17D6A22B00E7935D /* BWTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWTableViewController.m; path = ../BWTableViewController.m; sourceTree = "<group>"; };
 		DA39B4B217D6A56000E7935D /* OpenOnGBActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenOnGBActivity.h; sourceTree = "<group>"; };
 		DA39B4B317D6A56000E7935D /* OpenOnGBActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenOnGBActivity.m; sourceTree = "<group>"; };
 		DA4127F317CE28D3003C4F59 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		DA4127F517CE2BDB003C4F59 /* BWSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSettingsViewController.h; path = ../BWSettingsViewController.h; sourceTree = "<group>"; };
-		DA4127F617CE2BDB003C4F59 /* BWSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSettingsViewController.m; path = ../BWSettingsViewController.m; sourceTree = "<group>"; };
 		DA4127F817CE30BE003C4F59 /* PocketAPIActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PocketAPIActivity.h; path = ../PocketAPIActivity.h; sourceTree = "<group>"; };
 		DA4127F917CE30BE003C4F59 /* PocketAPIActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PocketAPIActivity.m; path = ../PocketAPIActivity.m; sourceTree = "<group>"; };
 		DA41280517CE38C5003C4F59 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		DA4C7E4917CD29DF00783060 /* BWVideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWVideoDetailViewController.h; path = ../BWVideoDetailViewController.h; sourceTree = "<group>"; };
-		DA4C7E4A17CD29DF00783060 /* BWVideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWVideoDetailViewController.m; path = ../BWVideoDetailViewController.m; sourceTree = "<group>"; };
-		DA5F110517CFE7AA00E7FEA6 /* BWLinkAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWLinkAccountViewController.h; path = ../BWLinkAccountViewController.h; sourceTree = "<group>"; };
-		DA5F110617CFE7AA00E7FEA6 /* BWLinkAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWLinkAccountViewController.m; path = ../BWLinkAccountViewController.m; sourceTree = "<group>"; };
 		DA68EBD817D0305300451F14 /* EVCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVCircularProgressView.h; sourceTree = "<group>"; };
 		DA68EBD917D0305300451F14 /* EVCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVCircularProgressView.m; sourceTree = "<group>"; };
-		DA6AFA3717D6ACC3008764D7 /* BWAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWAboutViewController.h; path = ../BWAboutViewController.h; sourceTree = "<group>"; };
-		DA6AFA3817D6ACC3008764D7 /* BWAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWAboutViewController.m; path = ../BWAboutViewController.m; sourceTree = "<group>"; };
 		DA852995184908C40049C752 /* NSString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
 		DA852996184908C40049C752 /* NSString+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
 		DA852997184908C40049C752 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
@@ -101,8 +103,6 @@
 		DAAFC2AF17DB8B1B0095E494 /* BWVideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoPlayerViewController.h; sourceTree = "<group>"; };
 		DAAFC2B017DB8B1B0095E494 /* BWVideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoPlayerViewController.m; sourceTree = "<group>"; };
 		DAAFC2B217DBB4F00095E494 /* BWVideoPlayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoPlayerDelegate.h; sourceTree = "<group>"; };
-		DACB2DCD17CE8C71004BBC88 /* BWCategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWCategoriesViewController.h; path = ../BWCategoriesViewController.h; sourceTree = "<group>"; };
-		DACB2DCE17CE8C71004BBC88 /* BWCategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWCategoriesViewController.m; path = ../BWCategoriesViewController.m; sourceTree = "<group>"; };
 		DACE826117CD035700E23051 /* Bomb Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bomb Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DACE826417CD035700E23051 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DACE826617CD035700E23051 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -152,12 +152,12 @@
 		DA0A718818491898004750F1 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				DA6AFA3717D6ACC3008764D7 /* BWAboutViewController.h */,
-				DA6AFA3817D6ACC3008764D7 /* BWAboutViewController.m */,
-				DA4127F517CE2BDB003C4F59 /* BWSettingsViewController.h */,
-				DA4127F617CE2BDB003C4F59 /* BWSettingsViewController.m */,
-				DA5F110517CFE7AA00E7FEA6 /* BWLinkAccountViewController.h */,
-				DA5F110617CFE7AA00E7FEA6 /* BWLinkAccountViewController.m */,
+				DA01E17C184A71CC008B139F /* BWAboutViewController.h */,
+				DA01E17D184A71CC008B139F /* BWAboutViewController.m */,
+				DA01E17E184A71CC008B139F /* BWLinkAccountViewController.h */,
+				DA01E17F184A71CC008B139F /* BWLinkAccountViewController.m */,
+				DA01E180184A71CC008B139F /* BWSettingsViewController.h */,
+				DA01E181184A71CC008B139F /* BWSettingsViewController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -165,8 +165,8 @@
 		DA0A718918491982004750F1 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				DA4C7E4917CD29DF00783060 /* BWVideoDetailViewController.h */,
-				DA4C7E4A17CD29DF00783060 /* BWVideoDetailViewController.m */,
+				DA01E18B184A71EB008B139F /* BWVideoDetailViewController.h */,
+				DA01E18C184A71EB008B139F /* BWVideoDetailViewController.m */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -174,8 +174,8 @@
 		DA0A718A1849198A004750F1 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				DACB2DCD17CE8C71004BBC88 /* BWCategoriesViewController.h */,
-				DACB2DCE17CE8C71004BBC88 /* BWCategoriesViewController.m */,
+				DA01E188184A71E3008B139F /* BWCategoriesViewController.h */,
+				DA01E189184A71E3008B139F /* BWCategoriesViewController.m */,
 				DA0A718B184919FC004750F1 /* BWListViewController.h */,
 				DA0A718C184919FC004750F1 /* BWListViewController.m */,
 				DA01E179184A5E59008B139F /* BWFavoritesViewController.h */,
@@ -197,8 +197,8 @@
 		DA39B4AE17D6A2A800E7935D /* Generic */ = {
 			isa = PBXGroup;
 			children = (
-				DA39B4AB17D6A22B00E7935D /* BWTableViewController.h */,
-				DA39B4AC17D6A22B00E7935D /* BWTableViewController.m */,
+				DA01E185184A71D7008B139F /* BWTableViewController.h */,
+				DA01E186184A71D7008B139F /* BWTableViewController.m */,
 			);
 			path = Generic;
 			sourceTree = "<group>";
@@ -497,28 +497,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA01E18A184A71E3008B139F /* BWCategoriesViewController.m in Sources */,
 				DA0A7191184930BD004750F1 /* BWListController.m in Sources */,
 				DA852999184908C40049C752 /* NSString+Extensions.m in Sources */,
 				DAAFC2B117DB8B1B0095E494 /* BWVideoPlayerViewController.m in Sources */,
 				DA85299A184908C40049C752 /* UIImage+ImageEffects.m in Sources */,
 				DA0A718D184919FC004750F1 /* BWListViewController.m in Sources */,
 				DA01E17B184A5E59008B139F /* BWFavoritesViewController.m in Sources */,
-				DA39B4AD17D6A22B00E7935D /* BWTableViewController.m in Sources */,
-				DA6AFA3917D6ACC3008764D7 /* BWAboutViewController.m in Sources */,
+				DA01E18D184A71EB008B139F /* BWVideoDetailViewController.m in Sources */,
+				DA01E182184A71CC008B139F /* BWAboutViewController.m in Sources */,
 				DA0A71A218497CDF004750F1 /* BWVideo.m in Sources */,
 				DA0A718718490BC4004750F1 /* BWImagePulldownView.m in Sources */,
-				DA4C7E4B17CD29DF00783060 /* BWVideoDetailViewController.m in Sources */,
+				DA01E187184A71D7008B139F /* BWTableViewController.m in Sources */,
+				DA01E183184A71CC008B139F /* BWLinkAccountViewController.m in Sources */,
+				DA01E184184A71CC008B139F /* BWSettingsViewController.m in Sources */,
 				DA01E178184A3516008B139F /* BWVideoTableViewCell.m in Sources */,
 				DA01E175184A1CC5008B139F /* BWFavoriteView.m in Sources */,
 				DA39B4B417D6A56000E7935D /* OpenOnGBActivity.m in Sources */,
 				DA0A719518494688004750F1 /* BWVideoFetcher.m in Sources */,
-				DA5F110717CFE7AA00E7FEA6 /* BWLinkAccountViewController.m in Sources */,
 				DA4127FA17CE30BE003C4F59 /* PocketAPIActivity.m in Sources */,
 				DACE827117CD035800E23051 /* main.m in Sources */,
-				DA4127F717CE2BDB003C4F59 /* BWSettingsViewController.m in Sources */,
 				DA68EBDA17D0305300451F14 /* EVCircularProgressView.m in Sources */,
 				DACE827517CD035800E23051 /* BWAppDelegate.m in Sources */,
-				DACB2DCF17CE8C71004BBC88 /* BWCategoriesViewController.m in Sources */,
 				DACE82A517CD052300E23051 /* GiantBombAPIClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

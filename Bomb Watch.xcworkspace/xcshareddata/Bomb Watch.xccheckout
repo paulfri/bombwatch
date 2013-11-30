@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>6AB17372-F679-4255-AE8C-E5B6A6745352</string>
+	<string>E7823A20-6CF2-4336-8B74-5E442BE6E409</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Bomb Watch</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>87B30151-F509-4BFF-A5D7-71873A5D8A8E</key>
-		<string>ssh://github.com/paulfri/bombwatch.git</string>
+		<key>EB19874D-710A-4661-9541-E27039D44F5D</key>
+		<string>ssh://github.com/paulfri/bombwatch</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Bomb Watch.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>87B30151-F509-4BFF-A5D7-71873A5D8A8E</key>
+		<key>EB19874D-710A-4661-9541-E27039D44F5D</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/paulfri/bombwatch.git</string>
+	<string>ssh://github.com/paulfri/bombwatch</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>87B30151-F509-4BFF-A5D7-71873A5D8A8E</string>
+	<string>EB19874D-710A-4661-9541-E27039D44F5D</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>87B30151-F509-4BFF-A5D7-71873A5D8A8E</string>
+			<string>EB19874D-710A-4661-9541-E27039D44F5D</string>
 			<key>IDESourceControlWCCName</key>
-			<string>Bomb Watch</string>
+			<string>bombwatch</string>
 		</dict>
 	</array>
 </dict>
