@@ -8,7 +8,6 @@
 #import "BWAppDelegate.h"
 #import "PocketAPI.h"
 #import "GiantBombAPIClient.h"
-#import "BWDownloadsDataStore.h"
 #import <AVFoundation/AVFoundation.h>
 
 #define PocketConsumerKey    @"17866-6c522817c89aaee6ae6da74f"
@@ -71,10 +70,6 @@
     __block UIBackgroundTaskIdentifier backgroundTaskIdentifier = [application beginBackgroundTaskWithExpirationHandler:^(void) {
         [application endBackgroundTask:backgroundTaskIdentifier];
     }];
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    [[[BWDownloadsDataStore defaultStore] managedObjectContext] save:nil];
 }
 
 #pragma mark - Remote control

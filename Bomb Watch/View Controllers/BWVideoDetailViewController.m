@@ -13,12 +13,8 @@
 #import "PocketAPIActivity.h"
 #import "PocketAPI.h"
 #import "SVProgressHUD.h"
-//#import "AFNetworking.h"
-//#import "AFDownloadRequestOperation.h"
 #import "GiantBombAPIClient.h"
 //#import "EVCircularProgressView.h"
-#import "BWDownloadsDataStore.h"
-#import "BWDownload.h"
 #import "OpenOnGBActivity.h"
 #import "BWSeparatorView.h"
 #import "BWVideoPlayerViewController.h"
@@ -33,7 +29,6 @@
 @interface BWVideoDetailViewController ()
 
 @property (strong, nonatomic) BWVideoPlayerViewController *player;
-@property (strong, nonatomic) NSArray *downloads;
 @property BOOL pickerVisible;
 
 @end
@@ -86,58 +81,8 @@
     [self refreshViews];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(markDownloadProgress:)
-                                                 name:@"VideoProgressUpdateNotification"
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(markDownloadComplete:)
-                                                 name:@"VideoDownloadCompleteNotification"
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(markDownloadError:)
-                                                 name:@"VideoDownloadErrorNotification"
-                                               object:nil];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"VideoProgressUpdateNotification"
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"VideoDownloadCompleteNotification"
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"VideoDownloadErrorNotification"
-                                                  object:nil];
-    
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-- (void)refreshDownloadList {
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Download"];
-    fetchRequest.fetchBatchSize = 5;
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"videoID == %@", self.video.videoID];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"quality" ascending:NO]];
-    self.downloads = [[[BWDownloadsDataStore defaultStore] managedObjectContext] executeFetchRequest:fetchRequest error:nil];
-}
-
 - (void)selectBestQuality {
-    [self refreshDownloadList];
-    if (self.downloads.count > 0) {
-        int quality = [((BWDownload *)self.downloads[0]).quality intValue];
-        [self selectQuality:quality];
-    } else {
-        [self selectQuality:[self defaultQuality]];
-    }
+    [self selectQuality:[self defaultQuality]];
 }
 
 - (void)selectQuality:(int)quality {
@@ -145,12 +90,13 @@
     [self pickerView:self.qualityPicker didSelectRow:quality inComponent:0];
 }
 
-- (int)defaultQuality {
+- (NSInteger)defaultQuality {
     NSArray *qualities = @[@"Mobile", @"Low", @"High", @"HD"];
     int qual = [qualities indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:@"defaultQuality"]];
     if (qual >= 0 && qual <= 3)
         return qual;
-    return BWDownloadVideoQualityLow;
+//    return BWDownloadVideoQualityLow;
+    return 1;
 }
 
 - (void)updateDurationLabel {
@@ -240,16 +186,6 @@
     NSArray *qualities = @[@"Mobile", @"Low", @"High", @"HD"];
     NSString *current = qualities[row];
 
-    for (BWDownload *download in self.downloads) {
-        if ([download.quality intValue] == row) {
-            if (download.complete)
-                current = [current stringByAppendingString:@" (downloaded)"];
-            else
-                current = [current stringByAppendingString:@" (downloading)"];
-            break;
-        }
-    }
-
     return current;
 }
 
@@ -278,7 +214,7 @@
 - (IBAction)playButtonPressed:(id)sender {
     self.player = [[BWVideoPlayerViewController alloc] initWithVideo:self.video
                                                              quality:[self.qualityPicker selectedRowInComponent:0]
-                                                           downloads:self.downloads];
+                                                           downloads:nil];
     self.player.delegate = self;
     [self presentMoviePlayerViewControllerAnimated:self.player];
     [self.player play];
@@ -318,49 +254,16 @@
 #pragma mark - Downloads
 
 - (IBAction)downloadButtonPressed:(id)sender {
-    [[BWDownloadsDataStore defaultStore] createDownloadWithVideo:self.video
-                                                         quality:[self.qualityPicker selectedRowInComponent:0]];
     [SVProgressHUD showSuccessWithStatus:@"Downloading"];
-    [self refreshViews];
 }
 
 - (void)updateDownloadButton {
-    int quality = [self.qualityPicker selectedRowInComponent:0];
     BOOL enabled = YES;
-
-    for (BWDownload *download in self.downloads) {
-        if ([download.quality intValue] == quality) {
-            if (download.complete)
-                self.downloadButton.image = [UIImage imageNamed:@"ToolbarDownloadFull"];
-            else
-                self.downloadButton.image = [UIImage imageNamed:@"ToolbarDownload"];
-            enabled = NO;
-            break;
-        }
-    }
 
     if (enabled)
         self.downloadButton.image = [UIImage imageNamed:@"ToolbarDownload"];
     
     self.downloadButton.enabled = enabled;
-}
-
-- (void)markDownloadProgress:(NSNotification *)notification {
-//    NSDictionary *dict = [notification userInfo];
-//    BWDownload *download = dict[@"download"];
-//    GBVideo *video = (GBVideo *)download.video;
-//    if ([video.videoID isEqualToNumber:self.video.videoID]) {
-//        [self.progressView setProgress:[dict[@"progress"] floatValue] animated:YES];
-//        self.progressView.hidden = NO;
-//    }
-}
-
-- (void)markDownloadComplete:(NSNotification *)notification {
-    [self refreshViews];
-}
-
-- (void)markDownloadError:(NSNotification *)notification {
-    [self refreshViews];
 }
 
 #pragma mark - Watched status
@@ -399,7 +302,6 @@
 }
 
 - (void)refreshViews {
-    [self refreshDownloadList];
     [self updateDownloadButton];
     [self updateWatchedButton];
     [self.qualityPicker reloadAllComponents];

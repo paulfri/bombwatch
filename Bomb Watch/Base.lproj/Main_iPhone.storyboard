@@ -664,10 +664,10 @@
             </objects>
             <point key="canvasLocation" x="-6978" y="-1984"/>
         </scene>
-        <!--Downloads View Controller - Downloads-->
+        <!--Table View Controller - Downloads-->
         <scene sceneID="CKA-pp-gz8">
             <objects>
-                <tableViewController id="Ei6-Rn-7Ys" customClass="BWDownloadsViewController" sceneMemberID="viewController">
+                <tableViewController id="Ei6-Rn-7Ys" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9dc-PQ-870">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -987,6 +987,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="I8Y-fc-UNu"/>
+        <segue reference="Qbr-f1-qbf"/>
     </inferredMetricsTieBreakers>
 </document>

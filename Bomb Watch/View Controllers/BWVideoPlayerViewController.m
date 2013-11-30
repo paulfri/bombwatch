@@ -8,8 +8,6 @@
 
 #import "BWVideoPlayerViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "BWDownload.h"
-#import "BWDownloadsDataStore.h"
 
 @interface BWVideoPlayerViewController ()
 
@@ -48,18 +46,6 @@
                                                object:nil];
 
     [self setContentURL];
-    
-    if (self.downloads.count == 0) {
-        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Download"];
-        fetchRequest.fetchBatchSize = 5;
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"videoID == %@", self.video.videoID];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"quality" ascending:NO]];
-        self.downloads = [[[BWDownloadsDataStore defaultStore] managedObjectContext] executeFetchRequest:fetchRequest error:nil];
-    }
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 - (void)play {
@@ -139,31 +125,23 @@
 - (void)setContentURL {
     NSURL *path;
 
-    for (BWDownload *download in self.downloads) {
-        if ([download.quality isEqualToNumber:self.quality] && download.complete) {
-            NSString *filename = [NSString stringWithFormat:@"%@-%d", download.videoID, [download.quality intValue]];
-            NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-            path = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@.mp4", documentsPath, filename]];
-            break;
-        }
-    }
-    
     if (path == nil) {
         if (self.quality == nil) {
             NSArray *qualities = @[@"Mobile", @"Low", @"High", @"HD"];
             int qual = [qualities indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:@"defaultQuality"]];
-            if (qual >= BWDownloadVideoQualityMobile && qual <= BWDownloadVideoQualityHD)
+            if (qual >= 0 && qual <= 3)
                 self.quality = [NSNumber numberWithInt:qual];
         }
         
+#warning change this back to an enumeration derp
         switch ([self.quality intValue]) {
-            case BWDownloadVideoQualityMobile:
+            case 0:
                 path = self.video.videoMobileURL; break;
-            case BWDownloadVideoQualityLow:
+            case 1:
                 path = self.video.videoLowURL; break;
-            case BWDownloadVideoQualityHigh:
+            case 2:
                 path = self.video.videoHighURL; break;
-            case BWDownloadVideoQualityHD:
+            case 3:
                 path = self.video.videoHDURL; break;
             default:
                 path = self.video.videoLowURL; break;
