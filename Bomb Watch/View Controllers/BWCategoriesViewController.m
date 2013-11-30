@@ -25,9 +25,6 @@
 {
     [super viewDidLoad];
     self.title = @"Videos";
-    self.navigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Videos"
-                                                                         image:[UIImage imageNamed:@"VideosTabIcon"]
-                                                                 selectedImage:[UIImage imageNamed:@"VideosTabIconFull"]];
 
     self.featuredCategories = @[@"Latest", @"Quick Looks", @"Features", @"Events", @"Trailers"];
     self.enduranceRuns = @[@"Persona 4", @"The Matrix Online", @"Deadly Premonition", @"Chrono Trigger"];

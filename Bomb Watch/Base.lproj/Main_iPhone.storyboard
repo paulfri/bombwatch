@@ -29,7 +29,9 @@
         <scene sceneID="eu2-WT-2z1">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UCZ-NZ-ex6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Videos" image="VideosTabIcon" id="u1e-5L-l1D"/>
+                    <tabBarItem key="tabBarItem" title="Videos" image="VideosTabIcon" id="u1e-5L-l1D">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="100"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Df8-wf-qOz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -882,7 +884,9 @@
         <scene sceneID="lPw-44-Nmf">
             <objects>
                 <navigationController definesPresentationContext="YES" id="1HR-rw-kVr" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="downloads" id="Qod-h7-3wb"/>
+                    <tabBarItem key="tabBarItem" systemItem="downloads" id="Qod-h7-3wb">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="100"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SAb-7Q-JsQ">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -898,7 +902,9 @@
         <scene sceneID="yjs-Da-RDa">
             <objects>
                 <navigationController definesPresentationContext="YES" id="Qdn-yg-2JO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="search" id="DL3-vx-pEA"/>
+                    <tabBarItem key="tabBarItem" systemItem="search" id="DL3-vx-pEA">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="100"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Kn-9b-8yn">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -939,7 +945,9 @@
         <scene sceneID="RQh-kT-uDo">
             <objects>
                 <navigationController definesPresentationContext="YES" id="q4z-rj-MYy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="nJo-ab-u8x"/>
+                    <tabBarItem key="tabBarItem" systemItem="favorites" id="nJo-ab-u8x">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="100"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="WaS-BO-9aQ">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -954,7 +962,6 @@
         <!--Navigation Controller - Settings-->
         <scene sceneID="lRu-aD-adh">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Yom-p9-280" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Maf-TN-V1b" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Settings" image="SettingsIcon" id="AmY-0B-qS1"/>
                     <toolbarItems/>
@@ -967,6 +974,7 @@
                         <segue destination="ZdN-nA-4Yy" kind="relationship" relationship="rootViewController" id="Klc-2o-jed"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yom-p9-280" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-6522" y="-3633"/>
         </scene>

@@ -9,6 +9,8 @@
 #import "BWVideoPlayerViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
+#define kBWWatchedStatusThreshold 0.95
+
 @interface BWVideoPlayerViewController ()
 
 @property (strong, nonatomic) NSArray *downloads;
@@ -67,8 +69,8 @@
     //    MPNowPlayingInfoPropertyElapsedPlaybackTime:[NSNumber numberWithDouble:self.moviePlayer.currentPlaybackTime]
     //    MPMediaItemPropertyArtwork
 
-    self.moviePlayer.initialPlaybackTime = [[[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"] objectForKey:[NSString stringWithFormat:@"%@", self.video.videoID]] doubleValue];
-    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"]);
+    self.moviePlayer.initialPlaybackTime = [[[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"]
+                                             objectForKey:[NSString stringWithFormat:@"%d", self.video.videoID]] doubleValue];
     
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nowPlayingInfo;
     [self.moviePlayer play];
@@ -104,11 +106,11 @@
 
     NSMutableDictionary *progress = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"] mutableCopy];
     NSNumber *playback = [NSNumber numberWithDouble:self.moviePlayer.currentPlaybackTime];
-    NSString *key = [NSString stringWithFormat:@"%@", self.video.videoID];
+    NSString *key = [NSString stringWithFormat:@"%d", self.video.videoID];
     
     if (self.moviePlayer.currentPlaybackTime > 0) {
-        if (self.moviePlayer.currentPlaybackTime >= (self.moviePlayer.duration * 0.95)) {
-//            [self.video setWatched];
+        if (self.moviePlayer.currentPlaybackTime >= (self.moviePlayer.duration * kBWWatchedStatusThreshold)) {
+            [self.video setWatched:YES];
             [progress removeObjectForKey:key];
         } else
             [progress setObject:playback forKey:key];
@@ -122,7 +124,8 @@
 
 #pragma mark - helpers
 
-- (void)setContentURL {
+- (void)setContentURL
+{
     NSURL *path;
 
     if (path == nil) {
@@ -158,11 +161,13 @@
 
 #pragma mark - Interface orientation
 
-- (BOOL)shouldAutorotate {
+- (BOOL)shouldAutorotate
+{
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (NSUInteger)supportedInterfaceOrientations
+{
     BOOL landscapeLock = [[NSUserDefaults standardUserDefaults] boolForKey:@"lockRotation"];
     if (landscapeLock) {
         return UIInterfaceOrientationMaskLandscape;

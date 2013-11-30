@@ -32,6 +32,9 @@
 - (BOOL)isWatched;
 - (void)setWatched:(BOOL)watchedStatus;
 
+- (BOOL)isFavorited;
+- (void)setFavorited:(BOOL)favoritedStatus;
+
 - (UIColor *)cellTextColor;
 
 @end

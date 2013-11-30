@@ -21,11 +21,11 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 #define kBWRightSwipeFraction 0.25
 #define kBWFarRightSwipeFraction 0.65
 
+#define kBWVideoCellFont [UIFont fontWithName:@"HelveticaNeue-Light" size:18]
 #define kBWLeftSwipeColor  [UIColor colorWithRed:0 green:178.0/255 blue:51.0/255 alpha:1]
-#warning this sucks change it
 #define kBWRightSwipeColor [UIColor colorWithRed:1 green:252.0/255 blue:25.0/255 alpha:1]
 
-#define kBWVideoCellFont [UIFont fontWithName:@"HelveticaNeue-Light" size:18]
+#define kBWFavoritedViewTag 1234
 
 @implementation BWListController
 
@@ -120,6 +120,19 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     cell.backgroundView = imageView;
 
+    if ([video isFavorited]) {
+        UIView *favoriteBar = [[UIView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 3, 0, 3, 65)];
+        favoriteBar.tag = kBWFavoritedViewTag;
+        favoriteBar.backgroundColor = kBWRightSwipeColor;
+        
+        if (![cell viewWithTag:kBWFavoritedViewTag]) {
+            [cell addSubview:favoriteBar];
+            [cell bringSubviewToFront:favoriteBar];
+        }
+    } else {
+        [[cell viewWithTag:kBWFavoritedViewTag] removeFromSuperview];
+    }
+    
     return cell;
 }
 
@@ -193,8 +206,20 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
     void (^toggleFavorite)(PDGesturedTableView*, PDGesturedTableViewCell*) = ^(PDGesturedTableView *tableView, PDGesturedTableViewCell *cell)
     {
-        NSLog(@"favorite");
+        BWVideo *video = [_self videoAtIndexPath:[tableView indexPathForCell:cell]];
+        [video setFavorited:![video isFavorited]];
+
         [tableView updateAnimatedly:YES];
+        
+        if ([video isFavorited]) {
+#warning BWStarView
+            UIView *favoriteBar = [[UIView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 3, 0, 3, 65)];
+            favoriteBar.tag = kBWFavoritedViewTag;
+            favoriteBar.backgroundColor = kBWRightSwipeColor;
+            [cell addSubview:favoriteBar];
+        } else {
+            [[cell viewWithTag:kBWFavoritedViewTag] removeFromSuperview];
+        }
     };
 
     cell = [[PDGesturedTableViewCell alloc] initForGesturedTableView:self.tableView
