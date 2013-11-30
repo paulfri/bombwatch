@@ -15,7 +15,6 @@
 #import "GiantBombAPIClient.h"
 //#import "EVCircularProgressView.h"
 #import "OpenOnGBActivity.h"
-#import "BWSeparatorView.h"
 #import "BWVideoPlayerViewController.h"
 #import "BWImagePulldownView.h"
 #import "BWVideo.h"
@@ -52,12 +51,8 @@
     self.titleLabel.text = self.video.name;
     self.descriptionLabel.text = self.video.summary;
     self.bylineLabel.text = [self bylineLabelText];
+
     [self updateDurationLabel];
-    
-    BWSeparatorView *view = [[BWSeparatorView alloc] initWithFrame:CGRectMake(20, 43, 300, 1/[[UIScreen mainScreen] scale])];
-    view.backgroundColor = UIColorFromRGB(0xc8c7cc);
-    view.selectColor = UIColorFromRGB(0xd9d9d9);
-    [self.qualityCell addSubview:view];
 }
 
 // Tweetbot-style image pulldown
@@ -111,21 +106,28 @@
 }
 
 - (NSString *)bylineLabelText {
-    NSDictionary *users = @{@"jeff": @"Jeff Gerstmann",
-                            @"drewbert": @"Drew Scanlon",
-                            @"vinny": @"Vinny Caravella",
-                            @"patrickklepek": @"Patrick Klepek",
-                            @"alex": @"Alex Navarro",
-                            @"brad": @"Brad Shoemaker",
-                            @"snide": @"Dave Snider",
-                            @"mattbodega": @"Matthew Kessler",
-                            @"marino": @"Marino",
-                            @"ryan": @"Ryan Davis",
-                            @"rorie": @"Matt Rorie",
-                            @"abauman": @"Andy Bauman",
-                            @"danielcomfort": @"Daniel Comfort"};
+    static NSDictionary *users;
+
+    if (users == nil) {
+        users = @{@"jeff": @"Jeff Gerstmann",
+                  @"drewbert": @"Drew Scanlon",
+                  @"vinny": @"Vinny Caravella",
+                  @"patrickklepek": @"Patrick Klepek",
+                  @"alex": @"Alex Navarro",
+                  @"brad": @"Brad Shoemaker",
+                  @"snide": @"Dave Snider",
+                  @"mattbodega": @"Matthew Kessler",
+                  @"marino": @"Marino",
+                  @"ryan": @"Ryan Davis",
+                  @"rorie": @"Matt Rorie",
+                  @"abauman": @"Andy Bauman",
+                  @"danielcomfort": @"Daniel Comfort"};
+    }
     
-    if (users[self.video.user]) return users[self.video.user];
+    if (users[self.video.user]) {
+        return users[self.video.user];
+    }
+
     return self.video.user;
 }
 
@@ -185,11 +187,13 @@
 
 #pragma mark - UIPickerViewDataSource protocol methods
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
     return 1;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
     if ([self isPremium])
         return 4;
     return 3;

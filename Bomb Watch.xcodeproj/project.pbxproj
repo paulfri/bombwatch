@@ -26,7 +26,6 @@
 		DA6AFA3917D6ACC3008764D7 /* BWAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6AFA3817D6ACC3008764D7 /* BWAboutViewController.m */; };
 		DA852999184908C40049C752 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DA852996184908C40049C752 /* NSString+Extensions.m */; };
 		DA85299A184908C40049C752 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = DA852998184908C40049C752 /* UIImage+ImageEffects.m */; };
-		DAABDE5917D981AA00A32E35 /* BWSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAABDE5817D981AA00A32E35 /* BWSeparatorView.m */; };
 		DAAFC2B117DB8B1B0095E494 /* BWVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAAFC2B017DB8B1B0095E494 /* BWVideoPlayerViewController.m */; };
 		DACB2DCF17CE8C71004BBC88 /* BWCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DACB2DCE17CE8C71004BBC88 /* BWCategoriesViewController.m */; };
 		DACE826517CD035700E23051 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826417CD035700E23051 /* Foundation.framework */; };
@@ -93,8 +92,6 @@
 		DA852996184908C40049C752 /* NSString+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
 		DA852997184908C40049C752 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		DA852998184908C40049C752 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
-		DAABDE5717D981AA00A32E35 /* BWSeparatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSeparatorView.h; sourceTree = "<group>"; };
-		DAABDE5817D981AA00A32E35 /* BWSeparatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWSeparatorView.m; sourceTree = "<group>"; };
 		DAAFC2AF17DB8B1B0095E494 /* BWVideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoPlayerViewController.h; sourceTree = "<group>"; };
 		DAAFC2B017DB8B1B0095E494 /* BWVideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoPlayerViewController.m; sourceTree = "<group>"; };
 		DAAFC2B217DBB4F00095E494 /* BWVideoPlayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoPlayerDelegate.h; sourceTree = "<group>"; };
@@ -201,8 +198,6 @@
 		DA68EBD617D02F9100451F14 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DAABDE5717D981AA00A32E35 /* BWSeparatorView.h */,
-				DAABDE5817D981AA00A32E35 /* BWSeparatorView.m */,
 				DA68EBD817D0305300451F14 /* EVCircularProgressView.h */,
 				DA68EBD917D0305300451F14 /* EVCircularProgressView.m */,
 				DA0A718518490BC4004750F1 /* BWImagePulldownView.h */,
@@ -502,7 +497,6 @@
 				DA6AFA3917D6ACC3008764D7 /* BWAboutViewController.m in Sources */,
 				DA0A71A218497CDF004750F1 /* BWVideo.m in Sources */,
 				DA0A718718490BC4004750F1 /* BWImagePulldownView.m in Sources */,
-				DAABDE5917D981AA00A32E35 /* BWSeparatorView.m in Sources */,
 				DA4C7E4B17CD29DF00783060 /* BWVideoDetailViewController.m in Sources */,
 				DA39B4B417D6A56000E7935D /* OpenOnGBActivity.m in Sources */,
 				DA0A719518494688004750F1 /* BWVideoFetcher.m in Sources */,

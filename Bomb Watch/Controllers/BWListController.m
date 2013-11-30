@@ -51,8 +51,17 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
                       forControlEvents:UIControlEventValueChanged];
         tableViewController.refreshControl = self.refreshControl;
         
-        [SVProgressHUD show];
-        [self loadVideosForPage:self.page];
+        NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *filePath = [documentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_cache", self.category]];
+        
+        NSMutableArray *cachedVideos = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+        
+        if (!cachedVideos) {
+            [SVProgressHUD show];
+            [self loadVideosForPage:self.page];
+        } else {
+            self.videos = cachedVideos;
+        }
     }
 
     return self;
@@ -100,6 +109,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
         blockView.image = blurredImage;
     }
                               failure:nil];
+
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     cell.backgroundView = imageView;
 
@@ -114,6 +124,12 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
     {
         if (page == 1) {
             self.videos = [results copy];
+            
+            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+            NSString *filePath = [documentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_cache", self.category]];
+
+            [NSKeyedArchiver archiveRootObject:self.videos
+                                        toFile:filePath];
         } else {
             self.videos = [[self.videos arrayByAddingObjectsFromArray:results] mutableCopy];
         }
@@ -136,7 +152,8 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
     }
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
     CGFloat currentOffsetY = scrollView.contentOffset.y + [[UIScreen mainScreen] bounds].size.height;
     CGFloat contentHeight = scrollView.contentSize.height;
     
