@@ -95,6 +95,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
     
     BWVideo *video = [self videoAtIndexPath:indexPath];
     cell.textLabel.text = video.name;
+    cell.textLabel.textColor = [UIColor whiteColor];
 
     UIImageView *imageView = [[UIImageView alloc] init];
     __block UIImageView *blockView = imageView;

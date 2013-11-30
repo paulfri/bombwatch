@@ -35,11 +35,6 @@
 
 @implementation BWVideoDetailViewController
 
-- (id)initWithStyle:(UITableViewStyle)style {
-    self = [super initWithStyle:style];
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -181,7 +176,8 @@
     return current;
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
     [self refreshViews];
 }
 

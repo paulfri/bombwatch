@@ -462,7 +462,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="279"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="acknowledgements, open source license disclosure" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="dAZ-DZ-gMi">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AFNetworking, Mantle, PDGesturedTableView, SVProgressHUD, PocketAPI" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="dAZ-DZ-gMi">
                                                     <rect key="frame" x="20" y="20" width="280" height="239"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -910,7 +910,7 @@
             </objects>
             <point key="canvasLocation" x="-7053" y="-1984"/>
         </scene>
-        <!--Table View Controller - Root View Controller-->
+        <!--Table View Controller - Favorites-->
         <scene sceneID="5hB-8z-CQx">
             <objects>
                 <tableViewController id="cNp-pt-Vxj" sceneMemberID="viewController">
@@ -929,7 +929,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="g4g-tv-Hfu"/>
+                    <navigationItem key="navigationItem" title="Favorites" id="g4g-tv-Hfu"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hyT-Gm-ShJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

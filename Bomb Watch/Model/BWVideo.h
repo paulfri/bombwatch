@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Laika Cosmonautics. All rights reserved.
 //
 
-#import "BWModel.h"
+#import <Mantle/Mantle.h>
 
-@interface BWVideo : BWModel
+@interface BWVideo : MTLModel <MTLJSONSerializing>
 
 @property (strong, nonatomic) NSNumber *videoID;
 

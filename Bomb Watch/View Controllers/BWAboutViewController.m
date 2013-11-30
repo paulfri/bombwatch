@@ -14,7 +14,6 @@
 #define kMailSection    0
 #define kMailCell       1
 
-//static NSURL *mailURL = [NSURL URLWithString:@"https://twitter.com/bombwatch"];
 static NSString *kBWTwitterHandle = @"bombwatch";
 
 @implementation BWAboutViewController
@@ -24,7 +23,8 @@ static NSString *kBWTwitterHandle = @"bombwatch";
     return self;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == kTwitterSection && indexPath.row == kTwitterCell) {
 
         // TODO make these static
@@ -39,8 +39,9 @@ static NSString *kBWTwitterHandle = @"bombwatch";
             [[UIApplication sharedApplication] openURL:twitterifficURL];
         } else if ([[UIApplication sharedApplication] canOpenURL:twitterAppURL]) {
             [[UIApplication sharedApplication] openURL:twitterAppURL];
-        } else
+        } else {
             [[UIApplication sharedApplication] openURL:twitterURL];
+        }
 
     } else if (indexPath.section == kMailSection && indexPath.row == kMailCell) {
         NSURL *mailURL = [NSURL URLWithString:@"mailto:cosmonautics@laika.io"];
