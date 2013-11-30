@@ -13,6 +13,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+ImageEffects.h"
 #import "SVProgressHUD.h"
+#import "BWFavoriteView.h"
 
 static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
@@ -24,8 +25,6 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 #define kBWVideoCellFont [UIFont fontWithName:@"HelveticaNeue-Light" size:18]
 #define kBWLeftSwipeColor  [UIColor colorWithRed:0 green:178.0/255 blue:51.0/255 alpha:1]
 #define kBWRightSwipeColor [UIColor colorWithRed:1 green:252.0/255 blue:25.0/255 alpha:1]
-
-#define kBWFavoritedViewTag 1234
 
 @implementation BWListController
 
@@ -121,14 +120,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
     cell.backgroundView = imageView;
 
     if ([video isFavorited]) {
-        UIView *favoriteBar = [[UIView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 3, 0, 3, 65)];
-        favoriteBar.tag = kBWFavoritedViewTag;
-        favoriteBar.backgroundColor = kBWRightSwipeColor;
-        
-        if (![cell viewWithTag:kBWFavoritedViewTag]) {
-            [cell addSubview:favoriteBar];
-            [cell bringSubviewToFront:favoriteBar];
-        }
+        [cell addSubview:[[BWFavoriteView alloc] init]];
     } else {
         [[cell viewWithTag:kBWFavoritedViewTag] removeFromSuperview];
     }
@@ -209,17 +201,13 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
         BWVideo *video = [_self videoAtIndexPath:[tableView indexPathForCell:cell]];
         [video setFavorited:![video isFavorited]];
 
-        [tableView updateAnimatedly:YES];
-        
         if ([video isFavorited]) {
-#warning BWStarView
-            UIView *favoriteBar = [[UIView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 3, 0, 3, 65)];
-            favoriteBar.tag = kBWFavoritedViewTag;
-            favoriteBar.backgroundColor = kBWRightSwipeColor;
-            [cell addSubview:favoriteBar];
+            [cell addSubview:[[BWFavoriteView alloc] init]];
         } else {
             [[cell viewWithTag:kBWFavoritedViewTag] removeFromSuperview];
         }
+        
+        [tableView updateAnimatedly:YES];
     };
 
     cell = [[PDGesturedTableViewCell alloc] initForGesturedTableView:self.tableView

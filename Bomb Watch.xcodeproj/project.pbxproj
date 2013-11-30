@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4E21EDCE00254B9EA7AE7D38 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40FCD5D8F7DD4243AC1A2E48 /* libPods.a */; };
+		DA01E175184A1CC5008B139F /* BWFavoriteView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E174184A1CC5008B139F /* BWFavoriteView.m */; };
 		DA0A718718490BC4004750F1 /* BWImagePulldownView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A718618490BC4004750F1 /* BWImagePulldownView.m */; };
 		DA0A718D184919FC004750F1 /* BWListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A718C184919FC004750F1 /* BWListViewController.m */; };
 		DA0A7191184930BD004750F1 /* BWListController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A7190184930BD004750F1 /* BWListController.m */; };
@@ -55,6 +56,8 @@
 /* Begin PBXFileReference section */
 		40FCD5D8F7DD4243AC1A2E48 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D03B65A058C4AD9BB095CF3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		DA01E173184A1CC5008B139F /* BWFavoriteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWFavoriteView.h; sourceTree = "<group>"; };
+		DA01E174184A1CC5008B139F /* BWFavoriteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWFavoriteView.m; sourceTree = "<group>"; };
 		DA0A718518490BC4004750F1 /* BWImagePulldownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWImagePulldownView.h; sourceTree = "<group>"; };
 		DA0A718618490BC4004750F1 /* BWImagePulldownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWImagePulldownView.m; sourceTree = "<group>"; };
 		DA0A718B184919FC004750F1 /* BWListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWListViewController.h; sourceTree = "<group>"; };
@@ -199,6 +202,8 @@
 				DA68EBD917D0305300451F14 /* EVCircularProgressView.m */,
 				DA0A718518490BC4004750F1 /* BWImagePulldownView.h */,
 				DA0A718618490BC4004750F1 /* BWImagePulldownView.m */,
+				DA01E173184A1CC5008B139F /* BWFavoriteView.h */,
+				DA01E174184A1CC5008B139F /* BWFavoriteView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -492,6 +497,7 @@
 				DA0A71A218497CDF004750F1 /* BWVideo.m in Sources */,
 				DA0A718718490BC4004750F1 /* BWImagePulldownView.m in Sources */,
 				DA4C7E4B17CD29DF00783060 /* BWVideoDetailViewController.m in Sources */,
+				DA01E175184A1CC5008B139F /* BWFavoriteView.m in Sources */,
 				DA39B4B417D6A56000E7935D /* OpenOnGBActivity.m in Sources */,
 				DA0A719518494688004750F1 /* BWVideoFetcher.m in Sources */,
 				DA5F110717CFE7AA00E7FEA6 /* BWLinkAccountViewController.m in Sources */,
