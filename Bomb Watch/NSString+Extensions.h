@@ -11,6 +11,8 @@
 @interface NSString (Extensions)
 
 + (BOOL)isNilOrEmpty:(NSString *)string;
++ (NSString *)stringFromDuration:(NSTimeInterval)duration;
+
 - (NSString *)stringByTrimmingWhitespaceCharacters;
 - (NSString *)stringByTrimmingWhitespaceAndNewlineCharacters;
 

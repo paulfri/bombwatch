@@ -104,7 +104,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
     UIImageView *imageView = [[UIImageView alloc] init];
     __block UIImageView *blockView = imageView;
-    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:video.imageMediumURL]
+    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:video.imageSmallURL]
                      placeholderImage:[UIImage imageNamed:@"black_rectangle"]
                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
     {

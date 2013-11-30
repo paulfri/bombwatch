@@ -28,6 +28,7 @@ static NSString *kBWDefaultsWatchedKey   = @"videosWatched";
              @"videoHighURL": @"high_url",
              @"videoHDURL": @"hd_url",
              @"imageIconURL": @"image.icon_url",
+             @"imageSmallURL": @"image.small_url",
              @"imageMediumURL": @"image.medium_url"};
 }
 
@@ -41,6 +42,7 @@ static NSString *kBWDefaultsWatchedKey   = @"videosWatched";
                     @"videoHighURL",
                     @"videoHDURL",
                     @"imageIconURL",
+                    @"imageSmallURL",
                     @"imageMediumURL"];
     }
     
@@ -92,7 +94,6 @@ static NSString *kBWDefaultsWatchedKey   = @"videosWatched";
                                               forKey:kBWDefaultsFavoritesKey];
 }
 
-#warning break this out into a category
 - (UIColor *)cellTextColor
 {
     if ([self isWatched]) {

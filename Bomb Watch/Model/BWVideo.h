@@ -27,6 +27,7 @@
 @property (strong, nonatomic) NSURL *videoHDURL;
 
 @property (strong, nonatomic) NSURL *imageIconURL;   // 1:1
+@property (strong, nonatomic) NSURL *imageSmallURL;  // 16:9
 @property (strong, nonatomic) NSURL *imageMediumURL; // 16:9
 
 - (BOOL)isWatched;

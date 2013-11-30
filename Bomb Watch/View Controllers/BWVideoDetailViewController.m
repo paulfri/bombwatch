@@ -18,6 +18,7 @@
 #import "BWVideoPlayerViewController.h"
 #import "BWImagePulldownView.h"
 #import "BWVideo.h"
+#import "NSString+Extensions.h"
 
 // default quality when no downloads are present
 #define kQualityCell        1
@@ -53,7 +54,7 @@
 - (void)drawImagePulldown
 {
     self.imagePulldownView = [[BWImagePulldownView alloc] initWithTitle:self.video.name
-                                                               imageURL:self.video.imageMediumURL];
+                                                               imageURL:self.video.imageSmallURL];
     self.tableView.tableHeaderView = self.imagePulldownView;
     [self.tableView sendSubviewToBack:self.tableView.tableHeaderView];
 }
@@ -78,25 +79,16 @@
     return 1;
 }
 
-- (void)updateDurationLabel {
+- (void)updateDurationLabel
+{
     NSTimeInterval played = [[[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"] objectForKey:[NSString stringWithFormat:@"%@", [NSNumber numberWithInt:self.video.videoID]]] doubleValue];
     NSTimeInterval duration = self.video.length;
     
-    if (played != 0)
-        self.durationLabel.text = [NSString stringWithFormat:@"Duration: %@ / %@", [self stringFromDuration:played], [self stringFromDuration:duration]];
-    else
-        self.durationLabel.text = [NSString stringWithFormat:@"Duration: %@", [self stringFromDuration:duration]];
-}
-
-- (NSString *)stringFromDuration:(NSTimeInterval)duration {
-    long seconds = lroundf(duration); // Modulo (%) operator below needs int or long
-    int hour = seconds / 3600;
-    int mins = (seconds % 3600) / 60;
-    int secs = seconds % 60;
-
-    if (hour > 0)
-        return [NSString stringWithFormat:@"%d:%02d:%02d", hour, mins, secs];
-    return [NSString stringWithFormat:@"%d:%02d", mins, secs];
+    if (played != 0) {
+        self.durationLabel.text = [NSString stringWithFormat:@"Duration: %@ / %@", [NSString stringFromDuration:played], [NSString stringFromDuration:duration]];
+    } else {
+        self.durationLabel.text = [NSString stringWithFormat:@"Duration: %@", [NSString stringFromDuration:duration]];
+    }
 }
 
 - (NSString *)bylineLabelText {
@@ -148,6 +140,7 @@
     } else if (indexPath.row == kVideoDetailCell) {
         return [self.descriptionLabel sizeThatFits:self.descriptionLabel.frame.size].height + 10;
     }
+
     return 44;
 }
 
@@ -190,10 +183,12 @@
     if ([self isPremium]) {
         return 4;
     }
+
     return 3;
 }
 
-- (BOOL)isPremium {
+- (BOOL)isPremium
+{
 //    return ![[self.video.videoHDURL absoluteString] isEqual:GiantBombVideoEmptyURL];
     return false;
 }
@@ -211,7 +206,8 @@
 
 #pragma mark - BWVideoPlayerDelegate protocol methods
 
-- (void)videoDidFinishPlaying {
+- (void)videoDidFinishPlaying
+{
     [self updateWatchedButton];
     [self updateDurationLabel];
 }
@@ -235,18 +231,21 @@
 
 #pragma mark - Favorites
 
-- (IBAction)favoriteButtonPressed:(id)sender {
+- (IBAction)favoriteButtonPressed:(id)sender
+{
     // TODO: show image with status
     [SVProgressHUD showSuccessWithStatus:@"Favorited"];
 }
 
 #pragma mark - Downloads
 
-- (IBAction)downloadButtonPressed:(id)sender {
+- (IBAction)downloadButtonPressed:(id)sender
+{
     [SVProgressHUD showSuccessWithStatus:@"Downloading"];
 }
 
-- (void)updateDownloadButton {
+- (void)updateDownloadButton
+{
     BOOL enabled = YES;
 
     if (enabled)
@@ -257,7 +256,8 @@
 
 #pragma mark - Watched status
 
-- (IBAction)watchedButtonPressed:(id)sender {
+- (IBAction)watchedButtonPressed:(id)sender
+{
     // TODO: show image with status
 //    if (![self.video isWatched]) {
 //        [self.video setWatched];
