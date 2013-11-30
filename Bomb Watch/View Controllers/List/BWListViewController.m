@@ -36,10 +36,10 @@
     [self performSegueWithIdentifier:@"kBWVideoDetailSegue" sender:video];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathsForSelectedRows].firstObject
-                                  animated:NO];
+                                  animated:YES];
 }
 
 @end
