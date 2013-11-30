@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-#define kBWFavoritedViewTag 1234
-
 @interface BWFavoriteView : UIView
+
+- (id)initWithTag:(NSInteger)tag;
 
 @end

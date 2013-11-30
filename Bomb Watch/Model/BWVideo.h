@@ -38,4 +38,6 @@
 
 - (UIColor *)cellTextColor;
 
++ (NSMutableArray *)favorites;
+
 @end

@@ -10,6 +10,8 @@
 #import "GiantBombAPIClient.h"
 #import <AVFoundation/AVFoundation.h>
 
+#import "BWVideo.h"
+
 #define PocketConsumerKey    @"17866-6c522817c89aaee6ae6da74f"
 #define kBWGiantBombRedColor [UIColor colorWithRed:178.0/255 green:34.0/255 blue:34.0/255 alpha:1]
 
@@ -22,6 +24,8 @@
     [[PocketAPI sharedAPI] setConsumerKey:PocketConsumerKey];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
 
+    NSLog(@"favorites: %d", [[BWVideo favorites] count]);
+    
     return YES;
 }
 

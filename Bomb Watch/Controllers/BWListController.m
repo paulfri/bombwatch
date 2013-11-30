@@ -17,6 +17,8 @@
 
 static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
+#define kBWFavoritedViewTag 1234
+
 #define kBWLeftSwipeFraction 0.25
 #define kBWFarLeftSwipeFraction 0.65
 #define kBWRightSwipeFraction 0.25
@@ -118,13 +120,13 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     cell.backgroundView = imageView;
-
-    if ([video isFavorited]) {
-        [cell addSubview:[[BWFavoriteView alloc] init]];
-    } else {
-        [[cell viewWithTag:kBWFavoritedViewTag] removeFromSuperview];
-    }
     
+    if ([video isFavorited] && ![cell.contentView viewWithTag:kBWFavoritedViewTag]) {
+        [cell.contentView addSubview:[[BWFavoriteView alloc] initWithTag:kBWFavoritedViewTag]];
+    } else if (![video isFavorited]) {
+        [[cell.contentView viewWithTag:kBWFavoritedViewTag] removeFromSuperview];
+    }
+
     return cell;
 }
 
@@ -202,11 +204,14 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
         [video setFavorited:![video isFavorited]];
 
         if ([video isFavorited]) {
-            [cell addSubview:[[BWFavoriteView alloc] init]];
+            BWFavoriteView *favoriteView = [[BWFavoriteView alloc] initWithTag:kBWFavoritedViewTag];
+            favoriteView.alpha = 0.0;
+            [cell.contentView addSubview:favoriteView];
+            [UIView animateWithDuration:0.3 animations:^{ favoriteView.alpha = 1.0;}];
         } else {
-            [[cell viewWithTag:kBWFavoritedViewTag] removeFromSuperview];
+            [[cell.contentView viewWithTag:kBWFavoritedViewTag] removeFromSuperview];
         }
-        
+
         [tableView updateAnimatedly:YES];
     };
 

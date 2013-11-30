@@ -123,4 +123,14 @@ static NSString *kBWDefaultsWatchedKey   = @"videosWatched";
     return favorites;
 }
 
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:self.class]) {
+        return NO;
+    }
+
+    BWVideo *other = object;
+    return self.videoID == other.videoID;
+}
+
 @end
