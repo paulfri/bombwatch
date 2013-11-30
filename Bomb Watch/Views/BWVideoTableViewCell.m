@@ -34,6 +34,8 @@
         self.textLabel.font = kBWVideoCellFont;
         self.textLabel.textColor = [UIColor whiteColor];
         
+        self.bouncesAtLastSlidingFraction = YES;
+        
         self.favoriteView = [[BWFavoriteView alloc] init];
         [self.contentView addSubview:self.favoriteView];
         self.favoriteView.alpha = 0.0;

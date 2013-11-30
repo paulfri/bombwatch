@@ -11,6 +11,7 @@
 @interface BWVideo : MTLModel <MTLJSONSerializing>
 
 + (NSMutableArray *)favorites;
++ (void)setFavorites:(NSArray *)favorites;
 
 @property (assign, nonatomic) NSInteger videoID;
 

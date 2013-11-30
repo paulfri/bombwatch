@@ -9,10 +9,11 @@
 #import "BWFavoritesViewController.h"
 #import "BWVideo.h"
 #import "BWVideoTableViewCell.h"
+#import "BWVideoDetailViewController.h"
 
 @interface BWFavoritesViewController ()
 
-@property (strong, nonatomic) NSArray *favorites;
+@property (strong, nonatomic) NSMutableArray *favorites;
 
 @end
 
@@ -21,8 +22,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // TODO add background view
+    
     self.tableView.enabled = YES;
-    // Do any additional setup after loading the view.
+    self.tableView.backgroundColor = [UIColor blackColor];
+    self.tableView.separatorColor  = [UIColor darkGrayColor];
+
+    __unsafe_unretained typeof(self) _self = self;
+    
+    [self.tableView setDidMoveCellFromIndexPathToIndexPathBlock:^(NSIndexPath *fromIndexPath, NSIndexPath *toIndexPath) {
+        [_self.favorites exchangeObjectAtIndex:fromIndexPath.row withObjectAtIndex:toIndexPath.row];
+        [BWVideo setFavorites:_self.favorites];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -79,6 +90,22 @@
 - (BWVideo *)videoAtIndexPath:(NSIndexPath *)indexPath
 {
     return self.favorites[indexPath.row];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BWVideo *video = [self videoAtIndexPath:indexPath];
+    
+    if (video) {
+        [self performSegueWithIdentifier:@"kBWFavoritesDetailSegue" sender:video];
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"kBWFavoritesDetailSegue"]) {
+        ((BWVideoDetailViewController *)segue.destinationViewController).video = sender;
+    }
 }
 
 @end

@@ -114,6 +114,12 @@ static NSString *kBWDefaultsWatchedKey   = @"videosWatched";
     return favorites;
 }
 
++ (void)setFavorites:(NSArray *)favorites
+{
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:[favorites copy]]
+                                              forKey:kBWDefaultsFavoritesKey];
+}
+
 - (BOOL)isEqual:(id)object
 {
     if (![object isKindOfClass:self.class]) {

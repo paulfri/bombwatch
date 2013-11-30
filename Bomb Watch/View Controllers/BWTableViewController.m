@@ -8,15 +8,7 @@
 
 #import "BWTableViewController.h"
 
-@interface BWTableViewController ()
-
-@end
-
 @implementation BWTableViewController
-
-- (id)initWithStyle:(UITableViewStyle)style {
-    return [super initWithStyle:style];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
