@@ -30,7 +30,7 @@
     self = [super initWithFrame:imageFrame];
 
     if (self) {
-        CGRect labelFrame = CGRectMake(5, 50, screen.size.width, 180);
+        CGRect labelFrame = CGRectMake(5, 50, screen.size.width - 5, 180);
         self.titleLabel = [[UILabel alloc] initWithFrame:labelFrame];
         self.titleLabel.text = title;
         self.titleLabel.textColor = [UIColor whiteColor];

@@ -21,6 +21,12 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 #define kBWRightSwipeFraction 0.25
 #define kBWFarRightSwipeFraction 0.65
 
+#define kBWLeftSwipeColor  [UIColor colorWithRed:0 green:178.0/255 blue:51.0/255 alpha:1]
+#warning this sucks change it
+#define kBWRightSwipeColor [UIColor colorWithRed:1 green:252.0/255 blue:25.0/255 alpha:1]
+
+#define kBWVideoCellFont [UIFont fontWithName:@"HelveticaNeue-Light" size:18]
+
 @implementation BWListController
 
 - (id)initWithTableView:(PDGesturedTableView *)tableView
@@ -173,40 +179,46 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 - (PDGesturedTableViewCell *)initializeCell
 {
     PDGesturedTableViewCell *cell = [[PDGesturedTableViewCell alloc] init];
-    
     __unsafe_unretained typeof(self) _self = self;
-    void (^completionForReleaseBlocks)(PDGesturedTableView*, PDGesturedTableViewCell*) = ^(PDGesturedTableView *gesturedTableView, PDGesturedTableViewCell *cell)
+
+    void (^toggleWatched)(PDGesturedTableView*, PDGesturedTableViewCell*) = ^(PDGesturedTableView *tableView, PDGesturedTableViewCell *cell)
     {
-        BWVideo *video = [_self videoAtIndexPath:[gesturedTableView indexPathForCell:cell]];
+        BWVideo *video = [_self videoAtIndexPath:[tableView indexPathForCell:cell]];
         [video setWatched:![video isWatched]];
 
-        cell.textColor = [video cellTextColor];
+        cell.textLabel.textColor = [video cellTextColor];
 
-        [gesturedTableView updateAnimatedly:YES];
+        [tableView updateAnimatedly:YES];
     };
-    
+
+    void (^toggleFavorite)(PDGesturedTableView*, PDGesturedTableViewCell*) = ^(PDGesturedTableView *tableView, PDGesturedTableViewCell *cell)
+    {
+        NSLog(@"favorite");
+        [tableView updateAnimatedly:YES];
+    };
+
     cell = [[PDGesturedTableViewCell alloc] initForGesturedTableView:self.tableView
                                                                style:UITableViewCellStyleDefault
                                                      reuseIdentifier:cellIdentifier];
     
-    PDGesturedTableViewCellSlidingFraction *greenSlidingFraction =
+    PDGesturedTableViewCellSlidingFraction *watchedFraction =
         [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"circle.png"]
-                                                                  color:[UIColor colorWithRed:0.2 green:0.8 blue:0.2 alpha:1]
+                                                                  color:kBWLeftSwipeColor
                                                      activationFraction:kBWLeftSwipeFraction];
     
-    [greenSlidingFraction setDidReleaseBlock:completionForReleaseBlocks];
-    [cell addSlidingFraction:greenSlidingFraction];
+    [watchedFraction setDidReleaseBlock:toggleWatched];
+    [cell addSlidingFraction:watchedFraction];
     
-    PDGesturedTableViewCellSlidingFraction *yellowSlidingFraction =
+    PDGesturedTableViewCellSlidingFraction *favoriteFraction =
         [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"circle.png"]
-                                                                  color:[UIColor colorWithRed:239.0/255.0 green:222.0/255 blue:24.0/255 alpha:1]
+                                                                  color:kBWRightSwipeColor
                                                      activationFraction:-kBWRightSwipeFraction];
     
-    [yellowSlidingFraction setDidReleaseBlock:completionForReleaseBlocks];
-    [cell addSlidingFraction:yellowSlidingFraction];
+    [favoriteFraction setDidReleaseBlock:toggleFavorite];
+    [cell addSlidingFraction:favoriteFraction];
     
     cell.backgroundColor = [UIColor clearColor];
-    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:18]];
+    cell.textLabel.font = kBWVideoCellFont;
     cell.textLabel.textColor = [UIColor whiteColor];
     
     return cell;

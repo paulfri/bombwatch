@@ -22,9 +22,8 @@
 // default quality when no downloads are present
 #define kQualityCell        1
 #define kQualityPickerCell  2
-#define kVideoTitleCell     3
-#define kVideoBylineCell    4
-#define kVideoDetailCell    5
+#define kVideoBylineCell    3
+#define kVideoDetailCell    4
 
 @interface BWVideoDetailViewController ()
 
@@ -105,15 +104,15 @@
 
     if (users == nil) {
         users = @{@"jeff": @"Jeff Gerstmann",
-                  @"drewbert": @"Drew Scanlon",
+                  @"ryan": @"Ryan Davis",
+                  @"brad": @"Brad Shoemaker",
                   @"vinny": @"Vinny Caravella",
                   @"patrickklepek": @"Patrick Klepek",
+                  @"drewbert": @"Drew Scanlon",
                   @"alex": @"Alex Navarro",
-                  @"brad": @"Brad Shoemaker",
                   @"snide": @"Dave Snider",
                   @"mattbodega": @"Matthew Kessler",
                   @"marino": @"Marino",
-                  @"ryan": @"Ryan Davis",
                   @"rorie": @"Matt Rorie",
                   @"abauman": @"Andy Bauman",
                   @"danielcomfort": @"Daniel Comfort"};
@@ -144,8 +143,6 @@
             return 90;
         else
             return 0;
-    } else if (indexPath.row == kVideoTitleCell) {
-        return [self.titleLabel sizeThatFits:self.titleLabel.frame.size].height + 10;
     } else if (indexPath.row == kVideoBylineCell) {
         return 40;
     } else if (indexPath.row == kVideoDetailCell) {
@@ -190,8 +187,9 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    if ([self isPremium])
+    if ([self isPremium]) {
         return 4;
+    }
     return 3;
 }
 
