@@ -9,8 +9,7 @@
 #import "PocketAPI.h"
 #import "GiantBombAPIClient.h"
 #import <AVFoundation/AVFoundation.h>
-
-#import "BWVideo.h"
+#import "BWPushNotificationClient.h"
 
 #define PocketConsumerKey    @"17866-6c522817c89aaee6ae6da74f"
 #define kBWGiantBombRedColor [UIColor colorWithRed:178.0/255 green:34.0/255 blue:34.0/255 alpha:1]
@@ -97,6 +96,7 @@
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
 	NSLog(@"APNS token: %@", deviceToken);
+    [[BWPushNotificationClient defaultClient] registerForPushNotificationsWithToken:deviceToken];
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error

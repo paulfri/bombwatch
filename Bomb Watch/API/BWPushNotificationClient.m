@@ -8,7 +8,7 @@
 
 #import "BWPushNotificationClient.h"
 
-const NSString *kBWPushNotificationServerBaseURL = @"http://satonaka.laika.io";
+NSString *const kBWPushNotificationServerBaseURL = @"http://satonaka.laika.io";
 
 @implementation BWPushNotificationClient
 
@@ -18,9 +18,26 @@ const NSString *kBWPushNotificationServerBaseURL = @"http://satonaka.laika.io";
     dispatch_once(&onceToken, ^{
         __defaultClient = [[BWPushNotificationClient alloc] initWithBaseURL:
                            [NSURL URLWithString:kBWPushNotificationServerBaseURL]];
+        __defaultClient.requestSerializer = [AFJSONRequestSerializer serializer];
     });
     
     return __defaultClient;
+}
+
+- (void)registerForPushNotificationsWithToken:(NSData *)token
+{
+    NSDictionary *deviceParams = @{@"token": [token description], @"premium": @"true"};
+    
+    [[self.class defaultClient] POST:@"devices"
+                          parameters:@{@"device": deviceParams}
+                             success:^(NSURLSessionDataTask *task, id responseObject)
+    {
+        NSLog(@"Successfully registered for push notifications.");
+    }
+                             failure:^(NSURLSessionDataTask *task, NSError *error)
+    {
+        NSLog(@"Error registering for push notifications: %@", error);
+    }];
 }
 
 @end

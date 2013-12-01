@@ -18,6 +18,7 @@
 		DA01E18A184A71E3008B139F /* BWCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E189184A71E3008B139F /* BWCategoriesViewController.m */; };
 		DA01E18D184A71EB008B139F /* BWVideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E18C184A71EB008B139F /* BWVideoDetailViewController.m */; };
 		DA01E191184AB9AA008B139F /* BWPushNotificationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E190184AB9AA008B139F /* BWPushNotificationClient.m */; };
+		DA01E194184B9EF8008B139F /* BWTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E193184B9EF8008B139F /* BWTableView.m */; };
 		DA0A718718490BC4004750F1 /* BWImagePulldownView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A718618490BC4004750F1 /* BWImagePulldownView.m */; };
 		DA0A718D184919FC004750F1 /* BWListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A718C184919FC004750F1 /* BWListViewController.m */; };
 		DA0A7191184930BD004750F1 /* BWListController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A7190184930BD004750F1 /* BWListController.m */; };
@@ -79,6 +80,8 @@
 		DA01E18C184A71EB008B139F /* BWVideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoDetailViewController.m; sourceTree = "<group>"; };
 		DA01E18F184AB9AA008B139F /* BWPushNotificationClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWPushNotificationClient.h; sourceTree = "<group>"; };
 		DA01E190184AB9AA008B139F /* BWPushNotificationClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWPushNotificationClient.m; sourceTree = "<group>"; };
+		DA01E192184B9EF8008B139F /* BWTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWTableView.h; sourceTree = "<group>"; };
+		DA01E193184B9EF8008B139F /* BWTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWTableView.m; sourceTree = "<group>"; };
 		DA0A718518490BC4004750F1 /* BWImagePulldownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWImagePulldownView.h; sourceTree = "<group>"; };
 		DA0A718618490BC4004750F1 /* BWImagePulldownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWImagePulldownView.m; sourceTree = "<group>"; };
 		DA0A718B184919FC004750F1 /* BWListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWListViewController.h; sourceTree = "<group>"; };
@@ -226,6 +229,8 @@
 				DA01E174184A1CC5008B139F /* BWFavoriteView.m */,
 				DA01E176184A3516008B139F /* BWVideoTableViewCell.h */,
 				DA01E177184A3516008B139F /* BWVideoTableViewCell.m */,
+				DA01E192184B9EF8008B139F /* BWTableView.h */,
+				DA01E193184B9EF8008B139F /* BWTableView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -529,6 +534,7 @@
 				DA39B4B417D6A56000E7935D /* OpenOnGBActivity.m in Sources */,
 				DA0A719518494688004750F1 /* BWVideoFetcher.m in Sources */,
 				DA4127FA17CE30BE003C4F59 /* PocketAPIActivity.m in Sources */,
+				DA01E194184B9EF8008B139F /* BWTableView.m in Sources */,
 				DACE827117CD035800E23051 /* main.m in Sources */,
 				DA01E191184AB9AA008B139F /* BWPushNotificationClient.m in Sources */,
 				DA68EBDA17D0305300451F14 /* EVCircularProgressView.m in Sources */,

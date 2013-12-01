@@ -12,6 +12,6 @@
 
 + (instancetype)defaultClient;
 
-- (void)registerForPushNotificationsWithToken:(NSString *)token;
+- (void)registerForPushNotificationsWithToken:(NSData *)token;
 
 @end
