@@ -26,7 +26,7 @@
     self.listController = [[BWListController alloc] initWithTableView:self.tableView
                                                              category:self.category];
     self.listController.delegate = self;
-    self.tableView.separatorColor = [UIColor grayColor];
+    self.tableView.separatorColor = [UIColor darkGrayColor];
     
     CGRect f = self.tableView.frame;
     CGRect frame = CGRectMake(f.origin.x, f.origin.y + 44, f.size.width, f.size.height - 44);
@@ -119,7 +119,7 @@
 {
     [self searchBar:self.searchBar setActive:NO];
     NSIndexPath *top = [NSIndexPath indexPathForRow:0 inSection:0];
-    if ([self.tableView numberOfRowsInSection:0] > 0) {
+    if ([self.tableView numberOfRowsInSection:0]) {
         [self.tableView scrollToRowAtIndexPath:top
                               atScrollPosition:UITableViewScrollPositionTop
                                       animated:YES];

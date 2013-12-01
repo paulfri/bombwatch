@@ -31,6 +31,8 @@
                        success:(void (^)(NSArray *))success
                        failure:(void (^)(NSError *))failure
 {
+    NSLog(@"fetching videos:: page %d; searching '%@'", page, searchString);
+    
     [[GiantBombAPIClient defaultClient] GET:@"videos"
                                  parameters:[self queryParamsForCategory:category searchString:searchString page:page]
                                     success:^(NSURLSessionDataTask *task, id responseObject)

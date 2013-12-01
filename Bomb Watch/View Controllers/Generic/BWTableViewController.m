@@ -15,6 +15,7 @@
     [self addTableHeader];
 
     self.tableView.backgroundColor = [UIColor colorWithRed:34.0/255 green:34.0/255 blue:34.0/255 alpha:1.0];
+    self.tableView.separatorColor  = [UIColor grayColor];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section

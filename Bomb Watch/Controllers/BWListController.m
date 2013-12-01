@@ -18,6 +18,7 @@
 static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
 #define kBWLeftSwipeFraction 0.15
+#define kBWFarLeftSwipeFraction 0.4
 #define kBWRightSwipeFraction 0.15
 
 #define kBWGiantBombCharcoalColor [UIColor colorWithRed:34.0/255 green:34.0/255 blue:34.0/255 alpha:1.0]
@@ -117,13 +118,21 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
                                                                 style:UITableViewCellStyleDefault
                                                       reuseIdentifier:cellIdentifier];
         
-        PDGesturedTableViewCellSlidingFraction *watchedFraction =
-            [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"circle.png"]
+        PDGesturedTableViewCellSlidingFraction *watchNowFraction =
+            [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"ToolbarPlay"]
+                                                                      color:kBWGiantBombCharcoalColor
+                                                         activationFraction:kBWFarLeftSwipeFraction];
+        
+        [watchNowFraction setDidReleaseBlock:toggleWatched];
+        [cell addSlidingFraction:watchNowFraction];
+        
+        PDGesturedTableViewCellSlidingFraction *setWatchedFraction =
+            [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"ToolbarCheck"]
                                                                       color:kBWGiantBombCharcoalColor
                                                          activationFraction:kBWLeftSwipeFraction];
         
-        [watchedFraction setDidReleaseBlock:toggleWatched];
-        [cell addSlidingFraction:watchedFraction];
+        [setWatchedFraction setDidReleaseBlock:toggleWatched];
+        [cell addSlidingFraction:setWatchedFraction];
         
         PDGesturedTableViewCellSlidingFraction *favoriteFraction =
             [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"star-gold-outline"]
