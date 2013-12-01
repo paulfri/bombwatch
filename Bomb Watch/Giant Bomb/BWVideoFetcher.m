@@ -31,8 +31,6 @@
                        success:(void (^)(NSArray *))success
                        failure:(void (^)(NSError *))failure
 {
-    NSLog(@"%@", [self queryParamsForCategory:category searchString:searchString page:page]);
-    
     [[GiantBombAPIClient defaultClient] GET:@"videos"
                                  parameters:[self queryParamsForCategory:category searchString:searchString page:page]
                                     success:^(NSURLSessionDataTask *task, id responseObject)
@@ -46,8 +44,6 @@
              [results addObject:video];
          }
 
-//         NSLog(@"%@", [results firstObject]);
-         
          if (success) {
              success(results);
          }
@@ -65,10 +61,8 @@
 
 - (NSDictionary *)queryParamsForCategory:(NSString *)category searchString:(NSString *)searchString page:(NSInteger)page
 {
-//   offset: [NSString stringWithFormat:@"%d", (kBWVideosPerPage * (page - 1))]
     NSMutableDictionary *params = [@{@"offset": [NSString stringWithFormat:@"%d", (kBWVideosPerPage * (page - 1))],
-                                    @"limit": [NSString stringWithFormat:@"%d", kBWVideosPerPage],
-                                @"resources": @"video"} mutableCopy];
+                                     @"limit": [NSString stringWithFormat:@"%d", kBWVideosPerPage]} mutableCopy];
 
     // TODO: Constantize these at some point
     NSArray *videoCategories = @[@"Quick Looks", @"Features", @"Events",
@@ -89,7 +83,9 @@
         // endurance runs
         filter = @"video_type:5";
         params[@"sort"] = @"publish_date";
-        query = [query stringByAppendingString:[NSString stringWithFormat:@" %@", category]];
+        if (query) {
+            query = [NSString stringWithFormat:@"%@ %@", category, query];
+        }
     } else {
         // latest videos
         filter = @"video_type:3|8|6|5|4|2|10";
@@ -97,14 +93,12 @@
             filter = [filter stringByAppendingString:@"|7"];
         }
     }
-    
+
     if (query) {
         filter = [filter stringByAppendingString:[NSString stringWithFormat:@",name:%@",query]];
     }
 
     params[@"filter"] = filter;
-
-    NSLog(@"%@", params);
     
     return params;
 }

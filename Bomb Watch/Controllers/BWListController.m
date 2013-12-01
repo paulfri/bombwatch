@@ -20,7 +20,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 #define kBWLeftSwipeFraction 0.15
 #define kBWRightSwipeFraction 0.15
 
-#define kBWLeftSwipeColor  [UIColor colorWithRed:0 green:178.0/255 blue:51.0/255 alpha:1]
+#define kBWGiantBombCharcoalColor [UIColor colorWithRed:34.0/255 green:34.0/255 blue:34.0/255 alpha:1.0]
 
 @interface BWListController ()
 
@@ -119,7 +119,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
         
         PDGesturedTableViewCellSlidingFraction *watchedFraction =
             [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"circle.png"]
-                                                                      color:kBWLeftSwipeColor
+                                                                      color:kBWGiantBombCharcoalColor
                                                          activationFraction:kBWLeftSwipeFraction];
         
         [watchedFraction setDidReleaseBlock:toggleWatched];
@@ -127,7 +127,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
         
         PDGesturedTableViewCellSlidingFraction *favoriteFraction =
             [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"star-gold-outline"]
-                                                                      color:[UIColor blackColor]
+                                                                      color:kBWGiantBombCharcoalColor
                                                          activationFraction:-kBWRightSwipeFraction];
         
         [favoriteFraction setDidReleaseBlock:toggleFavorite];
@@ -159,8 +159,11 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
                  NSString *filePath = [documentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_cache", self.category]];
                  
                  [NSKeyedArchiver archiveRootObject:self.videos toFile:filePath];
+                 
+                 if (self.delegate && [self.delegate respondsToSelector:@selector(tableViewContentsReset)]) {
+                     [self.delegate tableViewContentsReset];
+                 }
              }
-
          } else {
              self.videos = [[self.videos arrayByAddingObjectsFromArray:results] mutableCopy];
          }

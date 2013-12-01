@@ -63,6 +63,7 @@
     [[UISwitch appearance] setOnTintColor:kBWGiantBombRedColor];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor darkGrayColor]];
     [[UILabel appearance] setTextColor:[UIColor whiteColor]];
+    [[UILabel appearanceWhenContainedIn:UISearchBar.class, nil] setTextColor:[UIColor blackColor]];
     [[UIToolbar appearance] setBarTintColor:kBWGiantBombCharcoalColor];
     [[UITableView appearance] setBackgroundColor:kBWGiantBombCharcoalColor];
     [[UISearchBar appearance] setBarTintColor:kBWGiantBombCharcoalColor];

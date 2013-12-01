@@ -13,5 +13,6 @@
 @optional
 
 - (void)videoSelected:(BWVideo *)video;
+- (void)tableViewContentsReset;
 
 @end

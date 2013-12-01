@@ -25,11 +25,9 @@
     // TODO add background view
     
     self.tableView.enabled = YES;
-    self.tableView.backgroundColor = [UIColor blackColor];
-    self.tableView.separatorColor  = [UIColor darkGrayColor];
+    self.tableView.separatorColor = [UIColor darkGrayColor];
 
     __unsafe_unretained typeof(self) _self = self;
-    
     [self.tableView setDidMoveCellFromIndexPathToIndexPathBlock:^(NSIndexPath *fromIndexPath, NSIndexPath *toIndexPath) {
         [_self.favorites exchangeObjectAtIndex:fromIndexPath.row withObjectAtIndex:toIndexPath.row];
         [BWVideo setFavorites:_self.favorites];
