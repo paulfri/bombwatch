@@ -36,6 +36,7 @@
     [self.disableOverlay addGestureRecognizer:tapGesture];
 
     [self.tableView setContentOffset:CGPointMake(0,44) animated:YES];
+    self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -63,7 +64,6 @@
     self.title = self.category;
 }
 
-
 #pragma mark - UISearchBarDelegate
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
@@ -90,7 +90,6 @@
     if (!active) {
         [self.searchBar resignFirstResponder];
         [self.disableOverlay removeFromSuperview];
-        [self.tableView setContentOffset:CGPointMake(0,0) animated:YES];
     } else {
         self.disableOverlay.alpha = 0;
         [self.tableView addSubview:self.disableOverlay];
@@ -105,6 +104,9 @@
 - (void)overlayTapped
 {
     [self searchBar:self.searchBar setActive:NO];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                          atScrollPosition:UITableViewScrollPositionTop
+                                  animated:YES];
 }
 
 @end

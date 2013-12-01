@@ -207,6 +207,9 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 {
     self.page = 1;
     [self loadVideosForPage:self.page searchText:nil];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                          atScrollPosition:UITableViewScrollPositionTop
+                                  animated:YES];
 }
 
 @end

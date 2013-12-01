@@ -42,6 +42,8 @@
         
         self.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"black_rectangle"]];
         self.backgroundView.contentMode = UIViewContentModeScaleAspectFill;
+        
+//        self.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     
     return self;

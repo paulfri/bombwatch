@@ -26,6 +26,7 @@
     
     self.tableView.enabled = YES;
     self.tableView.separatorColor = [UIColor darkGrayColor];
+    self.tableView.tableFooterView = [[UIView alloc] init];
 
     __unsafe_unretained typeof(self) _self = self;
     [self.tableView setDidMoveCellFromIndexPathToIndexPathBlock:^(NSIndexPath *fromIndexPath, NSIndexPath *toIndexPath) {
