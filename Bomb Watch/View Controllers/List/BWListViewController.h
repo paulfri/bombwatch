@@ -11,10 +11,11 @@
 #import "BWListController.h"
 #import "BWListControllerDelegate.h"
 
-@interface BWListViewController : UIViewController <BWListControllerDelegate>
+@interface BWListViewController : UIViewController <BWListControllerDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) NSString *category;
 @property (weak, nonatomic) IBOutlet PDGesturedTableView *tableView;
 @property (strong, nonatomic) BWListController *listController;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end

@@ -65,6 +65,7 @@
     [[UILabel appearance] setTextColor:[UIColor whiteColor]];
     [[UIToolbar appearance] setBarTintColor:kBWGiantBombCharcoalColor];
     [[UITableView appearance] setBackgroundColor:kBWGiantBombCharcoalColor];
+    [[UISearchBar appearance] setBarTintColor:kBWGiantBombCharcoalColor];
 }
 
 #pragma mark - App Delegate methods

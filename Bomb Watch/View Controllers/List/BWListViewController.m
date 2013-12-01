@@ -10,6 +10,12 @@
 #import "BWVideoDetailViewController.h"
 #import "BWVideo.h"
 
+@interface BWListViewController ()
+
+@property (strong, nonatomic) UIView *disableOverlay;
+
+@end
+
 @implementation BWListViewController
 
 - (void)viewDidLoad
@@ -19,8 +25,14 @@
     self.listController = [[BWListController alloc] initWithTableView:self.tableView
                                                              category:self.category];
     self.listController.delegate = self;
-    self.tableView.backgroundColor = [UIColor blackColor];
     self.tableView.separatorColor  = [UIColor grayColor];
+    
+    CGRect f = self.tableView.frame;
+    CGRect frame = CGRectMake(f.origin.x, f.origin.y + 44, f.size.width, f.size.height - 44);
+    self.disableOverlay = [[UIView alloc] initWithFrame:frame];
+    self.disableOverlay.backgroundColor = [UIColor blackColor];
+
+    [self.tableView setContentOffset:CGPointMake(0,44) animated:YES];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -38,14 +50,54 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSIndexPath *selectedRow = [self.tableView indexPathsForSelectedRows].firstObject;
     [self.tableView reloadData];
+}
 
-    [self.tableView selectRowAtIndexPath:selectedRow
-                                animated:NO
-                          scrollPosition:UITableViewScrollPositionNone];
-    [self.tableView deselectRowAtIndexPath:selectedRow
-                                  animated:YES];
+#pragma mark - UISearchBarDelegate
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+    [self searchBar:searchBar setActive:YES];
+    return YES;
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [self searchBar:searchBar setActive:NO];
+}
+
+#pragma mark - UIResponder
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [[event allTouches] anyObject];
+    if ([self.searchBar isFirstResponder] && [touch view] != self.searchBar)
+    {
+        [self searchBar:self.searchBar setActive:NO];
+    }
+    [super touchesBegan:touches withEvent:event];
+}
+
+
+#pragma mark - util
+
+- (void)searchBar:(UISearchBar *)searchBar setActive:(BOOL)active
+{
+    self.tableView.userInteractionEnabled = !active;
+    
+    if (!active) {
+        [self.searchBar resignFirstResponder];
+        [self.disableOverlay removeFromSuperview];
+        [self.tableView setContentOffset:CGPointMake(0,44) animated:YES];
+    } else {
+        self.disableOverlay.alpha = 0;
+        [self.tableView addSubview:self.disableOverlay];
+        
+        [UIView beginAnimations:@"FadeIn" context:nil];
+        [UIView setAnimationDuration:0.5];
+        self.disableOverlay.alpha = 0.6;
+        [UIView commitAnimations]; // clean up this syntax
+    }
 }
 
 @end
