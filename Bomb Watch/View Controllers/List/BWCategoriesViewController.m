@@ -24,7 +24,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Videos";
 
     self.featuredCategories = @[@"Latest", @"Quick Looks", @"Features", @"Events", @"Trailers"];
     self.enduranceRuns = @[@"Persona 4", @"The Matrix Online", @"Deadly Premonition", @"Chrono Trigger"];

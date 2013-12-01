@@ -1,5 +1,5 @@
 //
-//  BWTableView.h
+//  BWGenericTableViewCell.h
 //  Bomb Watch
 //
 //  Created by Paul Friedman on 12/1/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BWTableView : UITableView
+@interface BWGenericTableViewCell : UITableViewCell
 
 @end

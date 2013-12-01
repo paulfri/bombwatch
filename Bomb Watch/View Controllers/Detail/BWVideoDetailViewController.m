@@ -125,6 +125,7 @@
         [self.tableView beginUpdates];
         [self.tableView endUpdates];
     }
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -158,12 +159,15 @@
     return 30.0;
 }
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
+#warning constantize/enumerate
     NSArray *qualities = @[@"Mobile", @"Low", @"High", @"HD"];
-    NSString *current = qualities[row];
 
-    return current;
+    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:qualities[row]
+                                                                    attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+
+    return attString;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
@@ -246,10 +250,11 @@
 
 - (void)updateDownloadButton
 {
-    BOOL enabled = YES;
+    BOOL enabled = YES; // lol
 
-    if (enabled)
+    if (enabled) {
         self.downloadButton.image = [UIImage imageNamed:@"ToolbarDownload"];
+    }
     
     self.downloadButton.enabled = enabled;
 }
@@ -276,10 +281,11 @@
 
 - (void)updateWatchedButton
 {
-//    if ([self.video isWatched])
-//        self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheckFull"];
-//    else
-    self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheck"];
+    if ([self.video isWatched]) {
+        self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheckFull"];
+    } else {
+        self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheck"];
+    }
 }
 
 #pragma mark - Utility
@@ -297,9 +303,10 @@
     [self updateDownloadButton];
     [self updateWatchedButton];
     [self.qualityPicker reloadAllComponents];
-    self.qualityLabel.text = [self pickerView:self.qualityPicker
-                                  titleForRow:[self.qualityPicker selectedRowInComponent:0]
-                                 forComponent:0];
+    self.qualityLabel.text = [[self pickerView:self.qualityPicker
+                         attributedTitleForRow:[self.qualityPicker selectedRowInComponent:0]
+                                  forComponent:0] string];
+
     [self.tableView reloadData];
 }
 

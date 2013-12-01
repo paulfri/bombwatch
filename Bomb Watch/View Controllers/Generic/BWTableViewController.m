@@ -12,7 +12,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self addTableHeader];
 
+    self.tableView.backgroundColor = [UIColor colorWithRed:34.0/255 green:34.0/255 blue:34.0/255 alpha:1.0];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    if([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
+        ((UITableViewHeaderFooterView *)view).textLabel.textColor = [UIColor lightGrayColor];
+    }
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
+{
+    if([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
+        ((UITableViewHeaderFooterView *)view).textLabel.textColor = [UIColor lightGrayColor];
+    }
+}
+
+- (void)addTableHeader
+{
     // bomb table header
     CGRect screenRect = [UIScreen mainScreen].bounds;
     UIImageView *bombImageView = [[UIImageView alloc] initWithFrame:CGRectMake(screenRect.size.width / 2 - 10, 0, 20, 40)];

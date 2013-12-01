@@ -13,6 +13,7 @@
 
 #define PocketConsumerKey    @"17866-6c522817c89aaee6ae6da74f"
 #define kBWGiantBombRedColor [UIColor colorWithRed:178.0/255 green:34.0/255 blue:34.0/255 alpha:1]
+#define kBWGiantBombCharcoalColor [UIColor colorWithRed:34.0/255 green:34.0/255 blue:34.0/255 alpha:1.0]
 
 @implementation BWAppDelegate
 
@@ -59,6 +60,11 @@
     [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [[UISwitch appearance] setOnTintColor:kBWGiantBombRedColor];
+    [[UITableViewCell appearance] setBackgroundColor:[UIColor darkGrayColor]];
+    [[UILabel appearance] setTextColor:[UIColor whiteColor]];
+    [[UIToolbar appearance] setBarTintColor:kBWGiantBombCharcoalColor];
+    [[UITableView appearance] setBackgroundColor:kBWGiantBombCharcoalColor];
 }
 
 #pragma mark - App Delegate methods

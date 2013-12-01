@@ -68,7 +68,6 @@
                                                     <rect key="frame" x="15" y="11" width="101" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qfR-kz-bfG">
@@ -106,7 +105,6 @@
                                                     <rect key="frame" x="15" y="11" width="54" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -158,7 +156,6 @@
                                                     <rect key="frame" x="14" y="11" width="107" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hrJ-mY-Jl0">
@@ -186,7 +183,6 @@
                                                     <rect key="frame" x="14" y="11" width="93" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L3t-Bf-PeV">
@@ -214,7 +210,6 @@
                                                     <rect key="frame" x="15" y="11" width="96" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Latest" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="llq-3c-s3e">
@@ -262,7 +257,6 @@
                                                     <rect key="frame" x="15" y="11" width="113" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Low" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1sU-Dm-5rh">
@@ -390,7 +384,7 @@
                         <sections>
                             <tableViewSection headerTitle="Feedback" id="0kF-5l-YgU">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="y9p-al-Eoc" imageView="xuW-fS-1cL" style="IBUITableViewCellStyleDefault" id="EA2-LO-poi">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="y9p-al-Eoc" imageView="xuW-fS-1cL" style="IBUITableViewCellStyleDefault" id="EA2-LO-poi" customClass="BWGenericTableViewCell">
                                         <rect key="frame" x="0.0" y="119" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EA2-LO-poi" id="pTj-hg-Daj">
@@ -411,7 +405,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Frl-y2-9cb" imageView="dKb-ay-NeK" style="IBUITableViewCellStyleDefault" id="XB1-ev-wsG">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Frl-y2-9cb" imageView="dKb-ay-NeK" style="IBUITableViewCellStyleDefault" id="XB1-ev-wsG" customClass="BWGenericTableViewCell">
                                         <rect key="frame" x="0.0" y="163" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XB1-ev-wsG" id="Oaz-Ff-6EQ">
@@ -436,7 +430,7 @@
                             </tableViewSection>
                             <tableViewSection id="x59-c2-mtd">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="oG5-7M-GvM" rowHeight="81" style="IBUITableViewCellStyleDefault" id="Q3v-EF-hkw">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="oG5-7M-GvM" rowHeight="81" style="IBUITableViewCellStyleDefault" id="Q3v-EF-hkw" customClass="BWGenericTableViewCell">
                                         <rect key="frame" x="0.0" y="227" width="320" height="81"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Q3v-EF-hkw" id="RRe-ls-BFM">
@@ -457,7 +451,7 @@
                             </tableViewSection>
                             <tableViewSection id="bj9-iD-Frq">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="280" id="HR9-se-P3S">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="280" id="HR9-se-P3S" customClass="BWGenericTableViewCell">
                                         <rect key="frame" x="0.0" y="328" width="320" height="280"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HR9-se-P3S" id="JoM-c6-EmC">
@@ -505,7 +499,7 @@
                         <sections>
                             <tableViewSection headerTitle="Account" footerTitle="Link your premium Giant Bomb account to access subscriber-only content and features. Get your code at giantbomb.com/boxee." id="gTJ-ku-mRi">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="LRd-qN-rBH">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="LRd-qN-rBH" customClass="BWGenericTableViewCell">
                                         <rect key="frame" x="0.0" y="119" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LRd-qN-rBH" id="u61-sS-qQD">
@@ -551,7 +545,7 @@
             </objects>
             <point key="canvasLocation" x="-6007" y="-4298"/>
         </scene>
-        <!--Categories View Controller - Videos-->
+        <!--Categories View Controller - Bomb Watch-->
         <scene sceneID="KZt-04-Cha">
             <objects>
                 <tableViewController storyboardIdentifier="categoriesViewController" id="HlT-IB-UZg" customClass="BWCategoriesViewController" sceneMemberID="viewController">
@@ -560,14 +554,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CategoryCell" textLabel="Yhg-rm-XQ6" style="IBUITableViewCellStyleDefault" id="RQF-BB-tIk">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CategoryCell" textLabel="eac-rV-OCe" style="IBUITableViewCellStyleDefault" id="RQF-BB-tIk" customClass="BWGenericTableViewCell">
                                 <rect key="frame" x="0.0" y="119" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RQF-BB-tIk" id="aAZ-Yb-qQE">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yhg-rm-XQ6">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eac-rV-OCe">
                                             <rect key="frame" x="15" y="0.0" width="270" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -587,7 +581,8 @@
                             <outlet property="delegate" destination="HlT-IB-UZg" id="kyA-U3-cGf"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Videos" id="bLF-MQ-ZYj">
+                    <navigationItem key="navigationItem" title="Bomb Watch" id="bLF-MQ-ZYj">
+                        <barButtonItem key="backBarButtonItem" title="Videos" id="Zp6-cZ-JEf"/>
                         <barButtonItem key="rightBarButtonItem" image="SettingsIcon" id="vpO-JP-GlY">
                             <connections>
                                 <segue destination="Maf-TN-V1b" kind="modal" id="Ftd-Av-nfp"/>

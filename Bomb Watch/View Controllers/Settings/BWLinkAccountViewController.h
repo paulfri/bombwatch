@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BWTableViewController.h"
 
-@interface BWLinkAccountViewController : UITableViewController <UITextFieldDelegate>
+@interface BWLinkAccountViewController : BWTableViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *accountCode;
 
