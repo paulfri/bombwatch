@@ -17,6 +17,7 @@
 		DA01E187184A71D7008B139F /* BWTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E186184A71D7008B139F /* BWTableViewController.m */; };
 		DA01E18A184A71E3008B139F /* BWCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E189184A71E3008B139F /* BWCategoriesViewController.m */; };
 		DA01E18D184A71EB008B139F /* BWVideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E18C184A71EB008B139F /* BWVideoDetailViewController.m */; };
+		DA01E191184AB9AA008B139F /* BWPushNotificationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E190184AB9AA008B139F /* BWPushNotificationClient.m */; };
 		DA0A718718490BC4004750F1 /* BWImagePulldownView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A718618490BC4004750F1 /* BWImagePulldownView.m */; };
 		DA0A718D184919FC004750F1 /* BWListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A718C184919FC004750F1 /* BWListViewController.m */; };
 		DA0A7191184930BD004750F1 /* BWListController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A7190184930BD004750F1 /* BWListController.m */; };
@@ -76,6 +77,8 @@
 		DA01E189184A71E3008B139F /* BWCategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWCategoriesViewController.m; sourceTree = "<group>"; };
 		DA01E18B184A71EB008B139F /* BWVideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoDetailViewController.h; sourceTree = "<group>"; };
 		DA01E18C184A71EB008B139F /* BWVideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoDetailViewController.m; sourceTree = "<group>"; };
+		DA01E18F184AB9AA008B139F /* BWPushNotificationClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWPushNotificationClient.h; sourceTree = "<group>"; };
+		DA01E190184AB9AA008B139F /* BWPushNotificationClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWPushNotificationClient.m; sourceTree = "<group>"; };
 		DA0A718518490BC4004750F1 /* BWImagePulldownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWImagePulldownView.h; sourceTree = "<group>"; };
 		DA0A718618490BC4004750F1 /* BWImagePulldownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWImagePulldownView.m; sourceTree = "<group>"; };
 		DA0A718B184919FC004750F1 /* BWListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWListViewController.h; sourceTree = "<group>"; };
@@ -149,6 +152,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DA01E18E184AB98B008B139F /* API */ = {
+			isa = PBXGroup;
+			children = (
+				DA01E18F184AB9AA008B139F /* BWPushNotificationClient.h */,
+				DA01E190184AB9AA008B139F /* BWPushNotificationClient.m */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		DA0A718818491898004750F1 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,6 +308,7 @@
 				DACE827617CD035800E23051 /* Main_iPhone.storyboard */,
 				DA41280517CE38C5003C4F59 /* Images.xcassets */,
 				DA68EBD717D02F9F00451F14 /* Activities */,
+				DA01E18E184AB98B008B139F /* API */,
 				DA0A718E18493057004750F1 /* Controllers */,
 				DA852994184908A60049C752 /* Extensions */,
 				DADDA78317D193E70076D2EA /* Model */,
@@ -517,6 +530,7 @@
 				DA0A719518494688004750F1 /* BWVideoFetcher.m in Sources */,
 				DA4127FA17CE30BE003C4F59 /* PocketAPIActivity.m in Sources */,
 				DACE827117CD035800E23051 /* main.m in Sources */,
+				DA01E191184AB9AA008B139F /* BWPushNotificationClient.m in Sources */,
 				DA68EBDA17D0305300451F14 /* EVCircularProgressView.m in Sources */,
 				DACE827517CD035800E23051 /* BWAppDelegate.m in Sources */,
 				DACE82A517CD052300E23051 /* GiantBombAPIClient.m in Sources */,
