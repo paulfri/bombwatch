@@ -14,5 +14,7 @@
 
 - (void)videoSelected:(BWVideo *)video;
 - (void)tableViewContentsReset;
+- (void)searchDidCompleteWithSuccess;
+- (void)searchDidCompleteWithFailure;
 
 @end

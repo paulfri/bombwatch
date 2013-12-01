@@ -37,6 +37,10 @@
 
     [self.tableView setContentOffset:CGPointMake(0,44) animated:YES];
     self.tableView.tableFooterView = [[UIView alloc] init];
+    
+    // hack to get rid of 1px black line under search bar
+    self.searchBar.layer.borderWidth = 1;
+    self.searchBar.layer.borderColor = [[UIColor colorWithRed:34.0/255 green:34.0/255 blue:34.0/255 alpha:1.0] CGColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,6 +68,18 @@
     self.title = self.category;
 }
 
+- (void)searchDidCompleteWithSuccess
+{
+    self.title = self.searchBar.text;
+    [SVProgressHUD dismiss];
+    [self searchBar:self.searchBar setActive:NO];
+}
+
+- (void)searchDidCompleteWithFailure
+{
+    [SVProgressHUD showErrorWithStatus:@"Error"];
+}
+
 #pragma mark - UISearchBarDelegate
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
@@ -75,9 +91,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [SVProgressHUD show];
-    self.title = searchBar.text;
     [self.listController search:searchBar.text];
-    [self searchBar:searchBar setActive:NO];
 }
 
 #pragma mark - util
@@ -104,9 +118,12 @@
 - (void)overlayTapped
 {
     [self searchBar:self.searchBar setActive:NO];
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-                          atScrollPosition:UITableViewScrollPositionTop
-                                  animated:YES];
+    NSIndexPath *top = [NSIndexPath indexPathForRow:0 inSection:0];
+    if ([self.tableView numberOfRowsInSection:0] > 0) {
+        [self.tableView scrollToRowAtIndexPath:top
+                              atScrollPosition:UITableViewScrollPositionTop
+                                      animated:YES];
+    }
 }
 
 @end

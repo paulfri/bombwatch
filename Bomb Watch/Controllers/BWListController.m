@@ -163,6 +163,10 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
                  if (self.delegate && [self.delegate respondsToSelector:@selector(tableViewContentsReset)]) {
                      [self.delegate tableViewContentsReset];
                  }
+             } else {
+                 if (self.delegate && [self.delegate respondsToSelector:@selector(searchDidCompleteWithSuccess)]) {
+                     [self.delegate searchDidCompleteWithSuccess];
+                 }
              }
          } else {
              self.videos = [[self.videos arrayByAddingObjectsFromArray:results] mutableCopy];
@@ -172,7 +176,12 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
          [SVProgressHUD dismiss];
          [self.refreshControl endRefreshing];
      }
-                                                    failure:nil];
+                                                    failure:^(NSError *error)
+    {
+        if (searchText && self.delegate && [self.delegate respondsToSelector:@selector(searchDidCompleteWithFailure)]) {
+            [self.delegate searchDidCompleteWithFailure];
+        }
+    }];
 }
 
 #pragma mark - table view delegate
@@ -207,9 +216,12 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 {
     self.page = 1;
     [self loadVideosForPage:self.page searchText:nil];
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-                          atScrollPosition:UITableViewScrollPositionTop
-                                  animated:YES];
+    
+    if ([self.tableView numberOfRowsInSection:0] > 0) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                              atScrollPosition:UITableViewScrollPositionTop
+                                      animated:YES];
+    }
 }
 
 @end
