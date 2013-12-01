@@ -15,8 +15,9 @@
 + (id)defaultFetcher;
 
 - (void)fetchVideosForCategory:(NSString *)category
+                  searchString:(NSString *)searchString
                           page:(NSInteger)page
                        success:(void (^)(NSArray *))success
-                       failure:(void (^)(NSError *))error;
+                       failure:(void (^)(NSError *))failure;
 
 @end

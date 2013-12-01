@@ -22,6 +22,12 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
 #define kBWLeftSwipeColor  [UIColor colorWithRed:0 green:178.0/255 blue:51.0/255 alpha:1]
 
+@interface BWListController ()
+
+@property (strong, nonatomic) NSString *searchText;
+
+@end
+
 @implementation BWListController
 
 - (id)initWithTableView:(PDGesturedTableView *)tableView category:(NSString *)category
@@ -54,7 +60,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
         
         if (!cachedVideos) {
             [SVProgressHUD show];
-            [self loadVideosForPage:self.page];
+            [self loadVideosForPage:self.page searchText:nil];
         } else {
             self.videos = cachedVideos;
         }
@@ -63,15 +69,15 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
     return self;
 }
 
+- (void)search:(NSString *)text
+{
+    self.searchText = text;
+    [self loadVideosForPage:1 searchText:self.searchText];
+}
+
 - (BWVideo *)videoAtIndexPath:(NSIndexPath *)indexPath
 {
     return self.videos[indexPath.row];
-}
-
-- (void)refreshControlActivated
-{
-    self.page = 1;
-    [self loadVideosForPage:self.page];
 }
 
 #pragma mark - table view data source
@@ -138,28 +144,31 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
     return cell;
 }
 
-- (void)loadVideosForPage:(NSInteger)page
+- (void)loadVideosForPage:(NSInteger)page searchText:(NSString *)searchText
 {
     [[BWVideoFetcher defaultFetcher] fetchVideosForCategory:self.category
+                                               searchString:searchText
                                                        page:page
                                                     success:^(NSArray *results)
-    {
-        if (page == 1) {
-            self.videos = [results copy];
-            
-            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-            NSString *filePath = [documentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_cache", self.category]];
+     {
+         if (page == 1) {
+             self.videos = [results copy];
+             
+             if (!searchText) {
+                 NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+                 NSString *filePath = [documentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_cache", self.category]];
+                 
+                 [NSKeyedArchiver archiveRootObject:self.videos toFile:filePath];
+             }
 
-            [NSKeyedArchiver archiveRootObject:self.videos
-                                        toFile:filePath];
-        } else {
-            self.videos = [[self.videos arrayByAddingObjectsFromArray:results] mutableCopy];
-        }
-        
-        [self.tableView reloadData];
-        [SVProgressHUD dismiss];
-        [self.refreshControl endRefreshing];
-    }
+         } else {
+             self.videos = [[self.videos arrayByAddingObjectsFromArray:results] mutableCopy];
+         }
+         
+         [self.tableView reloadData];
+         [SVProgressHUD dismiss];
+         [self.refreshControl endRefreshing];
+     }
                                                     failure:nil];
 }
 
@@ -184,9 +193,17 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
         // if it's < , then there should already be a load in progress
         if(self.videos.count >= (self.page * kBWVideosPerPage)) {
             self.page++;
-            [self loadVideosForPage:self.page];
+            [self loadVideosForPage:self.page searchText:self.searchText];
         }
     }
+}
+
+#pragma mark - util
+
+- (void)refreshControlActivated
+{
+    self.page = 1;
+    [self loadVideosForPage:self.page searchText:nil];
 }
 
 @end

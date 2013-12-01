@@ -23,9 +23,9 @@
 
 - (id)initWithBaseURL:(NSURL *)url {
     self = [super initWithBaseURL:url];
-    if (self)
+    if (self) {
         self.responseSerializer = [AFJSONResponseSerializer serializer];
-    
+    }
     return self;
 }
 

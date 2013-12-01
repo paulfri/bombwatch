@@ -26,4 +26,6 @@
 - (id)initWithTableView:(PDGesturedTableView *)tableView category:(NSString *)category;
 - (BWVideo *)videoAtIndexPath:(NSIndexPath *)indexPath;
 
+- (void)search:(NSString *)text;
+
 @end

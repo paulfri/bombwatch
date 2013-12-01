@@ -63,6 +63,7 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    [self.listController search:searchBar.text];
     [self searchBar:searchBar setActive:NO];
 }
 
@@ -71,7 +72,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [[event allTouches] anyObject];
-    if ([self.searchBar isFirstResponder] && [touch view] != self.searchBar)
+    if ([self.searchBar isFirstResponder] && [touch view] != self.searchBar && ![self.searchBar.subviews containsObject:[touch view]])
     {
         [self searchBar:self.searchBar setActive:NO];
     }

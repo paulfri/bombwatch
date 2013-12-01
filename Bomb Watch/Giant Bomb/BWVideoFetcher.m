@@ -26,12 +26,15 @@
 }
 
 - (void)fetchVideosForCategory:(NSString *)category
-                           page:(NSInteger)page
-                        success:(void (^)(NSArray *))success
-                        failure:(void (^)(NSError *))failure
+                  searchString:(NSString *)searchString
+                          page:(NSInteger)page
+                       success:(void (^)(NSArray *))success
+                       failure:(void (^)(NSError *))failure
 {
+    NSLog(@"%@", [self queryParamsForCategory:category searchString:searchString page:page]);
+    
     [[GiantBombAPIClient defaultClient] GET:@"videos"
-                                 parameters:[self queryParamsForCategory:category page:page]
+                                 parameters:[self queryParamsForCategory:category searchString:searchString page:page]
                                     success:^(NSURLSessionDataTask *task, id responseObject)
      {
          NSMutableArray *results = [NSMutableArray array];
@@ -43,6 +46,8 @@
              [results addObject:video];
          }
 
+//         NSLog(@"%@", [results firstObject]);
+         
          if (success) {
              success(results);
          }
@@ -58,30 +63,33 @@
 
 }
 
-- (NSDictionary *)queryParamsForCategory:(NSString *)category page:(NSInteger)page
+- (NSDictionary *)queryParamsForCategory:(NSString *)category searchString:(NSString *)searchString page:(NSInteger)page
 {
-    NSString *offset = [NSString stringWithFormat:@"%d", (kBWVideosPerPage * (page - 1))];
-    NSString *perPage = [NSString stringWithFormat:@"%d", kBWVideosPerPage];
-    
+//   offset: [NSString stringWithFormat:@"%d", (kBWVideosPerPage * (page - 1))]
+    NSMutableDictionary *params = [@{@"offset": [NSString stringWithFormat:@"%d", (kBWVideosPerPage * (page - 1))],
+                                    @"limit": [NSString stringWithFormat:@"%d", kBWVideosPerPage],
+                                @"resources": @"video"} mutableCopy];
+
     // TODO: Constantize these at some point
     NSArray *videoCategories = @[@"Quick Looks", @"Features", @"Events",
                                  @"Endurance Run", @"TANG", @"Reviews", @"Trailers",
                                  @"Subscriber"];
     NSArray *videoEndpoints  = @[@"3", @"8", @"6", @"5", @"4", @"2", @"7", @"10"];
     
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjects:videoEndpoints
-                                                       forKeys:videoCategories];
+    NSDictionary *categoryMap = [[NSDictionary alloc] initWithObjects:videoEndpoints
+                                                              forKeys:videoCategories];
     
     NSString *filter;
-    NSString *query = @"";
+    NSString *query = searchString;
     
+    // set filter and hackish searchString appends
     if ([videoCategories containsObject:category]) {
-        // standard categories
-        filter = [NSString stringWithFormat:@"video_type:%@", dict[category]];
+        filter = [NSString stringWithFormat:@"video_type:%@", categoryMap[category]];
     } else if ([self categoryIsEnduranceRun:category]) {
         // endurance runs
         filter = @"video_type:5";
-        query = category;
+        params[@"sort"] = @"publish_date";
+        query = [query stringByAppendingString:[NSString stringWithFormat:@" %@", category]];
     } else {
         // latest videos
         filter = @"video_type:3|8|6|5|4|2|10";
@@ -90,14 +98,19 @@
         }
     }
     
-    if ([self categoryIsEnduranceRun:category]) {
-        return @{@"limit": perPage, @"offset": offset, @"filter": filter, @"resources": @"video", @"sort": @"publish_date"};
+    if (query) {
+        filter = [filter stringByAppendingString:[NSString stringWithFormat:@",name:%@",query]];
     }
+
+    params[@"filter"] = filter;
+
+    NSLog(@"%@", params);
     
-    return @{@"limit": perPage, @"offset": offset, @"filter": filter};
+    return params;
 }
 
-- (BOOL)categoryIsEnduranceRun:(NSString *)category {
+- (BOOL)categoryIsEnduranceRun:(NSString *)category
+{
     return [@[@"Persona 4", @"Deadly Premonition", @"The Matrix Online", @"Chrono Trigger"] containsObject:category];
 }
 
