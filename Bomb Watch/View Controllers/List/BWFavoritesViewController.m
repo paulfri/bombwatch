@@ -10,6 +10,7 @@
 #import "BWVideo.h"
 #import "BWVideoTableViewCell.h"
 #import "BWVideoDetailViewController.h"
+#import "BWVideoDataStore.h"
 
 @interface BWFavoritesViewController ()
 
@@ -31,13 +32,13 @@
     __unsafe_unretained typeof(self) _self = self;
     [self.tableView setDidMoveCellFromIndexPathToIndexPathBlock:^(NSIndexPath *fromIndexPath, NSIndexPath *toIndexPath) {
         [_self.favorites exchangeObjectAtIndex:fromIndexPath.row withObjectAtIndex:toIndexPath.row];
-        [BWVideo setFavorites:_self.favorites];
+        [[BWVideoDataStore defaultStore] setFavorites:_self.favorites];
     }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.favorites = [BWVideo favorites];
+    self.favorites = [[BWVideoDataStore defaultStore] favorites];
     [self.tableView reloadData];
 }
 
@@ -60,7 +61,7 @@
 
             [tableView removeCell:cell completion:^{
                 [video setFavorited:NO];
-                _self.favorites = [BWVideo favorites];
+                _self.favorites = [[BWVideoDataStore defaultStore] favorites];
             }];
         };
 

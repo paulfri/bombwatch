@@ -12,7 +12,7 @@ NSString *const kBWPushNotificationServerBaseURL = @"http://satonaka.laika.io";
 
 @implementation BWPushNotificationClient
 
-+ (id)defaultClient {
++ (instancetype)defaultClient {
     static BWPushNotificationClient *__defaultClient;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

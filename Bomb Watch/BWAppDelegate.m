@@ -27,7 +27,12 @@
 
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
        (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    
+
+    NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (notification) {
+        
+    }
+
     return YES;
 }
 
@@ -64,6 +69,7 @@
     [[UITableViewCell appearance] setBackgroundColor:[UIColor darkGrayColor]];
     [[UILabel appearance] setTextColor:[UIColor whiteColor]];
     [[UILabel appearanceWhenContainedIn:UISearchBar.class, nil] setTextColor:[UIColor blackColor]];
+    [[UILabel appearanceWhenContainedIn:UITextField.class, nil] setTextColor:[UIColor lightGrayColor]];
     [[UIToolbar appearance] setBarTintColor:kBWGiantBombCharcoalColor];
     [[UITableView appearance] setBackgroundColor:kBWGiantBombCharcoalColor];
     [[UISearchBar appearance] setBarTintColor:kBWGiantBombCharcoalColor];
@@ -110,6 +116,24 @@
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
 	NSLog(@"APNS registration error: %@", error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    if (userInfo) {
+        NSLog(@"%@", userInfo);
+    }
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    NSLog(@"Remote Notification userInfo is %@", userInfo);
+
+    NSNumber *vid = userInfo[@"vid"]; // giant bomb video ID
+    // Do something with the content ID
+
+
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 @end

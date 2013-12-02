@@ -7,9 +7,7 @@
 //
 
 #import "BWVideo.h"
-
-static NSString *kBWDefaultsFavoritesKey = @"favoritedVideos";
-static NSString *kBWDefaultsWatchedKey   = @"videosWatched";
+#import "BWVideoDataStore.h"
 
 @implementation BWVideo
 
@@ -57,77 +55,30 @@ static NSString *kBWDefaultsWatchedKey   = @"videosWatched";
 
 - (BOOL)isWatched
 {
-    NSMutableArray *watched = [[[NSUserDefaults standardUserDefaults] arrayForKey:kBWDefaultsWatchedKey] mutableCopy];
-    return [watched containsObject:[NSNumber numberWithInt:self.videoID]];
+    return [[BWVideoDataStore defaultStore] watchedStatusForVideo:self];
 }
 
 - (void)setWatched:(BOOL)watchedStatus
 {
-    NSMutableArray *watched = [[[NSUserDefaults standardUserDefaults] arrayForKey:kBWDefaultsWatchedKey] mutableCopy];
-    NSNumber *videoID = [NSNumber numberWithInt:self.videoID];
-    
-    if (watchedStatus && ![watched containsObject:videoID]) {
-        [watched addObject:videoID];
-    } else if ([watched containsObject:videoID]) {
-        [watched removeObject:videoID];
-    }
-
-    [[NSUserDefaults standardUserDefaults] setObject:[watched copy] forKey:kBWDefaultsWatchedKey];
+    [[BWVideoDataStore defaultStore] setWatchedStatus:watchedStatus forVideo:self];
 }
 
 - (BOOL)isFavorited
 {
-    return [[self.class favorites] containsObject:self];
+    return [[BWVideoDataStore defaultStore] favoriteStatusForVideo:self];
 }
 
 - (void)setFavorited:(BOOL)favoritedStatus
 {
-    NSMutableArray *favorites = [self.class favorites];
-    
-    if (favoritedStatus && ![favorites containsObject:self]) {
-        [favorites addObject:self];
-    } else if ([favorites containsObject:self]) {
-        [favorites removeObject:self];
-    }
-
-    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:[favorites copy]]
-                                              forKey:kBWDefaultsFavoritesKey];
+    [[BWVideoDataStore defaultStore] setFavoriteStatus:favoritedStatus forVideo:self];
 }
 
 #pragma mark - utility
 
-+ (NSMutableArray *)favorites
-{
-    NSData *favoritedData = [[NSUserDefaults standardUserDefaults] objectForKey:kBWDefaultsFavoritesKey];
-    NSMutableArray *favorites;
-    
-    if (favoritedData)
-    {
-        NSArray *favoritedVideosArray = [NSKeyedUnarchiver unarchiveObjectWithData:favoritedData];
-        if (favoritedVideosArray) {
-            favorites = [[NSMutableArray alloc] initWithArray:favoritedVideosArray];
-        } else {
-            favorites = [NSMutableArray array];
-        }
-    }
-
-    return favorites;
-}
-
-+ (void)setFavorites:(NSArray *)favorites
-{
-    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:[favorites copy]]
-                                              forKey:kBWDefaultsFavoritesKey];
-}
-
 - (BOOL)isEqual:(id)object
 {
-    if (![object isKindOfClass:self.class]) {
-        return NO;
-    }
-
-    BWVideo *other = object;
-    return self.videoID == other.videoID;
+    if (![object isKindOfClass:self.class]) return NO;
+    return self.videoID == ((BWVideo *)object).videoID;
 }
 
 @end
