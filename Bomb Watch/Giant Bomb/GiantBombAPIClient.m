@@ -34,8 +34,9 @@
 {
     
     NSURL *url = request.URL;
-    NSString *queryString = [NSString stringWithFormat:@"format=json&api_key=%@", GiantBombDefaultAPIKey];
-    
+    NSString *apiKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"apiKey"];
+
+    NSString *queryString = [NSString stringWithFormat:@"format=json&api_key=%@", apiKey];
     NSString *URLString = [[NSString alloc] initWithFormat:@"%@%@%@", [url absoluteString],
                            [url query] ? @"&" : @"?", queryString];
     

@@ -89,8 +89,8 @@
 		DA0A718C184919FC004750F1 /* BWListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWListViewController.m; sourceTree = "<group>"; };
 		DA0A718F184930BD004750F1 /* BWListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWListController.h; sourceTree = "<group>"; };
 		DA0A7190184930BD004750F1 /* BWListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWListController.m; sourceTree = "<group>"; };
-		DA0A719318494688004750F1 /* BWVideoFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoFetcher.h; sourceTree = "<group>"; };
-		DA0A719418494688004750F1 /* BWVideoFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoFetcher.m; sourceTree = "<group>"; };
+		DA0A719318494688004750F1 /* BWVideoFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWVideoFetcher.h; path = "../Giant Bomb/BWVideoFetcher.h"; sourceTree = "<group>"; };
+		DA0A719418494688004750F1 /* BWVideoFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWVideoFetcher.m; path = "../Giant Bomb/BWVideoFetcher.m"; sourceTree = "<group>"; };
 		DA0A719918494F23004750F1 /* BWListControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BWListControllerDelegate.h; sourceTree = "<group>"; };
 		DA0A71A018497CDF004750F1 /* BWVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideo.h; sourceTree = "<group>"; };
 		DA0A71A118497CDF004750F1 /* BWVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideo.m; sourceTree = "<group>"; };
@@ -362,8 +362,6 @@
 			children = (
 				DACE82A217CD052300E23051 /* GiantBombAPIClient.h */,
 				DACE82A317CD052300E23051 /* GiantBombAPIClient.m */,
-				DA0A719318494688004750F1 /* BWVideoFetcher.h */,
-				DA0A719418494688004750F1 /* BWVideoFetcher.m */,
 			);
 			path = "Giant Bomb";
 			sourceTree = "<group>";
@@ -375,6 +373,8 @@
 				DA0A71A118497CDF004750F1 /* BWVideo.m */,
 				DA88AE7B184C061000D6E823 /* BWVideoDataStore.h */,
 				DA88AE7C184C061000D6E823 /* BWVideoDataStore.m */,
+				DA0A719318494688004750F1 /* BWVideoFetcher.h */,
+				DA0A719418494688004750F1 /* BWVideoFetcher.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";

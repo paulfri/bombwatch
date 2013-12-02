@@ -76,6 +76,7 @@
     [[UIToolbar appearance] setBarTintColor:kBWGiantBombCharcoalColor];
     [[UITableView appearance] setBackgroundColor:kBWGiantBombCharcoalColor];
     [[UISearchBar appearance] setBarTintColor:kBWGiantBombCharcoalColor];
+    [[UITextField appearanceWhenContainedIn:UITableViewCell.class, nil] setTextColor:[UIColor lightGrayColor]];
 }
 
 #pragma mark - App Delegate methods
