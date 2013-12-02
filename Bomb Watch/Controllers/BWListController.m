@@ -15,14 +15,13 @@
 #import "BWFavoriteView.h"
 #import "BWVideoTableViewCell.h"
 #import "BWVideoDataStore.h"
+#import "BWColors.h"
 
 static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
 #define kBWLeftSwipeFraction 0.15
 #define kBWFarLeftSwipeFraction 0.4
 #define kBWRightSwipeFraction 0.15
-
-#define kBWGiantBombCharcoalColor [UIColor colorWithRed:34.0/255 green:34.0/255 blue:34.0/255 alpha:1.0]
 
 @interface BWListController ()
 

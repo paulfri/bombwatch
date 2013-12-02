@@ -7,6 +7,7 @@
 //
 
 #import "BWTableViewController.h"
+#import "BWColors.h"
 
 @implementation BWTableViewController
 
@@ -14,7 +15,7 @@
     [super viewDidLoad];
     [self addTableHeader];
 
-    self.tableView.backgroundColor = [UIColor colorWithRed:34.0/255 green:34.0/255 blue:34.0/255 alpha:1.0];
+    self.tableView.backgroundColor = kBWGiantBombCharcoalColor;
     self.tableView.separatorColor  = [UIColor grayColor];
 }
 

@@ -11,6 +11,7 @@
 #import "BWVideoTableViewCell.h"
 #import "BWVideoDetailViewController.h"
 #import "BWVideoDataStore.h"
+#import "BWColors.h"
 
 @interface BWFavoritesViewController ()
 
@@ -67,7 +68,7 @@
 
         PDGesturedTableViewCellSlidingFraction *favoriteFraction =
         [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"circle.png"]
-                                                                  color:[UIColor blackColor]
+                                                                  color:kBWGiantBombCharcoalColor
                                                      activationFraction:-0.15];
         
         [favoriteFraction setDidReleaseBlock:toggleFavorite];

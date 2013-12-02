@@ -10,6 +10,7 @@
 #import "BWVideoDetailViewController.h"
 #import "BWVideo.h"
 #import "SVProgressHUD.h"
+#import "BWColors.h"
 
 @interface BWListViewController ()
 
@@ -44,7 +45,7 @@
     
     // hack to get rid of 1px black line under search bar
     self.searchBar.layer.borderWidth = 1;
-    self.searchBar.layer.borderColor = [[UIColor colorWithRed:34.0/255 green:34.0/255 blue:34.0/255 alpha:1.0] CGColor];
+    self.searchBar.layer.borderColor = [kBWGiantBombCharcoalColor CGColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated

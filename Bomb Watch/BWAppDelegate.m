@@ -12,10 +12,9 @@
 #import "BWPushNotificationClient.h"
 #import "BWVideoFetcher.h"
 #import "BWVideoDataStore.h"
+#import "BWColors.h"
 
 #define PocketConsumerKey    @"17866-6c522817c89aaee6ae6da74f"
-#define kBWGiantBombRedColor [UIColor colorWithRed:178.0/255 green:34.0/255 blue:34.0/255 alpha:1]
-#define kBWGiantBombCharcoalColor [UIColor colorWithRed:34.0/255 green:34.0/255 blue:34.0/255 alpha:1.0]
 
 @implementation BWAppDelegate
 

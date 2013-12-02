@@ -32,6 +32,7 @@
 		DA852999184908C40049C752 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DA852996184908C40049C752 /* NSString+Extensions.m */; };
 		DA85299A184908C40049C752 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = DA852998184908C40049C752 /* UIImage+ImageEffects.m */; };
 		DA88AE7D184C061000D6E823 /* BWVideoDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = DA88AE7C184C061000D6E823 /* BWVideoDataStore.m */; };
+		DA88AE81184D533F00D6E823 /* BWColors.m in Sources */ = {isa = PBXBuildFile; fileRef = DA88AE80184D533F00D6E823 /* BWColors.m */; };
 		DAAFC2B117DB8B1B0095E494 /* BWVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAAFC2B017DB8B1B0095E494 /* BWVideoPlayerViewController.m */; };
 		DACE826517CD035700E23051 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826417CD035700E23051 /* Foundation.framework */; };
 		DACE826717CD035700E23051 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826617CD035700E23051 /* CoreGraphics.framework */; };
@@ -109,6 +110,8 @@
 		DA852998184908C40049C752 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		DA88AE7B184C061000D6E823 /* BWVideoDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoDataStore.h; sourceTree = "<group>"; };
 		DA88AE7C184C061000D6E823 /* BWVideoDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoDataStore.m; sourceTree = "<group>"; };
+		DA88AE7F184D533F00D6E823 /* BWColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWColors.h; sourceTree = "<group>"; };
+		DA88AE80184D533F00D6E823 /* BWColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWColors.m; sourceTree = "<group>"; };
 		DAAFC2AF17DB8B1B0095E494 /* BWVideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoPlayerViewController.h; sourceTree = "<group>"; };
 		DAAFC2B017DB8B1B0095E494 /* BWVideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoPlayerViewController.m; sourceTree = "<group>"; };
 		DAAFC2B217DBB4F00095E494 /* BWVideoPlayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoPlayerDelegate.h; sourceTree = "<group>"; };
@@ -375,6 +378,8 @@
 				DA88AE7C184C061000D6E823 /* BWVideoDataStore.m */,
 				DA0A719318494688004750F1 /* BWVideoFetcher.h */,
 				DA0A719418494688004750F1 /* BWVideoFetcher.m */,
+				DA88AE7F184D533F00D6E823 /* BWColors.h */,
+				DA88AE80184D533F00D6E823 /* BWColors.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -530,6 +535,7 @@
 				DA01E18D184A71EB008B139F /* BWVideoDetailViewController.m in Sources */,
 				DA01E182184A71CC008B139F /* BWAboutViewController.m in Sources */,
 				DA0A71A218497CDF004750F1 /* BWVideo.m in Sources */,
+				DA88AE81184D533F00D6E823 /* BWColors.m in Sources */,
 				DA0A718718490BC4004750F1 /* BWImagePulldownView.m in Sources */,
 				DA01E187184A71D7008B139F /* BWTableViewController.m in Sources */,
 				DA88AE7D184C061000D6E823 /* BWVideoDataStore.m in Sources */,
