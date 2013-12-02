@@ -14,6 +14,7 @@
 #import "SVProgressHUD.h"
 #import "BWFavoriteView.h"
 #import "BWVideoTableViewCell.h"
+#import "BWVideoDataStore.h"
 
 static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
@@ -54,16 +55,11 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
                       forControlEvents:UIControlEventValueChanged];
         tableViewController.refreshControl = self.refreshControl;
         
-        NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *filePath = [documentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_cache", self.category]];
+        self.videos = [[[BWVideoDataStore defaultStore] cachedVideosForCategory:self.category] mutableCopy];
         
-        NSMutableArray *cachedVideos = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
-        
-        if (!cachedVideos) {
+        if (self.videos.count == 0) {
             [SVProgressHUD show];
             [self loadVideosForPage:self.page searchText:nil];
-        } else {
-            self.videos = cachedVideos;
         }
     }
 
@@ -164,11 +160,6 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
              self.videos = [results copy];
              
              if (!searchText) {
-                 NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-                 NSString *filePath = [documentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_cache", self.category]];
-                 
-                 [NSKeyedArchiver archiveRootObject:self.videos toFile:filePath];
-                 
                  if (self.delegate && [self.delegate respondsToSelector:@selector(tableViewContentsReset)]) {
                      [self.delegate tableViewContentsReset];
                  }

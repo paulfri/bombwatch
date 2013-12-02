@@ -10,6 +10,7 @@
 #import "GiantBombAPIClient.h"
 #import "BWVideo.h"
 #import <Mantle/Mantle.h>
+#import "BWVideoDataStore.h"
 
 @implementation BWVideoFetcher
 
@@ -31,8 +32,6 @@
                        success:(void (^)(NSArray *))success
                        failure:(void (^)(NSError *))failure
 {
-    NSLog(@"fetching videos:: page %d; searching '%@'", page, searchString);
-    
     [[GiantBombAPIClient defaultClient] GET:@"videos"
                                  parameters:[self queryParamsForCategory:category searchString:searchString page:page]
                                     success:^(NSURLSessionDataTask *task, id responseObject)
@@ -44,6 +43,10 @@
                                         fromJSONDictionary:(NSDictionary *)gameDictionary
                                                      error:NULL];
              [results addObject:video];
+         }
+
+         if (results.count > 0 && page == 1) {
+              [[BWVideoDataStore defaultStore] setCachedVideos:results forCategory:category];
          }
 
          if (success) {

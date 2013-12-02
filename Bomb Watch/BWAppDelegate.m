@@ -10,6 +10,8 @@
 #import "GiantBombAPIClient.h"
 #import <AVFoundation/AVFoundation.h>
 #import "BWPushNotificationClient.h"
+#import "BWVideoFetcher.h"
+#import "BWVideoDataStore.h"
 
 #define PocketConsumerKey    @"17866-6c522817c89aaee6ae6da74f"
 #define kBWGiantBombRedColor [UIColor colorWithRed:178.0/255 green:34.0/255 blue:34.0/255 alpha:1]
@@ -30,7 +32,7 @@
 
     NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (notification) {
-        
+        [self openVideoWithNotification:notification];
     }
 
     return YES;
@@ -118,22 +120,38 @@
 	NSLog(@"APNS registration error: %@", error);
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    if (userInfo) {
-        NSLog(@"%@", userInfo);
+    NSLog(@"%d", [[UIApplication sharedApplication] applicationState]);
+
+    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateInactive) {
+        NSLog(@"opening from didReceiveRemoteNotification");
+        [self openVideoWithNotification:userInfo];
+    } else {
+        [[BWVideoFetcher defaultFetcher] fetchVideosForCategory:@"Latest"
+                                                   searchString:nil
+                                                           page:1
+                                                        success:^(NSArray *success)
+         {
+             completionHandler(UIBackgroundFetchResultNewData);
+         }
+                                                        failure:^(NSError *error)
+         {
+             NSLog(@"%@", error);
+             completionHandler(UIBackgroundFetchResultFailed);
+         }];
     }
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+- (void)openVideoWithNotification:(NSDictionary *)notification
 {
-    NSLog(@"Remote Notification userInfo is %@", userInfo);
+    NSInteger videoID = [notification[@"video"] integerValue];
+    BWVideo *video = [[BWVideoDataStore defaultStore] videoWithID:videoID inCategory:@"Latest"];
 
-    NSNumber *vid = userInfo[@"vid"]; // giant bomb video ID
-    // Do something with the content ID
-
-
-    completionHandler(UIBackgroundFetchResultNewData);
+    if (video) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Hey duder!" message:[NSString stringWithFormat:@"Totally going to load %@!", video.name] delegate:nil cancelButtonTitle:@"Sweet!" otherButtonTitles:nil];
+        [alertView show];
+    }
 }
 
 @end

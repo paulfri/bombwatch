@@ -13,6 +13,8 @@
 
 + (instancetype)defaultStore;
 
+- (BWVideo *)videoWithID:(NSInteger)videoID inCategory:(NSString *)category;
+
 - (NSMutableArray *)favorites;
 - (void)setFavorites:(NSArray *)favorites;
 - (BOOL)favoriteStatusForVideo:(BWVideo *)video;

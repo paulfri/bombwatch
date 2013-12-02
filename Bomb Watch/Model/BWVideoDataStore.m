@@ -31,6 +31,19 @@ static NSString *const kBWCacheFilePrefix   = @"bwcache";
     return defaultStore;
 }
 
+- (BWVideo *)videoWithID:(NSInteger)videoID inCategory:(NSString *)category
+{
+    NSArray *videos = [self cachedVideosForCategory:category];
+
+    for (BWVideo *video in videos) {
+        if (video.videoID == videoID) {
+            return video;
+        }
+    }
+
+    return nil;
+}
+
 #pragma mark - Caches
 
 - (NSArray *)cachedVideosForCategory:(NSString *)category
@@ -54,6 +67,7 @@ static NSString *const kBWCacheFilePrefix   = @"bwcache";
     self.categories[category] = videos;
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+        NSLog(@"saving %d videos to the cache for %@", videos.count, category);
         [NSKeyedArchiver archiveRootObject:videos toFile:[self.class cacheFilePathForCategory:category]];
     });
 }
@@ -87,6 +101,8 @@ static NSString *const kBWCacheFilePrefix   = @"bwcache";
 
     [self setFavorites:favorites];
 }
+
+#pragma mark - Watched status
 
 - (BOOL)watchedStatusForVideo:(BWVideo *)video
 {
