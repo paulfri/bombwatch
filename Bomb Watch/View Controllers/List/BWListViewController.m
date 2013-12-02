@@ -35,7 +35,11 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(overlayTapped)];
     [self.disableOverlay addGestureRecognizer:tapGesture];
 
-    [self.tableView setContentOffset:CGPointMake(0,44) animated:YES];
+//    [self.tableView setContentOffset:CGPointMake(0,44) animated:YES];
+    if ([self.tableView numberOfRowsInSection:0] > 0) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+
     self.tableView.tableFooterView = [[UIView alloc] init];
     
     // hack to get rid of 1px black line under search bar

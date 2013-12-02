@@ -18,8 +18,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *accountLinkedLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *accountLinkedCell;
 
-@property (weak, nonatomic) IBOutlet UILabel *initialViewLabel;
 @property (weak, nonatomic) IBOutlet UIPickerView *initialViewPicker;
+@property (weak, nonatomic) IBOutlet UILabel *initialViewLabel;
 
 @property (weak, nonatomic) IBOutlet UIPickerView *defaultQualityPicker;
 @property (weak, nonatomic) IBOutlet UILabel *defaultQualityLabel;

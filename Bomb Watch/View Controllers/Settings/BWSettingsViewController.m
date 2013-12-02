@@ -31,18 +31,19 @@
 
 @implementation BWSettingsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.pocket = [PocketAPI sharedAPI];
-    
+
+    self.accountLinkedLabel.textColor = [UIColor lightGrayColor];
+    self.initialViewLabel.textColor = [UIColor lightGrayColor];
+    self.defaultQualityLabel.textColor = [UIColor lightGrayColor];
+    self.versionDetailLabel.textColor = [UIColor lightGrayColor];
+
     self.defaultViewOptions = @[@"Videos", @"Latest", @"Quick Looks", @"Features", @"Trailers"];
     NSString *initialView = [[NSUserDefaults standardUserDefaults] stringForKey:@"initialView"];
     self.initialViewLabel.text = initialView;
+
     [self.initialViewPicker selectRow:[self.defaultViewOptions indexOfObject:initialView] inComponent:0 animated:NO];
 
     self.defaultQualityOptions = @[@"Mobile", @"Low", @"High", @"HD"];

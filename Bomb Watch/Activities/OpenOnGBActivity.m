@@ -17,6 +17,8 @@
 
 @implementation OpenOnGBActivity
 
+// TODO this activity doesn't work so fix it
+
 + (UIActivityCategory)activityCategory
 {
     return UIActivityCategoryAction;
