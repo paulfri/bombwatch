@@ -26,6 +26,7 @@
     [self configurePreferences];
     [[PocketAPI sharedAPI] setConsumerKey:PocketConsumerKey];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
        (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
@@ -122,26 +123,39 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    NSLog(@"%d", [[UIApplication sharedApplication] applicationState]);
-
     if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateInactive) {
+        // opening the app from the push notification, so go to the selected video
+        // TODO is this a race condition?
         NSLog(@"opening from didReceiveRemoteNotification");
         [self openVideoWithNotification:userInfo];
     } else {
-        [[BWVideoFetcher defaultFetcher] fetchVideosForCategory:@"Latest"
-                                                   searchString:nil
-                                                           page:1
-                                                        success:^(NSArray *success)
-         {
-             completionHandler(UIBackgroundFetchResultNewData);
-         }
-                                                        failure:^(NSError *error)
-         {
-             NSLog(@"%@", error);
-             completionHandler(UIBackgroundFetchResultFailed);
-         }];
+        // updates the latest videos cache, both when the app is running and when it is backgrounded
+        [self fetchLatestWithCompletionHandler:completionHandler];
     }
 }
+
+-(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    [self fetchLatestWithCompletionHandler:completionHandler];
+}
+
+- (void)fetchLatestWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    [[BWVideoFetcher defaultFetcher] fetchVideosForCategory:@"Latest"
+                                               searchString:nil
+                                                       page:1
+                                                    success:^(NSArray *success)
+     {
+         completionHandler(UIBackgroundFetchResultNewData);
+     }
+                                                    failure:^(NSError *error)
+     {
+         NSLog(@"%@", error);
+         completionHandler(UIBackgroundFetchResultFailed);
+     }];
+}
+
+#pragma mark - Navigation
 
 - (void)openVideoWithNotification:(NSDictionary *)notification
 {
