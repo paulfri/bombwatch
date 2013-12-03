@@ -18,9 +18,9 @@
 
 @property (strong, nonatomic) BWImagePulldownView *imagePulldownView;
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *bylineLabel;
-@property (weak, nonatomic) IBOutlet UILabel *durationLabel;
+@property (weak, nonatomic) IBOutlet UITableViewCell *bylineCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *durationCell;
+
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *qualityCell;

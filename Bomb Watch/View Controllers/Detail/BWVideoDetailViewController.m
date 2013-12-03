@@ -22,11 +22,11 @@
 #import "BWVideoDownloader.h"
 #import "BWDownloadDataStore.h"
 
-// default quality when no downloads are present
 #define kQualityCell        1
 #define kQualityPickerCell  2
 #define kVideoBylineCell    3
-#define kVideoDetailCell    4
+#define kVideoDurationCell  4
+#define kVideoDetailCell    5
 
 @interface BWVideoDetailViewController ()
 
@@ -41,13 +41,13 @@
 {
     [super viewDidLoad];
     self.navigationController.navigationBar.translucent = NO;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.tableFooterView = [[UIView alloc] init];
     
     [self drawImagePulldown];
 
-    self.titleLabel.text = self.video.name;
     self.descriptionLabel.text = self.video.summary;
-    self.bylineLabel.text = [self bylineLabelText];
+    self.bylineCell.textLabel.text = [self bylineLabelText];
     
     self.tableView.backgroundColor = [UIColor darkGrayColor];
 
@@ -70,18 +70,22 @@
     [self refreshViews];
 }
 
-- (void)selectQuality:(int)quality {
+- (void)selectQuality:(int)quality
+{
     [self.qualityPicker selectRow:quality inComponent:0 animated:NO];
     [self pickerView:self.qualityPicker didSelectRow:quality inComponent:0];
 }
 
-- (NSInteger)defaultQuality {
+- (NSInteger)defaultQuality
+{
+    // TODO break this out into the video class
     NSArray *qualities = @[@"Mobile", @"Low", @"High", @"HD"];
-    int qual = [qualities indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:@"defaultQuality"]];
-    if (qual >= 0 && qual <= 3)
+    BWVideoQuality qual = [qualities indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:@"defaultQuality"]];
+
+    if (qual >= BWVideoQualityMobile && qual <= BWVideoQualityHD) {
         return qual;
-//    return BWDownloadVideoQualityLow;
-    return 1;
+    }
+    return BWVideoQualityLow;
 }
 
 - (void)updateDurationLabel
@@ -90,13 +94,14 @@
     NSTimeInterval duration = self.video.length;
     
     if (played != 0) {
-        self.durationLabel.text = [NSString stringWithFormat:@"Duration: %@ / %@", [NSString stringFromDuration:played], [NSString stringFromDuration:duration]];
+        self.durationCell.textLabel.text = [NSString stringWithFormat:@"Duration: %@ / %@", [NSString stringFromDuration:played], [NSString stringFromDuration:duration]];
     } else {
-        self.durationLabel.text = [NSString stringWithFormat:@"Duration: %@", [NSString stringFromDuration:duration]];
+        self.durationCell.textLabel.text = [NSString stringWithFormat:@"Duration: %@", [NSString stringFromDuration:duration]];
     }
 }
 
-- (NSString *)bylineLabelText {
+- (NSString *)bylineLabelText
+{
     static NSDictionary *users;
 
     if (users == nil) {
@@ -124,8 +129,9 @@
 
 #pragma mark - UITableViewDelegate protocol methods
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0 && indexPath.row == kQualityCell) {
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == kQualityCell) {
         self.pickerVisible = !self.pickerVisible;
         [self.tableView beginUpdates];
         [self.tableView endUpdates];
@@ -134,15 +140,17 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     // height for quality picker cell - hidden or visible
     if (indexPath.row == kQualityPickerCell) {
-        if (self.pickerVisible)
+        if (self.pickerVisible) {
             return 90;
-        else
+        } else {
             return 0;
-    } else if (indexPath.row == kVideoBylineCell) {
-        return 40;
+        }
+    } else if (indexPath.row == kVideoBylineCell || indexPath.row == kVideoDurationCell) {
+        return 44;
     } else if (indexPath.row == kVideoDetailCell) {
         return [self.descriptionLabel sizeThatFits:self.descriptionLabel.frame.size].height + 10;
     }
@@ -287,17 +295,17 @@
 - (IBAction)watchedButtonPressed:(id)sender
 {
     // TODO: show image with status
-//    if (![self.video isWatched]) {
-//        [self.video setWatched];
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(dismiss)
-//                                                     name:SVProgressHUDDidDisappearNotification
-//                                                   object:nil];
-//        [SVProgressHUD showSuccessWithStatus:@"Watched"];
-//    } else {
-//        [self.video setUnwatched];
-//        [SVProgressHUD showSuccessWithStatus:@"Unwatched"];
-//    }
+    [self.video setWatched:![self.video isWatched]];
+    
+    if (![self.video isWatched]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(dismiss)
+                                                     name:SVProgressHUDDidDisappearNotification
+                                                   object:nil];
+        [SVProgressHUD showSuccessWithStatus:@"Watched"];
+    } else {
+        [SVProgressHUD showSuccessWithStatus:@"Unwatched"];
+    }
 
     [self updateWatchedButton];
 }
