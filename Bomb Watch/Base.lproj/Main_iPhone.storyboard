@@ -8,7 +8,7 @@
         <scene sceneID="Vex-rW-GRa">
             <objects>
                 <tabBarController storyboardIdentifier="mainTabBarVC" id="8YX-ce-x5E" sceneMemberID="viewController">
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="JQR-rB-NYL">
                         <rect key="frame" x="0.0" y="431" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -719,6 +719,7 @@
                         <outlet property="descriptionLabel" destination="HGw-PS-Nur" id="Vee-iZ-fr3"/>
                         <outlet property="downloadButton" destination="0J2-tD-fnd" id="qOb-rE-3tY"/>
                         <outlet property="durationLabel" destination="OII-OA-uWP" id="sx2-Qw-aBO"/>
+                        <outlet property="favoritedButton" destination="qSB-CV-LFW" id="v3G-8W-EzB"/>
                         <outlet property="qualityCell" destination="GhI-iZ-xzI" id="cD7-qI-5Mz"/>
                         <outlet property="qualityLabel" destination="TVB-C7-xTl" id="4Ie-7A-8nY"/>
                         <outlet property="qualityPicker" destination="fub-Vv-pO4" id="BRT-7W-MlK"/>

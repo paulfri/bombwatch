@@ -13,8 +13,13 @@
 #import "BWVideoFetcher.h"
 #import "BWVideoDataStore.h"
 #import "BWColors.h"
+#import "BWVideoDetailViewController.h"
 
 #define PocketConsumerKey    @"17866-6c522817c89aaee6ae6da74f"
+
+@interface BWAppDelegate ()
+@property (weak, nonatomic) UINavigationController *navVC;
+@end
 
 @implementation BWAppDelegate
 
@@ -30,18 +35,18 @@
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
        (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 
+    self.navVC = self.window.rootViewController.childViewControllers[0];
+    self.navVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Videos"
+                                                     image:[UIImage imageNamed:@"tab_videos"]
+                                             selectedImage:[UIImage imageNamed:@"tab_videos_selected"]];
+    [self.navVC.visibleViewController performSegueWithIdentifier:@"videoListSegue" // TODO constantize this in BWSegues.h maybe
+                                                     sender:@"Latest"];
+
     NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (notification) {
         [self openVideoWithNotification:notification];
     }
-
-    UINavigationController *navVC = self.window.rootViewController.childViewControllers[0];
-    navVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Videos"
-                                                     image:[UIImage imageNamed:@"tab_videos"]
-                                             selectedImage:[UIImage imageNamed:@"tab_videos_selected"]];
-    [navVC.visibleViewController performSegueWithIdentifier:@"videoListSegue" // TODO constantize this in BWSegues.h maybe
-                                                     sender:@"Latest"];
-
+    
     return YES;
 }
 
@@ -135,11 +140,12 @@
         [self openVideoWithNotification:userInfo];
     } else {
         // updates the latest videos cache, both when the app is running and when it is backgrounded
+        // TODO potentially show an unobtrustive notification of some kind
         [self fetchLatestWithCompletionHandler:completionHandler];
     }
 }
 
--(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     [self fetchLatestWithCompletionHandler:completionHandler];
 }
@@ -151,7 +157,6 @@
                                                        page:1
                                                     success:^(NSArray *success)
      {
-         // TODO (potentially) navigate to video list to update UI snapshot
          completionHandler(UIBackgroundFetchResultNewData);
      }
                                                     failure:^(NSError *error)
@@ -167,10 +172,14 @@
 {
     NSInteger videoID = [notification[@"video"] integerValue];
     BWVideo *video = [[BWVideoDataStore defaultStore] videoWithID:videoID inCategory:@"Latest"];
-
+    
     if (video) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Hey duder!" message:[NSString stringWithFormat:@"Totally going to load %@!", video.name] delegate:nil cancelButtonTitle:@"Sweet!" otherButtonTitles:nil];
-        [alertView show];
+        BWVideoDetailViewController *detail = [[BWVideoDetailViewController alloc] init];
+        detail.video = video;
+        
+        [self.navVC pushViewController:detail animated:NO];
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Hey duder!" message:[NSString stringWithFormat:@"Totally going to load %@!", video.name] delegate:nil cancelButtonTitle:@"Sweet!" otherButtonTitles:nil];
+//        [alertView show];
     }
 }
 

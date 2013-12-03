@@ -14,20 +14,22 @@
 @interface BWVideoDetailViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate, BWVideoPlayerDelegate>
 
 @property (strong, nonatomic) BWVideo *video;
+@property (strong, nonatomic) NSMutableArray *downloads;
 
 @property (strong, nonatomic) BWImagePulldownView *imagePulldownView;
-
-@property (weak, nonatomic) IBOutlet UITableViewCell *qualityCell;
-@property (strong, nonatomic) IBOutlet UIPickerView *qualityPicker;
-@property (weak, nonatomic) IBOutlet UILabel *qualityLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bylineLabel;
 @property (weak, nonatomic) IBOutlet UILabel *durationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
+@property (weak, nonatomic) IBOutlet UITableViewCell *qualityCell;
+@property (strong, nonatomic) IBOutlet UIPickerView *qualityPicker;
+@property (weak, nonatomic) IBOutlet UILabel *qualityLabel;
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *watchedButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *downloadButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *favoritedButton;
 
 - (IBAction)actionButtonPressed:(id)sender;
 - (IBAction)playButtonPressed:(id)sender;

@@ -20,6 +20,7 @@
 #import "BWVideo.h"
 #import "NSString+Extensions.h"
 #import "BWVideoDownloader.h"
+#import "BWDownloadDataStore.h"
 
 // default quality when no downloads are present
 #define kQualityCell        1
@@ -48,21 +49,22 @@
     self.descriptionLabel.text = self.video.summary;
     self.bylineLabel.text = [self bylineLabelText];
 
-    [self updateDurationLabel];
+    [self selectQuality:[self defaultQuality]];
 }
 
-// Tweetbot-style image pulldown
 - (void)drawImagePulldown
 {
     self.imagePulldownView = [[BWImagePulldownView alloc] initWithTitle:self.video.name
-                                                               imageURL:self.video.imageSmallURL];
+                                                               imageURL:self.video.imageMediumURL];
+
     self.tableView.tableHeaderView = self.imagePulldownView;
     [self.tableView sendSubviewToBack:self.tableView.tableHeaderView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self selectQuality:[self defaultQuality]];
+    [super viewWillAppear:animated];
+
     [self refreshViews];
 }
 
@@ -234,8 +236,24 @@
 
 - (IBAction)favoriteButtonPressed:(id)sender
 {
+    [self.video setFavorited:![self.video isFavorited]];
+    [self updateFavoriteButton];
+
     // TODO: show image with status
-    [SVProgressHUD showSuccessWithStatus:@"Favorited"];
+    if ([self.video isFavorited]) {
+        [SVProgressHUD showSuccessWithStatus:@"Favorited"];
+    } else {
+        [SVProgressHUD showSuccessWithStatus:@"Unfavorited"];
+    }
+}
+
+- (void)updateFavoriteButton
+{
+    if ([self.video isFavorited]) {
+        [self.favoritedButton setImage:[UIImage imageNamed:@"ToolbarFavoriteFull"]];
+    } else {
+        [self.favoritedButton setImage:[UIImage imageNamed:@"ToolbarFavorite"]];
+    }
 }
 
 #pragma mark - Downloads
@@ -244,7 +262,9 @@
 {
     [SVProgressHUD showSuccessWithStatus:@"Downloading"];
 
-    [[BWVideoDownloader defaultDownloader] downloadVideo:self.video quality:1];
+    BWDownload *download = [[BWVideoDownloader defaultDownloader] downloadVideo:self.video quality:1];
+    [[BWDownloadDataStore defaultStore] addDownload:download];
+    [self.downloads addObject:download];
 }
 
 - (void)updateDownloadButton
@@ -253,6 +273,8 @@
 
     if (enabled) {
         self.downloadButton.image = [UIImage imageNamed:@"ToolbarDownload"];
+    } else {
+//        EVCircularProgressView?
     }
     
     self.downloadButton.enabled = enabled;
@@ -301,6 +323,9 @@
 {
     [self updateDownloadButton];
     [self updateWatchedButton];
+    [self updateFavoriteButton];
+    [self updateDurationLabel];
+
     [self.qualityPicker reloadAllComponents];
     self.qualityLabel.text = [[self pickerView:self.qualityPicker
                          attributedTitleForRow:[self.qualityPicker selectedRowInComponent:0]
