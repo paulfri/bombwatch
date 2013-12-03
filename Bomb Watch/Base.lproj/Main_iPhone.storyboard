@@ -118,7 +118,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Settings" footerTitle="Default video quality determines what quality will used when using the swipe-to-play shortcut." id="nR2-LW-6cu">
+                            <tableViewSection headerTitle="Settings" footerTitle="This setting determines what quality will be used when using the swipe-to-play shortcut from a video list." id="nR2-LW-6cu">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="GMZ-EY-0mb">
                                         <rect key="frame" x="0.0" y="303" width="320" height="44"/>

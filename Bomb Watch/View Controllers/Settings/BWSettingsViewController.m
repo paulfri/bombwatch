@@ -198,7 +198,7 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     if (pickerView == self.defaultQualityPicker) {
-        NSString *defaultQuality = [self pickerView:pickerView titleForRow:row forComponent:component];
+        NSString *defaultQuality = [[self pickerView:pickerView attributedTitleForRow:row forComponent:component] string];
         [[NSUserDefaults standardUserDefaults] setObject:defaultQuality forKey:@"defaultQuality"];
         self.defaultQualityLabel.text = defaultQuality;
     }
