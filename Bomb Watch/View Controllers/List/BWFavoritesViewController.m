@@ -31,15 +31,19 @@
     self.tableView.tableFooterView = [[UIView alloc] init];
 
     __unsafe_unretained typeof(self) _self = self;
-    [self.tableView setDidMoveCellFromIndexPathToIndexPathBlock:^(NSIndexPath *fromIndexPath, NSIndexPath *toIndexPath) {
+    self.tableView.didMoveCellFromIndexPathToIndexPathBlock = ^(NSIndexPath *fromIndexPath, NSIndexPath *toIndexPath) {
         [_self.favorites exchangeObjectAtIndex:fromIndexPath.row withObjectAtIndex:toIndexPath.row];
-        [[BWVideoDataStore defaultStore] setFavorites:_self.favorites];
-    }];
+    };
+
+    self.tableView.didFinishMovingCellBlock = ^(NSIndexPath *oldIndexPath, NSIndexPath *newIndexPath) {
+        [[BWVideoDataStore defaultStore] setFavorites:[_self.favorites copy]];
+    };
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.favorites = [[BWVideoDataStore defaultStore] favorites];
+    // Make a copy of the favorites, so that we don't mutate it while it's being enumerated (saved to disk).
+    self.favorites = [[[BWVideoDataStore defaultStore] favorites] mutableCopy];
     [self.tableView reloadData];
 }
 
@@ -62,7 +66,6 @@
 
             [tableView removeCell:cell completion:^{
                 [video setFavorited:NO];
-                _self.favorites = [[BWVideoDataStore defaultStore] favorites];
             }];
         };
 
