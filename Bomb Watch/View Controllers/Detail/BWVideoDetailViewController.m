@@ -161,7 +161,6 @@
 
 - (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-#warning constantize/enumerate
     NSArray *qualities = @[@"Mobile", @"Low", @"High", @"HD"];
 
     NSAttributedString *attString = [[NSAttributedString alloc] initWithString:qualities[row]

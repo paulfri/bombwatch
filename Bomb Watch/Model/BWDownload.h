@@ -12,6 +12,7 @@
 @interface BWDownload : MTLModel
 
 @property (strong, nonatomic) BWVideo *video;
+@property BWVideoQuality quality;
 @property double progress;
 
 @end

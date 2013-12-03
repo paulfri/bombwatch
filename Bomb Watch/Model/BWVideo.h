@@ -8,6 +8,13 @@
 
 #import <Mantle/Mantle.h>
 
+typedef NS_ENUM(NSUInteger, BWVideoQuality) {
+    BWVideoQualityMobile,
+    BWVideoQualityLow,
+    BWVideoQualityHigh,
+    BWVideoQualityHD
+};
+
 @interface BWVideo : MTLModel <MTLJSONSerializing>
 
 @property (assign, nonatomic) NSInteger videoID;

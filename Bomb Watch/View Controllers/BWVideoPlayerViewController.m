@@ -132,29 +132,28 @@
         if (self.quality == nil) {
             NSArray *qualities = @[@"Mobile", @"Low", @"High", @"HD"];
             int qual = [qualities indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:@"defaultQuality"]];
-            if (qual >= 0 && qual <= 3)
+            if (qual >= BWVideoQualityMobile && BWVideoQualityHD <= 3)
                 self.quality = [NSNumber numberWithInt:qual];
         }
         
-#warning change this back to an enumeration derp
         switch ([self.quality intValue]) {
-            case 0:
+            case BWVideoQualityMobile:
                 path = self.video.videoMobileURL; break;
-            case 1:
-                path = self.video.videoLowURL; break;
-            case 2:
+            case BWVideoQualityHigh:
                 path = self.video.videoHighURL; break;
-            case 3:
+            case BWVideoQualityHD:
                 path = self.video.videoHDURL; break;
+            case BWVideoQualityLow:
             default:
                 path = self.video.videoLowURL; break;
         }
     }
 
-    if ([path isFileURL])
+    if ([path isFileURL]) {
         self.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
-    else
+    } else {
         self.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
+    }
 
     self.moviePlayer.contentURL = path;
 }
@@ -169,6 +168,7 @@
 - (NSUInteger)supportedInterfaceOrientations
 {
     BOOL landscapeLock = [[NSUserDefaults standardUserDefaults] boolForKey:@"lockRotation"];
+
     if (landscapeLock) {
         return UIInterfaceOrientationMaskLandscape;
     } else {
