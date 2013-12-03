@@ -28,7 +28,7 @@
         <scene sceneID="eu2-WT-2z1">
             <objects>
                 <navigationController storyboardIdentifier="kBWVideosNavigationControllerIdentifier" automaticallyAdjustsScrollViewInsets="NO" id="UCZ-NZ-ex6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Videos" image="VideosTabIcon" id="u1e-5L-l1D">
+                    <tabBarItem key="tabBarItem" title="Videos" id="u1e-5L-l1D">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -881,7 +881,6 @@
         <image name="ToolbarDownload" width="30" height="30"/>
         <image name="ToolbarFavorite" width="30" height="30"/>
         <image name="ToolbarPlay" width="30" height="30"/>
-        <image name="VideosTabIcon" width="30" height="30"/>
         <image name="about_mail_icon" width="29" height="29"/>
         <image name="about_twitter_icon" width="29" height="29"/>
     </resources>

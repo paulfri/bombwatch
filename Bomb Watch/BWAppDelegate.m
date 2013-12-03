@@ -34,8 +34,11 @@
     if (notification) {
         [self openVideoWithNotification:notification];
     }
-    [[BWVideoDataStore defaultStore] refreshAllCaches];
+
     UINavigationController *navVC = self.window.rootViewController.childViewControllers[0];
+    navVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Videos"
+                                                     image:[UIImage imageNamed:@"tab_videos"]
+                                             selectedImage:[UIImage imageNamed:@"tab_videos_selected"]];
     [navVC.visibleViewController performSegueWithIdentifier:@"videoListSegue" // TODO constantize this in BWSegues.h maybe
                                                      sender:@"Latest"];
 
