@@ -13,7 +13,7 @@
 #import "PocketAPI.h"
 #import "SVProgressHUD.h"
 #import "GiantBombAPIClient.h"
-//#import "EVCircularProgressView.h"
+#import "EVCircularProgressView.h"
 #import "BWOpenOnGBActivity.h"
 #import "BWVideoPlayerViewController.h"
 #import "BWImagePulldownView.h"
@@ -52,6 +52,9 @@
     self.tableView.backgroundColor = [UIColor darkGrayColor];
 
     [self selectQuality:[self defaultQuality]];
+
+
+    self.downloads = [[[BWDownloadDataStore defaultStore] downloadsForVideo:self.video] mutableCopy];
 }
 
 - (void)drawImagePulldown
@@ -232,12 +235,12 @@
 
 - (IBAction)actionButtonPressed:(id)sender
 {
-    PocketAPIActivity *pocketActivity = [[PocketAPIActivity alloc] init];
-    BWOpenOnGBActivity *gbActivity = [[BWOpenOnGBActivity alloc] init];
+    PocketAPIActivity *pocket = [[PocketAPIActivity alloc] init];
+    BWOpenOnGBActivity *gb = [[BWOpenOnGBActivity alloc] init];
 
     UIActivityViewController *activityController = [[UIActivityViewController alloc]
                                                     initWithActivityItems:@[self.video, self.video.siteDetailURL]
-                                                    applicationActivities:@[gbActivity, pocketActivity]];
+                                                    applicationActivities:@[gb, pocket]];
 
     [self presentViewController:activityController animated:YES completion:nil];
 }

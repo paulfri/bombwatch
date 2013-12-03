@@ -61,6 +61,19 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
     return nil;
 }
 
+- (NSArray *)downloadsForVideo:(BWVideo *)video
+{
+    NSMutableArray *downloads = [NSMutableArray array];
+
+    for (BWDownload *download in self.downloads) {
+        if ([download.video isEqual:video]) {
+            [downloads addObject:download];
+        }
+    }
+    
+    return downloads;
+}
+
 #pragma mark - utility
 
 + (NSString *)documentsPath
