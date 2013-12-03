@@ -27,7 +27,7 @@
         <!--Navigation Controller - Videos-->
         <scene sceneID="eu2-WT-2z1">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UCZ-NZ-ex6" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="kBWVideosNavigationControllerIdentifier" automaticallyAdjustsScrollViewInsets="NO" id="UCZ-NZ-ex6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Videos" image="VideosTabIcon" id="u1e-5L-l1D">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="100"/>
                     </tabBarItem>
@@ -37,6 +37,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i1C-pc-CqQ">
+                        <rect key="frame" x="0.0" y="416" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="HlT-IB-UZg" kind="relationship" relationship="rootViewController" id="7se-50-kiY"/>
                     </connections>
@@ -516,7 +520,7 @@
         <!--List View Controller-->
         <scene sceneID="MsO-MU-Sf2">
             <objects>
-                <viewController id="AAd-IK-oxx" customClass="BWListViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="kBWListViewControllerIdentifier" id="AAd-IK-oxx" customClass="BWListViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="huC-46-oio"/>
                         <viewControllerLayoutGuide type="bottom" id="A0G-ay-u7N"/>

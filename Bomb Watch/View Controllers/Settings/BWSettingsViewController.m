@@ -220,13 +220,11 @@
     return 0;
 }
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    if (pickerView == self.defaultQualityPicker) {
-        return self.defaultQualityOptions[row];
-    }
-
-    return @"Unknown";
+    return [[NSAttributedString alloc] initWithString:self.defaultQualityOptions[row]
+                                           attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
+
 
 @end
