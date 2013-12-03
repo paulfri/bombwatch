@@ -40,13 +40,11 @@
 
 - (void)configurePreferences
 {
-    NSDictionary *defaultPreferences =  @{@"showTrailersInLatest": @NO,
-                                                 @"lockRotation": @YES,
-                                                  @"initialView": @"Latest",
-                                               @"defaultQuality": @"Mobile",
-                                                       @"apiKey": GiantBombDefaultAPIKey,
-                                                @"videosWatched": @[],
-                                                @"videoProgress": @{}};
+    NSDictionary *defaultPreferences =  @{@"lockRotation": @YES,
+                                        @"defaultQuality": @"Mobile",
+                                                @"apiKey": GiantBombDefaultAPIKey,
+                                         @"videosWatched": @[],
+                                         @"videoProgress": @{}};
 
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPreferences];
 }
