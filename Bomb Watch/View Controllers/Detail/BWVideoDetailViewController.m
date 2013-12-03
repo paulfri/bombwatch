@@ -14,7 +14,7 @@
 #import "SVProgressHUD.h"
 #import "GiantBombAPIClient.h"
 //#import "EVCircularProgressView.h"
-#import "OpenOnGBActivity.h"
+#import "BWOpenOnGBActivity.h"
 #import "BWVideoPlayerViewController.h"
 #import "BWImagePulldownView.h"
 #import "BWVideo.h"
@@ -220,15 +220,12 @@
 
 - (IBAction)actionButtonPressed:(id)sender
 {
-    NSArray *activityItems = @[self.video, self.video.siteDetailURL];
-    NSArray *applicationActivities;
-
     PocketAPIActivity *pocketActivity = [[PocketAPIActivity alloc] init];
-    OpenOnGBActivity *gbActivity = [[OpenOnGBActivity alloc] init];
-    applicationActivities = @[gbActivity, pocketActivity];
+    BWOpenOnGBActivity *gbActivity = [[BWOpenOnGBActivity alloc] init];
+
     UIActivityViewController *activityController = [[UIActivityViewController alloc]
-                                                    initWithActivityItems:activityItems
-                                                    applicationActivities:applicationActivities];
+                                                    initWithActivityItems:@[self.video, self.video.siteDetailURL]
+                                                    applicationActivities:@[gbActivity, pocketActivity]];
 
     [self presentViewController:activityController animated:YES completion:nil];
 }

@@ -1,5 +1,5 @@
 //
-//  OpenOnGBActivity.h
+//  BWOpenOnGBActivity.h
 //  Bomb Watch
 //
 //  Created by Paul Friedman on 9/3/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OpenOnGBActivity : UIActivity
+@interface BWOpenOnGBActivity : UIActivity
 
 @end

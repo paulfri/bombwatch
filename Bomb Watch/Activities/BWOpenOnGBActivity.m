@@ -1,23 +1,20 @@
 //
-//  OpenOnGBActivity.m
+//  BWOpenOnGBActivity.m
 //  Bomb Watch
 //
 //  Created by Paul Friedman on 9/3/13.
 //  Copyright (c) 2013 Laika Cosmonautics. All rights reserved.
 //
 
-#import "OpenOnGBActivity.h"
-#import "SVProgressHUD.h"
+#import "BWOpenOnGBActivity.h"
 
-@interface OpenOnGBActivity ()
+@interface BWOpenOnGBActivity ()
 
 @property (strong, nonatomic) NSURL *URL;
 
 @end
 
-@implementation OpenOnGBActivity
-
-// TODO this activity doesn't work so fix it
+@implementation BWOpenOnGBActivity
 
 + (UIActivityCategory)activityCategory
 {
@@ -42,7 +39,9 @@
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
 {
 	for (id activityItem in activityItems) {
-		if ([activityItem isKindOfClass:[NSURL class]]) return YES;
+		if ([activityItem isKindOfClass:NSURL.class]) {
+            return YES;
+        }
 	}
 	return NO;
 }
@@ -50,18 +49,20 @@
 - (void)prepareWithActivityItems:(NSArray *)activityItems
 {
 	for (id activityItem in activityItems) {
-		if ([activityItem isKindOfClass:[NSURL class]]) {
+		if ([activityItem isKindOfClass:NSURL.class]) {
 			self.URL = activityItem;
             return;
 		}
 	}
 }
 
-- (void)performActivity {
-    if (self.URL != nil && [self.URL isKindOfClass:[NSURL class]]) {
+- (void)performActivity
+{
+    if (self.URL != nil && [self.URL isKindOfClass:NSURL.class]) {
         [[UIApplication sharedApplication] openURL:self.URL];
         [self activityDidFinish:YES];
     }
+
     [self activityDidFinish:NO];
 }
 

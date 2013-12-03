@@ -24,7 +24,7 @@
 		DA0A7191184930BD004750F1 /* BWListController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A7190184930BD004750F1 /* BWListController.m */; };
 		DA0A719518494688004750F1 /* BWVideoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A719418494688004750F1 /* BWVideoFetcher.m */; };
 		DA0A71A218497CDF004750F1 /* BWVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A71A118497CDF004750F1 /* BWVideo.m */; };
-		DA39B4B417D6A56000E7935D /* OpenOnGBActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = DA39B4B317D6A56000E7935D /* OpenOnGBActivity.m */; };
+		DA39B4B417D6A56000E7935D /* BWOpenOnGBActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = DA39B4B317D6A56000E7935D /* BWOpenOnGBActivity.m */; };
 		DA4127F417CE28D3003C4F59 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4127F317CE28D3003C4F59 /* Security.framework */; };
 		DA4127FA17CE30BE003C4F59 /* PocketAPIActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4127F917CE30BE003C4F59 /* PocketAPIActivity.m */; };
 		DA41280617CE38C5003C4F59 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA41280517CE38C5003C4F59 /* Images.xcassets */; };
@@ -96,8 +96,8 @@
 		DA0A71A018497CDF004750F1 /* BWVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideo.h; sourceTree = "<group>"; };
 		DA0A71A118497CDF004750F1 /* BWVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideo.m; sourceTree = "<group>"; };
 		DA2FC43617D2AEBA005E7408 /* Bomb Watch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Bomb Watch.entitlements"; sourceTree = "<group>"; };
-		DA39B4B217D6A56000E7935D /* OpenOnGBActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenOnGBActivity.h; sourceTree = "<group>"; };
-		DA39B4B317D6A56000E7935D /* OpenOnGBActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenOnGBActivity.m; sourceTree = "<group>"; };
+		DA39B4B217D6A56000E7935D /* BWOpenOnGBActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWOpenOnGBActivity.h; sourceTree = "<group>"; };
+		DA39B4B317D6A56000E7935D /* BWOpenOnGBActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWOpenOnGBActivity.m; sourceTree = "<group>"; };
 		DA4127F317CE28D3003C4F59 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DA4127F817CE30BE003C4F59 /* PocketAPIActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PocketAPIActivity.h; path = ../PocketAPIActivity.h; sourceTree = "<group>"; };
 		DA4127F917CE30BE003C4F59 /* PocketAPIActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PocketAPIActivity.m; path = ../PocketAPIActivity.m; sourceTree = "<group>"; };
@@ -246,8 +246,8 @@
 			children = (
 				DA4127F817CE30BE003C4F59 /* PocketAPIActivity.h */,
 				DA4127F917CE30BE003C4F59 /* PocketAPIActivity.m */,
-				DA39B4B217D6A56000E7935D /* OpenOnGBActivity.h */,
-				DA39B4B317D6A56000E7935D /* OpenOnGBActivity.m */,
+				DA39B4B217D6A56000E7935D /* BWOpenOnGBActivity.h */,
+				DA39B4B317D6A56000E7935D /* BWOpenOnGBActivity.m */,
 			);
 			path = Activities;
 			sourceTree = "<group>";
@@ -543,7 +543,7 @@
 				DA01E184184A71CC008B139F /* BWSettingsViewController.m in Sources */,
 				DA01E178184A3516008B139F /* BWVideoTableViewCell.m in Sources */,
 				DA01E175184A1CC5008B139F /* BWFavoriteView.m in Sources */,
-				DA39B4B417D6A56000E7935D /* OpenOnGBActivity.m in Sources */,
+				DA39B4B417D6A56000E7935D /* BWOpenOnGBActivity.m in Sources */,
 				DA0A719518494688004750F1 /* BWVideoFetcher.m in Sources */,
 				DA4127FA17CE30BE003C4F59 /* PocketAPIActivity.m in Sources */,
 				DACE827117CD035800E23051 /* main.m in Sources */,

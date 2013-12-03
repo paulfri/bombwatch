@@ -35,7 +35,8 @@
     static NSArray *urlKeys;
     
     if (urlKeys == nil) {
-        urlKeys = @[@"videoMobileURL",
+        urlKeys = @[@"siteDetailURL",
+                    @"videoMobileURL",
                     @"videoLowURL",
                     @"videoHighURL",
                     @"videoHDURL",
