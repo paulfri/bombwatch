@@ -48,6 +48,8 @@
     self.titleLabel.text = self.video.name;
     self.descriptionLabel.text = self.video.summary;
     self.bylineLabel.text = [self bylineLabelText];
+    
+    self.tableView.backgroundColor = [UIColor darkGrayColor];
 
     [self selectQuality:[self defaultQuality]];
 }
