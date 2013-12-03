@@ -34,7 +34,7 @@
     if (notification) {
         [self openVideoWithNotification:notification];
     }
-
+    [[BWVideoDataStore defaultStore] refreshAllCaches];
     UINavigationController *navVC = self.window.rootViewController.childViewControllers[0];
     [navVC.visibleViewController performSegueWithIdentifier:@"videoListSegue" // TODO constantize this in BWSegues.h maybe
                                                      sender:@"Latest"];

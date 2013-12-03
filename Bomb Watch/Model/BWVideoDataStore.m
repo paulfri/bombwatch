@@ -74,7 +74,9 @@ static NSString *const kBWCacheFilePrefix   = @"bwcache";
 
 - (void)refreshAllCaches
 {
-
+    for (NSString *category in [BWVideo categories]) {
+        [self setCachedVideos:@[] forCategory:category];
+    }
 }
 
 #pragma mark - Favorites

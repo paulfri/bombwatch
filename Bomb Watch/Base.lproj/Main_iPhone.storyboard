@@ -29,7 +29,7 @@
             <objects>
                 <navigationController storyboardIdentifier="kBWVideosNavigationControllerIdentifier" automaticallyAdjustsScrollViewInsets="NO" id="UCZ-NZ-ex6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Videos" image="VideosTabIcon" id="u1e-5L-l1D">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="100"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Df8-wf-qOz">
@@ -778,7 +778,7 @@
             <objects>
                 <navigationController definesPresentationContext="YES" id="1HR-rw-kVr" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="downloads" id="Qod-h7-3wb">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="100"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SAb-7Q-JsQ">
                         <autoresizingMask key="autoresizingMask"/>
@@ -796,7 +796,7 @@
             <objects>
                 <navigationController definesPresentationContext="YES" id="q4z-rj-MYy" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="favorites" id="nJo-ab-u8x">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="100"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="WaS-BO-9aQ">
                         <autoresizingMask key="autoresizingMask"/>
@@ -891,6 +891,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="I8Y-fc-UNu"/>
+        <segue reference="Qbr-f1-qbf"/>
     </inferredMetricsTieBreakers>
 </document>

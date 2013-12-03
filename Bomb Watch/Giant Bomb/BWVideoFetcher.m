@@ -73,14 +73,16 @@
     NSString *query = searchString;
     
     // set filter and hackish query appends
-    if ([[BWVideo categories] containsObject:category]) {
+    if (![category isEqualToString:@"Latest"] && [[BWVideo categories] containsObject:category]) {
         filter = [NSString stringWithFormat:@"video_type:%@", [BWVideo categoryIDForCategory:category]];
     } else if ([[BWVideo enduranceRunCategories] containsObject:category]) {
-        filter = @"video_type:5"; // endurance runs
+        // endurance runs
+        filter = @"video_type:5";
         params[@"sort"] = @"publish_date";
         query = category;
     } else {
-        filter = @"video_type:3|8|6|5|4|2|10"; // latest videos
+        // latest videos
+        filter = @"video_type:3|8|6|5|4|2|10";
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showTrailersInLatest"]) {
             filter = [filter stringByAppendingString:@"|7"];
         }

@@ -78,7 +78,7 @@
 
 + (NSArray *)categories
 {
-    return @[@"Quick Looks", @"Features", @"Events", @"Endurance Run", @"TANG", @"Reviews", @"Trailers", @"Subscriber"];
+    return @[@"Latest", @"Quick Looks", @"Features", @"Events", @"Endurance Run", @"TANG", @"Reviews", @"Trailers", @"Subscriber"];
 }
 
 + (NSArray *)enduranceRunCategories
@@ -88,8 +88,8 @@
 
 + (NSString *)categoryIDForCategory:(NSString *)category
 {
-    NSArray *videoEndpoints  = @[@"3", @"8", @"6", @"5", @"4", @"2", @"7", @"10"];
-    NSDictionary *map = [NSDictionary dictionaryWithObjects:videoEndpoints forKeys:[self categories]];
+    NSDictionary *map = [NSDictionary dictionaryWithObjects:@[@"0", @"3", @"8", @"6", @"5", @"4", @"2", @"7", @"10"]
+                                                    forKeys:[self categories]];
 
     return map[category];
 }

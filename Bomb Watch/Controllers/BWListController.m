@@ -157,24 +157,20 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
      {
          if (page == 1) {
              self.videos = [results copy];
-             
-             if (!searchText) {
-                 if (self.delegate && [self.delegate respondsToSelector:@selector(tableViewContentsReset)]) {
-                     [self.delegate tableViewContentsReset];
-                 }
-             } else {
-                 if (self.delegate && [self.delegate respondsToSelector:@selector(searchDidCompleteWithSuccess)]) {
-                     [self.delegate searchDidCompleteWithSuccess];
-                 }
-             }
          } else {
              self.videos = [[self.videos arrayByAddingObjectsFromArray:results] mutableCopy];
          }
-         
+
          [self.tableView reloadData];
          [SVProgressHUD dismiss];
          [self.refreshControl endRefreshing];
-     }
+
+         if (page == 1 && !searchText && self.delegate && [self.delegate respondsToSelector:@selector(tableViewContentsReset)]) {
+             [self.delegate tableViewContentsReset];
+         } else if (page == 1 && self.delegate && [self.delegate respondsToSelector:@selector(searchDidCompleteWithSuccess)]) {
+             [self.delegate searchDidCompleteWithSuccess];
+         }
+    }
                                                     failure:^(NSError *error)
     {
         if (searchText && self.delegate && [self.delegate respondsToSelector:@selector(searchDidCompleteWithFailure)]) {
