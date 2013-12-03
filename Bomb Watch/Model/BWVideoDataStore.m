@@ -19,7 +19,8 @@ static NSString *const kBWCacheFilePrefix   = @"bwcache";
 
 @implementation BWVideoDataStore
 
-+ (id)defaultStore {
++ (id)defaultStore
+{
     static BWVideoDataStore *defaultStore;
     static dispatch_once_t onceToken;
 

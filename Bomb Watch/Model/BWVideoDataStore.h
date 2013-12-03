@@ -27,4 +27,6 @@
 - (BOOL)watchedStatusForVideo:(BWVideo *)video;
 - (void)setWatchedStatus:(BOOL)status forVideo:(BWVideo *)video;
 
++ (NSString *)documentsPath;
+
 @end

@@ -19,6 +19,7 @@
 #import "BWImagePulldownView.h"
 #import "BWVideo.h"
 #import "NSString+Extensions.h"
+#import "BWVideoDownloader.h"
 
 // default quality when no downloads are present
 #define kQualityCell        1
@@ -242,6 +243,8 @@
 - (IBAction)downloadButtonPressed:(id)sender
 {
     [SVProgressHUD showSuccessWithStatus:@"Downloading"];
+
+    [[BWVideoDownloader defaultDownloader] downloadVideo:self.video quality:1];
 }
 
 - (void)updateDownloadButton
