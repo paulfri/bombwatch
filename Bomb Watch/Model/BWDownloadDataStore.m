@@ -24,6 +24,10 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
     dispatch_once(&onceToken, ^{
         defaultStore = [[BWDownloadDataStore alloc] init];
         defaultStore.downloads = [NSKeyedUnarchiver unarchiveObjectWithFile:[self.class downloadsFilePath]];
+        
+        if (!defaultStore.downloads) {
+            defaultStore.downloads = [NSMutableArray array];
+        }
     });
 
     return defaultStore;

@@ -8,6 +8,9 @@
 
 #import "BWDownloadsViewController.h"
 #import "BWDownloadDataStore.h"
+#import "BWVideoDetailViewController.h"
+
+NSString *const kBWDownloadDetailSegue = @"kBWDownloadDetailSegue";
 
 @interface BWDownloadsViewController ()
 @property (strong, nonatomic) NSMutableArray *downloads;
@@ -22,9 +25,9 @@
     self.tableView.enabled = YES;
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     self.downloads = [[[BWDownloadDataStore defaultStore] allDownloads] mutableCopy];
 }
 
@@ -32,8 +35,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return self.downloads.count;
-    return 5;
+    NSLog(@"%d", self.downloads.count);
+    return self.downloads.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -48,9 +51,28 @@
                                                          reuseIdentifier:identifier];
     }
 
-    cell.textLabel.text = @"testing";
+    BWDownload *download = self.downloads[indexPath.row];
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %d", download.video.name, download.quality];
     
     return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:kBWDownloadDetailSegue sender:self.downloads[indexPath.row]];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:kBWDownloadDetailSegue]) {
+        BWVideoDetailViewController *detail = (BWVideoDetailViewController *)segue.destinationViewController;
+        
+        detail.video = ((BWDownload *)sender).video;
+        // TODO set preselected quality
+    }
 }
 
 @end
