@@ -8,7 +8,6 @@
 
 #import "BWVideoDownloader.h"
 #import "GiantBombAPIClient.h"
-#import "BWVideoDownloadSessionManager.h"
 #import "BWDownload.h"
 
 @implementation BWVideoDownloader
@@ -31,10 +30,10 @@
 
     NSURL *url = [self.class remoteURLForVideo:video quality:quality];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    BWVideoDownloadSessionManager *session = [BWVideoDownloadSessionManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     NSProgress *progress;
 
-    NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithRequest:request
+    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request
                                                                      progress:&progress
                                                                   destination:^NSURL *(NSURL *targetPath, NSURLResponse *response)
     {
