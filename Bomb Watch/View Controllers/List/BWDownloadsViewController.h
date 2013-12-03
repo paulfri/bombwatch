@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PDGesturedTableView.h"
 
-@interface BWDownloadsViewController : UIViewController
+@interface BWDownloadsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet PDGesturedTableView *tableView;
 
