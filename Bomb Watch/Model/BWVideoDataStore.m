@@ -9,9 +9,8 @@
 #import "BWVideoDataStore.h"
 #import "NSString+Extensions.h"
 
-static NSString *const kBWFavoritesKey = @"favorites";
-static NSString *const kBWDownloadsFilename = @"bwdownloads";
-static NSString *const kBWCacheFilePrefix   = @"bwcache";
+NSString *const kBWFavoritesKey = @"favorites";
+NSString *const kBWCacheFilePrefix   = @"bwcache";
 
 @interface BWVideoDataStore ()
 @property (strong, nonatomic) NSMutableDictionary *categories;
@@ -127,11 +126,6 @@ static NSString *const kBWCacheFilePrefix   = @"bwcache";
 + (NSString *)documentsPath
 {
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-}
-
-+ (NSString *)downloadsFilePath
-{
-    return [[self documentsPath] stringByAppendingPathComponent:kBWDownloadsFilename];
 }
 
 + (NSString *)cacheFilePathForCategory:(NSString *)category;

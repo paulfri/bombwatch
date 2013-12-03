@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "BWVideo.h"
 
+extern NSString *const kBWFavoritesKey;
+extern NSString *const kBWCacheFilePrefix;
+
 @interface BWVideoDataStore : NSObject
 
 + (instancetype)defaultStore;
