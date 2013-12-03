@@ -81,16 +81,14 @@
     NSString *filter;
     NSString *query = searchString;
     
-    // set filter and hackish searchString appends
+    // set filter and hackish query appends
     if ([videoCategories containsObject:category]) {
         filter = [NSString stringWithFormat:@"video_type:%@", categoryMap[category]];
     } else if ([self categoryIsEnduranceRun:category]) {
         // endurance runs
         filter = @"video_type:5";
         params[@"sort"] = @"publish_date";
-        if (query) {
-            query = [NSString stringWithFormat:@"%@ %@", category, query];
-        }
+        query = category;
     } else {
         // latest videos
         filter = @"video_type:3|8|6|5|4|2|10";
@@ -104,7 +102,7 @@
     }
 
     params[@"filter"] = filter;
-    
+    NSLog(@"%@", params);
     return params;
 }
 
