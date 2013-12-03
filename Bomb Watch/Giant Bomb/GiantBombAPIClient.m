@@ -15,7 +15,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         __defaultClient = [[GiantBombAPIClient alloc] initWithBaseURL:
-                           [NSURL URLWithString:GiantBombAPIBaseURLString]];
+                           [NSURL URLWithString:kBWAPIBaseURLString]];
     });
     
     return __defaultClient;

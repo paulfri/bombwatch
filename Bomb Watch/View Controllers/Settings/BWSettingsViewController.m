@@ -77,7 +77,7 @@
 
 - (BOOL)accountIsLinked
 {
-    return ![[[NSUserDefaults standardUserDefaults] stringForKey:@"apiKey"] isEqualToString:GiantBombDefaultAPIKey];
+    return ![[[NSUserDefaults standardUserDefaults] stringForKey:@"apiKey"] isEqualToString:kBWDefaultAPIKey];
 }
 
 - (void)didReceiveMemoryWarning
@@ -114,8 +114,11 @@
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == kDefaultQualityPickerCell) {
-        if (self.qualityPickerVisible) return 162;
-        else return 0;
+        if (self.qualityPickerVisible) {
+            return 162;
+        } else {
+            return 0;
+        }
     }
 
     return 44;

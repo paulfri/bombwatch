@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "AFHTTPSessionManager.h"
 
-#define GiantBombAPIBaseURLString @"http://www.giantbomb.com/api"
-#define GiantBombDefaultAPIKey    @"e5ab8850b03bcec7ce6590ca705c9a26395dddf1"
+#define kBWAPIBaseURLString @"http://www.giantbomb.com/api"
+#define kBWDefaultAPIKey    @"e5ab8850b03bcec7ce6590ca705c9a26395dddf1"
 
 @interface GiantBombAPIClient : AFHTTPSessionManager
 

@@ -49,7 +49,7 @@
 {
     NSDictionary *defaultPreferences =  @{@"lockRotation": @YES,
                                         @"defaultQuality": @"Mobile",
-                                                @"apiKey": GiantBombDefaultAPIKey,
+                                                @"apiKey": kBWDefaultAPIKey,
                                          @"videosWatched": @[],
                                          @"videoProgress": @{}};
 
