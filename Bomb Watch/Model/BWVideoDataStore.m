@@ -67,7 +67,7 @@ static NSString *const kBWCacheFilePrefix   = @"bwcache";
     self.categories[category] = videos;
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-        NSLog(@"saving %d videos to the cache for %@", videos.count, category);
+//        NSLog(@"saving %d videos to the cache for %@", videos.count, category);
         [NSKeyedArchiver archiveRootObject:videos toFile:[self.class cacheFilePathForCategory:category]];
     });
 }

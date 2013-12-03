@@ -43,7 +43,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     // Make a copy of the favorites, so that we don't mutate it while it's being enumerated (saved to disk).
-    self.favorites = [[[BWVideoDataStore defaultStore] favorites] mutableCopy];
+    self.favorites = [[BWVideoDataStore defaultStore] favorites];
     [self.tableView reloadData];
 }
 
@@ -59,22 +59,23 @@
                                                       reuseIdentifier:reuseIdentifier];
 
         __unsafe_unretained typeof(self) _self = self;
-        void (^toggleFavorite)(PDGesturedTableView*, PDGesturedTableViewCell*) = ^(PDGesturedTableView *tableView, PDGesturedTableViewCell *cell)
+        void (^removeFavorite)(PDGesturedTableView*, PDGesturedTableViewCell*) = ^(PDGesturedTableView *tableView, PDGesturedTableViewCell *cell)
         {
             BWVideoTableViewCell *videoCell = (BWVideoTableViewCell *)cell;
             BWVideo *video = [_self videoAtIndexPath:[tableView indexPathForCell:videoCell]];
 
             [tableView removeCell:cell completion:^{
                 [video setFavorited:NO];
+                [self.favorites removeObject:video];
             }];
         };
 
         PDGesturedTableViewCellSlidingFraction *favoriteFraction =
-        [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"circle.png"]
-                                                                  color:kBWGiantBombCharcoalColor
-                                                     activationFraction:-0.15];
+            [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"circle.png"]
+                                                                      color:kBWGiantBombCharcoalColor
+                                                         activationFraction:-0.15];
         
-        [favoriteFraction setDidReleaseBlock:toggleFavorite];
+        [favoriteFraction setDidReleaseBlock:removeFavorite];
         [cell addSlidingFraction:favoriteFraction];
     }
     
