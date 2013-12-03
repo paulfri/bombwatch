@@ -296,8 +296,8 @@
 {
     // TODO: show image with status
     [self.video setWatched:![self.video isWatched]];
-    
-    if (![self.video isWatched]) {
+
+    if ([self.video isWatched]) {
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(dismiss)
                                                      name:SVProgressHUDDidDisappearNotification
