@@ -28,28 +28,34 @@
                                                              category:self.category];
     self.listController.delegate = self;
     self.tableView.separatorColor = [UIColor darkGrayColor];
-    
-    CGRect f = self.tableView.frame;
-    CGRect frame = CGRectMake(f.origin.x, f.origin.y + 44, f.size.width, f.size.height - 44);
-    self.disableOverlay = [[UIView alloc] initWithFrame:frame];
-    self.disableOverlay.backgroundColor = [UIColor blackColor];
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(overlayTapped)];
-    [self.disableOverlay addGestureRecognizer:tapGesture];
-
-//    [self.tableView setContentOffset:CGPointMake(0,44) animated:YES];
-    if ([self.tableView numberOfRowsInSection:0] > 0) {
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    }
-
     self.tableView.tableFooterView = [[UIView alloc] init];
-    
-    // hack to get rid of 1px black line under search bar
-    self.searchBar.layer.borderWidth = 1;
-    self.searchBar.layer.borderColor = [kBWGiantBombCharcoalColor CGColor];
+
+    // Disable searching for Endurance Run lists since it doesn't work with the API
+    if ([[BWVideo enduranceRunCategories] containsObject:self.category]) {
+        self.searchBar = nil;
+        self.tableView.tableHeaderView = nil;
+    } else {
+        CGRect f = self.tableView.frame;
+        CGRect frame = CGRectMake(f.origin.x, f.origin.y + 44, f.size.width, f.size.height - 44);
+        self.disableOverlay = [[UIView alloc] initWithFrame:frame];
+        self.disableOverlay.backgroundColor = [UIColor blackColor];
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(overlayTapped)];
+        [self.disableOverlay addGestureRecognizer:tapGesture];
+
+        //    [self.tableView setContentOffset:CGPointMake(0,44) animated:YES];
+        if ([self.tableView numberOfRowsInSection:0] > 0) {
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        }
+
+        // hack to get rid of 1px black line under search bar
+        self.searchBar.layer.borderWidth = 1;
+        self.searchBar.layer.borderColor = [kBWGiantBombCharcoalColor CGColor];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self.tableView reloadData];
 }
 

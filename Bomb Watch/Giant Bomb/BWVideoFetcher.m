@@ -69,29 +69,18 @@
     NSMutableDictionary *params = [@{@"offset": [NSString stringWithFormat:@"%d", (kBWVideosPerPage * (page - 1))],
                                      @"limit": [NSString stringWithFormat:@"%d", kBWVideosPerPage]} mutableCopy];
 
-    // TODO: Constantize these at some point
-    NSArray *videoCategories = @[@"Quick Looks", @"Features", @"Events",
-                                 @"Endurance Run", @"TANG", @"Reviews", @"Trailers",
-                                 @"Subscriber"];
-    NSArray *videoEndpoints  = @[@"3", @"8", @"6", @"5", @"4", @"2", @"7", @"10"];
-    
-    NSDictionary *categoryMap = [[NSDictionary alloc] initWithObjects:videoEndpoints
-                                                              forKeys:videoCategories];
-    
     NSString *filter;
     NSString *query = searchString;
     
     // set filter and hackish query appends
-    if ([videoCategories containsObject:category]) {
-        filter = [NSString stringWithFormat:@"video_type:%@", categoryMap[category]];
-    } else if ([self categoryIsEnduranceRun:category]) {
-        // endurance runs
-        filter = @"video_type:5";
+    if ([[BWVideo categories] containsObject:category]) {
+        filter = [NSString stringWithFormat:@"video_type:%@", [BWVideo categoryIDForCategory:category]];
+    } else if ([[BWVideo enduranceRunCategories] containsObject:category]) {
+        filter = @"video_type:5"; // endurance runs
         params[@"sort"] = @"publish_date";
         query = category;
     } else {
-        // latest videos
-        filter = @"video_type:3|8|6|5|4|2|10";
+        filter = @"video_type:3|8|6|5|4|2|10"; // latest videos
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showTrailersInLatest"]) {
             filter = [filter stringByAppendingString:@"|7"];
         }
@@ -104,11 +93,6 @@
     params[@"filter"] = filter;
     NSLog(@"%@", params);
     return params;
-}
-
-- (BOOL)categoryIsEnduranceRun:(NSString *)category
-{
-    return [@[@"Persona 4", @"Deadly Premonition", @"The Matrix Online", @"Chrono Trigger"] containsObject:category];
 }
 
 @end

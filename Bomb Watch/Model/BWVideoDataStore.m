@@ -72,6 +72,11 @@ static NSString *const kBWCacheFilePrefix   = @"bwcache";
     });
 }
 
+- (void)refreshAllCaches
+{
+
+}
+
 #pragma mark - Favorites
 
 - (NSMutableArray *)favorites

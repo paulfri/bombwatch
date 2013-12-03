@@ -74,6 +74,26 @@
     [[BWVideoDataStore defaultStore] setFavoriteStatus:favoritedStatus forVideo:self];
 }
 
+#pragma mark - category lists
+
++ (NSArray *)categories
+{
+    return @[@"Quick Looks", @"Features", @"Events", @"Endurance Run", @"TANG", @"Reviews", @"Trailers", @"Subscriber"];
+}
+
++ (NSArray *)enduranceRunCategories
+{
+    return @[@"Persona 4", @"The Matrix Online", @"Deadly Premonition", @"Chrono Trigger"];
+}
+
++ (NSString *)categoryIDForCategory:(NSString *)category
+{
+    NSArray *videoEndpoints  = @[@"3", @"8", @"6", @"5", @"4", @"2", @"7", @"10"];
+    NSDictionary *map = [NSDictionary dictionaryWithObjects:videoEndpoints forKeys:[self categories]];
+
+    return map[category];
+}
+
 #pragma mark - utility
 
 - (BOOL)isEqual:(id)object

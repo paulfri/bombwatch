@@ -36,4 +36,8 @@
 - (BOOL)isFavorited;
 - (void)setFavorited:(BOOL)favoritedStatus;
 
++ (NSArray *)categories;
++ (NSArray *)enduranceRunCategories;
++ (NSString *)categoryIDForCategory:(NSString *)category;
+
 @end

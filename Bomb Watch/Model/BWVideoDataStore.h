@@ -15,13 +15,14 @@
 
 - (BWVideo *)videoWithID:(NSInteger)videoID inCategory:(NSString *)category;
 
+- (NSArray *)cachedVideosForCategory:(NSString *)category;
+- (void)setCachedVideos:(NSArray *)videos forCategory:(NSString *)category;
+- (void)refreshAllCaches;
+
 - (NSMutableArray *)favorites;
 - (void)setFavorites:(NSArray *)favorites;
 - (BOOL)favoriteStatusForVideo:(BWVideo *)video;
 - (void)setFavoriteStatus:(BOOL)status forVideo:(BWVideo *)video;
-
-- (NSArray *)cachedVideosForCategory:(NSString *)category;
-- (void)setCachedVideos:(NSArray *)videos forCategory:(NSString *)category;
 
 - (BOOL)watchedStatusForVideo:(BWVideo *)video;
 - (void)setWatchedStatus:(BOOL)status forVideo:(BWVideo *)video;

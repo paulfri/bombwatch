@@ -9,8 +9,10 @@
 #import "BWLinkAccountViewController.h"
 #import "GiantBombAPIClient.h"
 #import "SVProgressHUD.h"
+#import "BWVideoDataStore.h"
 
 #define kBWLinkCodeLength 6
+#define kBWAPIKeyLength 40
 
 @implementation BWLinkAccountViewController
 
@@ -42,17 +44,16 @@
     [SVProgressHUD showWithStatus:@"Linking..."];
     [[GiantBombAPIClient defaultClient] GET:@"validate" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *responseDict = (NSDictionary *)responseObject;
-        NSLog(@"%@", responseObject);
         // TODO: check that apikey actually gets returned so we don't get a runtime crash
-        // TODO: check that the api key is valid? maybe length? maybe do a test request? (prob not)
         NSString *apiKey = responseDict[@"api_key"];
-        if ([apiKey isKindOfClass:[NSString class]] && [apiKey length] > 0) {
+        if ([apiKey isKindOfClass:[NSString class]] && [apiKey length] == kBWAPIKeyLength) {
             [[NSUserDefaults standardUserDefaults] setObject:apiKey forKey:@"apiKey"];
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(dismiss)
                                                          name:SVProgressHUDDidDisappearNotification
                                                        object:nil];
             [SVProgressHUD showSuccessWithStatus:@"Linked!"];
+            [[BWVideoDataStore defaultStore] refreshAllCaches];
         } else {
             [SVProgressHUD showErrorWithStatus:@"Link failed!"];
         }
