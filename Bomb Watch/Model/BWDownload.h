@@ -14,13 +14,11 @@ extern NSString *const kBWDownloadProgressKey;
 @interface BWDownload : MTLModel
 
 - (id)initWithVideo:(BWVideo *)video quality:(BWVideoQuality)quality;
+- (BOOL)isComplete;
 
 @property (strong, nonatomic) BWVideo *video;
 @property BWVideoQuality quality;
-
 @property (strong, nonatomic) NSURL *filePath;
 @property double progress;
-
-- (BOOL)isComplete;
 
 @end

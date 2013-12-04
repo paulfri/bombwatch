@@ -71,7 +71,7 @@
 {
     [super viewWillDisappear:animated];
     if (self.download) {
-        [self.download removeObserver:self forKeyPath:@"progress"];
+//        [self.download removeObserver:self forKeyPath:@"progress"];
     }
 }
 
@@ -80,13 +80,6 @@
     [super viewWillAppear:animated];
     self.download = [[BWDownloadDataStore defaultStore] downloadForVideo:self.video quality:[self selectedQuality]];
     
-    if (self.download) {
-        [self.download addObserver:self
-                        forKeyPath:@"progress"
-                           options:NSKeyValueObservingOptionNew
-                           context:nil];
-    }
-
     [self refreshViews];
 }
 
@@ -292,21 +285,16 @@
 {
     [SVProgressHUD showSuccessWithStatus:@"Downloading"];
 
-    BWDownload *download = [[BWVideoDownloader defaultDownloader] downloadVideo:self.video quality:1];
+    BWDownload *download = [[BWVideoDownloader defaultDownloader] downloadVideo:self.video quality:BWVideoQualityLow];
     [[BWDownloadDataStore defaultStore] addDownload:download];
     self.download = download;
-    [self.download addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:nil];
+
     [self updateDownloadButton];
 }
 
 - (void)updateDownloadButton
 {
     BWDownload *download = [[BWDownloadDataStore defaultStore] downloadForVideo:self.video quality:[self selectedQuality]];
-    
-    if (download != self.download) {
-        [self.download removeObserver:self forKeyPath:@"progress"];
-    }
-
     NSMutableArray *items = [self.toolbar.items mutableCopy];
 
     if (download && ![download isComplete]) {
@@ -315,7 +303,7 @@
         self.downloadButton = [[UIBarButtonItem alloc] initWithCustomView:self.progressView];
         self.downloadButton.target = self;
         self.downloadButton.action = @selector(downloadButtonPressed:);
-        [self.download addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:nil];
+        [self performSelector:@selector(updateProgressView) withObject:nil afterDelay:0.2f];
     } else {
         self.progressView = nil;
         self.download = nil;
@@ -331,6 +319,19 @@
 
     items[kBWToolbarDownloadItemPosition] = self.downloadButton;
     self.toolbar.items = items;
+}
+
+- (void)updateProgressView
+{
+    if (self.progressView) {
+        [self.progressView setProgress:self.download.progress animated:YES];
+
+        if ([self.download isComplete]) {
+            [self updateDownloadButton];
+        } else {
+            [self performSelector:@selector(updateProgressView) withObject:nil afterDelay:0.2f];
+        }
+    }
 }
 
 #pragma mark - Watched status
@@ -362,17 +363,6 @@
     }
 }
 
-#pragma mark - Key-value observing
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if ([object isKindOfClass:BWDownload.class] && [keyPath isEqualToString:@"progress"]) {
-        [self updateDownloadButton];
-    } else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
-    }
-}
-
 #pragma mark - Utility
 
 - (void)dismiss
@@ -391,9 +381,7 @@
     [self updateDurationLabel];
 
     [self.qualityPicker reloadAllComponents];
-    self.qualityLabel.text = [[self pickerView:self.qualityPicker
-                         attributedTitleForRow:[self selectedQuality]
-                                  forComponent:0] string];
+    self.qualityLabel.text = [[self pickerView:self.qualityPicker attributedTitleForRow:[self selectedQuality] forComponent:0] string];
 
     [self.tableView reloadData];
 }

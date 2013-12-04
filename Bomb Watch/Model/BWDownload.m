@@ -24,10 +24,7 @@ NSString *const kBWDownloadProgressKey = @"fractionCompleted";
     return self;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqual:kBWDownloadProgressKey]) {
         NSProgress *progress = (NSProgress *)object;

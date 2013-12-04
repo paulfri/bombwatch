@@ -15,4 +15,10 @@
 
 - (BWDownload *)downloadVideo:(BWVideo *)video quality:(BWVideoQuality)quality;
 
+- (void)downloadCompleted:(BWDownload *)download atFilePath:(NSURL *)filePath;
+
+- (NSURLSessionDownloadTask *)downloadTaskForDownload:(BWDownload *)download;
+
+- (void)cancelAllActiveDownloads;
+
 @end

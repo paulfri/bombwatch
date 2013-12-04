@@ -16,8 +16,9 @@ extern NSString *const kBWDownloadsFilename;
 + (instancetype)defaultStore;
 
 - (NSArray *)allDownloads;
-
 - (void)addDownload:(BWDownload *)download;
+- (void)deleteDownload:(BWDownload *)download;
+
 - (BWDownload *)downloadForVideo:(BWVideo *)video quality:(BWVideoQuality)quality;
 - (NSArray *)downloadsForVideo:(BWVideo *)video;
 

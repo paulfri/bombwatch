@@ -80,21 +80,27 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
     return downloads;
 }
 
-
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"progress"]) {
         BWDownload *download = (BWDownload *)object;
 
-        if (fmod(download.progress, 0.1) == 0) {  // save every 1%
+//        if (download.progress) {  // save every 10%
+            NSLog(@"percent done is %f", download.progress);
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-                NSLog(@"disk access'");
+                NSLog(@"disk access");
                 [NSKeyedArchiver archiveRootObject:self.downloads toFile:[self.class downloadsFilePath]];
             });
-        }
+//        }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
+}
+
+- (void)deleteDownload:(BWDownload *)download
+{
+    [self.downloads removeObject:download];
+    // TODO remove video from disk
 }
 
 #pragma mark - utility

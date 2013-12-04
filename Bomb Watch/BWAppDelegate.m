@@ -14,6 +14,7 @@
 #import "BWVideoDataStore.h"
 #import "BWColors.h"
 #import "BWVideoDetailViewController.h"
+#import "BWVideoDownloader.h"
 
 #define PocketConsumerKey    @"17866-6c522817c89aaee6ae6da74f"
 
@@ -53,7 +54,7 @@
 - (void)configurePreferences
 {
     NSDictionary *defaultPreferences =  @{@"lockRotation": @YES,
-                                        @"defaultQuality": @"Mobile",
+                                        @"defaultQuality": @"Low",
                                                 @"apiKey": kBWDefaultAPIKey,
                                          @"videosWatched": @[],
                                          @"videoProgress": @{}};
@@ -109,6 +110,11 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(void)applicationWillTerminate:(UIApplication *)application
+{
+    [[BWVideoDownloader defaultDownloader] cancelAllActiveDownloads];
 }
 
 #pragma mark - Remote control

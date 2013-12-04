@@ -29,13 +29,13 @@ NSString *const kBWDownloadDetailSegue = @"kBWDownloadDetailSegue";
 {
     [super viewWillAppear:animated];
     self.downloads = [[[BWDownloadDataStore defaultStore] allDownloads] mutableCopy];
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource protocol
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"%d", self.downloads.count);
     return self.downloads.count;
 }
 
