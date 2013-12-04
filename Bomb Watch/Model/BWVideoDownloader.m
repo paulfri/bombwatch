@@ -27,6 +27,11 @@
         defaultDownloader = [[BWVideoDownloader alloc] init];
         defaultDownloader.downloads = [NSMutableArray array];
         defaultDownloader.downloadTasks = [NSMutableArray array];
+
+        [[NSFileManager defaultManager] createDirectoryAtPath:[self videoDirectory]
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:nil];
     });
 
     return defaultDownloader;
@@ -105,12 +110,19 @@
 
 + (NSURL *)localURLForVideo:(BWVideo *)video quality:(BWVideoQuality)quality
 {
-    NSString *docs = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *vids = [docs stringByAppendingPathComponent:@"videos"]; // TODO create directory
-    NSString *path = [vids stringByAppendingPathComponent:[NSString stringWithFormat:@"%d_%d", video.videoID, quality]];
-    NSLog(@"path: %@", path); // TODO add file ext?
+    NSURL *remoteURL = [self remoteURLForVideo:video quality:quality];
+    NSString *path = [[self videoDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%d_%d", video.videoID, quality]];
+    NSString *full = [path stringByAppendingPathExtension:[remoteURL pathExtension]];
 
-    return [NSURL URLWithString:path];
+    return [NSURL fileURLWithPath:full];
+}
+
++ (NSString *)videoDirectory
+{
+    NSString *docs = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *vids = [docs stringByAppendingPathComponent:@"videos"];
+    return vids;
+
 }
 
 @end
