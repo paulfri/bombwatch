@@ -32,6 +32,8 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     NSProgress *progress;
+    
+    download.filePath = [self.class localURLForVideo:video quality:quality];
 
     NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request
                                                                      progress:&progress
@@ -47,12 +49,7 @@
         NSLog(@"Download finished: %@", download.video.name);
     }];
 
-    download.filePath = [self.class localURLForVideo:video quality:quality];
-
-    [progress addObserver:download
-               forKeyPath:kBWDownloadProgressKey
-                  options:NSKeyValueObservingOptionNew
-                  context:NULL];
+    [progress addObserver:download forKeyPath:kBWDownloadProgressKey options:NSKeyValueObservingOptionNew context:NULL];
 
     [downloadTask resume];
 

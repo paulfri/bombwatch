@@ -28,6 +28,10 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
         
         if (!defaultStore.downloads) {
             defaultStore.downloads = [NSMutableArray array];
+
+            for (BWDownload *download in defaultStore.downloads) {
+                [download addObserver:defaultStore forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:nil];
+            }
         }
     });
 
@@ -81,13 +85,15 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
 {
     if ([keyPath isEqualToString:@"progress"]) {
         BWDownload *download = (BWDownload *)object;
-//        float remainder = fmod(download.progress, 0.1);
+
         if (fmod(download.progress, 0.1) == 0) {  // save every 1%
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-                NSLog(@"disk access lolol");
+                NSLog(@"disk access'");
                 [NSKeyedArchiver archiveRootObject:self.downloads toFile:[self.class downloadsFilePath]];
             });
         }
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
@@ -101,6 +107,13 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
 + (NSString *)downloadsFilePath
 {
     return [[self documentsPath] stringByAppendingPathComponent:kBWDownloadsFilename];
+}
+
+- (void)dealloc
+{
+    for (BWDownload *download in self.downloads) {
+        [download removeObserver:self forKeyPath:@"progress"];
+    }
 }
 
 @end

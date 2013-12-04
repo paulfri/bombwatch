@@ -55,14 +55,6 @@
 
     [self selectQuality:[self defaultQuality]];
 
-    self.download = [[BWDownloadDataStore defaultStore] downloadForVideo:self.video quality:[self selectedQuality]];
-    
-    if (self.download) {
-        [self.download addObserver:self
-                        forKeyPath:@"progress"
-                           options:NSKeyValueObservingOptionNew
-                           context:nil];
-    }
 }
 
 - (void)drawImagePulldown
@@ -74,9 +66,26 @@
     [self.tableView sendSubviewToBack:self.tableView.tableHeaderView];
 }
 
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if (self.download) {
+        [self.download removeObserver:self forKeyPath:@"progress"];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.download = [[BWDownloadDataStore defaultStore] downloadForVideo:self.video quality:[self selectedQuality]];
+    
+    if (self.download) {
+        [self.download addObserver:self
+                        forKeyPath:@"progress"
+                           options:NSKeyValueObservingOptionNew
+                           context:nil];
+    }
 
     [self refreshViews];
 }
@@ -365,13 +374,6 @@
 }
 
 #pragma mark - Utility
-
-- (void)dealloc
-{
-    if (self.download) {
-        [self.download removeObserver:self forKeyPath:@"progress"];
-    }
-}
 
 - (void)dismiss
 {
