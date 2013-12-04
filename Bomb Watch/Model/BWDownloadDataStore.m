@@ -7,6 +7,7 @@
 //
 
 #import "BWDownloadDataStore.h"
+#import <tgmath.h>
 
 NSString *const kBWDownloadsFilename = @"bwdownloads";
 
@@ -44,6 +45,7 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
 - (void)addDownload:(BWDownload *)download
 {
     [self.downloads addObject:download];
+    [download addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:nil];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
         [NSKeyedArchiver archiveRootObject:self.downloads toFile:[self.class downloadsFilePath]];
@@ -72,6 +74,21 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
     }
     
     return downloads;
+}
+
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"progress"]) {
+        BWDownload *download = (BWDownload *)object;
+//        float remainder = fmod(download.progress, 0.1);
+        if (fmod(download.progress, 0.1) == 0) {  // save every 1%
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+                NSLog(@"disk access lolol");
+                [NSKeyedArchiver archiveRootObject:self.downloads toFile:[self.class downloadsFilePath]];
+            });
+        }
+    }
 }
 
 #pragma mark - utility

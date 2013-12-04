@@ -33,6 +33,8 @@
 @interface BWVideoDetailViewController ()
 @property (strong, nonatomic) BWVideoPlayerViewController *player;
 @property BOOL pickerVisible;
+@property (strong, nonatomic) BWDownload *download;
+@property (strong, nonatomic) EVCircularProgressView *progressView;
 @end
 
 @implementation BWVideoDetailViewController
@@ -53,8 +55,14 @@
 
     [self selectQuality:[self defaultQuality]];
 
-
-    self.downloads = [[[BWDownloadDataStore defaultStore] downloadsForVideo:self.video] mutableCopy];
+    self.download = [[BWDownloadDataStore defaultStore] downloadForVideo:self.video quality:[self selectedQuality]];
+    
+    if (self.download) {
+        [self.download addObserver:self
+                        forKeyPath:@"progress"
+                           options:NSKeyValueObservingOptionNew
+                           context:nil];
+    }
 }
 
 - (void)drawImagePulldown
@@ -216,7 +224,7 @@
 
 - (IBAction)playButtonPressed:(id)sender {
     self.player = [[BWVideoPlayerViewController alloc] initWithVideo:self.video
-                                                             quality:[self.qualityPicker selectedRowInComponent:0]
+                                                             quality:[self selectedQuality]
                                                            downloads:nil];
     self.player.delegate = self;
     [self presentMoviePlayerViewControllerAnimated:self.player];
@@ -277,26 +285,39 @@
 
     BWDownload *download = [[BWVideoDownloader defaultDownloader] downloadVideo:self.video quality:1];
     [[BWDownloadDataStore defaultStore] addDownload:download];
-    [self.downloads addObject:download];
+    self.download = download;
+    [self.download addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:nil];
+    [self updateDownloadButton];
 }
 
 - (void)updateDownloadButton
 {
-    NSMutableArray *items = [self.toolbar.items mutableCopy];
-    BWDownload *download = [[BWDownloadDataStore defaultStore] downloadForVideo:self.video
-                                                                        quality:[self selectedQuality]];
+    BWDownload *download = [[BWDownloadDataStore defaultStore] downloadForVideo:self.video quality:[self selectedQuality]];
+    
+    if (download != self.download) {
+        [self.download removeObserver:self forKeyPath:@"progress"];
+    }
 
-    if (download) {
-        EVCircularProgressView *progressView = [[EVCircularProgressView alloc] init];
-        self.downloadButton = [[UIBarButtonItem alloc] initWithCustomView:progressView];
+    NSMutableArray *items = [self.toolbar.items mutableCopy];
+
+    if (download && ![download isComplete]) {
+        self.download = download;
+        self.progressView = [[EVCircularProgressView alloc] init];
+        self.downloadButton = [[UIBarButtonItem alloc] initWithCustomView:self.progressView];
         self.downloadButton.target = self;
         self.downloadButton.action = @selector(downloadButtonPressed:);
-        [progressView setProgress:download.progress animated:YES];
+        [self.download addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:nil];
     } else {
+        self.progressView = nil;
+        self.download = nil;
         self.downloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ToolbarDownload"]
                                                                style:UIBarButtonItemStylePlain
                                                               target:self
                                                               action:@selector(downloadButtonPressed:)];
+        
+        if ([download isComplete]) {
+            self.downloadButton.enabled = NO;
+        }
     }
 
     items[kBWToolbarDownloadItemPosition] = self.downloadButton;
@@ -332,7 +353,25 @@
     }
 }
 
+#pragma mark - Key-value observing
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([object isKindOfClass:BWDownload.class] && [keyPath isEqualToString:@"progress"]) {
+        [self updateDownloadButton];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
+    }
+}
+
 #pragma mark - Utility
+
+- (void)dealloc
+{
+    if (self.download) {
+        [self.download removeObserver:self forKeyPath:@"progress"];
+    }
+}
 
 - (void)dismiss
 {

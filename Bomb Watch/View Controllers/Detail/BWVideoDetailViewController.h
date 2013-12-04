@@ -14,7 +14,6 @@
 @interface BWVideoDetailViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate, BWVideoPlayerDelegate>
 
 @property (strong, nonatomic) BWVideo *video;
-@property (strong, nonatomic) NSMutableArray *downloads;
 
 @property (strong, nonatomic) BWImagePulldownView *imagePulldownView;
 

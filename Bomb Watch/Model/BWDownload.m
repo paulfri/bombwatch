@@ -32,7 +32,6 @@ NSString *const kBWDownloadProgressKey = @"fractionCompleted";
     if ([keyPath isEqual:kBWDownloadProgressKey]) {
         NSProgress *progress = (NSProgress *)object;
         self.progress = progress.fractionCompleted;
-        [self setValue:progress forKey:kBWDownloadProgressKey];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
