@@ -27,8 +27,9 @@
 @property (strong, nonatomic) IBOutlet UIPickerView *qualityPicker;
 @property (weak, nonatomic) IBOutlet UILabel *qualityLabel;
 
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *watchedButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *downloadButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *downloadButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *favoritedButton;
 
 - (IBAction)actionButtonPressed:(id)sender;

@@ -734,6 +734,7 @@
                         <outlet property="qualityCell" destination="GhI-iZ-xzI" id="cD7-qI-5Mz"/>
                         <outlet property="qualityLabel" destination="TVB-C7-xTl" id="4Ie-7A-8nY"/>
                         <outlet property="qualityPicker" destination="fub-Vv-pO4" id="BRT-7W-MlK"/>
+                        <outlet property="toolbar" destination="WNe-FU-apv" id="MV7-ev-f3O"/>
                         <outlet property="watchedButton" destination="VBI-zx-gqi" id="Bpn-Es-igc"/>
                     </connections>
                 </tableViewController>

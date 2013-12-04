@@ -28,11 +28,11 @@
 #define kVideoDurationCell  4
 #define kVideoDetailCell    5
 
-@interface BWVideoDetailViewController ()
+#define kBWToolbarDownloadItemPosition 2
 
+@interface BWVideoDetailViewController ()
 @property (strong, nonatomic) BWVideoPlayerViewController *player;
 @property BOOL pickerVisible;
-
 @end
 
 @implementation BWVideoDetailViewController
@@ -282,15 +282,25 @@
 
 - (void)updateDownloadButton
 {
-    BOOL enabled = YES; // lol
+    NSMutableArray *items = [self.toolbar.items mutableCopy];
+    BWDownload *download = [[BWDownloadDataStore defaultStore] downloadForVideo:self.video
+                                                                        quality:[self selectedQuality]];
 
-    if (enabled) {
-        self.downloadButton.image = [UIImage imageNamed:@"ToolbarDownload"];
+    if (download) {
+        EVCircularProgressView *progressView = [[EVCircularProgressView alloc] init];
+        self.downloadButton = [[UIBarButtonItem alloc] initWithCustomView:progressView];
+        self.downloadButton.target = self;
+        self.downloadButton.action = @selector(downloadButtonPressed:);
+        [progressView setProgress:download.progress animated:YES];
     } else {
-//        EVCircularProgressView?
+        self.downloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ToolbarDownload"]
+                                                               style:UIBarButtonItemStylePlain
+                                                              target:self
+                                                              action:@selector(downloadButtonPressed:)];
     }
-    
-    self.downloadButton.enabled = enabled;
+
+    items[kBWToolbarDownloadItemPosition] = self.downloadButton;
+    self.toolbar.items = items;
 }
 
 #pragma mark - Watched status
@@ -341,10 +351,15 @@
 
     [self.qualityPicker reloadAllComponents];
     self.qualityLabel.text = [[self pickerView:self.qualityPicker
-                         attributedTitleForRow:[self.qualityPicker selectedRowInComponent:0]
+                         attributedTitleForRow:[self selectedQuality]
                                   forComponent:0] string];
 
     [self.tableView reloadData];
+}
+
+- (BWVideoQuality)selectedQuality
+{
+    return [self.qualityPicker selectedRowInComponent:0];
 }
 
 @end

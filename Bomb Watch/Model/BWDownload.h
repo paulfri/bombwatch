@@ -21,4 +21,6 @@ extern NSString *const kBWDownloadProgressKey;
 @property (strong, nonatomic) NSURL *filePath;
 @property double progress;
 
+- (BOOL)isComplete;
+
 @end
