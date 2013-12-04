@@ -285,7 +285,7 @@
 {
     [SVProgressHUD showSuccessWithStatus:@"Downloading"];
 
-    BWDownload *download = [[BWVideoDownloader defaultDownloader] downloadVideo:self.video quality:BWVideoQualityLow];
+    BWDownload *download = [[BWVideoDownloader defaultDownloader] downloadVideo:self.video quality:[self selectedQuality]];
     [[BWDownloadDataStore defaultStore] addDownload:download];
     self.download = download;
 

@@ -86,9 +86,9 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
         BWDownload *download = (BWDownload *)object;
 
 //        if (download.progress) {  // save every 10%
-            NSLog(@"percent done is %f", download.progress);
+//            NSLog(@"percent done is %f", download.progress);
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-                NSLog(@"disk access");
+//                NSLog(@"disk access");
                 [NSKeyedArchiver archiveRootObject:self.downloads toFile:[self.class downloadsFilePath]];
             });
 //        }
