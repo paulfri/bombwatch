@@ -50,10 +50,7 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
 {
     [self.downloads addObject:download];
     [download addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:nil];
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-        [NSKeyedArchiver archiveRootObject:self.downloads toFile:[self.class downloadsFilePath]];
-    });
+    [self save];
 }
 
 - (BWDownload *)downloadForVideo:(BWVideo *)video quality:(BWVideoQuality)quality
@@ -85,13 +82,8 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
     if ([keyPath isEqualToString:@"progress"]) {
         BWDownload *download = (BWDownload *)object;
 
-//        if (download.progress) {  // save every 10%
-//            NSLog(@"percent done is %f", download.progress);
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-//                NSLog(@"disk access");
-                [NSKeyedArchiver archiveRootObject:self.downloads toFile:[self.class downloadsFilePath]];
-            });
-//        }
+        // TODO this is saving WAY too often
+        [self save];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -99,8 +91,9 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
 
 - (void)deleteDownload:(BWDownload *)download
 {
+    [[NSFileManager defaultManager] removeItemAtPath:[download.filePath path] error:nil];
     [self.downloads removeObject:download];
-    // TODO remove video from disk
+    [self save];
 }
 
 #pragma mark - utility
@@ -120,6 +113,14 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
     for (BWDownload *download in self.downloads) {
         [download removeObserver:self forKeyPath:@"progress"];
     }
+}
+
+- (void)save
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+        NSLog(@"disk access");
+        [NSKeyedArchiver archiveRootObject:self.downloads toFile:[self.class downloadsFilePath]];
+    });
 }
 
 @end
