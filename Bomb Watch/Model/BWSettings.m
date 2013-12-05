@@ -10,7 +10,7 @@
 
 NSString *const kBWSettingsKeyDefaultQuality = @"kBWSettingsKeyDefaultQuality";
 NSString *const kBWSettingsKeyAPIKey = @"kBWSettingsKeyAPIKey";
-NSString *const kBWSettingsKeyLockRotation = @"kBWSettingsKeyAPIKey";
+NSString *const kBWSettingsKeyLockRotation = @"kBWSettingsKeyLockRotation";
 
 #define kBWDefaultSettingDefaultQuality  @1 // BWDefaultQualityLow
 NSString *const kBWDefaultSettingAPIKey  = @"e5ab8850b03bcec7ce6590ca705c9a26395dddf1";
