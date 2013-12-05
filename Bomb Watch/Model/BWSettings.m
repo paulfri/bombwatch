@@ -13,7 +13,7 @@ NSString *const kBWSettingsKeyAPIKey = @"kBWSettingsKeyAPIKey";
 NSString *const kBWSettingsKeyLockRotation = @"kBWSettingsKeyLockRotation";
 NSString *const kBWSettingsKeyiCloudSync = @"kBWSettingsKeyiCloudSync";
 
-#define kBWDefaultSettingDefaultQuality  @1 // BWDefaultQualityLow
+#define kBWDefaultSettingDefaultQuality  @1 // BWVideoQualityLow
 NSString *const kBWDefaultSettingAPIKey  = @"e5ab8850b03bcec7ce6590ca705c9a26395dddf1";
 #define kBWDefaultSettingLockRotation    @YES
 #define kBWDefaultSettingsiCloudSync     @NO

@@ -23,6 +23,8 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 #define kBWFarLeftSwipeFraction 0.4
 #define kBWRightSwipeFraction 0.15
 
+#define kBWInfiniteScrollCellThreshold 5 // the number of cells from the bottom
+
 @interface BWListController ()
 
 @property (strong, nonatomic) NSString *searchText;
@@ -81,6 +83,11 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.videos.count;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(PDGesturedTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -156,9 +163,9 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
                                                     success:^(NSArray *results)
      {
          if (page == 1) {
-             self.videos = [results copy];
+             self.videos = [results mutableCopy];
          } else {
-             self.videos = [[self.videos arrayByAddingObjectsFromArray:results] mutableCopy];
+             [self.videos addObjectsFromArray:results];
          }
 
          [self.tableView reloadData];
@@ -170,6 +177,8 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
          } else if (page == 1 && self.delegate && [self.delegate respondsToSelector:@selector(searchDidCompleteWithSuccess)]) {
              [self.delegate searchDidCompleteWithSuccess];
          }
+
+         self.tableView.tableFooterView = nil;
     }
                                                     failure:^(NSError *error)
     {
@@ -190,18 +199,16 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
     }
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat currentOffsetY = scrollView.contentOffset.y + [[UIScreen mainScreen] bounds].size.height;
-    CGFloat contentHeight = scrollView.contentSize.height;
-    
-    if (currentOffsetY > ((contentHeight * 3)/ 4.0)) {
-        // if it's >=, we're all caught up and can load the next page
-        // if it's < , then there should already be a load in progress
-        if(self.videos.count >= (self.page * kBWVideosPerPage)) {
-            self.page++;
-            [self loadVideosForPage:self.page searchText:self.searchText];
-        }
+    if (indexPath.row >= ([tableView numberOfRowsInSection:0] - kBWInfiniteScrollCellThreshold) && self.videos.count >= (self.page * kBWVideosPerPage)) {
+        UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        view.bounds = CGRectMake(view.bounds.origin.x, view.bounds.origin.x, view.bounds.size.width, tableView.rowHeight);
+        [view startAnimating];
+        self.tableView.tableFooterView = view;
+
+        self.page++;
+        [self loadVideosForPage:self.page searchText:self.searchText];
     }
 }
 
