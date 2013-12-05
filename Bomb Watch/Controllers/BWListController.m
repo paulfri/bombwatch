@@ -164,32 +164,25 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
      {
          if (page == 1) {
              self.videos = [results mutableCopy];
+            [SVProgressHUD dismiss];
          } else {
              [self.videos addObjectsFromArray:results];
+
+             [UIView transitionWithView:self.tableView
+                               duration:0.35f
+                                options:UIViewAnimationOptionTransitionCrossDissolve
+                             animations:^(void) { [self.tableView reloadData]; }
+                             completion:nil];
          }
 
-         [UIView transitionWithView:self.tableView
-                           duration:0.35f
-                            options:UIViewAnimationOptionTransitionCrossDissolve
-                         animations:^(void)
-          {
-              [self.tableView reloadData];
-          }
-                         completion: ^(BOOL isFinished)
-          {
-              /* TODO: Whatever you want here */
-          }];
-
-         [SVProgressHUD dismiss]; // only on initial load
          [self.refreshControl endRefreshing];
+         self.tableView.tableFooterView = [[UIView alloc] init];
 
          if (page == 1 && !searchText && self.delegate && [self.delegate respondsToSelector:@selector(tableViewContentsReset)]) {
              [self.delegate tableViewContentsReset];
          } else if (page == 1 && self.delegate && [self.delegate respondsToSelector:@selector(searchDidCompleteWithSuccess)]) {
              [self.delegate searchDidCompleteWithSuccess];
          }
-
-         self.tableView.tableFooterView = [[UIView alloc] init];
     }
                                                     failure:^(NSError *error)
     {

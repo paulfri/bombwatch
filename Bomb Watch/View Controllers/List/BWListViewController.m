@@ -31,6 +31,9 @@
     self.tableView.separatorColor = [UIColor darkGrayColor];
     self.tableView.tableFooterView = [[UIView alloc] init];
 
+//    self.edgesForExtendedLayout = UIRectEdgeAll;
+//    self.tableView.contentInset = UIEdgeInsetsMake(0., 0., CGRectGetHeight(self.tabBarController.tabBar.frame), 0);
+
     // Disable searching for Endurance Run lists since it doesn't work with the API
     if ([[BWVideo enduranceRunCategories] containsObject:self.category]) {
         self.searchBar = nil;
