@@ -11,18 +11,21 @@
 NSString *const kBWSettingsKeyDefaultQuality = @"kBWSettingsKeyDefaultQuality";
 NSString *const kBWSettingsKeyAPIKey = @"kBWSettingsKeyAPIKey";
 NSString *const kBWSettingsKeyLockRotation = @"kBWSettingsKeyLockRotation";
+NSString *const kBWSettingsKeyiCloudSync = @"kBWSettingsKeyiCloudSync";
 
 #define kBWDefaultSettingDefaultQuality  @1 // BWDefaultQualityLow
 NSString *const kBWDefaultSettingAPIKey  = @"e5ab8850b03bcec7ce6590ca705c9a26395dddf1";
 #define kBWDefaultSettingLockRotation    @YES
+#define kBWDefaultSettingsiCloudSync     @NO
 
 @implementation BWSettings
 
 + (void)initializeSettings
 {
     NSDictionary *defaultPreferences =  @{kBWSettingsKeyAPIKey : kBWDefaultSettingAPIKey,
-                                          kBWSettingsKeyDefaultQuality : kBWDefaultSettingDefaultQuality,
-                                          kBWSettingsKeyLockRotation : kBWDefaultSettingLockRotation,
+                                  kBWSettingsKeyDefaultQuality : kBWDefaultSettingDefaultQuality,
+                                    kBWSettingsKeyLockRotation : kBWDefaultSettingLockRotation,
+                                      kBWSettingsKeyiCloudSync : kBWDefaultSettingsiCloudSync,
                                           @"videosWatched": @[],
                                           @"videoProgress": @{}};
 
