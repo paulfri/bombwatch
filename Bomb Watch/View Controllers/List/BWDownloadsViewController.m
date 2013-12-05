@@ -10,6 +10,7 @@
 #import "BWDownloadDataStore.h"
 #import "BWVideoDetailViewController.h"
 #import "EVCircularProgressView.h"
+#import "BWVideoTableViewCell.h"
 
 NSString *const kBWDownloadDetailSegue = @"kBWDownloadDetailSegue";
 
@@ -44,18 +45,19 @@ NSString *const kBWDownloadDetailSegue = @"kBWDownloadDetailSegue";
 {
     static NSString *identifier = @"kBWDownloadCellIdentifier";
     
-    PDGesturedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    BWVideoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (!cell) {
-        cell = [[PDGesturedTableViewCell alloc] initForGesturedTableView:self.tableView
-                                                                   style:UITableViewCellStyleSubtitle
-                                                         reuseIdentifier:identifier];
+        cell = [[BWVideoTableViewCell alloc] initForGesturedTableView:self.tableView
+                                                                style:UITableViewCellStyleSubtitle
+                                                      reuseIdentifier:identifier];
     }
 
     BWDownload *download = self.downloads[indexPath.row];
     
     cell.textLabel.text = [NSString stringWithFormat:@"%@", download.video.name];
     cell.accessoryView = [[EVCircularProgressView alloc] init];
+    [cell setBackgroundImageWithURL:download.video.imageSmallURL];
 
     return cell;
 }

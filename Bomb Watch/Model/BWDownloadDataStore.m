@@ -43,9 +43,6 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
     return [self.downloads copy];
 }
 
-#warning do this!!!
-// TODO need a way to occasionally save progress to disk, but not on every notification (lol)
-// TODO maybe add [self] as an observer to the download and have that fire off 'save me' notifications?
 - (void)addDownload:(BWDownload *)download
 {
     [self.downloads addObject:download];
