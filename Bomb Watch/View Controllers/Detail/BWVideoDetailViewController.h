@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BWVideoPlayerDelegate.h"
+#import "BWVideoPlayerViewController.h"
 @class BWImagePulldownView;
 @class BWVideo;
 

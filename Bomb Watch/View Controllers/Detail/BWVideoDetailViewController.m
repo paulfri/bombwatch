@@ -225,9 +225,7 @@
 #pragma mark - Video player control
 
 - (IBAction)playButtonPressed:(id)sender {
-    self.player = [[BWVideoPlayerViewController alloc] initWithVideo:self.video
-                                                             quality:[self selectedQuality]
-                                                           downloads:nil];
+    self.player = [[BWVideoPlayerViewController alloc] initWithVideo:self.video quality:[self selectedQuality]];
     self.player.delegate = self;
     [self presentMoviePlayerViewControllerAnimated:self.player];
     [self.player play];

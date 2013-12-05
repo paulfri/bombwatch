@@ -8,19 +8,21 @@
 
 #import <MediaPlayer/MediaPlayer.h>
 #import "BWVideo.h"
-#import "BWVideoPlayerDelegate.h"
+
+@protocol BWVideoPlayerDelegate <NSObject>
+
+- (void)videoDidFinishPlaying;
+
+@end
 
 @interface BWVideoPlayerViewController : MPMoviePlayerViewController
 
-@property (strong, nonatomic) BWVideo *video;
-@property (strong, nonatomic) NSNumber *quality;
-@property (weak) id<BWVideoPlayerDelegate> delegate;
-
 - (id)initWithVideo:(BWVideo *)video;
+- (id)initWithVideo:(BWVideo *)video quality:(BWVideoQuality)quality;
 
-- (id)initWithVideo:(BWVideo *)video
-            quality:(NSInteger)quality
-          downloads:(NSArray *)downloads;
+@property (strong, nonatomic) BWVideo *video;
+@property BWVideoQuality quality;
+@property (weak) id<BWVideoPlayerDelegate> delegate;
 
 - (void)play;
 

@@ -121,8 +121,8 @@
 {
     NSString *docs = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *vids = [docs stringByAppendingPathComponent:@"videos"];
-    return vids;
 
+    return vids;
 }
 
 @end

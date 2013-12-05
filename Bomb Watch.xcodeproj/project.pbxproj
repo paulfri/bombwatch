@@ -126,7 +126,6 @@
 		DA88AE8F184E113B00D6E823 /* BWDownloadDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWDownloadDataStore.m; sourceTree = "<group>"; };
 		DAAFC2AF17DB8B1B0095E494 /* BWVideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoPlayerViewController.h; sourceTree = "<group>"; };
 		DAAFC2B017DB8B1B0095E494 /* BWVideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoPlayerViewController.m; sourceTree = "<group>"; };
-		DAAFC2B217DBB4F00095E494 /* BWVideoPlayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoPlayerDelegate.h; sourceTree = "<group>"; };
 		DACE826117CD035700E23051 /* Bomb Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bomb Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DACE826417CD035700E23051 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DACE826617CD035700E23051 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -273,7 +272,6 @@
 				DA0A718918491982004750F1 /* Detail */,
 				DA0A718818491898004750F1 /* Settings */,
 				DA39B4AE17D6A2A800E7935D /* Generic */,
-				DAAFC2B217DBB4F00095E494 /* BWVideoPlayerDelegate.h */,
 				DAAFC2AF17DB8B1B0095E494 /* BWVideoPlayerViewController.h */,
 				DAAFC2B017DB8B1B0095E494 /* BWVideoPlayerViewController.m */,
 			);

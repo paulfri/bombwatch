@@ -8,6 +8,7 @@
 
 #import "BWVideoPlayerViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "BWDownloadDataStore.h"
 
 #define kBWWatchedStatusThreshold 0.95
 
@@ -19,25 +20,36 @@
 
 @implementation BWVideoPlayerViewController
 
-- (id)initWithVideo:(BWVideo *)video {
+- (id)initWithVideo:(BWVideo *)video
+{
     self = [super init];
+
     if (self) {
         self.video = video;
+//        NSArray *qualities = @[@"Mobile", @"Low", @"High", @"HD"];
+//        BWVideoQuality qual = [qualities indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:@"defaultQuality"]];
+//        self.quality = qual;
+        // TODO fix this
+        self.quality = BWVideoQualityLow;
     }
+
     return self;
 }
 
-- (id)initWithVideo:(BWVideo *)video quality:(NSInteger)quality downloads:(NSArray *)downloads {
+- (id)initWithVideo:(BWVideo *)video quality:(BWVideoQuality)quality
+{
     self = [super init];
+
     if (self) {
         self.video = video;
-        self.quality = [NSNumber numberWithInt:quality];
-        self.downloads = downloads;
+        self.quality = quality;
     }
+
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.moviePlayer.fullscreen = YES;
     self.moviePlayer.allowsAirPlay = YES;
@@ -50,7 +62,8 @@
     [self setContentURL];
 }
 
-- (void)play {
+- (void)play
+{
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(movieFinishedPlayingNotification:)
                                                  name:MPMoviePlayerDidExitFullscreenNotification
@@ -79,7 +92,8 @@
 #pragma mark - Notification handlers
 
 // This is forwarded by the app delegate
-- (void)remoteControlEventNotification:(NSNotification *)notification {
+- (void)remoteControlEventNotification:(NSNotification *)notification
+{
     UIEvent *event = notification.object;
     if (event.type == UIEventTypeRemoteControl) {
         switch (event.subtype) {
@@ -95,7 +109,8 @@
     }
 }
 
-- (void)movieFinishedPlayingNotification:(NSNotification *)notification {
+- (void)movieFinishedPlayingNotification:(NSNotification *)notification
+{
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
     [self resignFirstResponder];
     [[AVAudioSession sharedInstance] setActive:NO error:nil];
@@ -112,8 +127,9 @@
         if (self.moviePlayer.currentPlaybackTime >= (self.moviePlayer.duration * kBWWatchedStatusThreshold)) {
             [self.video setWatched:YES];
             [progress removeObjectForKey:key];
-        } else
+        } else {
             [progress setObject:playback forKey:key];
+        }
     }
 
     [[NSUserDefaults standardUserDefaults] setObject:[progress copy] forKey:@"videoProgress"];
@@ -128,15 +144,11 @@
 {
     NSURL *path;
 
-    if (path == nil) {
-        if (self.quality == nil) {
-            NSArray *qualities = @[@"Mobile", @"Low", @"High", @"HD"];
-            int qual = [qualities indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:@"defaultQuality"]];
-            if (qual >= BWVideoQualityMobile && BWVideoQualityHD <= 3)
-                self.quality = [NSNumber numberWithInt:qual];
-        }
-        
-        switch ([self.quality intValue]) {
+    BWDownload *download = [[BWDownloadDataStore defaultStore] downloadForVideo:self.video quality:self.quality];
+    if (download && [download isComplete]) {
+        path = download.filePath;
+    } else {
+        switch (self.quality) {
             case BWVideoQualityMobile:
                 path = self.video.videoMobileURL; break;
             case BWVideoQualityHigh:
