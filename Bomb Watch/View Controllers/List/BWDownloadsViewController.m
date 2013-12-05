@@ -99,7 +99,7 @@ NSString *const kBWDownloadDetailSegue = @"kBWDownloadDetailSegue";
     BWDownload *download = (BWDownload *)[progressViewAndDownload lastObject];
 
     if ([download isComplete]) {
-        progressView.alpha = 0;
+        [progressView removeFromSuperview];
     } else {
         [progressView setProgress:download.progress animated:YES];
         [self performSelector:@selector(updateProgressViewAndDownload:) withObject:progressViewAndDownload afterDelay:0.5f];
@@ -122,9 +122,10 @@ NSString *const kBWDownloadDetailSegue = @"kBWDownloadDetailSegue";
 {
     if ([[segue identifier] isEqualToString:kBWDownloadDetailSegue]) {
         BWVideoDetailViewController *detail = (BWVideoDetailViewController *)segue.destinationViewController;
-        
-        detail.video = ((BWDownload *)sender).video;
-        // TODO set preselected quality
+        BWDownload *download = (BWDownload *)sender;
+
+        detail.video = download.video;
+        detail.quality = download.quality;
     }
 }
 
