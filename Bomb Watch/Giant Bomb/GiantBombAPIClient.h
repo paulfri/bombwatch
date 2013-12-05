@@ -10,7 +10,6 @@
 #import "AFHTTPSessionManager.h"
 
 #define kBWAPIBaseURLString @"http://www.giantbomb.com/api"
-#define kBWDefaultAPIKey    @"e5ab8850b03bcec7ce6590ca705c9a26395dddf1"
 
 @interface GiantBombAPIClient : AFHTTPSessionManager
 

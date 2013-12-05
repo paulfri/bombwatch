@@ -24,11 +24,12 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
 
     dispatch_once(&onceToken, ^{
         defaultStore = [[BWDownloadDataStore alloc] init];
-        defaultStore.downloads = [NSKeyedUnarchiver unarchiveObjectWithFile:[self.class downloadsFilePath]];
-        
+        defaultStore.downloads = [[NSKeyedUnarchiver unarchiveObjectWithFile:[self.class downloadsFilePath]] mutableCopy];
+
         if (!defaultStore.downloads) {
             defaultStore.downloads = [NSMutableArray array];
-
+            [defaultStore save];
+        } else {
             for (BWDownload *download in defaultStore.downloads) {
                 [download addObserver:defaultStore forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:nil];
             }
@@ -80,7 +81,7 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
         BWDownload *download = (BWDownload *)object;
 
         // TODO this is saving WAY too often
-        [self save];
+//        [self save];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -116,7 +117,7 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
         NSLog(@"disk access");
-        [NSKeyedArchiver archiveRootObject:self.downloads toFile:[self.class downloadsFilePath]];
+        [NSKeyedArchiver archiveRootObject:[self.downloads copy] toFile:[self.class downloadsFilePath]];
     });
 }
 

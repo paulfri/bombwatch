@@ -10,6 +10,8 @@
 #import "GiantBombAPIClient.h"
 #import "PocketAPI.h"
 #import "SVProgressHUD.h"
+#import "BWVideo.h"
+#import "BWSettings.h"
 
 #define kDefaultQualitySection    2
 #define kDefaultQualityCell       2
@@ -34,9 +36,10 @@
     self.versionDetailLabel.textColor = [UIColor lightGrayColor];
 
     self.defaultQualityOptions = @[@"Mobile", @"Low", @"High", @"HD"];
-    NSString *defaultQuality = [[NSUserDefaults standardUserDefaults] stringForKey:@"defaultQuality"];
-    self.defaultQualityLabel.text = defaultQuality;
-    [self.defaultQualityPicker selectRow:[self.defaultQualityOptions indexOfObject:defaultQuality] inComponent:0 animated:NO];
+    BWVideoQuality quality = [BWSettings defaultQuality];
+
+    self.defaultQualityLabel.text = self.defaultQualityOptions[quality];
+    [self.defaultQualityPicker selectRow:quality inComponent:0 animated:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -53,10 +56,8 @@
 
 - (void)updateValues
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    if ([self accountIsLinked]) {
-        self.accountLinkedLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"apiKey"];
+    if ([BWSettings accountIsLinked]) {
+        self.accountLinkedLabel.text = [BWSettings apiKey];
         self.accountLinkedCell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         self.accountLinkedCell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else {
@@ -66,23 +67,8 @@
     }
 
     self.pocketSwitch.on = [PocketAPI sharedAPI].loggedIn;
-    self.lockRotationSwitch.on = [defaults boolForKey:@"lockRotation"];
+    self.lockRotationSwitch.on = [BWSettings lockRotation];
     self.versionDetailLabel.text = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-}
-
-- (void)unlinkAccount
-{
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"apiKey"];
-}
-
-- (BOOL)accountIsLinked
-{
-    return ![[[NSUserDefaults standardUserDefaults] stringForKey:@"apiKey"] isEqualToString:kBWDefaultAPIKey];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
 }
 
 #pragma mark - TableViewDelegate protocol methods
@@ -90,7 +76,7 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    if (cell == self.accountLinkedCell && [self accountIsLinked]) {
+    if (cell == self.accountLinkedCell && [BWSettings accountIsLinked]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unlink"
                                                         message:@"Do you want to unlink your account?"
                                                        delegate:self
@@ -129,7 +115,7 @@
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex != 0) {
-        [self unlinkAccount];
+        [BWSettings unlinkAccount];
         [self updateValues];
     }
 }
@@ -138,8 +124,7 @@
 
 - (IBAction)lockRotationSwitchChanged:(id)sender
 {
-    UISwitch *control = (UISwitch *)sender;
-    [[NSUserDefaults standardUserDefaults] setBool:control.on forKey:@"lockRotation"];
+    [BWSettings setLockRotation:((UISwitch *)sender).on];
 }
 
 - (void)donePressed:(id)sender
@@ -184,7 +169,7 @@
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    if ([identifier isEqualToString:@"linkAccountSegue"] && [self accountIsLinked]) {
+    if ([identifier isEqualToString:@"linkAccountSegue"] && [BWSettings accountIsLinked]) {
         return NO;
     }
 
@@ -201,9 +186,9 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     if (pickerView == self.defaultQualityPicker) {
-        NSString *defaultQuality = [[self pickerView:pickerView attributedTitleForRow:row forComponent:component] string];
-        [[NSUserDefaults standardUserDefaults] setObject:defaultQuality forKey:@"defaultQuality"];
-        self.defaultQualityLabel.text = defaultQuality;
+        [BWSettings setDefaultQuality:row];
+
+        self.defaultQualityLabel.text = [[self pickerView:pickerView attributedTitleForRow:row forComponent:component] string];
     }
 }
 

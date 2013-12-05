@@ -7,12 +7,14 @@
 //
 
 #import "GiantBombAPIClient.h"
+#import "BWSettings.h"
 
 @implementation GiantBombAPIClient
 
 + (id)defaultClient {
     static GiantBombAPIClient *__defaultClient;
     static dispatch_once_t onceToken;
+
     dispatch_once(&onceToken, ^{
         __defaultClient = [[GiantBombAPIClient alloc] initWithBaseURL:
                            [NSURL URLWithString:kBWAPIBaseURLString]];
@@ -23,9 +25,11 @@
 
 - (id)initWithBaseURL:(NSURL *)url {
     self = [super initWithBaseURL:url];
+
     if (self) {
         self.responseSerializer = [AFJSONResponseSerializer serializer];
     }
+
     return self;
 }
 
@@ -34,9 +38,8 @@
 {
     
     NSURL *url = request.URL;
-    NSString *apiKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"apiKey"];
 
-    NSString *queryString = [NSString stringWithFormat:@"format=json&api_key=%@", apiKey];
+    NSString *queryString = [NSString stringWithFormat:@"format=json&api_key=%@", [BWSettings apiKey]];
     NSString *URLString = [[NSString alloc] initWithFormat:@"%@%@%@", [url absoluteString],
                            [url query] ? @"&" : @"?", queryString];
     

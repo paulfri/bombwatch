@@ -47,4 +47,6 @@ typedef NS_ENUM(NSUInteger, BWVideoQuality) {
 + (NSArray *)enduranceRunCategories;
 + (NSString *)categoryIDForCategory:(NSString *)category;
 
++ (BWVideoQuality)defaultQuality;
+
 @end

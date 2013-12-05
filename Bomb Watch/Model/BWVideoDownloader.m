@@ -74,6 +74,8 @@
     NSUInteger index = [self.downloads indexOfObject:download];
     [self.downloads removeObject:download];
     [self.downloadTasks removeObjectAtIndex:index];
+
+    [[BWDownloadDataStore defaultStore] save];
 }
 
 - (NSURLSessionDownloadTask *)downloadTaskForDownload:(BWDownload *)download

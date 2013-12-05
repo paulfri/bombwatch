@@ -11,6 +11,7 @@
 #import "BWVideoDetailViewController.h"
 #import "EVCircularProgressView.h"
 #import "BWVideoTableViewCell.h"
+#import "BWColors.h"
 
 NSString *const kBWDownloadDetailSegue = @"kBWDownloadDetailSegue";
 
@@ -23,8 +24,10 @@ NSString *const kBWDownloadDetailSegue = @"kBWDownloadDetailSegue";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.tableFooterView = [[UIView alloc] init];
+
     self.tableView.enabled = YES;
+    self.tableView.separatorColor = [UIColor darkGrayColor];
+    self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -51,15 +54,61 @@ NSString *const kBWDownloadDetailSegue = @"kBWDownloadDetailSegue";
         cell = [[BWVideoTableViewCell alloc] initForGesturedTableView:self.tableView
                                                                 style:UITableViewCellStyleSubtitle
                                                       reuseIdentifier:identifier];
+
+        __unsafe_unretained typeof(self) _self = self;
+        void (^deleteDownload)(PDGesturedTableView*, PDGesturedTableViewCell*) = ^(PDGesturedTableView *tableView, PDGesturedTableViewCell *cell)
+        {
+            BWVideoTableViewCell *downloadCell = (BWVideoTableViewCell *)cell;
+            BWDownload *download = [_self downloadAtIndexPath:[tableView indexPathForCell:downloadCell]];
+
+            [tableView removeCell:cell completion:^{
+                [[BWDownloadDataStore defaultStore] deleteDownload:download];
+                [self.downloads removeObject:download];
+            }];
+        };
+
+        PDGesturedTableViewCellSlidingFraction *deleteFraction =
+            [PDGesturedTableViewCellSlidingFraction slidingFractionWithIcon:[UIImage imageNamed:@"circle.png"]
+                                                                  color:kBWGiantBombCharcoalColor
+                                                     activationFraction:-0.15];
+
+        [deleteFraction setDidReleaseBlock:deleteDownload];
+        [cell addSlidingFraction:deleteFraction];
+
+        cell.bouncesAtLastSlidingFraction = NO;
     }
 
     BWDownload *download = self.downloads[indexPath.row];
-    
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", download.video.name];
-    cell.accessoryView = [[EVCircularProgressView alloc] init];
+
     [cell setBackgroundImageWithURL:download.video.imageSmallURL];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", download.video.name];
+
+    if (![download isComplete]) {
+        cell.accessoryView = [[EVCircularProgressView alloc] init];
+        [self updateProgressViewAndDownload:@[cell.accessoryView, download]];
+    } else {
+        cell.accessoryView = nil;
+    }
 
     return cell;
+}
+
+- (void)updateProgressViewAndDownload:(NSArray *)progressViewAndDownload
+{
+    EVCircularProgressView *progressView = (EVCircularProgressView *)[progressViewAndDownload firstObject];
+    BWDownload *download = (BWDownload *)[progressViewAndDownload lastObject];
+
+    if ([download isComplete]) {
+        progressView.alpha = 0;
+    } else {
+        [progressView setProgress:download.progress animated:YES];
+        [self performSelector:@selector(updateProgressViewAndDownload:) withObject:progressViewAndDownload afterDelay:0.5f];
+    }
+}
+
+- (BWDownload *)downloadAtIndexPath:(NSIndexPath *)indexPath
+{
+    return self.downloads[indexPath.row];
 }
 
 #pragma mark - UITableViewDelegate

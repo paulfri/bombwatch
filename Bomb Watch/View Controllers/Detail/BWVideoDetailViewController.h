@@ -14,6 +14,7 @@
 @interface BWVideoDetailViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate, BWVideoPlayerDelegate>
 
 @property (strong, nonatomic) BWVideo *video;
+@property BWVideoQuality quality;
 
 @property (strong, nonatomic) BWImagePulldownView *imagePulldownView;
 

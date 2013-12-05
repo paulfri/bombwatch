@@ -11,6 +11,7 @@
 #import "BWVideo.h"
 #import "SVProgressHUD.h"
 #import "BWColors.h"
+#import "BWSettings.h"
 
 @interface BWListViewController ()
 
@@ -64,6 +65,7 @@
     if([segue.identifier isEqualToString:@"kBWVideoDetailSegue"]) {
         BWVideoDetailViewController *controller = [segue destinationViewController];
         controller.video = sender;
+        controller.quality = [BWSettings defaultQuality];
     }
 }
 
@@ -77,9 +79,11 @@
 - (void)tableViewContentsReset
 {
     self.title = self.category;
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-                          atScrollPosition:UITableViewScrollPositionTop
-                                  animated:YES];
+    if (self.listController.videos.count > 0) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                              atScrollPosition:UITableViewScrollPositionTop
+                                      animated:YES];
+    }
 }
 
 - (void)searchDidCompleteWithSuccess

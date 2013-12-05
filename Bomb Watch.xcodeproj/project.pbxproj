@@ -38,6 +38,7 @@
 		DA88AE8A184D821F00D6E823 /* BWVideoDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = DA88AE89184D821F00D6E823 /* BWVideoDownloader.m */; };
 		DA88AE90184E113B00D6E823 /* BWDownloadDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = DA88AE8F184E113B00D6E823 /* BWDownloadDataStore.m */; };
 		DAAFC2B117DB8B1B0095E494 /* BWVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAAFC2B017DB8B1B0095E494 /* BWVideoPlayerViewController.m */; };
+		DAAFF7591850184D003922EF /* BWSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = DAAFF7581850184D003922EF /* BWSettings.m */; };
 		DACE826517CD035700E23051 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826417CD035700E23051 /* Foundation.framework */; };
 		DACE826717CD035700E23051 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826617CD035700E23051 /* CoreGraphics.framework */; };
 		DACE826917CD035700E23051 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE826817CD035700E23051 /* UIKit.framework */; };
@@ -126,6 +127,8 @@
 		DA88AE8F184E113B00D6E823 /* BWDownloadDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWDownloadDataStore.m; sourceTree = "<group>"; };
 		DAAFC2AF17DB8B1B0095E494 /* BWVideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoPlayerViewController.h; sourceTree = "<group>"; };
 		DAAFC2B017DB8B1B0095E494 /* BWVideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoPlayerViewController.m; sourceTree = "<group>"; };
+		DAAFF7571850184D003922EF /* BWSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSettings.h; sourceTree = "<group>"; };
+		DAAFF7581850184D003922EF /* BWSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWSettings.m; sourceTree = "<group>"; };
 		DACE826117CD035700E23051 /* Bomb Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bomb Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DACE826417CD035700E23051 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DACE826617CD035700E23051 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -398,6 +401,8 @@
 				DA88AE89184D821F00D6E823 /* BWVideoDownloader.m */,
 				DA88AE8E184E113B00D6E823 /* BWDownloadDataStore.h */,
 				DA88AE8F184E113B00D6E823 /* BWDownloadDataStore.m */,
+				DAAFF7571850184D003922EF /* BWSettings.h */,
+				DAAFF7581850184D003922EF /* BWSettings.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -560,6 +565,7 @@
 				DA88AE7D184C061000D6E823 /* BWVideoDataStore.m in Sources */,
 				DA01E183184A71CC008B139F /* BWLinkAccountViewController.m in Sources */,
 				DA01E184184A71CC008B139F /* BWSettingsViewController.m in Sources */,
+				DAAFF7591850184D003922EF /* BWSettings.m in Sources */,
 				DA01E178184A3516008B139F /* BWVideoTableViewCell.m in Sources */,
 				DA01E175184A1CC5008B139F /* BWFavoriteView.m in Sources */,
 				DA39B4B417D6A56000E7935D /* BWOpenOnGBActivity.m in Sources */,

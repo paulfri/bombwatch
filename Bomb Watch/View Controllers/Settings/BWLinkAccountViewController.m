@@ -10,6 +10,7 @@
 #import "GiantBombAPIClient.h"
 #import "SVProgressHUD.h"
 #import "BWVideoDataStore.h"
+#import "BWSettings.h"
 
 #define kBWLinkCodeLength 6
 #define kBWAPIKeyLength 40
@@ -39,15 +40,16 @@
 
 - (IBAction)savePressed:(id)sender
 {
-    NSDictionary *params = @{@"link_code": self.accountCode.text};
-    
     [SVProgressHUD showWithStatus:@"Linking..."];
-    [[GiantBombAPIClient defaultClient] GET:@"validate" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[GiantBombAPIClient defaultClient] GET:@"validate"
+                                 parameters:@{@"link_code": self.accountCode.text}
+                                    success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *responseDict = (NSDictionary *)responseObject;
         // TODO: check that apikey actually gets returned so we don't get a runtime crash
         NSString *apiKey = responseDict[@"api_key"];
         if ([apiKey isKindOfClass:[NSString class]] && [apiKey length] == kBWAPIKeyLength) {
-            [[NSUserDefaults standardUserDefaults] setObject:apiKey forKey:@"apiKey"];
+            [BWSettings setAPIKey:apiKey];
+
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(dismiss)
                                                          name:SVProgressHUDDidDisappearNotification

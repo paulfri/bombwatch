@@ -15,6 +15,7 @@
 #import "BWColors.h"
 #import "BWVideoDetailViewController.h"
 #import "BWVideoDownloader.h"
+#import "BWSettings.h"
 
 #define PocketConsumerKey    @"17866-6c522817c89aaee6ae6da74f"
 
@@ -28,7 +29,8 @@
 {
     [self configureInterface];
     [self configureURLCache];
-    [self configurePreferences];
+    [BWSettings initializeSettings];
+
     [[PocketAPI sharedAPI] setConsumerKey:PocketConsumerKey];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
@@ -40,8 +42,9 @@
     self.navVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Videos"
                                                      image:[UIImage imageNamed:@"tab_videos"]
                                              selectedImage:[UIImage imageNamed:@"tab_videos_selected"]];
+
     [self.navVC.visibleViewController performSegueWithIdentifier:@"videoListSegue" // TODO constantize this in BWSegues.h maybe
-                                                     sender:@"Latest"];
+                                                          sender:@"Latest"];
 
     NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (notification) {
@@ -49,17 +52,6 @@
     }
     
     return YES;
-}
-
-- (void)configurePreferences
-{
-    NSDictionary *defaultPreferences =  @{@"lockRotation": @YES,
-                                        @"defaultQuality": @"Low",
-                                                @"apiKey": kBWDefaultAPIKey,
-                                         @"videosWatched": @[],
-                                         @"videoProgress": @{}};
-
-    [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPreferences];
 }
 
 - (void)configureURLCache

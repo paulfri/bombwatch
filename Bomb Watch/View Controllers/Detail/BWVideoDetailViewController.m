@@ -53,8 +53,7 @@
     
     self.tableView.backgroundColor = [UIColor darkGrayColor];
 
-    [self selectQuality:[self defaultQuality]];
-
+    [self selectQuality:self.quality];
 }
 
 - (void)drawImagePulldown
@@ -87,18 +86,6 @@
 {
     [self.qualityPicker selectRow:quality inComponent:0 animated:NO];
     [self pickerView:self.qualityPicker didSelectRow:quality inComponent:0];
-}
-
-- (NSInteger)defaultQuality
-{
-    // TODO break this out into the video class
-    NSArray *qualities = @[@"Mobile", @"Low", @"High", @"HD"];
-    BWVideoQuality qual = [qualities indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:@"defaultQuality"]];
-
-    if (qual >= BWVideoQualityMobile && qual <= BWVideoQualityHD) {
-        return qual;
-    }
-    return BWVideoQualityLow;
 }
 
 - (void)updateDurationLabel

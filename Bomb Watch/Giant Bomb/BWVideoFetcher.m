@@ -93,7 +93,7 @@
     }
 
     params[@"filter"] = filter;
-    NSLog(@"%@", params);
+
     return params;
 }
 
