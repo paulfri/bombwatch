@@ -31,22 +31,18 @@
     self.tableView.separatorColor = [UIColor darkGrayColor];
     self.tableView.tableFooterView = [[UIView alloc] init];
 
-//    self.edgesForExtendedLayout = UIRectEdgeAll;
-//    self.tableView.contentInset = UIEdgeInsetsMake(0., 0., CGRectGetHeight(self.tabBarController.tabBar.frame), 0);
-
     // Disable searching for Endurance Run lists since it doesn't work with the API
     if ([[BWVideo enduranceRunCategories] containsObject:self.category]) {
         self.searchBar = nil;
         self.tableView.tableHeaderView = nil;
     } else {
+        // disable overlay
         CGRect f = self.tableView.frame;
-        CGRect frame = CGRectMake(f.origin.x, f.origin.y + 44, f.size.width, f.size.height - 44);
-        self.disableOverlay = [[UIView alloc] initWithFrame:frame];
+        self.disableOverlay = [[UIView alloc] initWithFrame:CGRectMake(f.origin.x, f.origin.y + 44, f.size.width, f.size.height - 44)];
         self.disableOverlay.backgroundColor = [UIColor blackColor];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(overlayTapped)];
         [self.disableOverlay addGestureRecognizer:tapGesture];
 
-        //    [self.tableView setContentOffset:CGPointMake(0,44) animated:YES];
         if ([self.tableView numberOfRowsInSection:0] > 0) {
             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         }

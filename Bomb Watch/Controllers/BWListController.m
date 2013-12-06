@@ -164,26 +164,23 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
      {
          if (page == 1) {
              self.videos = [results mutableCopy];
-            [SVProgressHUD dismiss];
+             [SVProgressHUD dismiss];
+
+             if (self.delegate) {
+                 if (!searchText && [self.delegate respondsToSelector:@selector(tableViewContentsReset)]) {
+                     [self.delegate tableViewContentsReset];
+                 } else if ([self.delegate respondsToSelector:@selector(searchDidCompleteWithSuccess)]) {
+                     [self.delegate searchDidCompleteWithSuccess];
+                 }
+             }
          } else {
              [self.videos addObjectsFromArray:results];
-
-             [UIView transitionWithView:self.tableView
-                               duration:0.35f
-                                options:UIViewAnimationOptionTransitionCrossDissolve
-                             animations:^(void) { [self.tableView reloadData]; }
-                             completion:nil];
+             [self.tableView reloadData];
          }
 
-         [self.refreshControl endRefreshing];
-         self.tableView.tableFooterView = [[UIView alloc] init];
-
-         if (page == 1 && !searchText && self.delegate && [self.delegate respondsToSelector:@selector(tableViewContentsReset)]) {
-             [self.delegate tableViewContentsReset];
-         } else if (page == 1 && self.delegate && [self.delegate respondsToSelector:@selector(searchDidCompleteWithSuccess)]) {
-             [self.delegate searchDidCompleteWithSuccess];
-         }
-    }
+        [self.refreshControl endRefreshing];
+        self.tableView.tableFooterView = [[UIView alloc] init];
+     }
                                                     failure:^(NSError *error)
     {
         if (searchText && self.delegate && [self.delegate respondsToSelector:@selector(searchDidCompleteWithFailure)]) {
