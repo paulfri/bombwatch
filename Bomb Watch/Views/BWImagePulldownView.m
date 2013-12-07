@@ -11,14 +11,15 @@
 #import "UIImage+ImageEffects.h"
 
 #define kBWImageCoverTintColor [UIColor colorWithWhite:0.0 alpha:0.30]
-#define kBWImageCoverBlurRadius 3.0f
+#define kBWImageCoverBlurRadius 2.0f
 #define kBWImageCoverSaturation 0.9f
 
-@interface BWImagePulldownView ()
+#define kBWMinimumBlurRadiusDelta 0.1f
 
+@interface BWImagePulldownView()
 @property CGRect cachedImageViewSize;
+@property float cachedBlurRadius;
 @property (strong, nonatomic) UIImage *image;
-
 @end
 
 @implementation BWImagePulldownView
@@ -41,6 +42,7 @@
         
         self.imageView = [[UIImageView alloc] initWithFrame:imageFrame];
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        self.imageView.clipsToBounds = YES;
         self.cachedImageViewSize = self.imageView.frame;
         
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -65,24 +67,31 @@
 {
     CGFloat y = -scrollView.contentOffset.y;
     if (y > 0) {
-        self.imageView.frame = CGRectMake(0, scrollView.contentOffset.y, self.cachedImageViewSize.size.width+y, self.cachedImageViewSize.size.height+y);
+        self.imageView.frame = CGRectMake(0, -y, self.cachedImageViewSize.size.width + y, self.cachedImageViewSize.size.height + y);
         self.imageView.center = CGPointMake(self.center.x, self.imageView.center.y);
     }
 
-    float blurRadius = 1 - (scrollView.contentOffset.y * -1) / (scrollView.frame.size.height / 3);
-    [self updateImageBlurWithRadius:blurRadius];
-    
-    float textAlpha  = 1 - (scrollView.contentOffset.y * -1) / (scrollView.frame.size.height / 5);
-    self.titleLabel.alpha = textAlpha;
+    if (scrollView.contentOffset.y < 0) {
+        float blurRadius = kBWImageCoverBlurRadius - (scrollView.contentOffset.y * -1) / (scrollView.frame.size.height / 10);
+        if(fabsf(self.cachedBlurRadius - blurRadius) > kBWMinimumBlurRadiusDelta) {
+            [self updateImageBlurWithRadius:blurRadius];
+        }
+        
+        float textAlpha  = 1 - (scrollView.contentOffset.y * -1) / (scrollView.frame.size.height / 10);
+        self.titleLabel.alpha = textAlpha;
+    }
 }
 
-- (void)updateImageBlurWithRadius:(float)radius {
+- (void)updateImageBlurWithRadius:(float)radius
+{
     UIImage *blurredImage = [self.image applyBlurWithRadius:radius
-                                                   tintColor:kBWImageCoverTintColor
-                                       saturationDeltaFactor:kBWImageCoverSaturation
-                                                   maskImage:nil];
+                                                  tintColor:kBWImageCoverTintColor
+                                      saturationDeltaFactor:kBWImageCoverSaturation
+                                                  maskImage:nil];
     
     [self.imageView setImage:blurredImage];
+    self.cachedBlurRadius = radius;
+    NSLog(@"asdf");
 }
 
 @end
