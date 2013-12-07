@@ -105,6 +105,13 @@
     return map[category];
 }
 
+#pragma mark - stuff
+
+- (BOOL)canStreamOverCellular
+{
+    return self.length > 0 && self.length < 600; // less than 10 minutes
+}
+
 #pragma mark - utility
 
 - (BOOL)isEqual:(id)object

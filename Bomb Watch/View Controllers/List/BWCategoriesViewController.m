@@ -10,6 +10,10 @@
 #import "BWListViewController.h"
 #import "BWAppDelegate.h"
 
+#define kBWFeaturedCategoriesSection 0
+#define kBWEnduranceRunSection 1
+#define kBWOtherCategoriesSection 2
+
 @interface BWCategoriesViewController ()
 
 // TODO: this should be constantized somewhere
@@ -45,13 +49,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
+    if (section == kBWFeaturedCategoriesSection) {
         return self.featuredCategories.count;
-    } else if (section == 1) {
+    } else if (section == kBWEnduranceRunSection) {
         return self.enduranceRuns.count;
-    } else {
+    } else if (section == kBWOtherCategoriesSection) {
         return self.otherCategories.count;
     }
+
+    return 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -64,12 +70,12 @@
     static NSString* cellIdentifier = @"CategoryCell";
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 
-    if ([indexPath section] == 0) {
-        cell.textLabel.text = [self.featuredCategories objectAtIndex:[indexPath row]];
-    } else if ([indexPath section] == 1) {
-        cell.textLabel.text = [self.enduranceRuns objectAtIndex:[indexPath row]];
-    } else {
-        cell.textLabel.text = [self.otherCategories objectAtIndex:[indexPath row]];
+    if ([indexPath section] == kBWFeaturedCategoriesSection) {
+        cell.textLabel.text = self.featuredCategories[indexPath.row];
+    } else if ([indexPath section] == kBWEnduranceRunSection) {
+        cell.textLabel.text = self.enduranceRuns[indexPath.row];
+    } else if ([indexPath section] == kBWOtherCategoriesSection) {
+        cell.textLabel.text = self.otherCategories[indexPath.row];
     }
 
     return cell;

@@ -25,21 +25,10 @@
 {
     [super viewDidLoad];
     self.title = self.category;
-    self.listController = [[BWListController alloc] initWithTableView:self.tableView
-                                                             category:self.category];
+    self.listController = [[BWListController alloc] initWithTableView:self.tableView category:self.category];
     self.listController.delegate = self;
     self.tableView.separatorColor = [UIColor darkGrayColor];
     self.tableView.tableFooterView = [[UIView alloc] init];
-
-    /// ?????
-//    NSMutableDictionary *views = [[NSMutableDictionary alloc] init];
-//    views[@"v"] = self.tableView;
-//    views[@"topLayoutGuide"] = self.topLayoutGuide;
-//    views[@"bottomLayoutGuide"] = self.bottomLayoutGuide;
-//    NSString *hv = @"V:[topLayoutGuide][v]";
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:hv options:0 metrics:nil views:views]];
-//    NSString *lv = @"V:[v][bottomLayoutGuide]";
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:lv options:0 metrics:nil views:views]];
 
     // Disable searching for Endurance Run lists since it doesn't work with the API
     if ([[BWVideo enduranceRunCategories] containsObject:self.category]) {
@@ -134,11 +123,12 @@
     } else {
         self.disableOverlay.alpha = 0;
         [self.tableView addSubview:self.disableOverlay];
-        
-        [UIView beginAnimations:@"FadeIn" context:nil];
-        [UIView setAnimationDuration:0.5];
-        self.disableOverlay.alpha = 0.6;
-        [UIView commitAnimations]; // clean up this syntax
+
+        [UIView animateWithDuration:0.25
+                              delay:0.0
+                            options:UIViewAnimationOptionCurveLinear
+                         animations:^{ self.disableOverlay.alpha = 0.6; }
+                         completion:nil];
     }
 }
 

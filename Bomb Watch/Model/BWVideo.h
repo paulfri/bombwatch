@@ -43,6 +43,8 @@ typedef NS_ENUM(NSUInteger, BWVideoQuality) {
 - (BOOL)isFavorited;
 - (void)setFavorited:(BOOL)favoritedStatus;
 
+- (BOOL)canStreamOverCellular;
+
 + (NSArray *)categories;
 + (NSArray *)enduranceRunCategories;
 + (NSString *)categoryIDForCategory:(NSString *)category;

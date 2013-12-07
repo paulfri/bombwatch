@@ -10,9 +10,7 @@
 #import "BWVideo.h"
 
 @protocol BWVideoPlayerDelegate <NSObject>
-
 - (void)videoDidFinishPlaying;
-
 @end
 
 @interface BWVideoPlayerViewController : MPMoviePlayerViewController
