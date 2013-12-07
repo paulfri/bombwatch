@@ -123,10 +123,7 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
 
 - (void)save
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-        NSLog(@"disk access");
-        [NSKeyedArchiver archiveRootObject:[self.downloads copy] toFile:[self.class downloadsFilePath]];
-    });
+    [NSKeyedArchiver archiveRootObject:[self.downloads copy] toFile:[self.class downloadsFilePath]];
 }
 
 @end

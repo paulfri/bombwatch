@@ -7,6 +7,7 @@
 //
 
 #import "BWDownload.h"
+#import "BWVideoDownloader.h"
 
 NSString *const kBWDownloadProgressKey = @"fractionCompleted";
 
@@ -24,6 +25,18 @@ NSString *const kBWDownloadProgressKey = @"fractionCompleted";
     return self;
 }
 
+- (BOOL)isComplete
+{
+    return self.progress >= 1.0;
+}
+
+- (BOOL)isInProgress
+{
+    return !![[BWVideoDownloader defaultDownloader] downloadTaskForDownload:self];
+}
+
+#pragma mark - KVO
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqual:kBWDownloadProgressKey]) {
@@ -36,11 +49,6 @@ NSString *const kBWDownloadProgressKey = @"fractionCompleted";
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
-}
-
-- (BOOL)isComplete
-{
-    return self.progress >= 1.0;
 }
 
 // TODO remove self as observer from nsprogress when download is deleted before it's finished - currently leaking it

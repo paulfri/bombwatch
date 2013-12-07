@@ -15,6 +15,7 @@ extern NSString *const kBWDownloadProgressKey;
 
 - (id)initWithVideo:(BWVideo *)video quality:(BWVideoQuality)quality;
 - (BOOL)isComplete;
+- (BOOL)isInProgress;
 
 @property (strong, nonatomic) BWVideo *video;
 @property BWVideoQuality quality;

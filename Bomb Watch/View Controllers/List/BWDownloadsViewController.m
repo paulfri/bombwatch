@@ -101,7 +101,7 @@ NSString *const kBWDownloadDetailSegue = @"kBWDownloadDetailSegue";
     if ([download isComplete]) {
         [progressView removeFromSuperview];
     } else {
-        [progressView setProgress:download.progress animated:YES];
+        [progressView setProgress:download.progress animated:NO]; //TODO yes
         [self performSelector:@selector(updateProgressViewAndDownload:) withObject:progressViewAndDownload afterDelay:0.5f];
     }
 }

@@ -92,6 +92,8 @@
 
 - (NSURLSessionDownloadTask *)downloadTaskForDownload:(BWDownload *)download
 {
+    if (![self.downloads containsObject:download]) return nil;
+
     return [self.downloadTasks objectAtIndex:[self.downloads indexOfObject:download]];
 }
 
@@ -108,8 +110,18 @@
 - (void)pauseAllActiveDownloads
 {
     for (BWDownload *download in self.downloads) {
-        [self pauseDownload:download];
+        NSInteger i = [self.downloads indexOfObject:download];
+        NSURLSessionDownloadTask *downloadTask = self.downloadTasks[i];
+
+        [downloadTask cancelByProducingResumeData:^(NSData *resumeData) {
+            download.resumeData = resumeData;
+        }];
+
+        [self.downloads removeObject:download];
+        [self.downloadTasks removeObject:downloadTask];
     }
+
+    [[BWDownloadDataStore defaultStore] save];
 }
 
 - (void)pauseDownload:(BWDownload *)download
@@ -123,6 +135,10 @@
 
     [self.downloads removeObject:download];
     [self.downloadTasks removeObject:downloadTask];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+        [[BWDownloadDataStore defaultStore] save];
+    });
 }
 
 - (void)resumeDownload:(BWDownload *)download

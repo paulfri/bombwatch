@@ -260,9 +260,12 @@
         [SVProgressHUD showSuccessWithStatus:@"Downloading"];
         BWDownload *download = [[BWVideoDownloader defaultDownloader] downloadVideo:self.video quality:[self selectedQuality]];
         self.download = download;
-    } else {
+    } else if ([self.download isInProgress]) {
         [SVProgressHUD showSuccessWithStatus:@"Download paused"];
         [[BWVideoDownloader defaultDownloader] pauseDownload:self.download];
+    } else {
+        [SVProgressHUD showSuccessWithStatus:@"Download resumed"];
+        [[BWVideoDownloader defaultDownloader] resumeDownload:self.download];
     }
 
     [self updateDownloadButton];
@@ -297,11 +300,11 @@
 - (void)updateProgressView
 {
     if (self.progressView) {
-        [self.progressView setProgress:self.download.progress animated:YES];
+        [self.progressView setProgress:self.download.progress animated:NO];
 
         if ([self.download isComplete]) {
             [self updateDownloadButton];
-        } else {
+        } else if ([self.download isInProgress]) {
             [self performSelector:@selector(updateProgressView) withObject:nil afterDelay:0.2f];
         }
     }
