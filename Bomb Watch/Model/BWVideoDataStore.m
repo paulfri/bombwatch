@@ -110,6 +110,7 @@ NSString *const kBWCacheFilePrefix   = @"bwcache";
 }
 
 #pragma mark - Watched status
+#warning implement watched status
 
 - (BOOL)watchedStatusForVideo:(BWVideo *)video
 {
@@ -130,7 +131,7 @@ NSString *const kBWCacheFilePrefix   = @"bwcache";
 
 + (NSString *)cacheFilePathForCategory:(NSString *)category;
 {
-    NSString *file = [[category stringByTrimmingWhitespaceCharacters] lowercaseString];
+    NSString *file = [[[category stringByTrimmingWhitespaceCharacters] lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@""];
     return [[self documentsPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@%@", kBWCacheFilePrefix, file]];
 }
 

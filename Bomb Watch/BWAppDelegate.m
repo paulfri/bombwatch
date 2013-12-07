@@ -106,7 +106,8 @@
 
 -(void)applicationWillTerminate:(UIApplication *)application
 {
-    [[BWVideoDownloader defaultDownloader] cancelAllActiveDownloads];
+//    [[BWVideoDownloader defaultDownloader] cancelAllActiveDownloads];
+    [[BWVideoDownloader defaultDownloader] pauseAllActiveDownloads];
 }
 
 #pragma mark - Remote control

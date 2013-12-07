@@ -39,25 +39,35 @@
 
 - (BWDownload *)downloadVideo:(BWVideo *)video quality:(BWVideoQuality)quality
 {
-    BWDownload *download = [[BWDownload alloc] initWithVideo:video quality:quality];
-
-    NSURL *url = [self.class remoteURLForVideo:video quality:quality];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    BWDownload *download = [[BWDownloadDataStore defaultStore] downloadForVideo:video quality:quality];
     NSProgress *progress;
+    NSURLSessionDownloadTask *downloadTask;
 
-    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request
-                                                                     progress:&progress
-                                                                  destination:^NSURL *(NSURL *targetPath, NSURLResponse *response)
+    NSURL *(^destination)(NSURL *targetPath, NSURLResponse *response) = ^NSURL *(NSURL *targetPath, NSURLResponse *response)
     {
         return [self.class localURLForVideo:video quality:quality];
-    }
-                                                            completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error)
+    };
+
+    void (^completionHandler)(NSURLResponse *response, NSURL *filePath, NSError *error) = ^(NSURLResponse *response, NSURL *filePath, NSError *error)
     {
-        [progress removeObserver:download forKeyPath:kBWDownloadProgressKey context:NULL];
-        [[BWVideoDownloader defaultDownloader] downloadCompleted:download atFilePath:filePath];
-        NSLog(@"Download finished: %@", download.video.name);
-    }];
+        if ([download isComplete]) {
+            [progress removeObserver:download forKeyPath:kBWDownloadProgressKey context:NULL];
+            [[BWVideoDownloader defaultDownloader] downloadCompleted:download atFilePath:filePath];
+            NSLog(@"Download finished: %@", download.video.name);
+        }
+    };
+
+    if (!download.resumeData) {
+        downloadTask = [[AFHTTPSessionManager manager] downloadTaskWithRequest:[NSURLRequest requestWithURL:[self.class remoteURLForVideo:video quality:quality]]
+                                                                      progress:&progress
+                                                                   destination:destination
+                                                             completionHandler:completionHandler];
+    } else {
+        downloadTask = [[AFHTTPSessionManager manager] downloadTaskWithResumeData:download.resumeData
+                                                                         progress:&progress
+                                                                      destination:destination
+                                                                completionHandler:completionHandler];
+    }
 
     [progress addObserver:download forKeyPath:kBWDownloadProgressKey options:NSKeyValueObservingOptionNew context:NULL];
 
@@ -71,6 +81,8 @@
 - (void)downloadCompleted:(BWDownload *)download atFilePath:(NSURL *)filePath
 {
     download.filePath = filePath;
+    download.resumeData = nil;
+
     NSUInteger index = [self.downloads indexOfObject:download];
     [self.downloads removeObject:download];
     [self.downloadTasks removeObjectAtIndex:index];
@@ -93,17 +105,42 @@
     [self.downloadTasks removeAllObjects];
 }
 
+- (void)pauseAllActiveDownloads
+{
+    for (BWDownload *download in self.downloads) {
+        [self pauseDownload:download];
+    }
+}
+
+- (void)pauseDownload:(BWDownload *)download
+{
+    NSInteger i = [self.downloads indexOfObject:download];
+    NSURLSessionDownloadTask *downloadTask = self.downloadTasks[i];
+
+    [downloadTask cancelByProducingResumeData:^(NSData *resumeData) {
+        download.resumeData = resumeData;
+    }];
+
+    [self.downloads removeObject:download];
+    [self.downloadTasks removeObject:downloadTask];
+}
+
+- (void)resumeDownload:(BWDownload *)download
+{
+    [self downloadVideo:download.video quality:download.quality];
+}
+
 #pragma mark - Utility
 
 + (NSURL *)remoteURLForVideo:(BWVideo *)video quality:(BWVideoQuality)quality
 {
     switch (quality) {
         case BWVideoQualityMobile:
-            return video.videoMobileURL; break;
+            return video.videoMobileURL;
         case BWVideoQualityHigh:
-            return video.videoHighURL; break;
+            return video.videoHighURL;
         case BWVideoQualityHD:
-            return video.videoHDURL; break;
+            return video.videoHDURL;
         case BWVideoQualityLow:
         default:
             return video.videoLowURL;

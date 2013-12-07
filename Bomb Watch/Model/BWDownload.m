@@ -45,4 +45,11 @@ NSString *const kBWDownloadProgressKey = @"fractionCompleted";
 
 // TODO remove self as observer from nsprogress when download is deleted before it's finished - currently leaking it
 
+#pragma mark - util
+
+- (BOOL)isEqual:(id)object
+{
+    return [object isKindOfClass:self.class] && [((BWDownload *)object).video isEqual:self.video] && ((BWDownload *)object).quality == self.quality;
+}
+
 @end

@@ -14,11 +14,13 @@
 + (instancetype)defaultDownloader;
 
 - (BWDownload *)downloadVideo:(BWVideo *)video quality:(BWVideoQuality)quality;
+- (void)pauseDownload:(BWDownload *)download;
 
 - (void)downloadCompleted:(BWDownload *)download atFilePath:(NSURL *)filePath;
 
 - (NSURLSessionDownloadTask *)downloadTaskForDownload:(BWDownload *)download;
 
 - (void)cancelAllActiveDownloads;
+- (void)pauseAllActiveDownloads;
 
 @end

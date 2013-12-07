@@ -51,6 +51,11 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
     [self save];
 }
 
+- (BOOL)downloadExistsForVideo:(BWVideo *)video quality:(BWVideoQuality)quality
+{
+    return [self.downloads containsObject:[[BWDownload alloc] initWithVideo:video quality:quality]];
+}
+
 - (BWDownload *)downloadForVideo:(BWVideo *)video quality:(BWVideoQuality)quality
 {
     for (BWDownload *download in self.downloads) {
@@ -59,7 +64,10 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
         }
     }
 
-    return nil;
+    BWDownload *download = [[BWDownload alloc] initWithVideo:video quality:quality];
+    [self.downloads addObject:download];
+
+    return download;
 }
 
 - (NSArray *)downloadsForVideo:(BWVideo *)video

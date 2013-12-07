@@ -65,20 +65,14 @@
     [self.tableView sendSubviewToBack:self.tableView.tableHeaderView];
 }
 
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    if (self.download) {
-//        [self.download removeObserver:self forKeyPath:@"progress"];
-    }
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.download = [[BWDownloadDataStore defaultStore] downloadForVideo:self.video quality:[self selectedQuality]];
-    
+
+    if ([[BWDownloadDataStore defaultStore] downloadExistsForVideo:self.video quality:self.quality]) {
+        self.download = [[BWDownloadDataStore defaultStore] downloadForVideo:self.video quality:self.quality];
+    }
+
     [self refreshViews];
 }
 
@@ -196,17 +190,11 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    if ([self isPremium]) {
-        return 4;
-    }
+//    if (![[self.video.videoHDURL absoluteString] isEqual:GiantBombVideoEmptyURL]) {
+//        return 4;
+//    }
 
     return 3;
-}
-
-- (BOOL)isPremium
-{
-//    return ![[self.video.videoHDURL absoluteString] isEqual:GiantBombVideoEmptyURL];
-    return false;
 }
 
 #pragma mark - Video player control
@@ -268,36 +256,36 @@
 
 - (IBAction)downloadButtonPressed:(id)sender
 {
-    [SVProgressHUD showSuccessWithStatus:@"Downloading"];
-
-    BWDownload *download = [[BWVideoDownloader defaultDownloader] downloadVideo:self.video quality:[self selectedQuality]];
-    [[BWDownloadDataStore defaultStore] addDownload:download];
-    self.download = download;
+    if (!self.download) {
+        [SVProgressHUD showSuccessWithStatus:@"Downloading"];
+        BWDownload *download = [[BWVideoDownloader defaultDownloader] downloadVideo:self.video quality:[self selectedQuality]];
+        self.download = download;
+    } else {
+        [SVProgressHUD showSuccessWithStatus:@"Download paused"];
+        [[BWVideoDownloader defaultDownloader] pauseDownload:self.download];
+    }
 
     [self updateDownloadButton];
 }
 
 - (void)updateDownloadButton
 {
-    BWDownload *download = [[BWDownloadDataStore defaultStore] downloadForVideo:self.video quality:[self selectedQuality]];
     NSMutableArray *items = [self.toolbar.items mutableCopy];
 
-    if (download && ![download isComplete]) {
-        self.download = download;
+    if (self.download && ![self.download isComplete]) {
         self.progressView = [[EVCircularProgressView alloc] init];
+        self.progressView.userInteractionEnabled = YES;
+        self.progressView.enabled = YES;
         self.downloadButton = [[UIBarButtonItem alloc] initWithCustomView:self.progressView];
-        self.downloadButton.target = self;
-        self.downloadButton.action = @selector(downloadButtonPressed:);
+        [self.progressView addTarget:self action:@selector(downloadButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self performSelector:@selector(updateProgressView) withObject:nil afterDelay:0.2f];
     } else {
         self.progressView = nil;
-        self.download = nil;
         self.downloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ToolbarDownload"]
                                                                style:UIBarButtonItemStylePlain
                                                               target:self
                                                               action:@selector(downloadButtonPressed:)];
-        
-        if ([download isComplete]) {
+        if (self.download && [self.download isComplete]) {
             self.downloadButton.enabled = NO;
         }
     }

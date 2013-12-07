@@ -19,6 +19,7 @@ extern NSString *const kBWDownloadsFilename;
 - (void)addDownload:(BWDownload *)download;
 - (void)deleteDownload:(BWDownload *)download;
 
+- (BOOL)downloadExistsForVideo:(BWVideo *)video quality:(BWVideoQuality)quality;
 - (BWDownload *)downloadForVideo:(BWVideo *)video quality:(BWVideoQuality)quality;
 - (NSArray *)downloadsForVideo:(BWVideo *)video;
 

@@ -175,9 +175,9 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
              }
          } else {
              [self.videos addObjectsFromArray:results];
-             [self.tableView reloadData];
          }
 
+        [self.tableView reloadData];
         [self.refreshControl endRefreshing];
         self.tableView.tableFooterView = [[UIView alloc] init];
      }
@@ -219,12 +219,12 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 {
     self.page = 1;
     [self loadVideosForPage:self.page searchText:nil];
-    
-    if ([self.tableView numberOfRowsInSection:0] > 0) {
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-                              atScrollPosition:UITableViewScrollPositionTop
-                                      animated:YES];
-    }
+//    
+//    if ([self.tableView numberOfRowsInSection:0] > 0) {
+//        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+//                              atScrollPosition:UITableViewScrollPositionTop
+//                                      animated:YES];
+//    }
 }
 
 @end
