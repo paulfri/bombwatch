@@ -80,11 +80,14 @@
                                               placeholderImage:[UIImage imageNamed:@"black_rectangle"]
                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         UIImage *blurredImage = [image applyBlurWithRadius:3.0f
-                                                  tintColor:[UIColor colorWithWhite:0.0 alpha:0.30]
-                                      saturationDeltaFactor:0.9f
-                                                  maskImage:nil];
-         ((UIImageView *)_self.backgroundView).image = blurredImage;
+         if (_self && _self.backgroundView && [_self.backgroundView isKindOfClass:UIImageView.class]) {
+             UIImage *blurredImage = [image applyBlurWithRadius:3.0f
+                                                      tintColor:[UIColor colorWithWhite:0.0 alpha:0.30]
+                                          saturationDeltaFactor:0.9f
+                                                      maskImage:nil];
+
+             ((UIImageView *)_self.backgroundView).image = blurredImage;
+         }
      }
                               failure:nil];
 }

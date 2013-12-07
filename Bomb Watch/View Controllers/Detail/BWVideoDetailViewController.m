@@ -178,6 +178,11 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
+    if ([[BWDownloadDataStore defaultStore] downloadExistsForVideo:self.video quality:row]) {
+        self.download = [[BWDownloadDataStore defaultStore] downloadForVideo:self.video quality:row];
+    } else {
+        self.download = nil;
+    }
     [self refreshViews];
 }
 

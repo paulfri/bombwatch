@@ -31,12 +31,22 @@
     self.tableView.separatorColor = [UIColor darkGrayColor];
     self.tableView.tableFooterView = [[UIView alloc] init];
 
+    /// ?????
+//    NSMutableDictionary *views = [[NSMutableDictionary alloc] init];
+//    views[@"v"] = self.tableView;
+//    views[@"topLayoutGuide"] = self.topLayoutGuide;
+//    views[@"bottomLayoutGuide"] = self.bottomLayoutGuide;
+//    NSString *hv = @"V:[topLayoutGuide][v]";
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:hv options:0 metrics:nil views:views]];
+//    NSString *lv = @"V:[v][bottomLayoutGuide]";
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:lv options:0 metrics:nil views:views]];
+
     // Disable searching for Endurance Run lists since it doesn't work with the API
     if ([[BWVideo enduranceRunCategories] containsObject:self.category]) {
         self.searchBar = nil;
         self.tableView.tableHeaderView = nil;
     } else {
-        // disable overlay
+        // the dark overlay when the search bar is active
         CGRect f = self.tableView.frame;
         self.disableOverlay = [[UIView alloc] initWithFrame:CGRectMake(f.origin.x, f.origin.y + 44, f.size.width, f.size.height - 44)];
         self.disableOverlay.backgroundColor = [UIColor blackColor];
