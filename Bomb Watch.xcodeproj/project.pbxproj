@@ -125,8 +125,8 @@
 		DA88AE89184D821F00D6E823 /* BWVideoDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoDownloader.m; sourceTree = "<group>"; };
 		DA88AE8E184E113B00D6E823 /* BWDownloadDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWDownloadDataStore.h; sourceTree = "<group>"; };
 		DA88AE8F184E113B00D6E823 /* BWDownloadDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWDownloadDataStore.m; sourceTree = "<group>"; };
-		DAAFC2AF17DB8B1B0095E494 /* BWVideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoPlayerViewController.h; sourceTree = "<group>"; };
-		DAAFC2B017DB8B1B0095E494 /* BWVideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoPlayerViewController.m; sourceTree = "<group>"; };
+		DAAFC2AF17DB8B1B0095E494 /* BWVideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWVideoPlayerViewController.h; path = ../BWVideoPlayerViewController.h; sourceTree = "<group>"; };
+		DAAFC2B017DB8B1B0095E494 /* BWVideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWVideoPlayerViewController.m; path = ../BWVideoPlayerViewController.m; sourceTree = "<group>"; };
 		DAAFF7571850184D003922EF /* BWSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSettings.h; sourceTree = "<group>"; };
 		DAAFF7581850184D003922EF /* BWSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWSettings.m; sourceTree = "<group>"; };
 		DACE826117CD035700E23051 /* Bomb Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bomb Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -271,12 +271,11 @@
 		DA73CCA617CD15BC00976570 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DA9F1BFB1853BAFD00AA5D7F /* Player */,
 				DA0A718A1849198A004750F1 /* List */,
 				DA0A718918491982004750F1 /* Detail */,
 				DA0A718818491898004750F1 /* Settings */,
 				DA39B4AE17D6A2A800E7935D /* Generic */,
-				DAAFC2AF17DB8B1B0095E494 /* BWVideoPlayerViewController.h */,
-				DAAFC2B017DB8B1B0095E494 /* BWVideoPlayerViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -290,6 +289,15 @@
 				DA852998184908C40049C752 /* UIImage+ImageEffects.m */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		DA9F1BFB1853BAFD00AA5D7F /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				DAAFC2AF17DB8B1B0095E494 /* BWVideoPlayerViewController.h */,
+				DAAFC2B017DB8B1B0095E494 /* BWVideoPlayerViewController.m */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 		DACE825817CD035700E23051 = {

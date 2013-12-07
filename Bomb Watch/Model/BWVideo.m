@@ -8,6 +8,7 @@
 
 #import "BWVideo.h"
 #import "BWVideoDataStore.h"
+#import "BWSettings.h"
 
 @implementation BWVideo
 
@@ -21,7 +22,7 @@
              @"date": @"publish_date",
              @"user": @"user",
              @"videoType": @"video_type",
-             @"videoMobileURL": NSNull.null, // TODO fix me
+             @"videoMobileURL": @"mobile_url", // TODO fix me
              @"videoLowURL": @"low_url",
              @"videoHighURL": @"high_url",
              @"videoHDURL": @"hd_url",
@@ -36,10 +37,8 @@
     
     if (urlKeys == nil) {
         urlKeys = @[@"siteDetailURL",
-                    @"videoMobileURL",
                     @"videoLowURL",
                     @"videoHighURL",
-                    @"videoHDURL",
                     @"imageIconURL",
                     @"imageSmallURL",
                     @"imageMediumURL"];
@@ -47,9 +46,25 @@
     
     if ([urlKeys containsObject:key]) {
         return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+    } else if ([key isEqualToString:@"videoHDURL"]) {
+        return [MTLValueTransformer reversibleTransformerWithBlock:^NSString *(NSString *url) {
+            if (!url) return nil;
+            return [NSURL URLWithString:[url stringByAppendingPathComponent:[NSString stringWithFormat:@"&api_key=%@", [BWSettings apiKey]]]];
+       }];
     }
     
     return nil;
+}
+
++ (NSValueTransformer *)videoMobileURLTransformer
+{
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSURL *(NSURL *url) {
+        return nil;
+    } reverseBlock:nil];
+
+//    NSString *mobileURLString = [((NSString *)dictionary[@"low_url"]) stringByReplacingOccurrencesOfString:@"_800"
+//                                                                                                withString:@".ipod"];
+//    self.videoMobileURL = [NSURL URLWithString:mobileURLString];
 }
 
 #pragma mark - watch status

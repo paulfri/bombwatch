@@ -9,6 +9,7 @@
 #import "BWVideoPlayerViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "BWDownloadDataStore.h"
+#import "BwSettings.h"
 
 #define kBWWatchedStatusThreshold 0.95
 
@@ -144,10 +145,15 @@
 {
     NSURL *path;
 
-    BWDownload *download = [[BWDownloadDataStore defaultStore] downloadForVideo:self.video quality:self.quality];
-    if (download && [download isComplete]) {
-        path = download.filePath;
-    } else {
+    if ([[BWDownloadDataStore defaultStore] downloadExistsForVideo:self.video quality:self.quality]) {
+        BWDownload *download = [[BWDownloadDataStore defaultStore] downloadForVideo:self.video quality:self.quality];
+
+        if ([download isComplete]) {
+            path = download.filePath;
+        }
+    }
+
+    if (!path) {
         switch (self.quality) {
             case BWVideoQualityMobile:
                 path = self.video.videoMobileURL; break;
@@ -179,13 +185,9 @@
 
 - (NSUInteger)supportedInterfaceOrientations
 {
-    BOOL landscapeLock = [[NSUserDefaults standardUserDefaults] boolForKey:@"lockRotation"];
+    if ([BWSettings lockRotation]) return UIInterfaceOrientationMaskLandscape;
 
-    if (landscapeLock) {
-        return UIInterfaceOrientationMaskLandscape;
-    } else {
-        return UIInterfaceOrientationMaskAllButUpsideDown;
-    }
+    return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
 @end

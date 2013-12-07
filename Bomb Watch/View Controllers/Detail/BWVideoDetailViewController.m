@@ -195,9 +195,7 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-//    if (![[self.video.videoHDURL absoluteString] isEqual:GiantBombVideoEmptyURL]) {
-//        return 4;
-//    }
+    if (self.video.videoHDURL) return 4;
 
     return 3;
 }

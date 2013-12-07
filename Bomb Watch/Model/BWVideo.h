@@ -19,14 +19,14 @@ typedef NS_ENUM(NSUInteger, BWVideoQuality) {
 
 @property (assign, nonatomic) NSInteger videoID;
 
-@property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSString *summary;
+@property (copy, nonatomic) NSString *name;
+@property (copy, nonatomic) NSString *summary;
 @property (strong, nonatomic) NSURL *siteDetailURL;
 
 @property (assign, nonatomic) NSInteger length;
 @property (strong, nonatomic) NSDate *date;
-@property (strong, nonatomic) NSString *user;
-@property (strong, nonatomic) NSString *type;
+@property (copy, nonatomic) NSString *user;
+@property (copy, nonatomic) NSString *type;
 
 @property (strong, nonatomic) NSURL *videoMobileURL;
 @property (strong, nonatomic) NSURL *videoLowURL;
