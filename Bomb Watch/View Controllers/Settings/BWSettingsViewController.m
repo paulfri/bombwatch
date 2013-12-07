@@ -44,9 +44,20 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateValues)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:animated];
     [self updateValues];
-    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -56,6 +67,8 @@
 
 - (void)updateValues
 {
+    [SVProgressHUD dismiss];
+
     if ([BWSettings accountIsLinked]) {
         self.accountLinkedLabel.text = [BWSettings apiKey];
         self.accountLinkedCell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;

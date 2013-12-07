@@ -19,11 +19,13 @@
 
 @implementation PocketAPIActivity
 
-- (NSString *)activityType {
+- (NSString *)activityType
+{
 	return @"Pocket";
 }
 
-- (NSString *)activityTitle {
+- (NSString *)activityTitle
+{
 	return NSLocalizedString(@"Save to Pocket", nil);
 }
 
@@ -32,7 +34,9 @@
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
-	for (id activityItem in activityItems) {
+    if (![PocketAPI sharedAPI].loggedIn) return NO;
+
+    for (id activityItem in activityItems) {
 		if ([activityItem isKindOfClass:BWVideo.class]) {
 			NSURL *pocketURL = [NSURL URLWithString:[[PocketAPI pocketAppURLScheme] stringByAppendingString:@":test"]];
 			if ([[UIApplication sharedApplication] canOpenURL:pocketURL] || [PocketAPI sharedAPI].loggedIn) {
