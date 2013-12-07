@@ -12,9 +12,7 @@
 #import "SVProgressHUD.h"
 
 @interface PocketAPIActivity ()
-
 @property (strong, nonatomic) NSArray *videos;
-
 @end
 
 @implementation PocketAPIActivity
@@ -29,11 +27,13 @@
 	return NSLocalizedString(@"Save to Pocket", nil);
 }
 
-- (UIImage *)activityImage {
+- (UIImage *)activityImage
+{
 	return [UIImage imageNamed:@"PocketActivity"];
 }
 
-- (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
+- (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
+{
     if (![PocketAPI sharedAPI].loggedIn) return NO;
 
     for (id activityItem in activityItems) {
@@ -48,7 +48,8 @@
 	return NO;
 }
 
-- (void)prepareWithActivityItems:(NSArray *)activityItems {
+- (void)prepareWithActivityItems:(NSArray *)activityItems
+{
 	NSMutableArray *videos = [NSMutableArray array];
 	
 	for (id activityItem in activityItems) {
@@ -60,7 +61,8 @@
 	self.videos = [videos copy];
 }
 
-- (void)performActivity {
+- (void)performActivity
+{
 	__block NSUInteger videosLeft = self.videos.count;
 	__block BOOL videoFailed = NO;
 
@@ -76,7 +78,8 @@
 	}
 }
 
-- (void)activityDidFinish:(BOOL)completed {
+- (void)activityDidFinish:(BOOL)completed
+{
     if (completed) {
         [SVProgressHUD showSuccessWithStatus:@"Saved to Pocket"];
     } else {
@@ -86,7 +89,8 @@
 }
 
 
-+ (UIActivityCategory)activityCategory {
++ (UIActivityCategory)activityCategory
+{
     return UIActivityCategoryShare;
 }
 
