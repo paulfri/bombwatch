@@ -7,6 +7,7 @@
 //
 
 #import "BWAboutViewController.h"
+#import "BWTwitter.h"
 
 #define kTwitterSection 0
 #define kTwitterCell    0
@@ -26,23 +27,7 @@ static NSString *kBWTwitterHandle = @"bombwatch";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == kTwitterSection && indexPath.row == kTwitterCell) {
-
-        // TODO make these static
-        NSURL *tweetbotURL = [NSURL URLWithString:[NSString stringWithFormat:@"tweetbot://%@/timeline", kBWTwitterHandle]];
-        NSURL *twitterifficURL = [NSURL URLWithString:[NSString stringWithFormat:@"twitteriffic://account/%@/tweets", kBWTwitterHandle]];
-        NSURL *twitterAppURL = [NSURL URLWithString:[NSString stringWithFormat:@"twitter:@%@", kBWTwitterHandle]];
-        NSURL *twitterURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/%@", kBWTwitterHandle]];
-
-        if ([[UIApplication sharedApplication] canOpenURL:tweetbotURL]) {
-            [[UIApplication sharedApplication] openURL:tweetbotURL];
-        } else if ([[UIApplication sharedApplication] canOpenURL:twitterifficURL]) {
-            [[UIApplication sharedApplication] openURL:twitterifficURL];
-        } else if ([[UIApplication sharedApplication] canOpenURL:twitterAppURL]) {
-            [[UIApplication sharedApplication] openURL:twitterAppURL];
-        } else {
-            [[UIApplication sharedApplication] openURL:twitterURL];
-        }
-
+        [BWTwitter openTwitterUser:kBWTwitterHandle];
     } else if (indexPath.section == kMailSection && indexPath.row == kMailCell) {
         NSURL *mailURL = [NSURL URLWithString:@"mailto:cosmonautics@laika.io"];
         [[UIApplication sharedApplication] openURL:mailURL];

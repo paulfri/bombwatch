@@ -24,6 +24,7 @@
 #import "UIImage+ImageEffects.h"
 #import "BWNameFormatter.h"
 #import "BWSettings.h"
+#import "BWTwitter.h"
 
 #define kSummarySection    0
 #define kVideoDetailCell   0
@@ -115,10 +116,12 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == kQualityCell) {
+    if (indexPath.section == kOptionsSection && indexPath.row == kQualityCell) {
         self.pickerVisible = !self.pickerVisible;
         [self.tableView beginUpdates];
         [self.tableView endUpdates];
+    } else if (indexPath.section == kOptionsSection && indexPath.row == kVideoBylineCell) {
+        [BWTwitter openTwitterUser:self.bylineCell.detailTextLabel.text];
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
