@@ -22,6 +22,7 @@
 #import "BWDownloadDataStore.h"
 #import "BWColors.h"
 #import "UIImage+ImageEffects.h"
+#import "BWNameFormatter.h"
 
 #define kSummarySection    0
 #define kVideoDetailCell   0
@@ -108,29 +109,7 @@
 
 - (NSString *)bylineLabelText
 {
-    static NSDictionary *users;
-
-    if (users == nil) {
-        users = @{@"jeff": @"Jeff Gerstmann",
-                  @"ryan": @"Ryan Davis",
-                  @"brad": @"Brad Shoemaker",
-                  @"vinny": @"Vinny Caravella",
-                  @"patrickklepek": @"Patrick Klepek",
-                  @"drewbert": @"Drew Scanlon",
-                  @"alex": @"Alex Navarro",
-                  @"snide": @"Dave Snider",
-                  @"mattbodega": @"Matthew Kessler",
-                  @"marino": @"Marino",
-                  @"rorie": @"Matt Rorie",
-                  @"abauman": @"Andy Bauman",
-                  @"danielcomfort": @"Daniel Comfort"};
-    }
-    
-    if (users[self.video.user]) {
-        return users[self.video.user];
-    }
-
-    return self.video.user;
+    return [BWNameFormatter realNameForUser:self.video.user];
 }
 
 #pragma mark - UITableViewDelegate protocol methods

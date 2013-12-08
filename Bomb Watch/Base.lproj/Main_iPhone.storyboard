@@ -659,7 +659,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Stuff" id="djw-aQ-iHH">
+                            <tableViewSection headerTitle="Details" id="djw-aQ-iHH">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="uLk-Pq-YF0" detailTextLabel="TVB-C7-xTl" rowHeight="50" style="IBUITableViewCellStyleValue1" id="GhI-iZ-xzI">
                                         <rect key="frame" x="0.0" y="435" width="320" height="50"/>
