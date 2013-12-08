@@ -15,6 +15,8 @@
 #define kBWWatchedStatusThreshold 0.95
 #define kBWMinimumStoredPlaybackTime 10.0
 
+NSString *const kBWNowPlayingArtist = @"Giant Bomb";
+
 @implementation BWVideoPlayerViewController
 
 - (id)initWithVideo:(BWVideo *)video
@@ -73,10 +75,10 @@
     [audioSession setMode:AVAudioSessionModeMoviePlayback error:nil];
 
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = @{MPMediaItemPropertyTitle:self.video.name,
-                                                              MPMediaItemPropertyArtist:@"Giant Bomb",
-                                                              MPMediaItemPropertyPlaybackDuration:[NSNumber numberWithInt:self.video.length]};;
-    //    MPNowPlayingInfoPropertyElapsedPlaybackTime:@(self.moviePlayer.currentPlaybackTime)
-
+                                                              MPMediaItemPropertyArtist:kBWNowPlayingArtist,
+                                                              MPMediaItemPropertyPlaybackDuration:@(self.video.length),
+                                                              MPNowPlayingInfoPropertyPlaybackRate:@(1.0),
+                                                              MPNowPlayingInfoPropertyElapsedPlaybackTime:@(self.moviePlayer.initialPlaybackTime)};
     [self.moviePlayer play];
 }
 
@@ -98,6 +100,10 @@
                 break;
         }
     }
+    
+    NSMutableDictionary *info = [[MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo mutableCopy];
+    info[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(self.moviePlayer.currentPlaybackTime);
+    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = info;
 }
 
 - (void)movieFinishedPlayingNotification:(NSNotification *)notification
