@@ -8,6 +8,7 @@
 
 #import "BWVideoDataStore.h"
 #import "NSString+Extensions.h"
+#import "BWSettings.h"
 
 NSString *const kBWFavoritesKey = @"favorites";
 NSString *const kBWCacheFilePrefix   = @"bwcache";
@@ -106,19 +107,6 @@ NSString *const kBWCacheFilePrefix   = @"bwcache";
     }
 
     [self setFavorites:favorites];
-}
-
-#pragma mark - Watched status
-#warning implement watched status
-
-- (BOOL)watchedStatusForVideo:(BWVideo *)video
-{
-    return NO;
-}
-
-- (void)setWatchedStatus:(BOOL)status forVideo:(BWVideo *)video
-{
-
 }
 
 #pragma mark - Utility

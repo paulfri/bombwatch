@@ -67,12 +67,16 @@
 
 - (BOOL)isWatched
 {
-    return [[BWVideoDataStore defaultStore] watchedStatusForVideo:self];
+    return [BWSettings watchedVideo:self];
 }
 
-- (void)setWatched:(BOOL)watchedStatus
+- (void)setWatched:(BOOL)status
 {
-    [[BWVideoDataStore defaultStore] setWatchedStatus:watchedStatus forVideo:self];
+    if (status) {
+        [BWSettings addWatchedVideo:self];
+    } else {
+        [BWSettings removeWatchedVideo:self];
+    }
 }
 
 - (BOOL)isFavorited

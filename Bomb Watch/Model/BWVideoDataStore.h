@@ -27,9 +27,6 @@ extern NSString *const kBWCacheFilePrefix;
 - (BOOL)favoriteStatusForVideo:(BWVideo *)video;
 - (void)setFavoriteStatus:(BOOL)status forVideo:(BWVideo *)video;
 
-- (BOOL)watchedStatusForVideo:(BWVideo *)video;
-- (void)setWatchedStatus:(BOOL)status forVideo:(BWVideo *)video;
-
 + (NSString *)documentsPath;
 
 @end

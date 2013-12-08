@@ -57,23 +57,23 @@ NSString *const kBWDefaultSettingAPIKey  = @"e5ab8850b03bcec7ce6590ca705c9a26395
 
 + (BOOL)watchedVideo:(BWVideo *)video
 {
-    return [[[NSUserDefaults standardUserDefaults] arrayForKey:kBWSettingsKeyWatchComplete] containsObject:[NSNumber numberWithInt:video.videoID]];
+    return [[[NSUserDefaults standardUserDefaults] arrayForKey:kBWSettingsKeyWatchComplete] containsObject:[NSNumber numberWithInteger:video.videoID]];
 }
 
 + (NSTimeInterval)progressForVideo:(BWVideo *)video
 {
-    if (![[[[NSUserDefaults standardUserDefaults] dictionaryForKey:kBWSettingsKeyWatchProgress] allKeys] containsObject:[NSNumber numberWithInt:video.videoID]]) {
+    if (![[[[NSUserDefaults standardUserDefaults] dictionaryForKey:kBWSettingsKeyWatchProgress] allKeys] containsObject:[NSNumber numberWithInteger:video.videoID]]) {
         return 0.0f;
     }
 
-    return [[[NSUserDefaults standardUserDefaults] dictionaryForKey:kBWSettingsKeyWatchProgress][[NSNumber numberWithInt:video.videoID]] doubleValue];
+    return [[[NSUserDefaults standardUserDefaults] dictionaryForKey:kBWSettingsKeyWatchProgress][[NSNumber numberWithInteger:video.videoID]] doubleValue];
 }
 
 #pragma mark - setters
 
 + (void)setDefaultQuality:(BWVideoQuality)quality
 {
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:quality] forKey:kBWSettingsKeyDefaultQuality];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:quality] forKey:kBWSettingsKeyDefaultQuality];
 }
 
 + (void)setLockRotation:(BOOL)lockRotation
@@ -89,16 +89,18 @@ NSString *const kBWDefaultSettingAPIKey  = @"e5ab8850b03bcec7ce6590ca705c9a26395
 + (void)addWatchedVideo:(BWVideo *)video
 {
     NSArray *watched = [[NSUserDefaults standardUserDefaults] arrayForKey:kBWSettingsKeyWatchComplete];
-    if (![watched containsObject:video]) {
-        [[NSUserDefaults standardUserDefaults] setObject:[watched arrayByAddingObject:video] forKey:kBWSettingsKeyWatchComplete];
+    NSNumber *object = [NSNumber numberWithInteger:video.videoID];
+    if (![watched containsObject:object]) {
+        [[NSUserDefaults standardUserDefaults] setObject:[watched arrayByAddingObject:object] forKey:kBWSettingsKeyWatchComplete];
     }
 }
 
 + (void)removeWatchedVideo:(BWVideo *)video
 {
     NSMutableArray *watched = [[[NSUserDefaults standardUserDefaults] arrayForKey:kBWSettingsKeyWatchComplete] mutableCopy];
-    if ([watched containsObject:video]) {
-        [watched removeObject:video];
+    NSNumber *object = [NSNumber numberWithInteger:video.videoID];
+    if ([watched containsObject:object]) {
+        [watched removeObject:object];
     }
 
     [[NSUserDefaults standardUserDefaults] setObject:watched forKey:kBWSettingsKeyWatchComplete];

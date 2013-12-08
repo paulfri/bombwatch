@@ -24,4 +24,11 @@
 + (BOOL)accountIsLinked;
 + (void)unlinkAccount;
 
++ (BOOL)watchedVideo:(BWVideo *)video;
++ (NSTimeInterval)progressForVideo:(BWVideo *)video;
++ (void)addWatchedVideo:(BWVideo *)video;
++ (void)removeWatchedVideo:(BWVideo *)video;
++ (void)removeWatchedProgressForVideo:(BWVideo *)video;
++ (void)setWatchedProgress:(NSTimeInterval)progress forVideo:(BWVideo *)video;
+
 @end
