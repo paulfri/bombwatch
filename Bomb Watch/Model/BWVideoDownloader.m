@@ -167,7 +167,13 @@
 {
     NSURL *remoteURL = [self remoteURLForVideo:video quality:quality];
     NSString *path = [[self videoDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%d_%d", video.videoID, quality]];
-    NSString *full = [path stringByAppendingPathExtension:[remoteURL pathExtension]];
+    NSString *full;
+
+    if ([remoteURL pathExtension].length > 0) {
+        full = [path stringByAppendingPathExtension:[remoteURL pathExtension]];
+    } else {
+        full = [path stringByAppendingPathExtension:@"mp4"];
+    }
 
     return [NSURL fileURLWithPath:full];
 }

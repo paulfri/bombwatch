@@ -48,6 +48,7 @@
 //    self.moviePlayer.controlStyle = MPMovieControlStyleEmbedded;
 
     [self setContentURL];
+    self.moviePlayer.initialPlaybackTime = [BWSettings progressForVideo:self.video];
     [self.moviePlayer prepareToPlay];
 }
 
@@ -76,7 +77,6 @@
                                                               MPMediaItemPropertyPlaybackDuration:[NSNumber numberWithInt:self.video.length]};;
     //    MPNowPlayingInfoPropertyElapsedPlaybackTime:@(self.moviePlayer.currentPlaybackTime)
 
-    self.moviePlayer.initialPlaybackTime = [BWSettings progressForVideo:self.video];
     [self.moviePlayer play];
 }
 
