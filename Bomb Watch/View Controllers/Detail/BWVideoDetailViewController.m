@@ -236,11 +236,18 @@
 
 - (IBAction)playButtonPressed:(id)sender
 {
-    if ([self canStreamVideo]) {
-        self.player = [[BWVideoPlayerViewController alloc] initWithVideo:self.video quality:[self selectedQuality]];
+    if ([self canStreamVideo] || (self.download && [self.download isComplete])) {
+
+        if ([AFNetworkReachabilityManager sharedManager].isReachableViaWiFi) {
+            self.player = [[BWVideoPlayerViewController alloc] initWithVideo:self.video quality:[self selectedQuality]];
+        } else {
+            self.player = [[BWVideoPlayerViewController alloc] initWithVideo:self.video quality:self.download.quality];
+        }
+
         self.player.delegate = self;
         [self presentMoviePlayerViewControllerAnimated:self.player];
         [self.player play];
+
     } else if ([AFNetworkReachabilityManager sharedManager].reachable && ![self canStreamVideo]) {
         [SVProgressHUD showErrorWithStatus:@"Can't stream this video over cellular"];
     } else {
@@ -252,8 +259,11 @@
 
 - (void)videoDidFinishPlaying
 {
+    if (![self.presentedViewController isBeingDismissed] && ![self.presentedViewController isBeingPresented]) {
+        [self dismissMoviePlayerViewControllerAnimated];
+    }
+
     self.player = nil;
-    [self dismissMoviePlayerViewControllerAnimated];
     [self updateWatchedButton];
     [self updateDurationLabel];
 }

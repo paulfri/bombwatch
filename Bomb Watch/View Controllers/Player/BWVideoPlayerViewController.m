@@ -23,13 +23,7 @@
 
     if (self) {
         self.video = video;
-
-        if ([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWiFi) {
-            self.quality = [BWSettings defaultQuality];
-        } else {
-            // Force mobile over cellular
-            self.quality = BWVideoQualityMobile;
-        }
+        self.quality = [BWSettings defaultQuality];
     }
 
     return self;
@@ -41,12 +35,7 @@
 
     if (self) {
         self.video = video;
-
-        if ([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWiFi) {
-            self.quality = quality;
-        } else {
-            self.quality = BWVideoQualityMobile;
-        }
+        self.quality = quality;
     }
 
     return self;
