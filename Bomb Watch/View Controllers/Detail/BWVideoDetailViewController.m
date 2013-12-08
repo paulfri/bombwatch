@@ -247,6 +247,7 @@
 - (void)videoDidFinishPlaying
 {
     self.player = nil;
+    [self dismissMoviePlayerViewControllerAnimated];
     [self updateWatchedButton];
     [self updateDurationLabel];
 }

@@ -45,15 +45,14 @@
     [super viewDidLoad];
     self.moviePlayer.fullscreen = YES;
     self.moviePlayer.allowsAirPlay = YES;
-    self.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
+//    self.moviePlayer.controlStyle = MPMovieControlStyleEmbedded;
 
     [self setContentURL];
+    [self.moviePlayer prepareToPlay];
 }
 
 - (void)play
 {
-    [self becomeFirstResponder];
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(remoteControlEventNotification:)
                                                  name:@"BWEventRemoteControlReceived"
@@ -75,13 +74,9 @@
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = @{MPMediaItemPropertyTitle:self.video.name,
                                                               MPMediaItemPropertyArtist:@"Giant Bomb",
                                                               MPMediaItemPropertyPlaybackDuration:[NSNumber numberWithInt:self.video.length]};;
-    //    MPNowPlayingInfoPropertyElapsedPlaybackTime:[NSNumber numberWithDouble:self.moviePlayer.currentPlaybackTime]
-    //    MPMediaItemPropertyArtwork
+    //    MPNowPlayingInfoPropertyElapsedPlaybackTime:@(self.moviePlayer.currentPlaybackTime)
 
     self.moviePlayer.initialPlaybackTime = [BWSettings progressForVideo:self.video];
-
-
-    [self.moviePlayer prepareToPlay];
     [self.moviePlayer play];
 }
 
@@ -109,7 +104,11 @@
 {
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
     [[AVAudioSession sharedInstance] setActive:NO error:nil];
-    
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"BWEventRemoteControlReceived"
+                                                  object:nil];
+
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:MPMoviePlayerPlaybackDidFinishNotification
                                                   object:self.moviePlayer];
@@ -128,9 +127,6 @@
     }
 
     self.moviePlayer.fullscreen = NO;
-    [self dismissMoviePlayerViewControllerAnimated];
-    [self resignFirstResponder];
-
     if (self.delegate && [self.delegate respondsToSelector:@selector(videoDidFinishPlaying)]) {
         [self.delegate videoDidFinishPlaying];
     }
