@@ -186,4 +186,19 @@
     return vids;
 }
 
+#pragma mark - reachability
+
+- (void)reachabilityChanged:(NSNotification *)notification
+{
+    // TODO setting for downloads?
+    [self pauseAllActiveDownloads];
+}
+
+#pragma mark - dealloc
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 @end

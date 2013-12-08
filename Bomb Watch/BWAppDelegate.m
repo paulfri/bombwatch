@@ -16,7 +16,7 @@
 #import "BWVideoDetailViewController.h"
 #import "BWVideoDownloader.h"
 #import "BWSettings.h"
-#import "Reachability.h"
+#import "AFNetworking.h"
 
 #define PocketConsumerKey    @"17866-6c522817c89aaee6ae6da74f"
 
@@ -31,7 +31,7 @@
     [self configureInterface];
     [self configureURLCache];
     [BWSettings initializeSettings];
-    [self configureReachability];
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 
     [[PocketAPI sharedAPI] setConsumerKey:PocketConsumerKey];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
@@ -81,21 +81,6 @@
     [[UITableView appearance] setBackgroundColor:kBWGiantBombCharcoalColor];
     [[UISearchBar appearance] setBarTintColor:kBWGiantBombCharcoalColor];
     [[UITextField appearanceWhenContainedIn:UITableViewCell.class, nil] setTextColor:[UIColor lightGrayColor]];
-}
-
-- (void)configureReachability
-{
-    Reachability* reach = [Reachability reachabilityWithHostname:@"www.giantbomb.com"];
-
-    reach.reachableBlock = ^(Reachability *reach) {
-        self.reachable = YES;
-    };
-
-    reach.unreachableBlock = ^(Reachability *reach) {
-        self.reachable = NO;
-    };
-
-    [reach startNotifier];
 }
 
 #pragma mark - App Delegate methods

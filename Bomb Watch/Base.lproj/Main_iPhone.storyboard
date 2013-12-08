@@ -118,7 +118,8 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Settings" footerTitle="This setting determines what quality will be used when using the swipe-to-play shortcut from a video list." id="nR2-LW-6cu">
+                            <tableViewSection headerTitle="Settings" id="nR2-LW-6cu">
+                                <string key="footerTitle">This setting determines what quality will be used when using the swipe-to-play shortcut from a video list. Streaming over cellular is always at the lowest quality.</string>
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="GMZ-EY-0mb">
                                         <rect key="frame" x="0.0" y="303" width="320" height="44"/>
@@ -225,7 +226,7 @@
                             <tableViewSection headerTitle="Meta" id="ncY-ba-N78">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="9UP-8K-Szh" style="IBUITableViewCellStyleDefault" id="xcJ-aa-Eto">
-                                        <rect key="frame" x="0.0" y="705" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="722" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xcJ-aa-Eto" id="0qo-46-35e">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -245,7 +246,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="DwV-Gv-j2Y" detailTextLabel="WRE-7G-lCp" style="IBUITableViewCellStyleValue1" id="TeB-vr-vel">
-                                        <rect key="frame" x="0.0" y="749" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="766" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TeB-vr-vel" id="mry-6H-YNO">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>

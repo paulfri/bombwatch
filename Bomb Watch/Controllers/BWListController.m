@@ -16,6 +16,7 @@
 #import "BWVideoTableViewCell.h"
 #import "BWVideoDataStore.h"
 #import "BWColors.h"
+#import "AFNetworking.h"
 
 static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
@@ -202,7 +203,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row >= ([tableView numberOfRowsInSection:0] - kBWInfiniteScrollCellThreshold) && self.videos.count >= (self.page * kBWVideosPerPage)) {
+    if ([self reachable] && indexPath.row >= ([tableView numberOfRowsInSection:0] - kBWInfiniteScrollCellThreshold) && self.videos.count >= (self.page * kBWVideosPerPage)) {
         UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         view.bounds = CGRectMake(view.bounds.origin.x, view.bounds.origin.x, view.bounds.size.width, tableView.rowHeight);
         [view startAnimating];
@@ -217,14 +218,24 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
 - (void)refreshControlActivated
 {
-    self.page = 1;
-    [self loadVideosForPage:self.page searchText:nil];
-//    
+
+    if ([self reachable]) {
+        self.page = 1;
+        [self loadVideosForPage:self.page searchText:nil];
+    } else {
+        [self.refreshControl endRefreshing];
+    }
+//
 //    if ([self.tableView numberOfRowsInSection:0] > 0) {
 //        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
 //                              atScrollPosition:UITableViewScrollPositionTop
 //                                      animated:YES];
 //    }
+}
+
+- (BOOL)reachable
+{
+    return [AFNetworkReachabilityManager sharedManager].reachable;
 }
 
 @end

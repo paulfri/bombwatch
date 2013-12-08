@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "BWDownloadDataStore.h"
 #import "BWSettings.h"
+#import "AFNetworking.h"
 
 #define kBWWatchedStatusThreshold 0.95
 #define kBWMinimumStoredPlaybackTime 10.0
@@ -22,7 +23,13 @@
 
     if (self) {
         self.video = video;
-        self.quality = [BWSettings defaultQuality];
+
+        if ([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWiFi) {
+            self.quality = [BWSettings defaultQuality];
+        } else {
+            // Force mobile over cellular
+            self.quality = BWVideoQualityMobile;
+        }
     }
 
     return self;
@@ -34,7 +41,12 @@
 
     if (self) {
         self.video = video;
-        self.quality = quality;
+
+        if ([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWiFi) {
+            self.quality = quality;
+        } else {
+            self.quality = BWVideoQualityMobile;
+        }
     }
 
     return self;
@@ -45,7 +57,6 @@
     [super viewDidLoad];
     self.moviePlayer.fullscreen = YES;
     self.moviePlayer.allowsAirPlay = YES;
-//    self.moviePlayer.controlStyle = MPMovieControlStyleEmbedded;
 
     [self setContentURL];
     self.moviePlayer.initialPlaybackTime = [BWSettings progressForVideo:self.video];

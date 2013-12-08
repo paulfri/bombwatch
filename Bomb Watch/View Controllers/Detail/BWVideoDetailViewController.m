@@ -236,10 +236,16 @@
 
 - (IBAction)playButtonPressed:(id)sender
 {
-    self.player = [[BWVideoPlayerViewController alloc] initWithVideo:self.video quality:[self selectedQuality]];
-    self.player.delegate = self;
-    [self presentMoviePlayerViewControllerAnimated:self.player];
-    [self.player play];
+    if ([self canStreamVideo]) {
+        self.player = [[BWVideoPlayerViewController alloc] initWithVideo:self.video quality:[self selectedQuality]];
+        self.player.delegate = self;
+        [self presentMoviePlayerViewControllerAnimated:self.player];
+        [self.player play];
+    } else if ([AFNetworkReachabilityManager sharedManager].reachable && ![self canStreamVideo]) {
+        [SVProgressHUD showErrorWithStatus:@"Can't stream this video over cellular"];
+    } else {
+        [SVProgressHUD showErrorWithStatus:@"Network unreachable"];
+    }
 }
 
 #pragma mark - BWVideoPlayerDelegate protocol methods
@@ -392,6 +398,13 @@
 - (BWVideoQuality)selectedQuality
 {
     return [self.qualityPicker selectedRowInComponent:0];
+}
+
+- (BOOL)canStreamVideo
+{
+    return [AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWiFi ||
+                ([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN &&
+                [self.video canStreamOverCellular]);
 }
 
 @end

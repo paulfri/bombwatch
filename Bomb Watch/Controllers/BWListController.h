@@ -9,7 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "PDGesturedTableView.h"
 #import "BWVideo.h"
-#import "BWListControllerDelegate.h"
+
+@protocol BWListControllerDelegate <NSObject>
+@optional
+
+- (void)videoSelected:(BWVideo *)video;
+- (void)tableViewContentsReset;
+- (void)searchDidCompleteWithSuccess;
+- (void)searchDidCompleteWithFailure;
+
+@end
 
 @interface BWListController : NSObject <UITableViewDataSource, UITableViewDelegate>
 

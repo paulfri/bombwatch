@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "PDGesturedTableView.h"
 #import "BWListController.h"
-#import "BWListControllerDelegate.h"
 
 @interface BWListViewController : UIViewController <BWListControllerDelegate, UISearchBarDelegate>
 
