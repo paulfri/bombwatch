@@ -23,11 +23,14 @@
 #import "BWColors.h"
 #import "UIImage+ImageEffects.h"
 
-#define kQualityCell        1
-#define kQualityPickerCell  2
-#define kVideoBylineCell    3
-#define kVideoDurationCell  4
-#define kVideoDetailCell    5
+#define kSummarySection    0
+#define kVideoDetailCell   0
+
+#define kOptionsSection    1
+#define kQualityCell       0
+#define kQualityPickerCell 1
+#define kVideoBylineCell   2
+#define kVideoDurationCell 3
 
 #define kBWToolbarDownloadItemPosition 2
 
@@ -54,11 +57,11 @@
     self.navigationController.navigationBar.translucent = NO;
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.tableView.backgroundColor = kBWGiantBombCharcoalColor;
-
+    self.tableView.separatorColor  = [UIColor grayColor];
+    
     self.labelTitle.text = self.video.name;
-    self.descriptionLabel.text = self.video.summary;
+    self.labelDescription.text = self.video.summary;
     self.bylineCell.textLabel.text = [self bylineLabelText];
-
     
     [self selectQuality:self.quality];
 
@@ -145,20 +148,34 @@
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // height for quality picker cell - hidden or visible
-    if (indexPath.row == kQualityPickerCell) {
-        if (self.pickerVisible) {
-            return 90;
-        } else {
-            return 0;
+    if (indexPath.section == kOptionsSection) {
+        if (indexPath.row == kQualityCell) {
+            return 44;
+        } else if (indexPath.row == kQualityPickerCell) {
+            if (self.pickerVisible) return 90;
+            else return 0;
+        } else if (indexPath.row == kVideoBylineCell || indexPath.row == kVideoDurationCell) {
+            return 44;
         }
-    } else if (indexPath.row == kVideoBylineCell || indexPath.row == kVideoDurationCell) {
-        return 44;
-    } else if (indexPath.row == kVideoDetailCell) {
-        return [self.descriptionLabel sizeThatFits:self.descriptionLabel.frame.size].height + 10;
+    } else if (indexPath.section == kSummarySection) {
+        return [self.labelDescription sizeThatFits:self.labelDescription.frame.size].height + 20;
     }
 
     return 44;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    if([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
+        ((UITableViewHeaderFooterView *)view).textLabel.textColor = [UIColor lightGrayColor];
+    }
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
+{
+    if([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
+        ((UITableViewHeaderFooterView *)view).textLabel.textColor = [UIColor lightGrayColor];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate protocol methods

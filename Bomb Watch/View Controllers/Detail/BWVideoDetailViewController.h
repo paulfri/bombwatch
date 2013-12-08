@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BWVideoPlayerViewController.h"
-@class BWImagePulldownView;
+#import "BWTableViewController.h"
 @class BWVideo;
 
 @interface BWVideoDetailViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate, BWVideoPlayerDelegate>
@@ -18,11 +18,11 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *preview;
 @property (weak, nonatomic) IBOutlet UILabel *labelTitle;
+@property (weak, nonatomic) IBOutlet UILabel *labelDescription;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *bylineCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *durationCell;
 
-@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *qualityCell;
 @property (strong, nonatomic) IBOutlet UIPickerView *qualityPicker;
