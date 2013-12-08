@@ -17,6 +17,8 @@
 #import "BWVideoDataStore.h"
 #import "BWColors.h"
 #import "AFNetworking.h"
+#import "BWSettings.h"
+#import "BWDownloadDataStore.h"
 
 static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 
@@ -116,7 +118,27 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
             [videoCell setFavorited:[video isFavorited] animated:YES];
             [tableView updateAnimatedly:YES];
         };
-        
+
+        void (^watchNow)(PDGesturedTableView*, PDGesturedTableViewCell*) = ^(PDGesturedTableView *tableView, PDGesturedTableViewCell *cell)
+        {
+            BWVideoTableViewCell *videoCell = (BWVideoTableViewCell *)cell;
+            BWVideo *video = [_self videoAtIndexPath:[tableView indexPathForCell:videoCell]];
+            BWVideoPlayerViewController *player;
+
+            if ([AFNetworkReachabilityManager sharedManager].reachableViaWiFi) {
+                 player = [[BWVideoPlayerViewController alloc] initWithVideo:video quality:[BWSettings defaultQuality]];
+            } else if ([AFNetworkReachabilityManager sharedManager].reachableViaWWAN) {
+                 player = [[BWVideoPlayerViewController alloc] initWithVideo:video quality:BWVideoQualityMobile];
+            } else {
+                [SVProgressHUD showErrorWithStatus:@"Network unreachable"];
+                [tableView updateAnimatedly:YES];
+                return;
+            }
+
+            player.delegate = (id<BWVideoPlayerDelegate>)_self.delegate;
+            [_self.delegate playMoviePlayer:player];
+        };
+
         cell = [[BWVideoTableViewCell alloc] initForGesturedTableView:self.tableView
                                                                 style:UITableViewCellStyleDefault
                                                       reuseIdentifier:cellIdentifier];
@@ -126,7 +148,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
                                                                       color:kBWGiantBombCharcoalColor
                                                          activationFraction:kBWFarLeftSwipeFraction];
         
-        [watchNowFraction setDidReleaseBlock:toggleWatched];
+        [watchNowFraction setDidReleaseBlock:watchNow];
         [cell addSlidingFraction:watchNowFraction];
         
         PDGesturedTableViewCellSlidingFraction *setWatchedFraction =

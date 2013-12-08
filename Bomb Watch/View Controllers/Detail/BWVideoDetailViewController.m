@@ -310,6 +310,8 @@
 
 - (IBAction)downloadButtonPressed:(id)sender
 {
+    if (self.download && [self.download isComplete]) return;
+
     AFNetworkReachabilityManager *reach = [AFNetworkReachabilityManager sharedManager];
 
     if (reach.reachableViaWiFi) {

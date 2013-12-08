@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PDGesturedTableView.h"
 #import "BWVideo.h"
+#import "BWVideoPlayerViewController.h"
 
 @protocol BWListControllerDelegate <NSObject>
 @optional
@@ -17,6 +18,7 @@
 - (void)tableViewContentsReset;
 - (void)searchDidCompleteWithSuccess;
 - (void)searchDidCompleteWithFailure;
+- (void)playMoviePlayer:(BWVideoPlayerViewController *)player;
 
 @end
 

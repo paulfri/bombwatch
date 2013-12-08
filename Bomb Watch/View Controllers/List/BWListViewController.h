@@ -10,7 +10,7 @@
 #import "PDGesturedTableView.h"
 #import "BWListController.h"
 
-@interface BWListViewController : UIViewController <BWListControllerDelegate, UISearchBarDelegate>
+@interface BWListViewController : UIViewController <BWVideoPlayerDelegate, BWListControllerDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) NSString *category;
 @property (weak, nonatomic) IBOutlet PDGesturedTableView *tableView;

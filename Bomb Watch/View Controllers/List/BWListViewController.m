@@ -96,6 +96,11 @@
     [SVProgressHUD showErrorWithStatus:@"Error"];
 }
 
+- (void)playMoviePlayer:(BWVideoPlayerViewController *)player
+{
+    [self presentMoviePlayerViewControllerAnimated:player];
+}
+
 #pragma mark - UISearchBarDelegate
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
@@ -141,6 +146,11 @@
                               atScrollPosition:UITableViewScrollPositionTop
                                       animated:YES];
     }
+}
+
+- (void)videoDidFinishPlaying
+{
+    [self dismissMoviePlayerViewControllerAnimated];
 }
 
 @end
