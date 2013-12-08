@@ -32,6 +32,11 @@
     [self configureURLCache];
     [BWSettings initializeSettings];
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if (status == AFNetworkReachabilityStatusReachableViaWWAN) {
+            [[BWVideoDownloader defaultDownloader] pauseAllActiveDownloads];
+        }
+    }];
 
     [[PocketAPI sharedAPI] setConsumerKey:PocketConsumerKey];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];

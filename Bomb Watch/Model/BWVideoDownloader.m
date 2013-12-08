@@ -109,19 +109,25 @@
 
 - (void)pauseAllActiveDownloads
 {
+    dispatch_group_t group = dispatch_group_create();
+
     for (BWDownload *download in self.downloads) {
+        dispatch_group_enter(group);
         NSInteger i = [self.downloads indexOfObject:download];
         NSURLSessionDownloadTask *downloadTask = self.downloadTasks[i];
 
         [downloadTask cancelByProducingResumeData:^(NSData *resumeData) {
             download.resumeData = resumeData;
-        }];
 
-        [self.downloads removeObject:download];
-        [self.downloadTasks removeObject:downloadTask];
+            [self.downloads removeObject:download];
+            [self.downloadTasks removeObject:downloadTask];
+            dispatch_group_leave(group);
+        }];
     }
 
-    [[BWDownloadDataStore defaultStore] save];
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        [[BWDownloadDataStore defaultStore] save];
+    });
 }
 
 - (void)pauseDownload:(BWDownload *)download
@@ -184,21 +190,6 @@
     NSString *vids = [docs stringByAppendingPathComponent:@"videos"];
 
     return vids;
-}
-
-#pragma mark - reachability
-
-- (void)reachabilityChanged:(NSNotification *)notification
-{
-    // TODO setting for downloads?
-    [self pauseAllActiveDownloads];
-}
-
-#pragma mark - dealloc
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
