@@ -54,6 +54,7 @@
 		DACE82A517CD052300E23051 /* GiantBombAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DACE82A317CD052300E23051 /* GiantBombAPIClient.m */; };
 		DAF0B03B18541C0700281399 /* BWNameFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF0B03A18541C0700281399 /* BWNameFormatter.m */; };
 		DAF0B03E18543DCD00281399 /* BWTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF0B03D18543DCD00281399 /* BWTwitter.m */; };
+		DAF0B0401854D0BC00281399 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF0B03F1854D0BC00281399 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +154,7 @@
 		DAF0B03A18541C0700281399 /* BWNameFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWNameFormatter.m; sourceTree = "<group>"; };
 		DAF0B03C18543DCD00281399 /* BWTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWTwitter.h; sourceTree = "<group>"; };
 		DAF0B03D18543DCD00281399 /* BWTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWTwitter.m; sourceTree = "<group>"; };
+		DAF0B03F1854D0BC00281399 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAF0B0401854D0BC00281399 /* SystemConfiguration.framework in Frameworks */,
 				DA4127F417CE28D3003C4F59 /* Security.framework in Frameworks */,
 				DACE826717CD035700E23051 /* CoreGraphics.framework in Frameworks */,
 				DACE826917CD035700E23051 /* UIKit.framework in Frameworks */,
@@ -329,6 +332,7 @@
 		DACE826317CD035700E23051 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DAF0B03F1854D0BC00281399 /* SystemConfiguration.framework */,
 				DA4127F317CE28D3003C4F59 /* Security.framework */,
 				DACE826417CD035700E23051 /* Foundation.framework */,
 				DACE826617CD035700E23051 /* CoreGraphics.framework */,

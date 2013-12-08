@@ -16,6 +16,7 @@
 #import "BWVideoDetailViewController.h"
 #import "BWVideoDownloader.h"
 #import "BWSettings.h"
+#import "Reachability.h"
 
 #define PocketConsumerKey    @"17866-6c522817c89aaee6ae6da74f"
 
@@ -30,6 +31,7 @@
     [self configureInterface];
     [self configureURLCache];
     [BWSettings initializeSettings];
+    [self configureReachability];
 
     [[PocketAPI sharedAPI] setConsumerKey:PocketConsumerKey];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
@@ -81,6 +83,21 @@
     [[UITextField appearanceWhenContainedIn:UITableViewCell.class, nil] setTextColor:[UIColor lightGrayColor]];
 }
 
+- (void)configureReachability
+{
+    Reachability* reach = [Reachability reachabilityWithHostname:@"www.giantbomb.com"];
+
+    reach.reachableBlock = ^(Reachability *reach) {
+        self.reachable = YES;
+    };
+
+    reach.unreachableBlock = ^(Reachability *reach) {
+        self.reachable = NO;
+    };
+
+    [reach startNotifier];
+}
+
 #pragma mark - App Delegate methods
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
@@ -106,7 +123,6 @@
 
 -(void)applicationWillTerminate:(UIApplication *)application
 {
-//    [[BWVideoDownloader defaultDownloader] cancelAllActiveDownloads];
     [[BWVideoDownloader defaultDownloader] pauseAllActiveDownloads];
 }
 
@@ -175,7 +191,8 @@
     if (video) {
         BWVideoDetailViewController *detail = [[BWVideoDetailViewController alloc] init];
         detail.video = video;
-        
+        detail.quality = [BWSettings defaultQuality];
+
         [self.navVC pushViewController:detail animated:NO];
 //        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Hey duder!" message:[NSString stringWithFormat:@"Totally going to load %@!", video.name] delegate:nil cancelButtonTitle:@"Sweet!" otherButtonTitles:nil];
 //        [alertView show];

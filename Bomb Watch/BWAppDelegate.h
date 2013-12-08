@@ -11,5 +11,6 @@
 @interface BWAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property BOOL reachable;
 
 @end
