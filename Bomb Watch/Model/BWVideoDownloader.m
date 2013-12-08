@@ -125,7 +125,7 @@
         }];
     }
 
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{ // TODO save on background thread?
         [[BWDownloadDataStore defaultStore] save];
     });
 }

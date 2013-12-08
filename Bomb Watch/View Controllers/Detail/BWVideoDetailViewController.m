@@ -300,16 +300,24 @@
 
 - (IBAction)downloadButtonPressed:(id)sender
 {
-    if (!self.download) {
-        [SVProgressHUD showSuccessWithStatus:@"Downloading"];
-        BWDownload *download = [[BWVideoDownloader defaultDownloader] downloadVideo:self.video quality:[self selectedQuality]];
-        self.download = download;
-    } else if ([self.download isInProgress]) {
-        [SVProgressHUD showSuccessWithStatus:@"Download paused"];
-        [[BWVideoDownloader defaultDownloader] pauseDownload:self.download];
+    AFNetworkReachabilityManager *reach = [AFNetworkReachabilityManager sharedManager];
+
+    if (reach.reachableViaWiFi) {
+        if (!self.download) {
+            [SVProgressHUD showSuccessWithStatus:@"Downloading"];
+            BWDownload *download = [[BWVideoDownloader defaultDownloader] downloadVideo:self.video quality:[self selectedQuality]];
+            self.download = download;
+        } else if ([self.download isInProgress]) {
+            [SVProgressHUD showSuccessWithStatus:@"Download paused"];
+            [[BWVideoDownloader defaultDownloader] pauseDownload:self.download];
+        } else {
+            [SVProgressHUD showSuccessWithStatus:@"Download resumed"];
+            [[BWVideoDownloader defaultDownloader] resumeDownload:self.download];
+        }
+    } else if (reach.reachableViaWWAN) {
+        [SVProgressHUD showErrorWithStatus:@"Can't download over cellular"];
     } else {
-        [SVProgressHUD showSuccessWithStatus:@"Download resumed"];
-        [[BWVideoDownloader defaultDownloader] resumeDownload:self.download];
+        [SVProgressHUD showErrorWithStatus:@"Network unreachable"];
     }
 
     [self updateDownloadButton];
@@ -402,9 +410,8 @@
 
 - (BOOL)canStreamVideo
 {
-    return [AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWiFi ||
-                ([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN &&
-                [self.video canStreamOverCellular]);
+    AFNetworkReachabilityManager *reach = [AFNetworkReachabilityManager sharedManager];
+    return reach.reachableViaWiFi || (reach.reachableViaWWAN && [self.video canStreamOverCellular]);
 }
 
 @end
