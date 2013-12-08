@@ -16,7 +16,8 @@
 @property (strong, nonatomic) BWVideo *video;
 @property BWVideoQuality quality;
 
-@property (strong, nonatomic) BWImagePulldownView *imagePulldownView;
+@property (weak, nonatomic) IBOutlet UIImageView *preview;
+@property (weak, nonatomic) IBOutlet UILabel *labelTitle;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *bylineCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *durationCell;
@@ -27,7 +28,7 @@
 @property (strong, nonatomic) IBOutlet UIPickerView *qualityPicker;
 @property (weak, nonatomic) IBOutlet UILabel *qualityLabel;
 
-@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *watchedButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *downloadButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *favoritedButton;

@@ -569,54 +569,63 @@
         <scene sceneID="ydC-mI-Byj">
             <objects>
                 <tableViewController id="rJ6-uZ-0Hw" customClass="BWVideoDetailViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="rh0-6Y-hyI">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="rh0-6Y-hyI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="f8y-qn-Hbf">
+                            <rect key="frame" x="0.0" y="64" width="320" height="224"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gY8-g6-6b1" customClass="UIImageView">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </view>
+                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WNe-FU-apv">
+                                    <rect key="frame" x="0.0" y="180" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                    <items>
+                                        <barButtonItem image="ToolbarPlay" id="L4u-j2-O6B">
+                                            <connections>
+                                                <action selector="playButtonPressed:" destination="rJ6-uZ-0Hw" id="KFD-3i-5Hv"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Van-pV-4Rb"/>
+                                        <barButtonItem image="ToolbarDownload" id="0J2-tD-fnd">
+                                            <connections>
+                                                <action selector="downloadButtonPressed:" destination="rJ6-uZ-0Hw" id="2ve-aL-3Ur"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="4L5-dW-sG0"/>
+                                        <barButtonItem image="ToolbarFavorite" id="qSB-CV-LFW">
+                                            <connections>
+                                                <action selector="favoriteButtonPressed:" destination="rJ6-uZ-0Hw" id="Zol-O9-8uJ"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="xfg-DY-80Y"/>
+                                        <barButtonItem image="ToolbarCheck" id="VBI-zx-gqi">
+                                            <connections>
+                                                <action selector="watchedButtonPressed:" destination="rJ6-uZ-0Hw" id="KVv-Cr-kGR"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </items>
+                                </toolbar>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Quick Look: The Last of Us" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="tzF-hL-9DN">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </view>
                         <sections>
-                            <tableViewSection id="djw-aQ-iHH">
+                            <tableViewSection headerTitle="Stuff" id="djw-aQ-iHH">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="43" id="fFK-Z7-EAx">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="43"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fFK-Z7-EAx" id="lr9-rK-gMX">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="42"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WNe-FU-apv">
-                                                    <rect key="frame" x="0.0" y="-1" width="320" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                    <items>
-                                                        <barButtonItem image="ToolbarPlay" id="L4u-j2-O6B">
-                                                            <connections>
-                                                                <action selector="playButtonPressed:" destination="rJ6-uZ-0Hw" id="KFD-3i-5Hv"/>
-                                                            </connections>
-                                                        </barButtonItem>
-                                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Van-pV-4Rb"/>
-                                                        <barButtonItem image="ToolbarDownload" id="0J2-tD-fnd">
-                                                            <connections>
-                                                                <action selector="downloadButtonPressed:" destination="rJ6-uZ-0Hw" id="2ve-aL-3Ur"/>
-                                                            </connections>
-                                                        </barButtonItem>
-                                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="4L5-dW-sG0"/>
-                                                        <barButtonItem image="ToolbarFavorite" id="qSB-CV-LFW">
-                                                            <connections>
-                                                                <action selector="favoriteButtonPressed:" destination="rJ6-uZ-0Hw" id="Zol-O9-8uJ"/>
-                                                            </connections>
-                                                        </barButtonItem>
-                                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="xfg-DY-80Y"/>
-                                                        <barButtonItem image="ToolbarCheck" id="VBI-zx-gqi">
-                                                            <connections>
-                                                                <action selector="watchedButtonPressed:" destination="rJ6-uZ-0Hw" id="KVv-Cr-kGR"/>
-                                                            </connections>
-                                                        </barButtonItem>
-                                                    </items>
-                                                </toolbar>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="uLk-Pq-YF0" detailTextLabel="TVB-C7-xTl" rowHeight="50" style="IBUITableViewCellStyleValue1" id="GhI-iZ-xzI">
-                                        <rect key="frame" x="0.0" y="107" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="343" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GhI-iZ-xzI" id="BFG-9M-69H">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
@@ -640,7 +649,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="90" id="WRg-LJ-L0z">
-                                        <rect key="frame" x="0.0" y="157" width="320" height="90"/>
+                                        <rect key="frame" x="0.0" y="393" width="320" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WRg-LJ-L0z" id="sxp-B1-LpT">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
@@ -658,7 +667,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="tOS-Br-LA0" rowHeight="39" style="IBUITableViewCellStyleDefault" id="Qua-HO-9WS">
-                                        <rect key="frame" x="0.0" y="247" width="320" height="39"/>
+                                        <rect key="frame" x="0.0" y="483" width="320" height="39"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qua-HO-9WS" id="wlE-j6-2EJ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
@@ -675,7 +684,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="UIX-dV-5Iy" style="IBUITableViewCellStyleDefault" id="Avl-oo-m7a">
-                                        <rect key="frame" x="0.0" y="286" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="522" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Avl-oo-m7a" id="kQD-wt-fKa">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -692,7 +701,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="DvO-o2-Os0">
-                                        <rect key="frame" x="0.0" y="330" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="566" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DvO-o2-Os0" id="BjL-iR-ZfH">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -718,6 +727,35 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Summary" id="M7a-0F-fXe">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="utg-JR-PDg">
+                                        <rect key="frame" x="0.0" y="658" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="utg-JR-PDg" id="8aw-NX-9Vy">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the description of the video." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="290" translatesAutoresizingMaskIntoConstraints="NO" id="KEe-L1-hR5">
+                                                    <rect key="frame" x="15" y="5" width="290" height="34"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="290" id="VB0-Sj-92T"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="KEe-L1-hR5" secondAttribute="centerY" constant="-0.5" id="BY5-P1-c97"/>
+                                                <constraint firstAttribute="bottom" secondItem="KEe-L1-hR5" secondAttribute="bottom" constant="4" id="Qs5-nV-i0S"/>
+                                                <constraint firstAttribute="centerX" secondItem="KEe-L1-hR5" secondAttribute="centerX" id="S8K-5l-K6h"/>
+                                                <constraint firstItem="KEe-L1-hR5" firstAttribute="top" secondItem="8aw-NX-9Vy" secondAttribute="top" constant="5" id="lhk-Em-hVK"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="rJ6-uZ-0Hw" id="cOS-2o-Tcu"/>
@@ -737,6 +775,8 @@
                         <outlet property="downloadButton" destination="0J2-tD-fnd" id="qOb-rE-3tY"/>
                         <outlet property="durationCell" destination="Avl-oo-m7a" id="iG4-mC-Kj3"/>
                         <outlet property="favoritedButton" destination="qSB-CV-LFW" id="v3G-8W-EzB"/>
+                        <outlet property="labelTitle" destination="tzF-hL-9DN" id="yy7-Sb-5Uy"/>
+                        <outlet property="preview" destination="gY8-g6-6b1" id="b4j-qK-YTr"/>
                         <outlet property="qualityCell" destination="GhI-iZ-xzI" id="cD7-qI-5Mz"/>
                         <outlet property="qualityLabel" destination="TVB-C7-xTl" id="4Ie-7A-8nY"/>
                         <outlet property="qualityPicker" destination="fub-Vv-pO4" id="BRT-7W-MlK"/>

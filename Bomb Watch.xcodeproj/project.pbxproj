@@ -19,7 +19,6 @@
 		DA01E18D184A71EB008B139F /* BWVideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E18C184A71EB008B139F /* BWVideoDetailViewController.m */; };
 		DA01E191184AB9AA008B139F /* BWPushNotificationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E190184AB9AA008B139F /* BWPushNotificationClient.m */; };
 		DA01E197184BA03A008B139F /* BWGenericTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA01E196184BA03A008B139F /* BWGenericTableViewCell.m */; };
-		DA0A718718490BC4004750F1 /* BWImagePulldownView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A718618490BC4004750F1 /* BWImagePulldownView.m */; };
 		DA0A718D184919FC004750F1 /* BWListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A718C184919FC004750F1 /* BWListViewController.m */; };
 		DA0A7191184930BD004750F1 /* BWListController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A7190184930BD004750F1 /* BWListController.m */; };
 		DA0A719518494688004750F1 /* BWVideoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A719418494688004750F1 /* BWVideoFetcher.m */; };
@@ -90,8 +89,6 @@
 		DA01E190184AB9AA008B139F /* BWPushNotificationClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWPushNotificationClient.m; sourceTree = "<group>"; };
 		DA01E195184BA03A008B139F /* BWGenericTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWGenericTableViewCell.h; sourceTree = "<group>"; };
 		DA01E196184BA03A008B139F /* BWGenericTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWGenericTableViewCell.m; sourceTree = "<group>"; };
-		DA0A718518490BC4004750F1 /* BWImagePulldownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWImagePulldownView.h; sourceTree = "<group>"; };
-		DA0A718618490BC4004750F1 /* BWImagePulldownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWImagePulldownView.m; sourceTree = "<group>"; };
 		DA0A718B184919FC004750F1 /* BWListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWListViewController.h; sourceTree = "<group>"; };
 		DA0A718C184919FC004750F1 /* BWListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWListViewController.m; sourceTree = "<group>"; };
 		DA0A718F184930BD004750F1 /* BWListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWListController.h; sourceTree = "<group>"; };
@@ -250,8 +247,6 @@
 			children = (
 				DA68EBD817D0305300451F14 /* EVCircularProgressView.h */,
 				DA68EBD917D0305300451F14 /* EVCircularProgressView.m */,
-				DA0A718518490BC4004750F1 /* BWImagePulldownView.h */,
-				DA0A718618490BC4004750F1 /* BWImagePulldownView.m */,
 				DA01E173184A1CC5008B139F /* BWFavoriteView.h */,
 				DA01E174184A1CC5008B139F /* BWFavoriteView.m */,
 				DA01E176184A3516008B139F /* BWVideoTableViewCell.h */,
@@ -571,7 +566,6 @@
 				DA01E182184A71CC008B139F /* BWAboutViewController.m in Sources */,
 				DA0A71A218497CDF004750F1 /* BWVideo.m in Sources */,
 				DA88AE81184D533F00D6E823 /* BWColors.m in Sources */,
-				DA0A718718490BC4004750F1 /* BWImagePulldownView.m in Sources */,
 				DA01E187184A71D7008B139F /* BWTableViewController.m in Sources */,
 				DA88AE87184D7E8600D6E823 /* BWDownload.m in Sources */,
 				DA88AE7D184C061000D6E823 /* BWVideoDataStore.m in Sources */,

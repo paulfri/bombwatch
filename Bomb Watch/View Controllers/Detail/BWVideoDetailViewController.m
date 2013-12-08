@@ -16,11 +16,12 @@
 #import "EVCircularProgressView.h"
 #import "BWOpenOnGBActivity.h"
 #import "BWVideoPlayerViewController.h"
-#import "BWImagePulldownView.h"
 #import "BWVideo.h"
 #import "NSString+Extensions.h"
 #import "BWVideoDownloader.h"
 #import "BWDownloadDataStore.h"
+#import "BWColors.h"
+#import "UIImage+ImageEffects.h"
 
 #define kQualityCell        1
 #define kQualityPickerCell  2
@@ -30,11 +31,19 @@
 
 #define kBWToolbarDownloadItemPosition 2
 
+#define kBWImageCoverTintColor [UIColor colorWithWhite:0.0 alpha:0.30]
+#define kBWImageCoverBlurRadius 2.0f
+#define kBWImageCoverSaturation 0.9f
+
+#define kBWMinimumBlurRadiusDelta 0.1f
+
 @interface BWVideoDetailViewController ()
 @property (strong, nonatomic) BWVideoPlayerViewController *player;
 @property BOOL pickerVisible;
 @property (strong, nonatomic) BWDownload *download;
 @property (strong, nonatomic) EVCircularProgressView *progressView;
+@property float cachedBlurRadius;
+@property (strong, nonatomic) UIImage *previewImage;
 @end
 
 @implementation BWVideoDetailViewController
@@ -43,26 +52,24 @@
 {
     [super viewDidLoad];
     self.navigationController.navigationBar.translucent = NO;
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableFooterView = [[UIView alloc] init];
-    
-    [self drawImagePulldown];
+    self.tableView.backgroundColor = kBWGiantBombCharcoalColor;
 
+    self.labelTitle.text = self.video.name;
     self.descriptionLabel.text = self.video.summary;
     self.bylineCell.textLabel.text = [self bylineLabelText];
+
     
-    self.tableView.backgroundColor = [UIColor darkGrayColor];
-
     [self selectQuality:self.quality];
-}
 
-- (void)drawImagePulldown
-{
-    self.imagePulldownView = [[BWImagePulldownView alloc] initWithTitle:self.video.name
-                                                               imageURL:self.video.imageMediumURL];
-
-    self.tableView.tableHeaderView = self.imagePulldownView;
-    [self.tableView sendSubviewToBack:self.tableView.tableHeaderView];
+    [self.preview setImageWithURLRequest:[NSURLRequest requestWithURL:self.video.imageMediumURL]
+                        placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"]
+                                 success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         self.previewImage = image;
+         [self updateImageBlurWithRadius:kBWImageCoverBlurRadius];
+     }
+                                   failure:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -158,7 +165,31 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self.imagePulldownView scrollViewDidScroll:scrollView];
+    CGFloat y = scrollView.contentOffset.y;
+    if (y < 0) {
+        self.preview.frame = CGRectMake(0, y, 320 + -y, 180 + -y);
+        self.preview.center = CGPointMake(self.view.center.x, self.preview.center.y);
+
+        float blurRadius = kBWImageCoverBlurRadius + y / (scrollView.frame.size.height / 10);
+        
+        // only apply blur after the minimum delta - for performance
+        if(fabsf(self.cachedBlurRadius - blurRadius) > kBWMinimumBlurRadiusDelta) {
+            [self updateImageBlurWithRadius:blurRadius];
+        }
+    }
+    
+    self.labelTitle.alpha = 1 + y / (scrollView.frame.size.height / 10);
+}
+
+- (void)updateImageBlurWithRadius:(float)radius
+{
+    UIImage *blurredImage = [self.previewImage applyBlurWithRadius:radius
+                                                         tintColor:kBWImageCoverTintColor
+                                             saturationDeltaFactor:kBWImageCoverSaturation
+                                                         maskImage:nil];
+    
+    [self.preview setImage:blurredImage];
+    self.cachedBlurRadius = radius;
 }
 
 #pragma mark - UIPickerViewDelegate protocol methods
