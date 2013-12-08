@@ -56,7 +56,7 @@
     }
 
     if (users[user]) {
-        return users[user];
+        return [@"@" stringByAppendingString:users[user]];
     }
 
     return user;

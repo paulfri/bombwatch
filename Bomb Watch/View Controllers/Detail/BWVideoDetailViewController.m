@@ -23,6 +23,7 @@
 #import "BWColors.h"
 #import "UIImage+ImageEffects.h"
 #import "BWNameFormatter.h"
+#import "BWSettings.h"
 
 #define kSummarySection    0
 #define kVideoDetailCell   0
@@ -59,15 +60,18 @@
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.tableView.backgroundColor = kBWGiantBombCharcoalColor;
     self.tableView.separatorColor  = [UIColor grayColor];
+    self.qualityLabel.textColor = [UIColor lightGrayColor];
+    self.bylineCell.detailTextLabel.textColor = [UIColor lightGrayColor];
     
     self.labelTitle.text = self.video.name;
     self.labelDescription.text = self.video.summary;
-    self.bylineCell.textLabel.text = [self bylineLabelText];
-    
+    self.bylineCell.textLabel.text = [BWNameFormatter realNameForUser:self.video.user];
+    self.bylineCell.detailTextLabel.text = [BWNameFormatter twitterHandleForUser:self.video.user];
+
     [self selectQuality:self.quality];
 
-    [self.preview setImageWithURLRequest:[NSURLRequest requestWithURL:self.video.imageMediumURL]
-                        placeholderImage:[UIImage imageNamed:@"VideoListPlaceholder"]
+    [self.preview setImageWithURLRequest:[NSURLRequest requestWithURL:self.video.imageSmallURL]
+                        placeholderImage:nil
                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          self.previewImage = image;
@@ -97,7 +101,7 @@
 
 - (void)updateDurationLabel
 {
-    NSTimeInterval played = [[[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"] objectForKey:[NSString stringWithFormat:@"%@", [NSNumber numberWithInt:self.video.videoID]]] doubleValue];
+    NSTimeInterval played = [BWSettings progressForVideo:self.video];
     NSTimeInterval duration = self.video.length;
     
     if (played != 0) {
@@ -105,11 +109,6 @@
     } else {
         self.durationCell.textLabel.text = [NSString stringWithFormat:@"Duration: %@", [NSString stringFromDuration:duration]];
     }
-}
-
-- (NSString *)bylineLabelText
-{
-    return [BWNameFormatter realNameForUser:self.video.user];
 }
 
 #pragma mark - UITableViewDelegate protocol methods
