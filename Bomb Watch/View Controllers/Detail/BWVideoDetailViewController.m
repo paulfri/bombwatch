@@ -71,6 +71,8 @@
 
     if ([[BWDownloadDataStore defaultStore] downloadExistsForVideo:self.video quality:self.quality]) {
         self.download = [[BWDownloadDataStore defaultStore] downloadForVideo:self.video quality:self.quality];
+    } else {
+        self.download = nil;
     }
 
     [self refreshViews];
