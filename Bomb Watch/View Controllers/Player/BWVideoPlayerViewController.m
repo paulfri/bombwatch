@@ -9,15 +9,10 @@
 #import "BWVideoPlayerViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "BWDownloadDataStore.h"
-#import "BwSettings.h"
+#import "BWSettings.h"
 
 #define kBWWatchedStatusThreshold 0.95
-
-@interface BWVideoPlayerViewController ()
-
-@property (strong, nonatomic) NSArray *downloads;
-
-@end
+#define kBWMinimumStoredPlaybackTime 10.0
 
 @implementation BWVideoPlayerViewController
 
@@ -27,11 +22,7 @@
 
     if (self) {
         self.video = video;
-//        NSArray *qualities = @[@"Mobile", @"Low", @"High", @"HD"];
-//        BWVideoQuality qual = [qualities indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:@"defaultQuality"]];
-//        self.quality = qual;
-        // TODO fix this
-        self.quality = BWVideoQualityLow;
+        self.quality = [BWSettings defaultQuality];
     }
 
     return self;
@@ -54,39 +45,43 @@
     [super viewDidLoad];
     self.moviePlayer.fullscreen = YES;
     self.moviePlayer.allowsAirPlay = YES;
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(remoteControlEventNotification:)
-                                                 name:@"BWEventRemoteControlReceived"
-                                               object:nil];
+    self.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
 
     [self setContentURL];
 }
 
 - (void)play
 {
+    [self becomeFirstResponder];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(remoteControlEventNotification:)
+                                                 name:@"BWEventRemoteControlReceived"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(movieFinishedPlayingNotification:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+                                               object:self.moviePlayer];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(movieFinishedPlayingNotification:)
                                                  name:MPMoviePlayerDidExitFullscreenNotification
                                                object:self.moviePlayer];
-
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
 
-    [self becomeFirstResponder];
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setActive:YES error:nil];
     [audioSession setMode:AVAudioSessionModeMoviePlayback error:nil];
-    
-    NSDictionary *nowPlayingInfo = @{MPMediaItemPropertyTitle:self.video.name,
-                                     MPMediaItemPropertyArtist:@"Giant Bomb",
-                                     MPMediaItemPropertyPlaybackDuration:[NSNumber numberWithInt:self.video.length]};
+
+    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = @{MPMediaItemPropertyTitle:self.video.name,
+                                                              MPMediaItemPropertyArtist:@"Giant Bomb",
+                                                              MPMediaItemPropertyPlaybackDuration:[NSNumber numberWithInt:self.video.length]};;
     //    MPNowPlayingInfoPropertyElapsedPlaybackTime:[NSNumber numberWithDouble:self.moviePlayer.currentPlaybackTime]
     //    MPMediaItemPropertyArtwork
 
-    self.moviePlayer.initialPlaybackTime = [[[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"]
-                                             objectForKey:[NSString stringWithFormat:@"%d", self.video.videoID]] doubleValue];
-    
-    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nowPlayingInfo;
+    self.moviePlayer.initialPlaybackTime = [BWSettings progressForVideo:self.video];
+
+
+    [self.moviePlayer prepareToPlay];
     [self.moviePlayer play];
 }
 
@@ -113,30 +108,32 @@
 - (void)movieFinishedPlayingNotification:(NSNotification *)notification
 {
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
-    [self resignFirstResponder];
     [[AVAudioSession sharedInstance] setActive:NO error:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:MPMoviePlayerPlaybackDidFinishNotification
                                                   object:self.moviePlayer];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:MPMoviePlayerDidExitFullscreenNotification
+                                                  object:self.moviePlayer];
 
-    NSMutableDictionary *progress = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"videoProgress"] mutableCopy];
-    NSNumber *playback = [NSNumber numberWithDouble:self.moviePlayer.currentPlaybackTime];
-    NSString *key = [NSString stringWithFormat:@"%d", self.video.videoID];
-    
-    if (self.moviePlayer.currentPlaybackTime > 0) {
-        if (self.moviePlayer.currentPlaybackTime >= (self.moviePlayer.duration * kBWWatchedStatusThreshold)) {
-            [self.video setWatched:YES];
-            [progress removeObjectForKey:key];
-        } else {
-            [progress setObject:playback forKey:key];
-        }
+    BOOL watchedMinimally = (self.moviePlayer.currentPlaybackTime >= kBWMinimumStoredPlaybackTime);
+    BOOL watchedEntirety  = (self.moviePlayer.currentPlaybackTime >= (self.moviePlayer.duration * kBWWatchedStatusThreshold));
+
+    if (watchedMinimally && !watchedEntirety) {
+        [BWSettings setWatchedProgress:self.moviePlayer.currentPlaybackTime forVideo:self.video];
+    } else if (watchedEntirety) {
+        [self.video setWatched:YES];
+        [BWSettings removeWatchedProgressForVideo:self.video];
     }
 
-    [[NSUserDefaults standardUserDefaults] setObject:[progress copy] forKey:@"videoProgress"];
+    self.moviePlayer.fullscreen = NO;
     [self dismissMoviePlayerViewControllerAnimated];
+    [self resignFirstResponder];
 
-    [self.delegate videoDidFinishPlaying];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(videoDidFinishPlaying)]) {
+        [self.delegate videoDidFinishPlaying];
+    }
 }
 
 #pragma mark - helpers

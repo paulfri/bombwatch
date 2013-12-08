@@ -598,7 +598,7 @@
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem style="plain" systemItem="flexibleSpace" id="4L5-dW-sG0"/>
-                                        <barButtonItem image="ToolbarFavorite" id="qSB-CV-LFW">
+                                        <barButtonItem image="toolbar-fav-outline" id="qSB-CV-LFW">
                                             <connections>
                                                 <action selector="favoriteButtonPressed:" destination="rJ6-uZ-0Hw" id="Zol-O9-8uJ"/>
                                             </connections>
@@ -923,10 +923,10 @@
         <image name="SettingsIcon" width="30" height="30"/>
         <image name="ToolbarCheck" width="30" height="30"/>
         <image name="ToolbarDownload" width="30" height="30"/>
-        <image name="ToolbarFavorite" width="30" height="30"/>
         <image name="ToolbarPlay" width="30" height="30"/>
         <image name="about_mail_icon" width="29" height="29"/>
         <image name="about_twitter_icon" width="29" height="29"/>
+        <image name="toolbar-fav-outline" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

@@ -231,7 +231,8 @@
 
 #pragma mark - Video player control
 
-- (IBAction)playButtonPressed:(id)sender {
+- (IBAction)playButtonPressed:(id)sender
+{
     self.player = [[BWVideoPlayerViewController alloc] initWithVideo:self.video quality:[self selectedQuality]];
     self.player.delegate = self;
     [self presentMoviePlayerViewControllerAnimated:self.player];
@@ -242,6 +243,7 @@
 
 - (void)videoDidFinishPlaying
 {
+    self.player = nil;
     [self updateWatchedButton];
     [self updateDurationLabel];
 }
@@ -278,9 +280,9 @@
 - (void)updateFavoriteButton
 {
     if ([self.video isFavorited]) {
-        [self.favoritedButton setImage:[UIImage imageNamed:@"ToolbarFavoriteFull"]];
+        [self.favoritedButton setImage:[UIImage imageNamed:@"toolbar-fav-full"]];
     } else {
-        [self.favoritedButton setImage:[UIImage imageNamed:@"ToolbarFavorite"]];
+        [self.favoritedButton setImage:[UIImage imageNamed:@"toolbar-fav-outline"]];
     }
 }
 
@@ -321,7 +323,8 @@
                                                               target:self
                                                               action:@selector(downloadButtonPressed:)];
         if (self.download && [self.download isComplete]) {
-            self.downloadButton.enabled = NO;
+//            self.downloadButton.userInteractionEnabled = NO;
+            self.downloadButton.image = [UIImage imageNamed:@"ToolbarDownloadFull"];
         }
     }
 
@@ -350,10 +353,6 @@
     [self.video setWatched:![self.video isWatched]];
 
     if ([self.video isWatched]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(dismiss)
-                                                     name:SVProgressHUDDidDisappearNotification
-                                                   object:nil];
         [SVProgressHUD showSuccessWithStatus:@"Watched"];
     } else {
         [SVProgressHUD showSuccessWithStatus:@"Unwatched"];
@@ -372,14 +371,6 @@
 }
 
 #pragma mark - Utility
-
-- (void)dismiss
-{
-    [self.navigationController popViewControllerAnimated:YES];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:SVProgressHUDDidDisappearNotification
-                                                  object:nil];
-}
 
 - (void)refreshViews
 {

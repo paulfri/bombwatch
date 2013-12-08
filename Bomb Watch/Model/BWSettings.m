@@ -15,7 +15,7 @@ NSString *const kBWSettingsKeyiCloudSync = @"kBWSettingsKeyiCloudSync";
 NSString *const kBWSettingsKeyWatchComplete = @"kBWSettingsKeyWatchComplete";
 NSString *const kBWSettingsKeyWatchProgress = @"kBWSettingsKeyWatchProgress";
 
-#define kBWDefaultSettingDefaultQuality  @2 // BWVideoQualityHigh
+#define kBWDefaultSettingDefaultQuality  @(BWVideoQualityHigh)
 NSString *const kBWDefaultSettingAPIKey  = @"e5ab8850b03bcec7ce6590ca705c9a26395dddf1";
 #define kBWDefaultSettingLockRotation    @YES
 #define kBWDefaultSettingsiCloudSync     @NO
@@ -57,16 +57,12 @@ NSString *const kBWDefaultSettingAPIKey  = @"e5ab8850b03bcec7ce6590ca705c9a26395
 
 + (BOOL)watchedVideo:(BWVideo *)video
 {
-    return [[[NSUserDefaults standardUserDefaults] arrayForKey:kBWSettingsKeyWatchComplete] containsObject:[NSNumber numberWithInteger:video.videoID]];
+    return [[[NSUserDefaults standardUserDefaults] arrayForKey:kBWSettingsKeyWatchComplete] containsObject:@(video.videoID)];
 }
 
 + (NSTimeInterval)progressForVideo:(BWVideo *)video
 {
-    if (![[[[NSUserDefaults standardUserDefaults] dictionaryForKey:kBWSettingsKeyWatchProgress] allKeys] containsObject:[NSNumber numberWithInteger:video.videoID]]) {
-        return 0.0f;
-    }
-
-    return [[[NSUserDefaults standardUserDefaults] dictionaryForKey:kBWSettingsKeyWatchProgress][[NSNumber numberWithInteger:video.videoID]] doubleValue];
+    return [[[NSUserDefaults standardUserDefaults] dictionaryForKey:kBWSettingsKeyWatchProgress][[@(video.videoID) stringValue]] doubleValue];
 }
 
 #pragma mark - setters
@@ -89,18 +85,18 @@ NSString *const kBWDefaultSettingAPIKey  = @"e5ab8850b03bcec7ce6590ca705c9a26395
 + (void)addWatchedVideo:(BWVideo *)video
 {
     NSArray *watched = [[NSUserDefaults standardUserDefaults] arrayForKey:kBWSettingsKeyWatchComplete];
-    NSNumber *object = [NSNumber numberWithInteger:video.videoID];
-    if (![watched containsObject:object]) {
-        [[NSUserDefaults standardUserDefaults] setObject:[watched arrayByAddingObject:object] forKey:kBWSettingsKeyWatchComplete];
+
+    if (![watched containsObject:@(video.videoID)]) {
+        [[NSUserDefaults standardUserDefaults] setObject:[watched arrayByAddingObject:@(video.videoID)] forKey:kBWSettingsKeyWatchComplete];
     }
 }
 
 + (void)removeWatchedVideo:(BWVideo *)video
 {
     NSMutableArray *watched = [[[NSUserDefaults standardUserDefaults] arrayForKey:kBWSettingsKeyWatchComplete] mutableCopy];
-    NSNumber *object = [NSNumber numberWithInteger:video.videoID];
-    if ([watched containsObject:object]) {
-        [watched removeObject:object];
+
+    if ([watched containsObject:@(video.videoID)]) {
+        [watched removeObject:@(video.videoID)];
     }
 
     [[NSUserDefaults standardUserDefaults] setObject:watched forKey:kBWSettingsKeyWatchComplete];
@@ -109,9 +105,9 @@ NSString *const kBWDefaultSettingAPIKey  = @"e5ab8850b03bcec7ce6590ca705c9a26395
 + (void)removeWatchedProgressForVideo:(BWVideo *)video
 {
     NSMutableDictionary *dict = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:kBWSettingsKeyWatchProgress] mutableCopy];
-    NSNumber *key = [NSNumber numberWithInteger:video.videoID];
-    if ([[dict allKeys] containsObject:key]) {
-        [dict removeObjectForKey:key];
+
+    if ([[dict allKeys] containsObject:[@(video.videoID) stringValue]]) {
+        [dict removeObjectForKey:[@(video.videoID) stringValue]];
     }
 
     [[NSUserDefaults standardUserDefaults] setObject:dict forKey:kBWSettingsKeyWatchProgress];
@@ -120,8 +116,7 @@ NSString *const kBWDefaultSettingAPIKey  = @"e5ab8850b03bcec7ce6590ca705c9a26395
 + (void)setWatchedProgress:(NSTimeInterval)progress forVideo:(BWVideo *)video
 {
     NSMutableDictionary *dict = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:kBWSettingsKeyWatchProgress] mutableCopy];
-    NSNumber *key = [NSNumber numberWithInteger:video.videoID];
-    dict[key] = [NSNumber numberWithDouble:progress];
+    dict[[@(video.videoID) stringValue]] = @(progress);
 
     [[NSUserDefaults standardUserDefaults] setObject:dict forKey:kBWSettingsKeyWatchProgress];
 }
