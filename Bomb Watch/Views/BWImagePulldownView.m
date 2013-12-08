@@ -91,7 +91,6 @@
     
     [self.imageView setImage:blurredImage];
     self.cachedBlurRadius = radius;
-    NSLog(@"asdf");
 }
 
 @end

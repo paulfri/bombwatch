@@ -41,11 +41,12 @@
 - (IBAction)savePressed:(id)sender
 {
     [SVProgressHUD showWithStatus:@"Linking..."];
+    // TODO refactor this API call out of the view controller
     [[GiantBombAPIClient defaultClient] GET:@"validate"
                                  parameters:@{@"link_code": self.accountCode.text}
                                     success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *responseDict = (NSDictionary *)responseObject;
-        // TODO: check that apikey actually gets returned so we don't get a runtime crash
+        // TODO: check that a working API key actually gets returned
         NSString *apiKey = responseDict[@"api_key"];
         if ([apiKey isKindOfClass:[NSString class]] && [apiKey length] == kBWAPIKeyLength) {
             [BWSettings setAPIKey:apiKey];
@@ -69,6 +70,16 @@
 #pragma mark - UITextField delegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
+    BOOL lowercase;
+    NSRange lowercaseCharRange = [string rangeOfCharacterFromSet:[NSCharacterSet lowercaseLetterCharacterSet]];
+    if (lowercaseCharRange.location != NSNotFound) {
+        textField.text = [textField.text stringByReplacingCharactersInRange:range
+                                                                 withString:[string uppercaseString]];
+        lowercase = NO;
+    } else {
+        lowercase = YES;
+    }
+    
     NSUInteger oldLength = [textField.text length];
     NSUInteger replacementLength = [string length];
     NSUInteger rangeLength = range.length;
@@ -76,7 +87,7 @@
     NSUInteger newLength = oldLength - rangeLength + replacementLength;
     BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
 
-    return newLength <= kBWLinkCodeLength || returnKey;
+    return (newLength <= kBWLinkCodeLength && lowercase) || returnKey;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
