@@ -23,7 +23,6 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *bylineCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *durationCell;
 
-
 @property (weak, nonatomic) IBOutlet UITableViewCell *qualityCell;
 @property (strong, nonatomic) IBOutlet UIPickerView *qualityPicker;
 @property (weak, nonatomic) IBOutlet UILabel *qualityLabel;

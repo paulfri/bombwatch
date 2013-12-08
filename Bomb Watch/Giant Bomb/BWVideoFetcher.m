@@ -45,7 +45,7 @@
              [results addObject:video];
          }
 
-         if (results.count > 0 && page == 1) {
+         if (!searchString && results.count > 0 && page == 1) {
               [[BWVideoDataStore defaultStore] setCachedVideos:results forCategory:category];
          }
 

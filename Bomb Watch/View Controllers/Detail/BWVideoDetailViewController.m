@@ -63,7 +63,8 @@
     self.tableView.separatorColor  = [UIColor grayColor];
     self.qualityLabel.textColor = [UIColor lightGrayColor];
     self.bylineCell.detailTextLabel.textColor = [UIColor lightGrayColor];
-    
+    self.durationCell.detailTextLabel.textColor = [UIColor lightGrayColor];
+
     self.labelTitle.text = self.video.name;
     self.labelDescription.text = self.video.summary;
     self.bylineCell.textLabel.text = [BWNameFormatter realNameForUser:self.video.user];
@@ -105,10 +106,10 @@
     NSTimeInterval played = [BWSettings progressForVideo:self.video];
     NSTimeInterval duration = self.video.length;
     
-    if (played != 0) {
-        self.durationCell.textLabel.text = [NSString stringWithFormat:@"Duration: %@ / %@", [NSString stringFromDuration:played], [NSString stringFromDuration:duration]];
+    if (played > 0) {
+        self.durationCell.detailTextLabel.text = [NSString stringWithFormat:@"%@ / %@", [NSString stringFromDuration:played], [NSString stringFromDuration:duration]];
     } else {
-        self.durationCell.textLabel.text = [NSString stringWithFormat:@"Duration: %@", [NSString stringFromDuration:duration]];
+        self.durationCell.detailTextLabel.text = [NSString stringFromDuration:duration];
     }
 }
 
