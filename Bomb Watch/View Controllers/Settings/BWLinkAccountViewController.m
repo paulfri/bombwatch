@@ -40,6 +40,13 @@
 
 - (IBAction)savePressed:(id)sender
 {
+    if (self.accountCode.text.length != kBWLinkCodeLength) {
+        [SVProgressHUD showErrorWithStatus:@"Invalid link code"];
+        return;
+    }
+
+    self.accountCode.text = [self.accountCode.text uppercaseString];
+
     [SVProgressHUD showWithStatus:@"Linking..."];
     // TODO refactor this API call out of the view controller
     [[GiantBombAPIClient defaultClient] GET:@"validate"
@@ -70,16 +77,6 @@
 #pragma mark - UITextField delegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    BOOL lowercase;
-    NSRange lowercaseCharRange = [string rangeOfCharacterFromSet:[NSCharacterSet lowercaseLetterCharacterSet]];
-    if (lowercaseCharRange.location != NSNotFound) {
-        textField.text = [textField.text stringByReplacingCharactersInRange:range
-                                                                 withString:[string uppercaseString]];
-        lowercase = NO;
-    } else {
-        lowercase = YES;
-    }
-    
     NSUInteger oldLength = [textField.text length];
     NSUInteger replacementLength = [string length];
     NSUInteger rangeLength = range.length;
@@ -87,7 +84,9 @@
     NSUInteger newLength = oldLength - rangeLength + replacementLength;
     BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
 
-    return (newLength <= kBWLinkCodeLength && lowercase) || returnKey;
+    if (returnKey) return YES;
+
+    return newLength <= kBWLinkCodeLength || returnKey;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
