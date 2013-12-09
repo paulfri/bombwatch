@@ -9,31 +9,64 @@
 #import "BWAboutViewController.h"
 #import "BWTwitter.h"
 
-#define kTwitterSection 0
-#define kTwitterCell    0
+#define kBWContactSection     0
+#define kBWContactTwitterCell 0
+#define kBWContactMailCell    1
 
-#define kMailSection    0
-#define kMailCell       1
+#define kBWAttributionSection 2
+#define kBWAttributionCell    0
+
+#define kBWAttributionCellPadding 10
+#define kBWCopyrightCellHeight 80
+#define kBWContactCellHeight   44
 
 static NSString *kBWTwitterHandle = @"bombwatch";
 
 @implementation BWAboutViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    return self;
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0]};
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:self.aboutLabel.text attributes:dict];
+    NSArray *titles = @[@"AFNetworking", @"SVProgressHUD", @"PDGesturedTableView", @"Mantle"];
+
+    for (NSString *title in titles) {
+        [string addAttribute:NSFontAttributeName
+                       value:[UIFont boldSystemFontOfSize:17.0]
+                       range:[self.aboutLabel.text rangeOfString:title]];
+    }
+
+    self.aboutLabel.frame = [string boundingRectWithSize:CGSizeMake(280, 2670)
+                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                                 context:nil];
+
+    self.aboutLabel.attributedText = string;
 }
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == kTwitterSection && indexPath.row == kTwitterCell) {
+    if (indexPath.section == kBWContactSection && indexPath.row == kBWContactTwitterCell) {
         [BWTwitter openTwitterUser:kBWTwitterHandle];
-    } else if (indexPath.section == kMailSection && indexPath.row == kMailCell) {
+    } else if (indexPath.section == kBWContactSection && indexPath.row == kBWContactMailCell) {
         NSURL *mailURL = [NSURL URLWithString:@"mailto:cosmonautics@laika.io"];
         [[UIApplication sharedApplication] openURL:mailURL];
     }
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == kBWAttributionSection && indexPath.row == kBWAttributionCell) {
+        return self.aboutLabel.frame.size.height + (kBWAttributionCellPadding * 2);
+    } else if (indexPath.section == kBWContactSection) {
+        return kBWContactCellHeight;
+    }
+
+    return kBWCopyrightCellHeight;
 }
 
 @end
