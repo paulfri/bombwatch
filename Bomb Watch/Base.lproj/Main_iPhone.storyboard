@@ -376,10 +376,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Giant Bomb" id="Dug-e2-Hya">
+                            <tableViewSection headerTitle="" id="Dug-e2-Hya">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="80" id="NXD-ts-h03" customClass="BWGenericTableViewCell">
-                                        <rect key="frame" x="0.0" y="383" width="320" height="80"/>
+                                        <rect key="frame" x="0.0" y="355" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NXD-ts-h03" id="PBL-sY-Oyi">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
@@ -403,7 +403,7 @@
                             <tableViewSection headerTitle="Licenses" id="bj9-iD-Frq">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="100" id="HR9-se-P3S" customClass="BWGenericTableViewCell">
-                                        <rect key="frame" x="0.0" y="511" width="320" height="100"/>
+                                        <rect key="frame" x="0.0" y="483" width="320" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HR9-se-P3S" id="JoM-c6-EmC">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>

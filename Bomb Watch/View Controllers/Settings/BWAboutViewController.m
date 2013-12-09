@@ -13,7 +13,7 @@
 #define kBWContactTwitterCell 0
 #define kBWContactMailCell    1
 
-#define kBWAttributionSection 2
+#define kBWAttributionSection 3
 #define kBWAttributionCell    0
 
 #define kBWAttributionCellPadding 10
