@@ -119,7 +119,7 @@
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Settings" id="nR2-LW-6cu">
-                                <string key="footerTitle">This setting determines what quality will be used when using the swipe-to-play shortcut from a video list. Streaming over cellular is always at the lowest quality.</string>
+                                <string key="footerTitle">Determines the quality to be used with the swipe-to-play shortcut from a video list. Streaming over cellular is always at mobile quality.</string>
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="GMZ-EY-0mb">
                                         <rect key="frame" x="0.0" y="303" width="320" height="44"/>
