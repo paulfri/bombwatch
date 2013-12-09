@@ -68,6 +68,11 @@ NSString *const kBWNowPlayingArtist = @"Giant Bomb";
                                              selector:@selector(movieFinishedPlayingNotification:)
                                                  name:MPMoviePlayerDidExitFullscreenNotification
                                                object:self.moviePlayer];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(movieStateChangedNotification:)
+                                                 name:MPMoviePlayerPlaybackStateDidChangeNotification
+                                               object:self.moviePlayer];
+    
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
 
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
@@ -106,6 +111,14 @@ NSString *const kBWNowPlayingArtist = @"Giant Bomb";
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = info;
 }
 
+- (void)movieStateChangedNotification:(NSNotification *)notification
+{
+    
+    NSMutableDictionary *info = [[MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo mutableCopy];
+    info[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(self.moviePlayer.currentPlaybackTime);
+    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = info;
+}
+
 - (void)movieFinishedPlayingNotification:(NSNotification *)notification
 {
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
@@ -121,6 +134,10 @@ NSString *const kBWNowPlayingArtist = @"Giant Bomb";
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:MPMoviePlayerDidExitFullscreenNotification
                                                   object:self.moviePlayer];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:MPMoviePlayerPlaybackStateDidChangeNotification
+                                                  object:self.moviePlayer];
+
 
     BOOL watchedMinimally = (self.moviePlayer.currentPlaybackTime >= kBWMinimumStoredPlaybackTime);
     BOOL watchedEntirety  = (self.moviePlayer.currentPlaybackTime >= (self.moviePlayer.duration * kBWWatchedStatusThreshold));
@@ -166,12 +183,13 @@ NSString *const kBWNowPlayingArtist = @"Giant Bomb";
         }
     }
 
-    if ([path isFileURL]) {
-        self.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
-    } else {
-        self.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
-    }
+//    if ([path isFileURL]) {
+//      self.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
+//    } else {
+//        self.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming; // I think this is only for streams, not remote files
+//    }
 
+    self.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
     self.moviePlayer.contentURL = path;
 }
 
