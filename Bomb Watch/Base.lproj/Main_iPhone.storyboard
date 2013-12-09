@@ -391,8 +391,8 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="gblogo" translatesAutoresizingMaskIntoConstraints="NO" id="IOP-4h-2s2">
-                                                    <rect key="frame" x="9" y="16" width="66" height="47"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="davis-sprite" translatesAutoresizingMaskIntoConstraints="NO" id="mx6-B5-DSV">
+                                                    <rect key="frame" x="25" y="8" width="30" height="64"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
@@ -1032,6 +1032,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <image name="ToolbarPlay" width="30" height="30"/>
         <image name="about_mail_icon" width="29" height="29"/>
         <image name="about_twitter_icon" width="29" height="29"/>
+        <image name="davis-sprite" width="36" height="63"/>
         <image name="gblogo" width="66" height="46"/>
         <image name="toolbar-fav-outline" width="30" height="30"/>
     </resources>
