@@ -20,7 +20,10 @@
 #define kBWCopyrightCellHeight 80
 #define kBWContactCellHeight   44
 
-static NSString *kBWTwitterHandle = @"bombwatch";
+#define kBWAttributionHeightBound 2670
+
+NSString *const kBWTwitterHandle = @"bombwatch";
+NSString *const kBWMailAddress   = @"cosmonautics@laika.io";
 
 @implementation BWAboutViewController
 
@@ -38,7 +41,7 @@ static NSString *kBWTwitterHandle = @"bombwatch";
                        range:[self.aboutLabel.text rangeOfString:title]];
     }
 
-    self.aboutLabel.frame = [string boundingRectWithSize:CGSizeMake(280, 2670)
+    self.aboutLabel.frame = [string boundingRectWithSize:CGSizeMake(280, kBWAttributionHeightBound)
                                                  options:NSStringDrawingUsesLineFragmentOrigin
                                                  context:nil];
 
@@ -51,7 +54,7 @@ static NSString *kBWTwitterHandle = @"bombwatch";
     if (indexPath.section == kBWContactSection && indexPath.row == kBWContactTwitterCell) {
         [BWTwitter openTwitterUser:kBWTwitterHandle];
     } else if (indexPath.section == kBWContactSection && indexPath.row == kBWContactMailCell) {
-        NSURL *mailURL = [NSURL URLWithString:@"mailto:cosmonautics@laika.io"];
+        NSURL *mailURL = [NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", kBWMailAddress]];
         [[UIApplication sharedApplication] openURL:mailURL];
     }
 

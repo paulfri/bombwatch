@@ -80,13 +80,11 @@
     NSUInteger oldLength = [textField.text length];
     NSUInteger replacementLength = [string length];
     NSUInteger rangeLength = range.length;
-    
     NSUInteger newLength = oldLength - rangeLength + replacementLength;
+
     BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
 
-    if (returnKey) return YES;
-
-    return newLength <= kBWLinkCodeLength || returnKey;
+    return (newLength <= kBWLinkCodeLength) || returnKey;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

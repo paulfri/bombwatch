@@ -107,13 +107,9 @@
     }];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
 -(void)applicationWillTerminate:(UIApplication *)application
 {
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [[BWVideoDownloader defaultDownloader] pauseAllActiveDownloads];
 }
 
@@ -142,7 +138,6 @@
     if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateInactive) {
         // opening the app from the push notification, so go to the selected video
         // TODO is this a race condition?
-        NSLog(@"opening from didReceiveRemoteNotification");
         [self openVideoWithNotification:userInfo];
     } else {
         // updates the latest videos cache, both when the app is running and when it is backgrounded

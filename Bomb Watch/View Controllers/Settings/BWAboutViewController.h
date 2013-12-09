@@ -9,6 +9,7 @@
 #import "BWTableViewController.h"
 
 @interface BWAboutViewController : BWTableViewController
+
 @property (weak, nonatomic) IBOutlet UILabel *aboutLabel;
 
 @end

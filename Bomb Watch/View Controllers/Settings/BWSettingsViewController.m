@@ -17,12 +17,10 @@
 #define kDefaultQualityCell       2
 #define kDefaultQualityPickerCell 3
 
-@interface BWSettingsViewController ()
-
+@interface BWSettingsViewController()
 @property (strong, nonatomic) NSArray *defaultQualityOptions;
 @property BOOL viewPickerVisible;
 @property BOOL qualityPickerVisible;
-
 @end
 
 @implementation BWSettingsViewController
@@ -226,6 +224,5 @@
     return [[NSAttributedString alloc] initWithString:self.defaultQualityOptions[row]
                                            attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
-
 
 @end

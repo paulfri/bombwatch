@@ -11,10 +11,11 @@
 
 @implementation BWTableViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    [self addTableHeader];
 
+    [self addTableHeader];
     self.tableView.backgroundColor = kBWGiantBombCharcoalColor;
     self.tableView.separatorColor  = [UIColor grayColor];
 }
@@ -35,7 +36,6 @@
 
 - (void)addTableHeader
 {
-    // bomb table header
     CGRect screenRect = [UIScreen mainScreen].bounds;
     UIImageView *bombImageView = [[UIImageView alloc] initWithFrame:CGRectMake(screenRect.size.width / 2 - 10, 0, 20, 40)];
     [bombImageView setImage:[UIImage imageNamed:@"BombTableHeader"]];

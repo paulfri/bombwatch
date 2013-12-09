@@ -86,10 +86,7 @@ NSString *const kBWDownloadsFilename = @"bwdownloads";
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"progress"]) {
-        BWDownload *download = (BWDownload *)object;
-
-        // TODO this is saving WAY too often
-//        [self save];
+//        BWDownload *download = (BWDownload *)object;
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }

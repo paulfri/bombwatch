@@ -9,23 +9,24 @@
 #import "BWSettings.h"
 
 NSString *const kBWSettingsKeyDefaultQuality = @"kBWSettingsKeyDefaultQuality";
-NSString *const kBWSettingsKeyAPIKey = @"kBWSettingsKeyAPIKey";
-NSString *const kBWSettingsKeyLockRotation = @"kBWSettingsKeyLockRotation";
-NSString *const kBWSettingsKeyiCloudSync = @"kBWSettingsKeyiCloudSync";
-NSString *const kBWSettingsKeyWatchComplete = @"kBWSettingsKeyWatchComplete";
-NSString *const kBWSettingsKeyWatchProgress = @"kBWSettingsKeyWatchProgress";
+NSString *const kBWSettingsKeyAPIKey         = @"kBWSettingsKeyAPIKey";
+NSString *const kBWSettingsKeyLockRotation   = @"kBWSettingsKeyLockRotation";
+NSString *const kBWSettingsKeyiCloudSync     = @"kBWSettingsKeyiCloudSync";
+NSString *const kBWSettingsKeyWatchComplete  = @"kBWSettingsKeyWatchComplete";
+NSString *const kBWSettingsKeyWatchProgress  = @"kBWSettingsKeyWatchProgress";
 
-#define kBWDefaultSettingDefaultQuality  @(BWVideoQualityHigh)
-NSString *const kBWDefaultSettingAPIKey  = @"e5ab8850b03bcec7ce6590ca705c9a26395dddf1";
-#define kBWDefaultSettingLockRotation    @YES
-#define kBWDefaultSettingsiCloudSync     @NO
-#define kBWDefaultSettingsWatchComplete  @[]
-#define kBWDefaultSettingsWatchProgress  @{}
+#define kBWDefaultSettingDefaultQuality   @(BWVideoQualityHigh)
+NSString *const kBWDefaultSettingAPIKey = @"e5ab8850b03bcec7ce6590ca705c9a26395dddf1";
+#define kBWDefaultSettingLockRotation     @YES
+#define kBWDefaultSettingsiCloudSync      @NO
+#define kBWDefaultSettingsWatchComplete   @[]
+#define kBWDefaultSettingsWatchProgress   @{}
 
 @implementation BWSettings
 
 + (void)initializeSettings
 {
+    // this should be called in the app delegate
     NSDictionary *defaultPreferences =  @{kBWSettingsKeyAPIKey : kBWDefaultSettingAPIKey,
                                   kBWSettingsKeyDefaultQuality : kBWDefaultSettingDefaultQuality,
                                     kBWSettingsKeyLockRotation : kBWDefaultSettingLockRotation,

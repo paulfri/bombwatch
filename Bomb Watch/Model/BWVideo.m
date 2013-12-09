@@ -10,6 +10,8 @@
 #import "BWVideoDataStore.h"
 #import "BWSettings.h"
 
+#define kBWMaximumStreamLength 600
+
 @implementation BWVideo
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
@@ -113,7 +115,7 @@
 
 - (BOOL)canStreamOverCellular
 {
-    return self.length > 0 && self.length < 600; // less than 10 minutes
+    return self.length > 0 && self.length < kBWMaximumStreamLength;
 }
 
 #pragma mark - utility
