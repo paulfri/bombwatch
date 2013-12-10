@@ -118,6 +118,7 @@
 		DA852996184908C40049C752 /* NSString+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
 		DA852997184908C40049C752 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		DA852998184908C40049C752 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		DA86DCB11856CC7200B08015 /* BWVideoSelectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BWVideoSelectionDelegate.h; sourceTree = "<group>"; };
 		DA88AE7B184C061000D6E823 /* BWVideoDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoDataStore.h; sourceTree = "<group>"; };
 		DA88AE7C184C061000D6E823 /* BWVideoDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoDataStore.m; sourceTree = "<group>"; };
 		DA88AE7F184D533F00D6E823 /* BWColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWColors.h; path = Model/BWColors.h; sourceTree = "<group>"; };
@@ -230,6 +231,7 @@
 				DA01E17A184A5E59008B139F /* BWFavoritesViewController.m */,
 				DA88AE82184D7D6400D6E823 /* BWDownloadsViewController.h */,
 				DA88AE83184D7D6400D6E823 /* BWDownloadsViewController.m */,
+				DA86DCB11856CC7200B08015 /* BWVideoSelectionDelegate.h */,
 			);
 			path = List;
 			sourceTree = "<group>";

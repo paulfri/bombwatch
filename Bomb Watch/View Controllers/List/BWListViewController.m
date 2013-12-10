@@ -13,6 +13,7 @@
 #import "BWColors.h"
 #import "BWSettings.h"
 #import "BWSegues.h"
+#import "BWAppDelegate.h"
 
 @interface BWListViewController ()
 
@@ -30,6 +31,9 @@
     self.listController.delegate = self;
     self.tableView.separatorColor = [UIColor darkGrayColor];
     self.tableView.tableFooterView = [[UIView alloc] init];
+
+    self.delegate = ((BWAppDelegate *)[UIApplication sharedApplication].delegate).detailView;
+    NSLog(@"%@", self.delegate.class);
 
     // Disable searching for Endurance Run lists since it doesn't work with the API
     if ([[BWVideo enduranceRunCategories] containsObject:self.category]) {
@@ -79,7 +83,11 @@
 
 - (void)videoSelected:(BWVideo *)video
 {
-    [self performSegueWithIdentifier:kBWSegueVideoDetail sender:video];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [self.delegate selectedVideo:video];
+    } else {
+        [self performSegueWithIdentifier:kBWSegueVideoDetail sender:video];
+    }
 }
 
 - (void)tableViewContentsReset

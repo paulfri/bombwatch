@@ -10,6 +10,7 @@
 
 NSString *const kBWSegueVideoList = @"kBWSegueVideoList";
 NSString *const kBWSegueVideoDetail = @"kBWSegueVideoDetail";
+NSString *const kBWSegueVideoReplace = @"kBWSegueVideoReplace";
 NSString *const kBWSegueSettingsPopover = @"kBWSegueSettingsPopover";
 
 @implementation BWSegues

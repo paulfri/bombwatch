@@ -64,22 +64,6 @@
     self.qualityLabel.textColor = [UIColor lightGrayColor];
     self.bylineCell.detailTextLabel.textColor = [UIColor lightGrayColor];
     self.durationCell.detailTextLabel.textColor = [UIColor lightGrayColor];
-
-    self.labelTitle.text = self.video.name;
-    self.labelDescription.text = self.video.summary;
-    self.bylineCell.textLabel.text = [BWNameFormatter realNameForUser:self.video.user];
-    self.bylineCell.detailTextLabel.text = [BWNameFormatter twitterHandleForUser:self.video.user];
-
-    [self selectQuality:self.quality];
-
-    [self.preview setImageWithURLRequest:[NSURLRequest requestWithURL:self.video.imageSmallURL]
-                        placeholderImage:nil
-                                 success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
-     {
-         self.previewImage = image;
-         [self updateImageBlurWithRadius:kBWImageCoverBlurRadius];
-     }
-                                   failure:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -98,7 +82,7 @@
 - (void)selectQuality:(int)quality
 {
     [self.qualityPicker selectRow:quality inComponent:0 animated:NO];
-    [self pickerView:self.qualityPicker didSelectRow:quality inComponent:0];
+//    [self pickerView:self.qualityPicker didSelectRow:quality inComponent:0];
 }
 
 - (void)updateDurationLabel
@@ -166,12 +150,19 @@
 {
     CGFloat y = scrollView.contentOffset.y;
     if (y < 0) {
-        self.preview.frame = CGRectMake(0, y, 320 + -y, 180 + -y);
+        CGSize size = self.view.bounds.size;
+        CGFloat something = (size.width / 16) * 9.0;
+
+        NSLog(@"width %f", size.width);
+        NSLog(@"height %f", something);
+
+        self.preview.frame = CGRectMake(0, y, size.width + -y, something + -y);
+//        self.preview.frame = CGRectMake(0, y, 320 + -y, 180 + -y);
         self.preview.center = CGPointMake(self.view.center.x, self.preview.center.y);
 
         float blurRadius = kBWImageCoverBlurRadius + y / (scrollView.frame.size.height / 10);
         
-        // only apply blur after the minimum delta - for performance
+        // only apply blur after the minimum delta - for performance (lol)
         if(fabsf(self.cachedBlurRadius - blurRadius) > kBWMinimumBlurRadiusDelta) {
             [self updateImageBlurWithRadius:blurRadius];
         }
@@ -412,6 +403,30 @@
     [self.qualityPicker reloadAllComponents];
     self.qualityLabel.text = [[self pickerView:self.qualityPicker attributedTitleForRow:[self selectedQuality] forComponent:0] string];
 
+    self.labelTitle.text = self.video.name;
+    self.labelDescription.text = self.video.summary;
+    self.bylineCell.textLabel.text = [BWNameFormatter realNameForUser:self.video.user];
+    self.bylineCell.detailTextLabel.text = [BWNameFormatter twitterHandleForUser:self.video.user];
+
+    [self selectQuality:self.quality];
+
+    NSURL *imageURL;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        imageURL = self.video.imageMediumURL;
+    } else {
+        imageURL = self.video.imageSmallURL;
+    }
+
+    [self.preview setImageWithURLRequest:[NSURLRequest requestWithURL:imageURL]
+                        placeholderImage:nil
+                                 success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         self.previewImage = image;
+         [self updateImageBlurWithRadius:kBWImageCoverBlurRadius];
+     }
+                                 failure:nil];
+
+
     [self.tableView reloadData];
 }
 
@@ -424,6 +439,12 @@
 {
     AFNetworkReachabilityManager *reach = [AFNetworkReachabilityManager sharedManager];
     return reach.reachableViaWiFi || (reach.reachableViaWWAN && [self.video canStreamOverCellular]);
+}
+
+- (void)selectedVideo:(BWVideo *)video
+{
+    self.video = video;
+    [self refreshViews];
 }
 
 @end

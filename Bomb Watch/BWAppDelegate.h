@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "AFNetworking.h"
+#import "BWVideoDetailViewController.h"
 
 @interface BWAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) BWVideoDetailViewController *detailView;
 
 @end

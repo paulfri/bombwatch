@@ -54,6 +54,8 @@
 
         [self.navVC.visibleViewController performSegueWithIdentifier:kBWSegueVideoList
                                                               sender:@"Latest"];
+    } else {
+        self.detailView = ((UINavigationController *)self.window.rootViewController.childViewControllers[1]).viewControllers[0];
     }
 
     NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
