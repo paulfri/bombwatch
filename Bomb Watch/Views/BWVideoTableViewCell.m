@@ -10,6 +10,7 @@
 #import "BWFavoriteView.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+ImageEffects.h"
+#import "BWColors.h"
 
 #define kBWFavoritedViewTag 1234
 #define kBWVideoCellFont [UIFont fontWithName:@"HelveticaNeue-Light" size:18]
@@ -90,6 +91,32 @@
          }
      }
                               failure:nil];
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    
+    if (highlighted) {
+        self.textLabel.textColor = kBWGiantBombCharcoalColor;
+        self.backgroundColor = [UIColor clearColor];
+    } else {
+        self.textLabel.textColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
+    }
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
+    
+    if (selected) {
+        self.textLabel.textColor = kBWGiantBombCharcoalColor;
+        self.backgroundColor = [UIColor whiteColor];
+    } else {
+        self.textLabel.textColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
+    }
 }
 
 @end

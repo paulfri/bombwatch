@@ -23,7 +23,7 @@
 @property (strong, nonatomic) NSArray *otherCategories;
 
 // Since this is a weak reference, it will be set to nil once the popover is dismissed
-@property (weak, nonatomic) UIPopoverController *popover;
+//@property (weak, nonatomic) UIPopoverController *popover;
 
 @end
 
@@ -99,15 +99,15 @@
             destinationVC.category = selectedCell.textLabel.text;
         }
     } else if ([segue.identifier isEqualToString:kBWSegueSettingsPopover]) {
-        self.popover = [(UIStoryboardPopoverSegue *)segue popoverController];
-        self.popover.backgroundColor = kBWGiantBombCharcoalColor;
+//        self.popover = [(UIStoryboardPopoverSegue *)segue popoverController];
+//        self.popover.backgroundColor = kBWGiantBombCharcoalColor;
     }
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
     if ([identifier isEqualToString:kBWSegueSettingsPopover]) {
-        return !self.popover;
+//        return !self.popover;
     }
 
     return YES;

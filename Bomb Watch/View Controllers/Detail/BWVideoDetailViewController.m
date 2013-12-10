@@ -73,6 +73,7 @@
         self.curtains = [[UIView alloc] initWithFrame:CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
         self.curtains.backgroundColor = kBWGiantBombCharcoalColor;
         [self.view addSubview:self.curtains];
+        self.view.userInteractionEnabled = NO;
     }
 }
 
@@ -163,22 +164,20 @@
         CGSize size = self.view.bounds.size;
         CGFloat something = (size.width / 16) * 9.0;
 
-        NSLog(@"width %f", size.width);
-        NSLog(@"height %f", something);
-
         self.preview.frame = CGRectMake(0, y, size.width + -y, something + -y);
-//        self.preview.frame = CGRectMake(0, y, 320 + -y, 180 + -y);
         self.preview.center = CGPointMake(self.view.center.x, self.preview.center.y);
 
-        float blurRadius = kBWImageCoverBlurRadius + y / (scrollView.frame.size.height / 10);
-        
         // only apply blur after the minimum delta - for performance (lol)
-        if(fabsf(self.cachedBlurRadius - blurRadius) > kBWMinimumBlurRadiusDelta) {
-            [self updateImageBlurWithRadius:blurRadius];
+        if(UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
+            float blurRadius = kBWImageCoverBlurRadius + y / (scrollView.frame.size.height / 10);
+            self.labelTitle.alpha = 1 + y / (scrollView.frame.size.height / 10);
+
+            if (fabsf(self.cachedBlurRadius - blurRadius) > kBWMinimumBlurRadiusDelta) {
+                [self updateImageBlurWithRadius:blurRadius];
+            }
         }
+
     }
-    
-    self.labelTitle.alpha = 1 + y / (scrollView.frame.size.height / 10);
 }
 
 - (void)updateImageBlurWithRadius:(float)radius
@@ -465,7 +464,7 @@
 {
     self.video = video;
     [self refreshViews];
-    
+    self.view.userInteractionEnabled = YES;
     [self.curtains removeFromSuperview];
 }
 
