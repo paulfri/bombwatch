@@ -17,6 +17,7 @@
 #import "BWVideoDownloader.h"
 #import "BWSettings.h"
 #import "AFNetworking.h"
+#import "BWSegues.h"
 
 #define PocketConsumerKey    @"17866-6c522817c89aaee6ae6da74f"
 
@@ -45,13 +46,15 @@
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
        (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 
-    self.navVC = self.window.rootViewController.childViewControllers[0];
-    self.navVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Videos"
-                                                     image:[UIImage imageNamed:@"tab_videos"]
-                                             selectedImage:[UIImage imageNamed:@"tab_videos_selected"]];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        self.navVC = self.window.rootViewController.childViewControllers[0];
+        self.navVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Videos"
+                                                              image:[UIImage imageNamed:@"tab_videos"]
+                                                      selectedImage:[UIImage imageNamed:@"tab_videos_selected"]];
 
-    [self.navVC.visibleViewController performSegueWithIdentifier:@"videoListSegue" // TODO constantize this in BWSegues.h maybe
-                                                          sender:@"Latest"];
+        [self.navVC.visibleViewController performSegueWithIdentifier:kBWSegueVideoList
+                                                              sender:@"Latest"];
+    }
 
     NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (notification) {

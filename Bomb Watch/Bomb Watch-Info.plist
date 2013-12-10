@@ -43,8 +43,10 @@
 		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
-	<key>UIMainStoryboardFile</key>
+	<key>UIMainStoryboardFile~iphone</key>
 	<string>Main_iPhone</string>
+	<key>UIMainStoryboardFile~ipad</key>
+	<string>Main_iPad</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

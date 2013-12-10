@@ -8,7 +8,7 @@
 
 #import "BWCategoriesViewController.h"
 #import "BWListViewController.h"
-#import "BWAppDelegate.h"
+#import "BWSegues.h"
 
 #define kBWFeaturedCategoriesSection 0
 #define kBWEnduranceRunSection 1
@@ -87,11 +87,8 @@
 {
     BWListViewController *destinationVC = (BWListViewController *)[segue destinationViewController];
 
-    if([[segue identifier] isEqualToString:@"videoListSegue"]) {
+    if([[segue identifier] isEqualToString:kBWSegueVideoList]) {
         if ([sender isKindOfClass:[NSString class]]) {
-//            // when this view is instantiated from the app delegate it doesn't seem to set its
-//            // title properly, which can mess up the nav controller's back button label
-//            self.title = @"Videos";
             destinationVC.category = sender;
         } else {
             UITableViewCell *selectedCell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];

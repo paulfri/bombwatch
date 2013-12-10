@@ -12,6 +12,7 @@
 #import "SVProgressHUD.h"
 #import "BWColors.h"
 #import "BWSettings.h"
+#import "BWSegues.h"
 
 @interface BWListViewController ()
 
@@ -60,7 +61,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([segue.identifier isEqualToString:@"kBWVideoDetailSegue"]) {
+    if([segue.identifier isEqualToString:kBWSegueVideoDetail]) {
         BWVideoDetailViewController *controller = [segue destinationViewController];
         controller.video = sender;
         controller.quality = [BWSettings defaultQuality];
@@ -71,7 +72,7 @@
 
 - (void)videoSelected:(BWVideo *)video
 {
-    [self performSegueWithIdentifier:@"kBWVideoDetailSegue" sender:video];
+    [self performSegueWithIdentifier:kBWSegueVideoDetail sender:video];
 }
 
 - (void)tableViewContentsReset

@@ -577,7 +577,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="AAd-IK-oxx" kind="push" identifier="videoListSegue" id="jk8-kQ-Uc4"/>
+                                    <segue destination="AAd-IK-oxx" kind="push" identifier="kBWSegueVideoList" id="jk8-kQ-Uc4"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -633,7 +633,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="rJ6-uZ-0Hw" kind="push" identifier="kBWVideoDetailSegue" id="I8Y-fc-UNu"/>
+                                            <segue destination="rJ6-uZ-0Hw" kind="push" identifier="kBWSegueVideoDetail" id="I8Y-fc-UNu"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

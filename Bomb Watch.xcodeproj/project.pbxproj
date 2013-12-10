@@ -27,6 +27,8 @@
 		DA4127F417CE28D3003C4F59 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4127F317CE28D3003C4F59 /* Security.framework */; };
 		DA4127FA17CE30BE003C4F59 /* PocketAPIActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4127F917CE30BE003C4F59 /* PocketAPIActivity.m */; };
 		DA41280617CE38C5003C4F59 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA41280517CE38C5003C4F59 /* Images.xcassets */; };
+		DA6543871856A5590015087A /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA6543861856A5590015087A /* Main_iPad.storyboard */; };
+		DA65438A1856B05A0015087A /* BWSegues.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6543891856B05A0015087A /* BWSegues.m */; };
 		DA68EBDA17D0305300451F14 /* EVCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA68EBD917D0305300451F14 /* EVCircularProgressView.m */; };
 		DA852999184908C40049C752 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DA852996184908C40049C752 /* NSString+Extensions.m */; };
 		DA85299A184908C40049C752 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = DA852998184908C40049C752 /* UIImage+ImageEffects.m */; };
@@ -107,6 +109,9 @@
 		DA4127F817CE30BE003C4F59 /* PocketAPIActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PocketAPIActivity.h; path = ../PocketAPIActivity.h; sourceTree = "<group>"; };
 		DA4127F917CE30BE003C4F59 /* PocketAPIActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PocketAPIActivity.m; path = ../PocketAPIActivity.m; sourceTree = "<group>"; };
 		DA41280517CE38C5003C4F59 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DA6543861856A5590015087A /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
+		DA6543881856B05A0015087A /* BWSegues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSegues.h; sourceTree = "<group>"; };
+		DA6543891856B05A0015087A /* BWSegues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWSegues.m; sourceTree = "<group>"; };
 		DA68EBD817D0305300451F14 /* EVCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVCircularProgressView.h; sourceTree = "<group>"; };
 		DA68EBD917D0305300451F14 /* EVCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVCircularProgressView.m; sourceTree = "<group>"; };
 		DA852995184908C40049C752 /* NSString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
@@ -348,6 +353,7 @@
 				DACE827317CD035800E23051 /* BWAppDelegate.h */,
 				DACE827417CD035800E23051 /* BWAppDelegate.m */,
 				DACE827617CD035800E23051 /* Main_iPhone.storyboard */,
+				DA6543861856A5590015087A /* Main_iPad.storyboard */,
 				DA41280517CE38C5003C4F59 /* Images.xcassets */,
 				DA68EBD717D02F9F00451F14 /* Activities */,
 				DA01E18E184AB98B008B139F /* API */,
@@ -423,6 +429,8 @@
 				DAAFF7581850184D003922EF /* BWSettings.m */,
 				DAF0B03C18543DCD00281399 /* BWTwitter.h */,
 				DAF0B03D18543DCD00281399 /* BWTwitter.m */,
+				DA6543881856B05A0015087A /* BWSegues.h */,
+				DA6543891856B05A0015087A /* BWSegues.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -515,6 +523,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA41280617CE38C5003C4F59 /* Images.xcassets in Resources */,
+				DA6543871856A5590015087A /* Main_iPad.storyboard in Resources */,
 				DACE827817CD035800E23051 /* Main_iPhone.storyboard in Resources */,
 				DACE826F17CD035800E23051 /* InfoPlist.strings in Resources */,
 			);
@@ -601,6 +610,7 @@
 				DAF0B03E18543DCD00281399 /* BWTwitter.m in Sources */,
 				DA68EBDA17D0305300451F14 /* EVCircularProgressView.m in Sources */,
 				DACE827517CD035800E23051 /* BWAppDelegate.m in Sources */,
+				DA65438A1856B05A0015087A /* BWSegues.m in Sources */,
 				DACE82A517CD052300E23051 /* GiantBombAPIClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -733,9 +743,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bomb Watch/Bomb Watch-Prefix.pch";
 				INFOPLIST_FILE = "Bomb Watch/Bomb Watch-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -752,9 +763,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bomb Watch/Bomb Watch-Prefix.pch";
 				INFOPLIST_FILE = "Bomb Watch/Bomb Watch-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
