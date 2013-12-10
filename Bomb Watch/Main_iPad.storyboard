@@ -358,6 +358,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="Do2-ft-s33" id="dJa-D6-w8v"/>
+                                    </connections>
                                 </searchBar>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="65" id="8nd-mC-HxP">
@@ -381,7 +384,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Latest" id="bXO-dk-m1D"/>
                     <connections>
-                        <outlet property="searchBar" destination="uVt-59-uzM" id="DCZ-XS-kwD"/>
+                        <outlet property="searchBar" destination="uVt-59-uzM" id="SBH-KH-fke"/>
                         <outlet property="tableView" destination="53w-oi-xZt" id="rSE-ur-NB5"/>
                     </connections>
                 </viewController>

@@ -33,7 +33,6 @@
     self.tableView.tableFooterView = [[UIView alloc] init];
 
     self.delegate = ((BWAppDelegate *)[UIApplication sharedApplication].delegate).detailView;
-    NSLog(@"%@", self.delegate.class);
 
     // Disable searching for Endurance Run lists since it doesn't work with the API
     if ([[BWVideo enduranceRunCategories] containsObject:self.category]) {
@@ -46,7 +45,7 @@
         self.disableOverlay.backgroundColor = [UIColor blackColor];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(overlayTapped)];
         [self.disableOverlay addGestureRecognizer:tapGesture];
-
+        
         if ([self.tableView numberOfRowsInSection:0] > 0) {
             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         }
@@ -60,6 +59,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     [self.tableView reloadData];
 }
 
@@ -139,7 +139,7 @@
     } else {
         self.disableOverlay.alpha = 0;
         [self.tableView addSubview:self.disableOverlay];
-
+        
         [UIView animateWithDuration:0.25
                               delay:0.0
                             options:UIViewAnimationOptionCurveLinear

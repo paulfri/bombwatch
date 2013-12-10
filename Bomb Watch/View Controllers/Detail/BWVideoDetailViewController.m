@@ -90,12 +90,6 @@
     [self refreshViews];
 }
 
-- (void)selectQuality:(int)quality
-{
-    [self.qualityPicker selectRow:quality inComponent:0 animated:NO];
-//    [self pickerView:self.qualityPicker didSelectRow:quality inComponent:0];
-}
-
 - (void)updateDurationLabel
 {
     NSTimeInterval played = [BWSettings progressForVideo:self.video];
@@ -224,6 +218,9 @@
     } else {
         self.download = nil;
     }
+
+    self.quality = row;
+
     [self refreshViews];
 }
 
@@ -426,7 +423,9 @@
     self.bylineCell.textLabel.text = [BWNameFormatter realNameForUser:self.video.user];
     self.bylineCell.detailTextLabel.text = [BWNameFormatter twitterHandleForUser:self.video.user];
 
-    [self selectQuality:self.quality];
+    if (self.quality != [self.qualityPicker selectedRowInComponent:0]) {
+        [self.qualityPicker selectRow:self.quality inComponent:0 animated:NO];
+    }
 
     NSURL *imageURL;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
