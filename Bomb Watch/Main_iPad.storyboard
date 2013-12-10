@@ -4,12 +4,12 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--Settings View Controller-->
+        <!--Settings View Controller - Settings-->
         <scene sceneID="VOJ-CM-DdI">
             <objects>
                 <tableViewController id="jK7-eU-Q9y" customClass="BWSettingsViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="lW6-DN-ui9">
-                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                        <rect key="frame" x="0.0" y="64" width="540" height="556"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -27,11 +27,12 @@
                             <outlet property="delegate" destination="jK7-eU-Q9y" id="0mu-L0-Ndy"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Settings" id="gUV-pt-Fmg"/>
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bN4-nt-smr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1361" y="-1548"/>
+            <point key="canvasLocation" x="1507" y="-1534"/>
         </scene>
         <!--Categories View Controller - Bomb Watch-->
         <scene sceneID="neX-GM-ybd">
@@ -63,7 +64,7 @@
                         <barButtonItem key="backBarButtonItem" title="Videos" id="Vum-xC-QEN"/>
                         <barButtonItem key="rightBarButtonItem" image="SettingsIcon" id="cvQ-QG-MWv" userLabel="Settings">
                             <connections>
-                                <segue destination="jK7-eU-Q9y" kind="popover" identifier="kBWSegueSettingsPopover" popoverAnchorBarButtonItem="cvQ-QG-MWv" id="R0g-Ky-sfW">
+                                <segue destination="V5X-Ep-1NM" kind="popover" identifier="kBWSegueSettingsPopover" popoverAnchorBarButtonItem="cvQ-QG-MWv" id="R0g-Ky-sfW">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
                             </connections>
@@ -185,6 +186,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yYZ-KN-213" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-647" y="-293"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="O9k-K4-wNp">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="V5X-Ep-1NM" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="DGS-Ut-Mly">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="jK7-eU-Q9y" kind="relationship" relationship="rootViewController" id="NFG-G7-lHw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jFz-Tm-o0g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1361" y="-1548"/>
         </scene>
     </scenes>
     <resources>

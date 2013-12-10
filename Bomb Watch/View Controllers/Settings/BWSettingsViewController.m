@@ -12,6 +12,7 @@
 #import "SVProgressHUD.h"
 #import "BWVideo.h"
 #import "BWSettings.h"
+#import "BWColors.h"
 
 #define kDefaultQualitySection    2
 #define kDefaultQualityCell       2

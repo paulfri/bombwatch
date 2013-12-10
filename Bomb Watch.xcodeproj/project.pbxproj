@@ -110,8 +110,8 @@
 		DA4127F917CE30BE003C4F59 /* PocketAPIActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PocketAPIActivity.m; path = ../PocketAPIActivity.m; sourceTree = "<group>"; };
 		DA41280517CE38C5003C4F59 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DA6543861856A5590015087A /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
-		DA6543881856B05A0015087A /* BWSegues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSegues.h; sourceTree = "<group>"; };
-		DA6543891856B05A0015087A /* BWSegues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWSegues.m; sourceTree = "<group>"; };
+		DA6543881856B05A0015087A /* BWSegues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSegues.h; path = Model/BWSegues.h; sourceTree = "<group>"; };
+		DA6543891856B05A0015087A /* BWSegues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSegues.m; path = Model/BWSegues.m; sourceTree = "<group>"; };
 		DA68EBD817D0305300451F14 /* EVCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVCircularProgressView.h; sourceTree = "<group>"; };
 		DA68EBD917D0305300451F14 /* EVCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVCircularProgressView.m; sourceTree = "<group>"; };
 		DA852995184908C40049C752 /* NSString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
@@ -120,8 +120,8 @@
 		DA852998184908C40049C752 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		DA88AE7B184C061000D6E823 /* BWVideoDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoDataStore.h; sourceTree = "<group>"; };
 		DA88AE7C184C061000D6E823 /* BWVideoDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoDataStore.m; sourceTree = "<group>"; };
-		DA88AE7F184D533F00D6E823 /* BWColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWColors.h; sourceTree = "<group>"; };
-		DA88AE80184D533F00D6E823 /* BWColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWColors.m; sourceTree = "<group>"; };
+		DA88AE7F184D533F00D6E823 /* BWColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWColors.h; path = Model/BWColors.h; sourceTree = "<group>"; };
+		DA88AE80184D533F00D6E823 /* BWColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWColors.m; path = Model/BWColors.m; sourceTree = "<group>"; };
 		DA88AE82184D7D6400D6E823 /* BWDownloadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWDownloadsViewController.h; sourceTree = "<group>"; };
 		DA88AE83184D7D6400D6E823 /* BWDownloadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWDownloadsViewController.m; sourceTree = "<group>"; };
 		DA88AE85184D7E8600D6E823 /* BWDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWDownload.h; sourceTree = "<group>"; };
@@ -303,6 +303,17 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		DA86DCB01856C35A00B08015 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				DA88AE7F184D533F00D6E823 /* BWColors.h */,
+				DA88AE80184D533F00D6E823 /* BWColors.m */,
+				DA6543881856B05A0015087A /* BWSegues.h */,
+				DA6543891856B05A0015087A /* BWSegues.m */,
+			);
+			name = Constants;
+			sourceTree = "<group>";
+		};
 		DA9F1BFB1853BAFD00AA5D7F /* Player */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,6 +368,7 @@
 				DA41280517CE38C5003C4F59 /* Images.xcassets */,
 				DA68EBD717D02F9F00451F14 /* Activities */,
 				DA01E18E184AB98B008B139F /* API */,
+				DA86DCB01856C35A00B08015 /* Constants */,
 				DA0A718E18493057004750F1 /* Controllers */,
 				DA852994184908A60049C752 /* Extensions */,
 				DADDA78317D193E70076D2EA /* Model */,
@@ -411,8 +423,6 @@
 		DADDA78317D193E70076D2EA /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DA88AE7F184D533F00D6E823 /* BWColors.h */,
-				DA88AE80184D533F00D6E823 /* BWColors.m */,
 				DA0A71A018497CDF004750F1 /* BWVideo.h */,
 				DA0A71A118497CDF004750F1 /* BWVideo.m */,
 				DA88AE7B184C061000D6E823 /* BWVideoDataStore.h */,
@@ -429,8 +439,6 @@
 				DAAFF7581850184D003922EF /* BWSettings.m */,
 				DAF0B03C18543DCD00281399 /* BWTwitter.h */,
 				DAF0B03D18543DCD00281399 /* BWTwitter.m */,
-				DA6543881856B05A0015087A /* BWSegues.h */,
-				DA6543891856B05A0015087A /* BWSegues.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
