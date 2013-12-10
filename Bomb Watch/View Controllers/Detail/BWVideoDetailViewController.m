@@ -69,11 +69,10 @@
     self.durationCell.detailTextLabel.textColor = [UIColor lightGrayColor];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        // hide empty interface builder stuff until a video is loaded
         self.curtains = [[UIView alloc] initWithFrame:CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
         self.curtains.backgroundColor = kBWGiantBombCharcoalColor;
         [self.view addSubview:self.curtains];
-        
-        
     }
 }
 
@@ -184,12 +183,21 @@
 
 - (void)updateImageBlurWithRadius:(float)radius
 {
-    UIImage *blurredImage = [self.previewImage applyBlurWithRadius:radius
-                                                         tintColor:kBWImageCoverTintColor
-                                             saturationDeltaFactor:kBWImageCoverSaturation
-                                                         maskImage:nil];
+    UIImage *newImage;
     
-    [self.preview setImage:blurredImage];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        newImage = self.previewImage;
+    } else {
+        newImage = [self.previewImage applyBlurWithRadius:radius
+                                                tintColor:kBWImageCoverTintColor
+                                    saturationDeltaFactor:kBWImageCoverSaturation
+                                                maskImage:nil];
+    }
+
+    if (self.preview.image != newImage) {
+        [self.preview setImage:newImage];
+    }
+
     self.cachedBlurRadius = radius;
 }
 
@@ -424,6 +432,7 @@
     NSURL *imageURL;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         imageURL = self.video.imageMediumURL;
+        self.title = self.video.name;
     } else {
         imageURL = self.video.imageSmallURL;
     }

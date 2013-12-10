@@ -449,13 +449,6 @@
                                         </barButtonItem>
                                     </items>
                                 </toolbar>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quick Look: The Last of Us" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="738" translatesAutoresizingMaskIntoConstraints="NO" id="FRG-xB-g6Z">
-                                    <rect key="frame" x="10" y="354" width="738" height="29"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             <constraints>
@@ -463,13 +456,10 @@
                                 <constraint firstItem="heo-vW-J8y" firstAttribute="trailing" secondItem="a9j-ry-fKQ" secondAttribute="trailing" id="1xH-BJ-XHC"/>
                                 <constraint firstAttribute="trailing" secondItem="a9j-ry-fKQ" secondAttribute="trailing" id="5W1-I2-KUQ"/>
                                 <constraint firstItem="heo-vW-J8y" firstAttribute="leading" secondItem="a9j-ry-fKQ" secondAttribute="leading" id="HQL-NN-CY3"/>
-                                <constraint firstItem="heo-vW-J8y" firstAttribute="top" secondItem="FRG-xB-g6Z" secondAttribute="bottom" constant="5" id="K4X-xZ-wqw"/>
-                                <constraint firstItem="FRG-xB-g6Z" firstAttribute="leading" secondItem="rWK-nl-zvQ" secondAttribute="leading" constant="10" id="PV3-x4-OEG"/>
                                 <constraint firstItem="heo-vW-J8y" firstAttribute="leading" secondItem="rWK-nl-zvQ" secondAttribute="leading" id="Pzb-gV-rjt"/>
                                 <constraint firstItem="heo-vW-J8y" firstAttribute="top" secondItem="a9j-ry-fKQ" secondAttribute="bottom" id="YqE-Ax-E54"/>
                                 <constraint firstItem="a9j-ry-fKQ" firstAttribute="top" secondItem="rWK-nl-zvQ" secondAttribute="top" id="fu7-EV-2fs"/>
                                 <constraint firstAttribute="bottom" secondItem="heo-vW-J8y" secondAttribute="bottom" id="jrM-wl-TqP"/>
-                                <constraint firstAttribute="trailing" secondItem="FRG-xB-g6Z" secondAttribute="trailing" constant="20" symbolic="YES" id="lYd-bG-NlC"/>
                                 <constraint firstItem="a9j-ry-fKQ" firstAttribute="leading" secondItem="rWK-nl-zvQ" secondAttribute="leading" id="n4F-RN-WoL"/>
                                 <constraint firstAttribute="trailing" secondItem="heo-vW-J8y" secondAttribute="trailing" id="s38-4Z-sBx"/>
                             </constraints>
@@ -608,7 +598,6 @@
                         <outlet property="durationCell" destination="gc9-oI-yfL" id="IVh-Ds-cBF"/>
                         <outlet property="favoritedButton" destination="pLi-3u-FcT" id="KYe-pJ-Lbi"/>
                         <outlet property="labelDescription" destination="Qy9-vE-K64" id="976-Up-kJM"/>
-                        <outlet property="labelTitle" destination="FRG-xB-g6Z" id="iZS-Ks-xRk"/>
                         <outlet property="preview" destination="a9j-ry-fKQ" id="7ot-x9-hU7"/>
                         <outlet property="qualityCell" destination="IY0-hU-Spr" id="gJ0-ln-Tq1"/>
                         <outlet property="qualityLabel" destination="ha4-oR-kzm" id="lbv-Km-dRz"/>
