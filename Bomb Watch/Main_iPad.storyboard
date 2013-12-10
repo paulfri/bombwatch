@@ -4,6 +4,37 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
+        <!--Settings View Controller - Settings-->
+        <scene sceneID="VOJ-CM-DdI">
+            <objects>
+                <tableViewController id="jK7-eU-Q9y" customClass="BWSettingsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lW6-DN-ui9">
+                        <rect key="frame" x="0.0" y="64" width="540" height="556"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Jxi-Cn-MJP">
+                                <rect key="frame" x="0.0" y="22" width="540" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jxi-Cn-MJP" id="B1S-9m-dlQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="540" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="jK7-eU-Q9y" id="EJN-et-vsI"/>
+                            <outlet property="delegate" destination="jK7-eU-Q9y" id="0mu-L0-Ndy"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Settings" id="dxH-fJ-hH9"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bN4-nt-smr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1327" y="-1556"/>
+        </scene>
         <!--Categories View Controller - Bomb Watch-->
         <scene sceneID="neX-GM-ybd">
             <objects>
@@ -32,6 +63,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Bomb Watch" id="Sjd-Mu-f1N">
                         <barButtonItem key="backBarButtonItem" title="Videos" id="Vum-xC-QEN"/>
+                        <barButtonItem key="rightBarButtonItem" image="SettingsIcon" id="cvQ-QG-MWv" userLabel="Settings">
+                            <connections>
+                                <segue destination="jK7-eU-Q9y" kind="popover" popoverAnchorBarButtonItem="cvQ-QG-MWv" id="lD8-Pa-jRT">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdQ-yG-pHQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -50,7 +88,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="852"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="53w-oi-xZt" customClass="PDGesturedTableView">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="53w-oi-xZt" customClass="PDGesturedTableView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="852"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -60,11 +98,11 @@
                                     <textInputTraits key="textInputTraits"/>
                                 </searchBar>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="8nd-mC-HxP">
-                                        <rect key="frame" x="0.0" y="130" width="320" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="65" id="8nd-mC-HxP">
+                                        <rect key="frame" x="0.0" y="130" width="320" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8nd-mC-HxP">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -75,12 +113,18 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="53w-oi-xZt" firstAttribute="top" secondItem="vtR-qA-LE3" secondAttribute="bottom" constant="-64" id="Beh-T4-HCk"/>
+                            <constraint firstItem="pWD-nV-jxV" firstAttribute="top" secondItem="53w-oi-xZt" secondAttribute="bottom" id="F5d-72-eaa"/>
+                            <constraint firstItem="53w-oi-xZt" firstAttribute="leading" secondItem="vFQ-Og-xU9" secondAttribute="leading" id="I4O-ix-Vbc"/>
+                            <constraint firstAttribute="trailing" secondItem="53w-oi-xZt" secondAttribute="trailing" id="bTf-Zq-Kzf"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Latest" id="bXO-dk-m1D"/>
                     <connections>
                         <outlet property="searchBar" destination="uVt-59-uzM" id="DCZ-XS-kwD"/>
                         <outlet property="tableView" destination="53w-oi-xZt" id="rSE-ur-NB5"/>
-                        <segue destination="VFq-LP-zSs" kind="replace" identifier="kBWSegueVideoDetail" splitViewControllerTargetIndex="1" id="q1f-iZ-Aw0"/>
+                        <segue destination="VFq-LP-zSs" kind="replace" identifier="kBWSegueVideoDetail" splitViewControllerTargetIndex="1" id="hKo-eC-NpS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ciP-DN-zXT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -128,7 +172,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rVm-YT-7WC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="478" y="224"/>
+            <point key="canvasLocation" x="414" y="212"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="1GG-im-LIP">
@@ -137,7 +181,7 @@
                     <toolbarItems/>
                     <connections>
                         <segue destination="ZE7-ge-a6a" kind="relationship" relationship="masterViewController" id="6mD-v5-QiQ"/>
-                        <segue destination="VFq-LP-zSs" kind="relationship" relationship="detailViewController" id="aJd-y1-oTq"/>
+                        <segue destination="VFq-LP-zSs" kind="relationship" relationship="detailViewController" id="ssE-8Z-eoD"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yYZ-KN-213" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -145,12 +189,15 @@
             <point key="canvasLocation" x="-647" y="-293"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="SettingsIcon" width="30" height="30"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="lightContent"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="q1f-iZ-Aw0"/>
+        <segue reference="hKo-eC-NpS"/>
     </inferredMetricsTieBreakers>
 </document>
