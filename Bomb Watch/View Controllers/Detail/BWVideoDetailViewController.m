@@ -467,6 +467,7 @@
     [self refreshViews];
     self.view.userInteractionEnabled = YES;
     [self.curtains removeFromSuperview];
+    [self.tableView scrollRectToVisible:self.preview.frame animated:NO];
     
     if (self.popoverVC && [self.popoverVC isPopoverVisible]) {
         UIViewController *vc = ((UINavigationController *)self.popoverVC.contentViewController).topViewController;

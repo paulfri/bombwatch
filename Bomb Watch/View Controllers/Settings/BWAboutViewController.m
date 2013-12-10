@@ -41,7 +41,7 @@ NSString *const kBWMailAddress   = @"cosmonautics@laika.io";
                        range:[self.aboutLabel.text rangeOfString:title]];
     }
 
-    self.aboutLabel.frame = [string boundingRectWithSize:CGSizeMake(280, kBWAttributionHeightBound)
+    self.aboutLabel.frame = [string boundingRectWithSize:CGSizeMake(self.aboutLabel.frame.size.width, kBWAttributionHeightBound)
                                                  options:NSStringDrawingUsesLineFragmentOrigin
                                                  context:nil];
 
