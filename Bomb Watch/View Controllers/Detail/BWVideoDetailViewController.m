@@ -50,6 +50,9 @@
 @property (strong, nonatomic) EVCircularProgressView *progressView;
 @property float cachedBlurRadius;
 @property (strong, nonatomic) UIImage *previewImage;
+
+@property (strong, nonatomic) UIView *curtains; // overlay to hide storyboard jank before a video is loaded
+
 @end
 
 @implementation BWVideoDetailViewController
@@ -64,6 +67,14 @@
     self.qualityLabel.textColor = [UIColor lightGrayColor];
     self.bylineCell.detailTextLabel.textColor = [UIColor lightGrayColor];
     self.durationCell.detailTextLabel.textColor = [UIColor lightGrayColor];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        self.curtains = [[UIView alloc] initWithFrame:CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+        self.curtains.backgroundColor = kBWGiantBombCharcoalColor;
+        [self.view addSubview:self.curtains];
+        
+        
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -445,6 +456,8 @@
 {
     self.video = video;
     [self refreshViews];
+    
+    [self.curtains removeFromSuperview];
 }
 
 @end
