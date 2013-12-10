@@ -469,6 +469,14 @@
     [self.curtains removeFromSuperview];
     
     if (self.popoverVC && [self.popoverVC isPopoverVisible]) {
+        UIViewController *vc = ((UINavigationController *)self.popoverVC.contentViewController).topViewController;
+
+        if ([vc isKindOfClass:BWListViewController.class]) {
+            self.navigationItem.leftBarButtonItem.title = ((BWListViewController *)vc).category;
+        } else {
+            self.navigationItem.leftBarButtonItem.title = @"Videos";
+        }
+
         [self.popoverVC dismissPopoverAnimated:YES];
     }
 }
@@ -481,13 +489,14 @@
        forPopoverController:(UIPopoverController *)pc
 {
     UIViewController *vc = (BWListViewController *)((UINavigationController *)(svc.childViewControllers[0])).topViewController;
+  
     if ([vc isKindOfClass:BWListViewController.class]) {
         barButtonItem.title = ((BWListViewController *)vc).category;
     } else {
         barButtonItem.title = @"Videos";
     }
-    self.popoverVC = pc;
 
+    self.popoverVC = pc;
     self.navigationItem.leftBarButtonItem = barButtonItem;
 }
 
