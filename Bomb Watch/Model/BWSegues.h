@@ -10,6 +10,7 @@
 
 extern NSString *const kBWSegueVideoList;
 extern NSString *const kBWSegueVideoDetail;
+extern NSString *const kBWSegueSettingsPopover;
 
 @interface BWSegues : NSObject
 

@@ -4,17 +4,17 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--Settings View Controller - Settings-->
+        <!--Settings View Controller-->
         <scene sceneID="VOJ-CM-DdI">
             <objects>
                 <tableViewController id="jK7-eU-Q9y" customClass="BWSettingsViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lW6-DN-ui9">
-                        <rect key="frame" x="0.0" y="64" width="540" height="556"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="lW6-DN-ui9">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Jxi-Cn-MJP">
-                                <rect key="frame" x="0.0" y="22" width="540" height="44"/>
+                                <rect key="frame" x="0.0" y="55" width="540" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jxi-Cn-MJP" id="B1S-9m-dlQ">
                                     <rect key="frame" x="0.0" y="0.0" width="540" height="43"/>
@@ -27,13 +27,11 @@
                             <outlet property="delegate" destination="jK7-eU-Q9y" id="0mu-L0-Ndy"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Settings" id="dxH-fJ-hH9"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bN4-nt-smr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1327" y="-1556"/>
+            <point key="canvasLocation" x="1361" y="-1548"/>
         </scene>
         <!--Categories View Controller - Bomb Watch-->
         <scene sceneID="neX-GM-ybd">
@@ -65,7 +63,7 @@
                         <barButtonItem key="backBarButtonItem" title="Videos" id="Vum-xC-QEN"/>
                         <barButtonItem key="rightBarButtonItem" image="SettingsIcon" id="cvQ-QG-MWv" userLabel="Settings">
                             <connections>
-                                <segue destination="jK7-eU-Q9y" kind="popover" popoverAnchorBarButtonItem="cvQ-QG-MWv" id="lD8-Pa-jRT">
+                                <segue destination="jK7-eU-Q9y" kind="popover" identifier="kBWSegueSettingsPopover" popoverAnchorBarButtonItem="cvQ-QG-MWv" id="R0g-Ky-sfW">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
                             </connections>
@@ -101,7 +99,7 @@
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="65" id="8nd-mC-HxP">
                                         <rect key="frame" x="0.0" y="130" width="320" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8nd-mC-HxP">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8nd-mC-HxP" id="Vxw-7g-0Va">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>

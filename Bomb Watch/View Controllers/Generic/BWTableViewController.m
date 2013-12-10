@@ -15,9 +15,13 @@
 {
     [super viewDidLoad];
 
-    [self addTableHeader];
     self.tableView.backgroundColor = kBWGiantBombCharcoalColor;
     self.tableView.separatorColor  = [UIColor grayColor];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self addTableHeader];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
@@ -36,12 +40,16 @@
 
 - (void)addTableHeader
 {
-    CGRect screenRect = [UIScreen mainScreen].bounds;
-    UIImageView *bombImageView = [[UIImageView alloc] initWithFrame:CGRectMake(screenRect.size.width / 2 - 10, 0, 20, 40)];
-    [bombImageView setImage:[UIImage imageNamed:@"BombTableHeader"]];
+    UIImage *bomb = [UIImage imageNamed:@"BombTableHeader"];
+    CGSize bombSize = CGSizeMake(bomb.size.width * 0.7, bomb.size.height * 0.7);
+
+    CGRect rect = self.view.bounds;
+    UIImageView *bombImageView = [[UIImageView alloc] initWithFrame:CGRectMake(rect.size.width / 2 - (bombSize.width / 2), 0, bombSize.width, bombSize.height)];
+    [bombImageView setImage:bomb];
+
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, bombImageView.bounds.size.width, bombImageView.bounds.size.height)];
     [headerView addSubview:bombImageView];
-    [headerView sendSubviewToBack:bombImageView];
+
     self.tableView.tableHeaderView = headerView;
     [self.tableView setContentInset:UIEdgeInsetsMake(-bombImageView.bounds.size.height, 0.0f, 0.0f, 0.0f)];
 }

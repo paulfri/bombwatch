@@ -9,6 +9,7 @@
 #import "BWCategoriesViewController.h"
 #import "BWListViewController.h"
 #import "BWSegues.h"
+#import "BWColors.h"
 
 #define kBWFeaturedCategoriesSection 0
 #define kBWEnduranceRunSection 1
@@ -20,6 +21,9 @@
 @property (strong, nonatomic) NSArray *featuredCategories;
 @property (strong, nonatomic) NSArray *enduranceRuns;
 @property (strong, nonatomic) NSArray *otherCategories;
+
+// Since this is a weak reference, it will be set to nil once the popover is dismissed
+@property (weak, nonatomic) UIPopoverController *popover;
 
 @end
 
@@ -94,7 +98,19 @@
             UITableViewCell *selectedCell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
             destinationVC.category = selectedCell.textLabel.text;
         }
+    } else if ([segue.identifier isEqualToString:kBWSegueSettingsPopover]) {
+        self.popover = [(UIStoryboardPopoverSegue *)segue popoverController];
+        self.popover.backgroundColor = kBWGiantBombCharcoalColor;
     }
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if ([identifier isEqualToString:kBWSegueSettingsPopover]) {
+        return !self.popover;
+    }
+
+    return YES;
 }
 
 @end
