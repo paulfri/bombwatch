@@ -12,7 +12,7 @@
 #import "BWVideoSelectionDelegate.h"
 @class BWVideo;
 
-@interface BWVideoDetailViewController : UITableViewController <BWVideoSelectionDelegate, UIPickerViewDataSource, UIPickerViewDelegate, BWVideoPlayerDelegate>
+@interface BWVideoDetailViewController : UITableViewController <BWVideoSelectionDelegate, UISplitViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, BWVideoPlayerDelegate>
 
 @property (strong, nonatomic) BWVideo *video;
 @property BWVideoQuality quality;

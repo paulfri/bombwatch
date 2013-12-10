@@ -57,6 +57,7 @@
     } else {
         UISplitViewController *splitVC = (UISplitViewController *)self.window.rootViewController;
         self.detailView = ((UINavigationController *)splitVC.childViewControllers[1]).viewControllers[0];
+        splitVC.delegate = self.detailView;
     }
 
     NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];

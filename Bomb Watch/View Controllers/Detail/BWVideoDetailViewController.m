@@ -25,6 +25,7 @@
 #import "BWNameFormatter.h"
 #import "BWSettings.h"
 #import "BWTwitter.h"
+#import "BWListViewController.h"
 
 #define kSummarySection    0
 #define kVideoDetailCell   0
@@ -52,6 +53,7 @@
 @property (strong, nonatomic) UIImage *previewImage;
 
 @property (strong, nonatomic) UIView *curtains; // overlay to hide storyboard jank before a video is loaded
+@property (weak, nonatomic) UIPopoverController *popoverVC;
 
 @end
 
@@ -465,6 +467,35 @@
     [self refreshViews];
     self.view.userInteractionEnabled = YES;
     [self.curtains removeFromSuperview];
+    
+    if (self.popoverVC && [self.popoverVC isPopoverVisible]) {
+        [self.popoverVC dismissPopoverAnimated:YES];
+    }
+}
+
+#pragma mark - Split VC delegate
+
+- (void)splitViewController:(UISplitViewController *)svc
+     willHideViewController:(UIViewController *)aViewController
+          withBarButtonItem:(UIBarButtonItem *)barButtonItem
+       forPopoverController:(UIPopoverController *)pc
+{
+    UIViewController *vc = (BWListViewController *)((UINavigationController *)(svc.childViewControllers[0])).topViewController;
+    if ([vc isKindOfClass:BWListViewController.class]) {
+        barButtonItem.title = ((BWListViewController *)vc).category;
+    } else {
+        barButtonItem.title = @"Videos";
+    }
+    self.popoverVC = pc;
+
+    self.navigationItem.leftBarButtonItem = barButtonItem;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc
+     willShowViewController:(UIViewController *)aViewController
+  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    self.navigationItem.leftBarButtonItem = nil;
 }
 
 @end
