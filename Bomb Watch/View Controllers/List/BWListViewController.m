@@ -62,7 +62,14 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([segue.identifier isEqualToString:kBWSegueVideoDetail]) {
-        BWVideoDetailViewController *controller = [segue destinationViewController];
+        BWVideoDetailViewController *controller;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            UINavigationController *navController = [segue destinationViewController];
+            controller = (BWVideoDetailViewController *)navController.viewControllers[0];
+        } else {
+            controller = [segue destinationViewController];
+        }
+
         controller.video = sender;
         controller.quality = [BWSettings defaultQuality];
     }
@@ -78,11 +85,6 @@
 - (void)tableViewContentsReset
 {
     self.title = self.category;
-//    if (self.listController.videos.count > 0) {
-//        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-//                              atScrollPosition:UITableViewScrollPositionTop
-//                                      animated:YES];
-//    }
 }
 
 - (void)searchDidCompleteWithSuccess
