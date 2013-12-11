@@ -11,19 +11,20 @@
 #import "BWSegues.h"
 #import "BWColors.h"
 
-#define kBWFeaturedCategoriesSection 0
-#define kBWEnduranceRunSection 1
-#define kBWOtherCategoriesSection 2
+#define IS_IPAD  (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+
+#define kBWMetaSection (IS_IPAD ? 0 : 999)
+#define kBWFeaturedCategoriesSection (IS_IPAD ? 1 : 0)
+#define kBWEnduranceRunSection (IS_IPAD ? 2 : 1)
+
+NSString *const kBWCategoryCell = @"kBWCategoryCell";
 
 @interface BWCategoriesViewController ()
 
 // TODO: this should be constantized somewhere
 @property (strong, nonatomic) NSArray *featuredCategories;
 @property (strong, nonatomic) NSArray *enduranceRuns;
-@property (strong, nonatomic) NSArray *otherCategories;
-
-// Since this is a weak reference, it will be set to nil once the popover is dismissed
-//@property (weak, nonatomic) UIPopoverController *popover;
+@property (strong, nonatomic) NSArray *meta;
 
 @end
 
@@ -33,22 +34,22 @@
 {
     [super viewDidLoad];
 
-    self.featuredCategories = @[@"Latest", @"Quick Looks", @"Features", @"Events", @"Trailers"];
+    self.meta = @[@"Favorites", @"Downloads"];
+    self.featuredCategories = @[@"Latest", @"Quick Looks", @"Features", @"Events", @"Trailers", @"Subscriber"];
     self.enduranceRuns = @[@"Persona 4", @"The Matrix Online", @"Deadly Premonition", @"Chrono Trigger"];
-    self.otherCategories = @[@"TANG", @"Reviews", @"Subscriber"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:animated];
     [super viewWillAppear:animated];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
 }
 
 #pragma mark - UITableViewDataSource protocol methods
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return IS_IPAD ? 3 : 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -57,8 +58,8 @@
         return self.featuredCategories.count;
     } else if (section == kBWEnduranceRunSection) {
         return self.enduranceRuns.count;
-    } else if (section == kBWOtherCategoriesSection) {
-        return self.otherCategories.count;
+    } else if (section == kBWMetaSection) {
+        return 2;
     }
 
     return 0;
@@ -66,20 +67,33 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return  @[@"Featured", @"Endurance Run", @"Other"][section];
+    if (!IS_IPAD) {
+        return @[@"Featured", @"Endurance Run"][section];
+    } else {
+        return @[@"Sections", @"Featured", @"Endurance Run"][section];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString* cellIdentifier = @"CategoryCell";
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    UITableViewCell *cell;
+
+    if (indexPath.section == kBWFeaturedCategoriesSection || indexPath.section == kBWEnduranceRunSection) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"kBWCategoryCellIdentifier"];
+    } else {
+        if (indexPath.row == 0) {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"kBWFavoritesCellIdentifier"];
+        } else {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"kBWDownloadsCellIdentifier"];
+        }
+    }
 
     if ([indexPath section] == kBWFeaturedCategoriesSection) {
         cell.textLabel.text = self.featuredCategories[indexPath.row];
     } else if ([indexPath section] == kBWEnduranceRunSection) {
         cell.textLabel.text = self.enduranceRuns[indexPath.row];
-    } else if ([indexPath section] == kBWOtherCategoriesSection) {
-        cell.textLabel.text = self.otherCategories[indexPath.row];
+    } else if ([indexPath section] == kBWMetaSection) {
+        cell.textLabel.text = self.meta[indexPath.row];
     }
 
     return cell;
@@ -98,19 +112,7 @@
             UITableViewCell *selectedCell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
             destinationVC.category = selectedCell.textLabel.text;
         }
-    } else if ([segue.identifier isEqualToString:kBWSegueSettingsPopover]) {
-//        self.popover = [(UIStoryboardPopoverSegue *)segue popoverController];
-//        self.popover.backgroundColor = kBWGiantBombCharcoalColor;
     }
-}
-
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
-{
-    if ([identifier isEqualToString:kBWSegueSettingsPopover]) {
-//        return !self.popover;
-    }
-
-    return YES;
 }
 
 @end

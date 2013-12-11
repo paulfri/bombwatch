@@ -508,7 +508,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CategoryCell" id="WUy-Vu-733" customClass="BWGenericTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="kBWCategoryCellIdentifier" id="WUy-Vu-733" customClass="BWGenericTableViewCell">
                                 <rect key="frame" x="0.0" y="55" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WUy-Vu-733" id="rYN-62-kwc">
@@ -519,6 +519,28 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                                     <segue destination="Do2-ft-s33" kind="push" identifier="kBWSegueVideoList" id="Ag2-9x-PET"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="kBWFavoritesCellIdentifier" id="2cr-Mw-jFI" customClass="BWGenericTableViewCell">
+                                <rect key="frame" x="0.0" y="99" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2cr-Mw-jFI" id="bb0-ti-9cO">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="1wn-2I-7kr" kind="push" identifier="kBWSegueFavorites" id="iLe-gP-D2w"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="kBWDownloadsCellIdentifier" id="5fn-0M-WY5" customClass="BWGenericTableViewCell">
+                                <rect key="frame" x="0.0" y="143" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5fn-0M-WY5" id="BGR-Ia-wXp">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="GHZ-sh-c2U" kind="push" identifier="kBWSegueDownloads" id="VPp-uR-DOt"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="So4-lv-jcN" id="Bit-sA-zTf"/>
@@ -527,11 +549,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                     </tableView>
                     <navigationItem key="navigationItem" title="Videos" id="Sjd-Mu-f1N">
                         <barButtonItem key="backBarButtonItem" title="Videos" id="Vum-xC-QEN"/>
-                        <barButtonItem key="rightBarButtonItem" image="SettingsIcon" id="cvQ-QG-MWv" userLabel="Settings">
-                            <connections>
-                                <segue destination="V5X-Ep-1NM" kind="modal" identifier="kBWSegueSettingsPopover" modalPresentationStyle="formSheet" id="R0g-Ky-sfW"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdQ-yG-pHQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -583,6 +600,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Latest" id="bXO-dk-m1D"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="searchBar" destination="uVt-59-uzM" id="SBH-KH-fke"/>
                         <outlet property="tableView" destination="53w-oi-xZt" id="rSE-ur-NB5"/>
@@ -596,9 +614,15 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <scene sceneID="a1c-np-w9Z">
             <objects>
                 <navigationController id="ZE7-ge-a6a" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="pTQ-fo-4fe">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="ixr-Q9-4v9">
+                        <rect key="frame" x="0.0" y="808" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="So4-lv-jcN" kind="relationship" relationship="rootViewController" id="0Hg-Jf-9ay"/>
                     </connections>
@@ -799,9 +823,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="ATY-cQ-byX">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="FHy-Dx-hck">
+                        <barButtonItem key="rightBarButtonItem" image="SettingsIcon" id="FHy-Dx-hck">
                             <connections>
                                 <action selector="actionButtonPressed:" destination="VFq-LP-zSs" id="sIp-Xd-Z6R"/>
+                                <segue destination="V5X-Ep-1NM" kind="modal" identifier="kBWSegueSettingsPopover" modalPresentationStyle="formSheet" id="J4o-dO-tmS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -821,7 +846,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rVm-YT-7WC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1608" y="-674"/>
+            <point key="canvasLocation" x="1192" y="-671"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="1GG-im-LIP">
@@ -837,11 +862,114 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
             </objects>
             <point key="canvasLocation" x="-647" y="-293"/>
         </scene>
+        <!--Favorites View Controller - Favorites-->
+        <scene sceneID="ufz-u8-j1V">
+            <objects>
+                <viewController id="1wn-2I-7kr" customClass="BWFavoritesViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="o6L-wa-Rov"/>
+                        <viewControllerLayoutGuide type="bottom" id="6sU-1K-In8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LKX-Ew-IPP">
+                        <rect key="frame" x="0.0" y="64" width="320" height="788"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="r4s-gp-izt">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="788"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="Y6l-v0-eDz">
+                                    <rect key="frame" x="0.0" y="87" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="icv-om-u3p">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="65"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="icv-om-u3p">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="1wn-2I-7kr" id="m7u-FW-soH"/>
+                                    <outlet property="delegate" destination="1wn-2I-7kr" id="jk2-d8-gT6"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="r4s-gp-izt" firstAttribute="leading" secondItem="LKX-Ew-IPP" secondAttribute="leading" id="Myy-Co-mm1"/>
+                            <constraint firstItem="r4s-gp-izt" firstAttribute="top" secondItem="LKX-Ew-IPP" secondAttribute="top" id="QCg-cT-gOn"/>
+                            <constraint firstAttribute="trailing" secondItem="r4s-gp-izt" secondAttribute="trailing" id="VSV-eq-jRs"/>
+                            <constraint firstAttribute="bottom" secondItem="r4s-gp-izt" secondAttribute="bottom" id="jv4-SC-zGQ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Favorites" id="2sP-41-aOr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BLK-U7-FWP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="230" y="322"/>
+        </scene>
+        <!--Downloads View Controller - Downloads-->
+        <scene sceneID="Oq5-6W-IOC">
+            <objects>
+                <viewController id="GHZ-sh-c2U" customClass="BWDownloadsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ac1-rh-AIy"/>
+                        <viewControllerLayoutGuide type="bottom" id="pG7-zz-kTf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aGQ-8m-fX3">
+                        <rect key="frame" x="0.0" y="64" width="320" height="788"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="dXR-V2-pek">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="788"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="wuI-GZ-U3G">
+                                    <rect key="frame" x="0.0" y="87" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="K0F-Cz-6nh">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="65"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K0F-Cz-6nh">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="GHZ-sh-c2U" id="czh-iU-T3k"/>
+                                    <outlet property="delegate" destination="GHZ-sh-c2U" id="0Mb-or-fVH"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="dXR-V2-pek" secondAttribute="bottom" id="0tV-RI-Dxy"/>
+                            <constraint firstItem="dXR-V2-pek" firstAttribute="top" secondItem="aGQ-8m-fX3" secondAttribute="top" id="F3e-Ht-wFG"/>
+                            <constraint firstAttribute="trailing" secondItem="dXR-V2-pek" secondAttribute="trailing" id="XE7-9T-fRN"/>
+                            <constraint firstItem="dXR-V2-pek" firstAttribute="leading" secondItem="aGQ-8m-fX3" secondAttribute="leading" id="uEm-Gu-rKD"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Downloads" id="WQR-Us-DXe"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jt8-YD-jq7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="598" y="426"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="O9k-K4-wNp">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="V5X-Ep-1NM" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="DGS-Ut-Mly">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

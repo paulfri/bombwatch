@@ -12,6 +12,8 @@ extern NSString *const kBWSegueVideoList;
 extern NSString *const kBWSegueVideoDetail;
 extern NSString *const kBWSegueVideoReplace;
 extern NSString *const kBWSegueSettingsPopover;
+extern NSString *const kBWSegueFavorites;
+extern NSString *const kBWSegueDownloads;
 
 @interface BWSegues : NSObject
 

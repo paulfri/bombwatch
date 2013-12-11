@@ -12,6 +12,7 @@
 #import "EVCircularProgressView.h"
 #import "BWVideoTableViewCell.h"
 #import "BWColors.h"
+#import "BWAppDelegate.h"
 
 NSString *const kBWDownloadDetailSegue = @"kBWDownloadDetailSegue";
 
@@ -28,6 +29,8 @@ NSString *const kBWDownloadDetailSegue = @"kBWDownloadDetailSegue";
     self.tableView.enabled = YES;
     self.tableView.separatorColor = [UIColor darkGrayColor];
     self.tableView.tableFooterView = [[UIView alloc] init];
+
+    self.delegate = ((BWAppDelegate *)[UIApplication sharedApplication].delegate).detailView;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -115,7 +118,13 @@ NSString *const kBWDownloadDetailSegue = @"kBWDownloadDetailSegue";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:kBWDownloadDetailSegue sender:self.downloads[indexPath.row]];
+    BWDownload *download = self.downloads[indexPath.row];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [self.delegate selectedVideo:download.video quality:download.quality];
+    } else {
+        [self performSegueWithIdentifier:kBWDownloadDetailSegue sender:download];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

@@ -55,6 +55,8 @@
 @property (strong, nonatomic) UIView *curtains; // overlay to hide storyboard jank before a video is loaded
 @property (weak, nonatomic) UIPopoverController *popoverVC;
 
+@property (strong, nonatomic) UIBarButtonItem *settingsItem;
+
 @end
 
 @implementation BWVideoDetailViewController
@@ -480,6 +482,12 @@
 
         [self.popoverVC dismissPopoverAnimated:YES];
     }
+}
+
+- (void)selectedVideo:(BWVideo *)video quality:(BWVideoQuality)quality
+{
+    self.quality = quality;
+    [self selectedVideo:video];
 }
 
 #pragma mark - Split VC delegate

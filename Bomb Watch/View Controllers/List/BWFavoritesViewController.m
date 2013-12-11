@@ -12,6 +12,7 @@
 #import "BWVideoDetailViewController.h"
 #import "BWVideoDataStore.h"
 #import "BWColors.h"
+#import "BWAppDelegate.h"
 
 @interface BWFavoritesViewController ()
 
@@ -38,6 +39,8 @@
     self.tableView.didFinishMovingCellBlock = ^(NSIndexPath *oldIndexPath, NSIndexPath *newIndexPath) {
         [[BWVideoDataStore defaultStore] setFavorites:[_self.favorites copy]];
     };
+
+    self.delegate = ((BWAppDelegate *)[UIApplication sharedApplication].delegate).detailView;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -102,7 +105,11 @@
     BWVideo *video = [self videoAtIndexPath:indexPath];
     
     if (video) {
-        [self performSegueWithIdentifier:@"kBWFavoritesDetailSegue" sender:video];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            [self.delegate selectedVideo:video];
+        } else {
+            [self performSegueWithIdentifier:@"kBWFavoritesDetailSegue" sender:video];
+        }
     }
 }
 

@@ -12,6 +12,8 @@ NSString *const kBWSegueVideoList = @"kBWSegueVideoList";
 NSString *const kBWSegueVideoDetail = @"kBWSegueVideoDetail";
 NSString *const kBWSegueVideoReplace = @"kBWSegueVideoReplace";
 NSString *const kBWSegueSettingsPopover = @"kBWSegueSettingsPopover";
+NSString *const kBWSegueFavorites = @"kBWSegueFavorites";
+NSString *const kBWSegueDownloads = @"kBWSegueDownloads";
 
 @implementation BWSegues
 

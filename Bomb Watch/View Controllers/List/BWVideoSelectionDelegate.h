@@ -14,4 +14,7 @@
 @required
 - (void)selectedVideo:(BWVideo *)video;
 
+@optional
+- (void)selectedVideo:(BWVideo *)video quality:(BWVideoQuality)quality;
+
 @end

@@ -223,6 +223,7 @@
 		DA0A718A1849198A004750F1 /* List */ = {
 			isa = PBXGroup;
 			children = (
+				DA86DCB11856CC7200B08015 /* BWVideoSelectionDelegate.h */,
 				DA01E188184A71E3008B139F /* BWCategoriesViewController.h */,
 				DA01E189184A71E3008B139F /* BWCategoriesViewController.m */,
 				DA0A718B184919FC004750F1 /* BWListViewController.h */,
@@ -231,7 +232,6 @@
 				DA01E17A184A5E59008B139F /* BWFavoritesViewController.m */,
 				DA88AE82184D7D6400D6E823 /* BWDownloadsViewController.h */,
 				DA88AE83184D7D6400D6E823 /* BWDownloadsViewController.m */,
-				DA86DCB11856CC7200B08015 /* BWVideoSelectionDelegate.h */,
 			);
 			path = List;
 			sourceTree = "<group>";
