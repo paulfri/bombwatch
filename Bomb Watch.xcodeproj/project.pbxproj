@@ -90,8 +90,8 @@
 		DA01E189184A71E3008B139F /* BWCategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWCategoriesViewController.m; sourceTree = "<group>"; };
 		DA01E18B184A71EB008B139F /* BWVideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoDetailViewController.h; sourceTree = "<group>"; };
 		DA01E18C184A71EB008B139F /* BWVideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoDetailViewController.m; sourceTree = "<group>"; };
-		DA01E18F184AB9AA008B139F /* BWPushNotificationClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWPushNotificationClient.h; sourceTree = "<group>"; };
-		DA01E190184AB9AA008B139F /* BWPushNotificationClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWPushNotificationClient.m; sourceTree = "<group>"; };
+		DA01E18F184AB9AA008B139F /* BWPushNotificationClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWPushNotificationClient.h; path = ../API/BWPushNotificationClient.h; sourceTree = "<group>"; };
+		DA01E190184AB9AA008B139F /* BWPushNotificationClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWPushNotificationClient.m; path = ../API/BWPushNotificationClient.m; sourceTree = "<group>"; };
 		DA01E195184BA03A008B139F /* BWGenericTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWGenericTableViewCell.h; sourceTree = "<group>"; };
 		DA01E196184BA03A008B139F /* BWGenericTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWGenericTableViewCell.m; sourceTree = "<group>"; };
 		DA0A718B184919FC004750F1 /* BWListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWListViewController.h; sourceTree = "<group>"; };
@@ -133,10 +133,10 @@
 		DA88AE8F184E113B00D6E823 /* BWDownloadDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWDownloadDataStore.m; sourceTree = "<group>"; };
 		DAAE246B1853E1500056D770 /* BWVideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoPlayerViewController.h; sourceTree = "<group>"; };
 		DAAE246C1853E1500056D770 /* BWVideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoPlayerViewController.m; sourceTree = "<group>"; };
-		DAAE24711853EF8F0056D770 /* BWTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWTabBarController.h; sourceTree = "<group>"; };
-		DAAE24721853EF8F0056D770 /* BWTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWTabBarController.m; sourceTree = "<group>"; };
-		DAAFF7571850184D003922EF /* BWSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSettings.h; sourceTree = "<group>"; };
-		DAAFF7581850184D003922EF /* BWSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWSettings.m; sourceTree = "<group>"; };
+		DAAE24711853EF8F0056D770 /* BWTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWTabBarController.h; path = ../../Controllers/BWTabBarController.h; sourceTree = "<group>"; };
+		DAAE24721853EF8F0056D770 /* BWTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWTabBarController.m; path = ../../Controllers/BWTabBarController.m; sourceTree = "<group>"; };
+		DAAFF7571850184D003922EF /* BWSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWSettings.h; path = ../Model/BWSettings.h; sourceTree = "<group>"; };
+		DAAFF7581850184D003922EF /* BWSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWSettings.m; path = ../Model/BWSettings.m; sourceTree = "<group>"; };
 		DACE826117CD035700E23051 /* Bomb Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bomb Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DACE826417CD035700E23051 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DACE826617CD035700E23051 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -157,8 +157,8 @@
 		DACE82A317CD052300E23051 /* GiantBombAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiantBombAPIClient.m; sourceTree = "<group>"; };
 		DAF0B03918541C0700281399 /* BWNameFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWNameFormatter.h; sourceTree = "<group>"; };
 		DAF0B03A18541C0700281399 /* BWNameFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWNameFormatter.m; sourceTree = "<group>"; };
-		DAF0B03C18543DCD00281399 /* BWTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWTwitter.h; sourceTree = "<group>"; };
-		DAF0B03D18543DCD00281399 /* BWTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWTwitter.m; sourceTree = "<group>"; };
+		DAF0B03C18543DCD00281399 /* BWTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BWTwitter.h; path = ../Model/BWTwitter.h; sourceTree = "<group>"; };
+		DAF0B03D18543DCD00281399 /* BWTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BWTwitter.m; path = ../Model/BWTwitter.m; sourceTree = "<group>"; };
 		DAF0B03F1854D0BC00281399 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -189,15 +189,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DA01E18E184AB98B008B139F /* API */ = {
-			isa = PBXGroup;
-			children = (
-				DA01E18F184AB9AA008B139F /* BWPushNotificationClient.h */,
-				DA01E190184AB9AA008B139F /* BWPushNotificationClient.m */,
-			);
-			path = API;
-			sourceTree = "<group>";
-		};
 		DA0A718818491898004750F1 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,8 +232,6 @@
 			children = (
 				DA0A718F184930BD004750F1 /* BWListController.h */,
 				DA0A7190184930BD004750F1 /* BWListController.m */,
-				DAAE24711853EF8F0056D770 /* BWTabBarController.h */,
-				DAAE24721853EF8F0056D770 /* BWTabBarController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -250,6 +239,8 @@
 		DA39B4AE17D6A2A800E7935D /* Generic */ = {
 			isa = PBXGroup;
 			children = (
+				DAAE24711853EF8F0056D770 /* BWTabBarController.h */,
+				DAAE24721853EF8F0056D770 /* BWTabBarController.m */,
 				DA01E185184A71D7008B139F /* BWTableViewController.h */,
 				DA01E186184A71D7008B139F /* BWTableViewController.m */,
 			);
@@ -369,12 +360,11 @@
 				DA6543861856A5590015087A /* Main_iPad.storyboard */,
 				DA41280517CE38C5003C4F59 /* Images.xcassets */,
 				DA68EBD717D02F9F00451F14 /* Activities */,
-				DA01E18E184AB98B008B139F /* API */,
 				DA86DCB01856C35A00B08015 /* Constants */,
 				DA0A718E18493057004750F1 /* Controllers */,
 				DA852994184908A60049C752 /* Extensions */,
 				DADDA78317D193E70076D2EA /* Model */,
-				DACE829F17CD04D100E23051 /* Giant Bomb */,
+				DACE829F17CD04D100E23051 /* Singleton */,
 				DA68EBD617D02F9100451F14 /* Views */,
 				DA73CCA617CD15BC00976570 /* View Controllers */,
 				DACE826B17CD035700E23051 /* Supporting Files */,
@@ -411,14 +401,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		DACE829F17CD04D100E23051 /* Giant Bomb */ = {
+		DACE829F17CD04D100E23051 /* Singleton */ = {
 			isa = PBXGroup;
 			children = (
 				DACE82A217CD052300E23051 /* GiantBombAPIClient.h */,
 				DACE82A317CD052300E23051 /* GiantBombAPIClient.m */,
+				DA01E18F184AB9AA008B139F /* BWPushNotificationClient.h */,
+				DA01E190184AB9AA008B139F /* BWPushNotificationClient.m */,
 				DAF0B03918541C0700281399 /* BWNameFormatter.h */,
 				DAF0B03A18541C0700281399 /* BWNameFormatter.m */,
+				DAAFF7571850184D003922EF /* BWSettings.h */,
+				DAAFF7581850184D003922EF /* BWSettings.m */,
+				DAF0B03C18543DCD00281399 /* BWTwitter.h */,
+				DAF0B03D18543DCD00281399 /* BWTwitter.m */,
 			);
+			name = Singleton;
 			path = "Giant Bomb";
 			sourceTree = "<group>";
 		};
@@ -437,10 +434,6 @@
 				DA88AE89184D821F00D6E823 /* BWVideoDownloader.m */,
 				DA88AE8E184E113B00D6E823 /* BWDownloadDataStore.h */,
 				DA88AE8F184E113B00D6E823 /* BWDownloadDataStore.m */,
-				DAAFF7571850184D003922EF /* BWSettings.h */,
-				DAAFF7581850184D003922EF /* BWSettings.m */,
-				DAF0B03C18543DCD00281399 /* BWTwitter.h */,
-				DAF0B03D18543DCD00281399 /* BWTwitter.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";

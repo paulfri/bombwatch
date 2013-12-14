@@ -12,16 +12,16 @@
 #import "BWColors.h"
 
 #define IS_IPAD  (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-
 #define kBWMetaSection (IS_IPAD ? 0 : 999)
 #define kBWFeaturedCategoriesSection (IS_IPAD ? 1 : 0)
 #define kBWEnduranceRunSection (IS_IPAD ? 2 : 1)
 
-NSString *const kBWCategoryCell = @"kBWCategoryCell";
+NSString *const kBWCategoryCellIdentifier = @"kBWCategoryCellIdentifier";
+NSString *const kBWDownloadsCellIdentifier = @"kBWDownloadsCellIdentifier";
+NSString *const kBWFavoritesCellIdentifier = @"kBWFavoritesCellIdentifier";
 
 @interface BWCategoriesViewController ()
 
-// TODO: this should be constantized somewhere
 @property (strong, nonatomic) NSArray *featuredCategories;
 @property (strong, nonatomic) NSArray *enduranceRuns;
 @property (strong, nonatomic) NSArray *meta;
@@ -68,10 +68,10 @@ NSString *const kBWCategoryCell = @"kBWCategoryCell";
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (!IS_IPAD) {
-        return @[@"Featured", @"Endurance Run"][section];
-    } else {
-        return @[@"Sections", @"Featured", @"Endurance Run"][section];
+        return @[@"Categories", @"Endurance Run"][section];
     }
+
+    return @[@"", @"Categories", @"Endurance Run"][section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -79,12 +79,12 @@ NSString *const kBWCategoryCell = @"kBWCategoryCell";
     UITableViewCell *cell;
 
     if (indexPath.section == kBWFeaturedCategoriesSection || indexPath.section == kBWEnduranceRunSection) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"kBWCategoryCellIdentifier"];
+        cell = [tableView dequeueReusableCellWithIdentifier:kBWCategoryCellIdentifier];
     } else {
         if (indexPath.row == 0) {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"kBWFavoritesCellIdentifier"];
+            cell = [tableView dequeueReusableCellWithIdentifier:kBWFavoritesCellIdentifier];
         } else {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"kBWDownloadsCellIdentifier"];
+            cell = [tableView dequeueReusableCellWithIdentifier:kBWDownloadsCellIdentifier];
         }
     }
 
@@ -106,7 +106,7 @@ NSString *const kBWCategoryCell = @"kBWCategoryCell";
     BWListViewController *destinationVC = (BWListViewController *)[segue destinationViewController];
 
     if([[segue identifier] isEqualToString:kBWSegueVideoList]) {
-        if ([sender isKindOfClass:[NSString class]]) {
+        if ([sender isKindOfClass:NSString.class]) {
             destinationVC.category = sender;
         } else {
             UITableViewCell *selectedCell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];

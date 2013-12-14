@@ -94,18 +94,6 @@
     [self refreshViews];
 }
 
-- (void)updateDurationLabel
-{
-    NSTimeInterval played = [BWSettings progressForVideo:self.video];
-    NSTimeInterval duration = self.video.length;
-    
-    if (played > 0) {
-        self.durationCell.detailTextLabel.text = [NSString stringWithFormat:@"%@ / %@", [NSString stringFromDuration:played], [NSString stringFromDuration:duration]];
-    } else {
-        self.durationCell.detailTextLabel.text = [NSString stringFromDuration:duration];
-    }
-}
-
 #pragma mark - UITableViewDelegate protocol methods
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -198,6 +186,22 @@
     self.cachedBlurRadius = radius;
 }
 
+#pragma mark - UIPickerViewDataSource protocol methods
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    if (self.video.videoHDURL) {
+        return 4;
+    }
+
+    return 3;
+}
+
 #pragma mark - UIPickerViewDelegate protocol methods
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
@@ -224,22 +228,7 @@
     }
 
     self.quality = row;
-
     [self refreshViews];
-}
-
-#pragma mark - UIPickerViewDataSource protocol methods
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    if (self.video.videoHDURL) return 4;
-
-    return 3;
 }
 
 #pragma mark - Video player control
@@ -249,7 +238,7 @@
     if ([self canStreamVideo] || (self.download && [self.download isComplete])) {
 
         if ([AFNetworkReachabilityManager sharedManager].isReachableViaWiFi) {
-            self.player = [[BWVideoPlayerViewController alloc] initWithVideo:self.video quality:[self selectedQuality]];
+            self.player = [[BWVideoPlayerViewController alloc] initWithVideo:self.video quality:self.quality];
         } else {
             self.player = [[BWVideoPlayerViewController alloc] initWithVideo:self.video quality:self.download.quality];
         }
@@ -292,6 +281,139 @@
     [self presentViewController:activityController animated:YES completion:nil];
 }
 
+
+#pragma mark - Split VC delegate
+
+- (void)splitViewController:(UISplitViewController *)svc
+     willHideViewController:(UIViewController *)aViewController
+          withBarButtonItem:(UIBarButtonItem *)barButtonItem
+       forPopoverController:(UIPopoverController *)pc
+{
+    UIViewController *vc = (BWListViewController *)((UINavigationController *)(svc.childViewControllers[0])).topViewController;
+
+    if ([vc isKindOfClass:BWListViewController.class]) {
+        barButtonItem.title = ((BWListViewController *)vc).category;
+    } else {
+        barButtonItem.title = @"Videos";
+    }
+
+    self.popoverVC = pc;
+    self.navigationItem.leftBarButtonItem = barButtonItem;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc
+     willShowViewController:(UIViewController *)aViewController
+  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    self.navigationItem.leftBarButtonItem = nil;
+}
+
+#pragma mark - BWVideoSelectionDelegate
+
+- (void)selectedVideo:(BWVideo *)video
+{
+    self.video = video;
+    [self refreshViews];
+    self.view.userInteractionEnabled = YES;
+    [self.curtains removeFromSuperview];
+    [self.tableView scrollRectToVisible:self.preview.frame animated:NO];
+
+    if (self.popoverVC && [self.popoverVC isPopoverVisible]) {
+        UIViewController *vc = ((UINavigationController *)self.popoverVC.contentViewController).topViewController;
+
+        if ([vc isKindOfClass:BWListViewController.class]) {
+            self.navigationItem.leftBarButtonItem.title = ((BWListViewController *)vc).category;
+        } else {
+            self.navigationItem.leftBarButtonItem.title = @"Videos";
+        }
+
+        [self.popoverVC dismissPopoverAnimated:YES];
+    }
+}
+
+- (void)selectedVideo:(BWVideo *)video quality:(BWVideoQuality)quality
+{
+    self.quality = quality;
+    [self selectedVideo:video];
+}
+
+- (void)refreshViews
+{
+    [self updateDownloadButton];
+    [self updateWatchedButton];
+    [self updateFavoriteButton];
+    [self updateDurationLabel];
+
+    [self.qualityPicker reloadAllComponents];
+    self.qualityLabel.text = [[self pickerView:self.qualityPicker attributedTitleForRow:self.quality forComponent:0] string];
+
+    self.labelTitle.text = self.video.name;
+    self.labelDescription.text = self.video.summary;
+    self.bylineCell.textLabel.text = [BWNameFormatter realNameForUser:self.video.user];
+    self.bylineCell.detailTextLabel.text = [BWNameFormatter twitterHandleForUser:self.video.user];
+
+    if (self.quality != [self.qualityPicker selectedRowInComponent:0]) {
+        [self.qualityPicker selectRow:self.quality inComponent:0 animated:NO];
+    }
+
+    NSURL *imageURL;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        imageURL = self.video.imageMediumURL;
+        self.title = self.video.name;
+    } else {
+        imageURL = self.video.imageSmallURL;
+    }
+
+    [self.preview setImageWithURLRequest:[NSURLRequest requestWithURL:imageURL]
+                        placeholderImage:nil
+                                 success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         self.previewImage = image;
+         [self updateImageBlurWithRadius:kBWImageCoverBlurRadius];
+     }
+                                 failure:nil];
+
+
+    [self.tableView reloadData];
+}
+
+- (void)updateDurationLabel
+{
+    NSTimeInterval played = [BWSettings progressForVideo:self.video];
+    NSTimeInterval duration = self.video.length;
+
+    if (played > 0) {
+        self.durationCell.detailTextLabel.text = [NSString stringWithFormat:@"%@ / %@", [NSString stringFromDuration:played], [NSString stringFromDuration:duration]];
+    } else {
+        self.durationCell.detailTextLabel.text = [NSString stringFromDuration:duration];
+    }
+}
+
+#pragma mark - Watched status
+
+- (IBAction)watchedButtonPressed:(id)sender
+{
+    // TODO: show image with status
+    [self.video setWatched:![self.video isWatched]];
+
+    if ([self.video isWatched]) {
+        [SVProgressHUD showSuccessWithStatus:@"Watched"];
+    } else {
+        [SVProgressHUD showSuccessWithStatus:@"Unwatched"];
+    }
+
+    [self updateWatchedButton];
+}
+
+- (void)updateWatchedButton
+{
+    if ([self.video isWatched]) {
+        self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheckFull"];
+    } else {
+        self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheck"];
+    }
+}
+
 #pragma mark - Favorites
 
 - (IBAction)favoriteButtonPressed:(id)sender
@@ -327,7 +449,7 @@
     if (reach.reachableViaWiFi) {
         if (!self.download) {
             [SVProgressHUD showSuccessWithStatus:@"Downloading"];
-            BWDownload *download = [[BWVideoDownloader defaultDownloader] downloadVideo:self.video quality:[self selectedQuality]];
+            BWDownload *download = [[BWVideoDownloader defaultDownloader] downloadVideo:self.video quality:self.quality];
             self.download = download;
         } else if ([self.download isInProgress]) {
             [SVProgressHUD showSuccessWithStatus:@"Download paused"];
@@ -363,7 +485,6 @@
                                                               target:self
                                                               action:@selector(downloadButtonPressed:)];
         if (self.download && [self.download isComplete]) {
-//            self.downloadButton.userInteractionEnabled = NO;
             self.downloadButton.image = [UIImage imageNamed:@"ToolbarDownloadFull"];
         }
     }
@@ -385,135 +506,13 @@
     }
 }
 
-#pragma mark - Watched status
-
-- (IBAction)watchedButtonPressed:(id)sender
-{
-    // TODO: show image with status
-    [self.video setWatched:![self.video isWatched]];
-
-    if ([self.video isWatched]) {
-        [SVProgressHUD showSuccessWithStatus:@"Watched"];
-    } else {
-        [SVProgressHUD showSuccessWithStatus:@"Unwatched"];
-    }
-
-    [self updateWatchedButton];
-}
-
-- (void)updateWatchedButton
-{
-    if ([self.video isWatched]) {
-        self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheckFull"];
-    } else {
-        self.watchedButton.image = [UIImage imageNamed:@"ToolbarCheck"];
-    }
-}
 
 #pragma mark - Utility
-
-- (void)refreshViews
-{
-    [self updateDownloadButton];
-    [self updateWatchedButton];
-    [self updateFavoriteButton];
-    [self updateDurationLabel];
-
-    [self.qualityPicker reloadAllComponents];
-    self.qualityLabel.text = [[self pickerView:self.qualityPicker attributedTitleForRow:[self selectedQuality] forComponent:0] string];
-
-    self.labelTitle.text = self.video.name;
-    self.labelDescription.text = self.video.summary;
-    self.bylineCell.textLabel.text = [BWNameFormatter realNameForUser:self.video.user];
-    self.bylineCell.detailTextLabel.text = [BWNameFormatter twitterHandleForUser:self.video.user];
-
-    if (self.quality != [self.qualityPicker selectedRowInComponent:0]) {
-        [self.qualityPicker selectRow:self.quality inComponent:0 animated:NO];
-    }
-
-    NSURL *imageURL;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        imageURL = self.video.imageMediumURL;
-        self.title = self.video.name;
-    } else {
-        imageURL = self.video.imageSmallURL;
-    }
-
-    [self.preview setImageWithURLRequest:[NSURLRequest requestWithURL:imageURL]
-                        placeholderImage:nil
-                                 success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
-     {
-         self.previewImage = image;
-         [self updateImageBlurWithRadius:kBWImageCoverBlurRadius];
-     }
-                                 failure:nil];
-
-
-    [self.tableView reloadData];
-}
-
-- (BWVideoQuality)selectedQuality
-{
-    return [self.qualityPicker selectedRowInComponent:0];
-}
 
 - (BOOL)canStreamVideo
 {
     AFNetworkReachabilityManager *reach = [AFNetworkReachabilityManager sharedManager];
     return reach.reachableViaWiFi || (reach.reachableViaWWAN && [self.video canStreamOverCellular]);
-}
-
-- (void)selectedVideo:(BWVideo *)video
-{
-    self.video = video;
-    [self refreshViews];
-    self.view.userInteractionEnabled = YES;
-    [self.curtains removeFromSuperview];
-    [self.tableView scrollRectToVisible:self.preview.frame animated:NO];
-    
-    if (self.popoverVC && [self.popoverVC isPopoverVisible]) {
-        UIViewController *vc = ((UINavigationController *)self.popoverVC.contentViewController).topViewController;
-
-        if ([vc isKindOfClass:BWListViewController.class]) {
-            self.navigationItem.leftBarButtonItem.title = ((BWListViewController *)vc).category;
-        } else {
-            self.navigationItem.leftBarButtonItem.title = @"Videos";
-        }
-
-        [self.popoverVC dismissPopoverAnimated:YES];
-    }
-}
-
-- (void)selectedVideo:(BWVideo *)video quality:(BWVideoQuality)quality
-{
-    self.quality = quality;
-    [self selectedVideo:video];
-}
-
-#pragma mark - Split VC delegate
-
-- (void)splitViewController:(UISplitViewController *)svc
-     willHideViewController:(UIViewController *)aViewController
-          withBarButtonItem:(UIBarButtonItem *)barButtonItem
-       forPopoverController:(UIPopoverController *)pc
-{
-    UIViewController *vc = (BWListViewController *)((UINavigationController *)(svc.childViewControllers[0])).topViewController;
-  
-    if ([vc isKindOfClass:BWListViewController.class]) {
-        barButtonItem.title = ((BWListViewController *)vc).category;
-    } else {
-        barButtonItem.title = @"Videos";
-    }
-
-    self.popoverVC = pc;
-    self.navigationItem.leftBarButtonItem = barButtonItem;
-}
-
-- (void)splitViewController:(UISplitViewController *)svc
-     willShowViewController:(UIViewController *)aViewController
-  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
-{
-    self.navigationItem.leftBarButtonItem = nil;
 }
 
 @end
