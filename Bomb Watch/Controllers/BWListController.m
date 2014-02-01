@@ -96,6 +96,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 - (UITableViewCell *)tableView:(PDGesturedTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BWVideoTableViewCell *cell = (BWVideoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    BOOL isEnduranceRun = [[BWVideo enduranceRunCategories] containsObject:self.category];
     
     if (cell == nil) {
         cell = [[BWVideoTableViewCell alloc] init];
@@ -169,7 +170,14 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
     }
     
     BWVideo *video = [self videoAtIndexPath:indexPath];
-    cell.textLabel.text = video.name;
+    
+    NSString *title = video.name;
+    if (isEnduranceRun) {
+        title = [title stringByReplacingOccurrencesOfString:@"Endurance Run: " withString:@""];
+        title = [title stringByReplacingOccurrencesOfString:@"The Matrix Online: Not Like This - " withString:@"The Matrix Online: "];
+    }
+    
+    cell.textLabel.text = title;
 
     [cell setFavorited:[video isFavorited] animated:NO];
     [cell   setWatched:[video isWatched]   animated:NO];
