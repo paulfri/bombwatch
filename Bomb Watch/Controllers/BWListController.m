@@ -97,6 +97,7 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
 {
     BWVideoTableViewCell *cell = (BWVideoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     BOOL isEnduranceRun = [[BWVideo enduranceRunCategories] containsObject:self.category];
+    BOOL isTANG = [self.category isEqualToString:@"TANG"];
     
     if (cell == nil) {
         cell = [[BWVideoTableViewCell alloc] init];
@@ -175,6 +176,11 @@ static NSString *cellIdentifier = @"kBWVideoListCellIdentifier";
     if (isEnduranceRun) {
         title = [title stringByReplacingOccurrencesOfString:@"Endurance Run: " withString:@""];
         title = [title stringByReplacingOccurrencesOfString:@"The Matrix Online: Not Like This - " withString:@"The Matrix Online: "];
+    } else if (isTANG) {
+        title = [title stringByReplacingOccurrencesOfString:@"TANG: " withString:@""];
+        title = [title stringByReplacingOccurrencesOfString:@"This Ain't No Game - " withString:@""];
+        title = [title stringByReplacingOccurrencesOfString:@"This Ain't No Game: " withString:@""];
+        title = [title stringByReplacingOccurrencesOfString:@"Wonderful Universe of TANG: " withString:@""];
     }
     
     cell.textLabel.text = title;

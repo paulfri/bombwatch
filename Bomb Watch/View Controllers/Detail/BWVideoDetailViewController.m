@@ -70,6 +70,12 @@
     self.bylineCell.textLabel.text = [BWNameFormatter realNameForUser:self.video.user];
     self.bylineCell.detailTextLabel.text = [BWNameFormatter twitterHandleForUser:self.video.user];
 
+    if ([self.bylineCell.detailTextLabel.text isEqualToString:@""]) {
+        self.bylineCell.accessoryType = UITableViewCellAccessoryNone;
+    } else {
+        self.bylineCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
     [self selectQuality:self.quality];
 
     [self.preview setImageWithURLRequest:[NSURLRequest requestWithURL:self.video.imageSmallURL]
