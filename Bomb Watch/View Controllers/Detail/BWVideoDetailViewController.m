@@ -89,8 +89,10 @@
     self.labelDescription.text = self.video.summary;
     self.bylineCell.textLabel.text = [BWNameFormatter realNameForUser:self.video.user];
     self.bylineCell.detailTextLabel.text = [BWNameFormatter twitterHandleForUser:self.video.user];
-    self.labelDate.text = [self.formatter stringFromDate:self.video.date];
-    self.labelDate.text = [self.video.date description];
+
+    if (self.video.date) {
+        self.labelDate.text = [self.formatter stringFromDate:self.video.date];
+    }
 
     if ([self.bylineCell.detailTextLabel.text isEqualToString:@""]) {
         self.bylineCell.accessoryType = UITableViewCellAccessoryNone;
@@ -378,8 +380,13 @@
     self.labelDescription.text = self.video.summary;
     self.bylineCell.textLabel.text = [BWNameFormatter realNameForUser:self.video.user];
     self.bylineCell.detailTextLabel.text = [BWNameFormatter twitterHandleForUser:self.video.user];
-    self.labelDate.text = [self.formatter stringFromDate:self.video.date];
-    
+
+    if (self.labelDate.text) {
+        self.labelDate.text = [self.formatter stringFromDate:self.video.date];
+    } else {
+        self.labelDate.text = @"Unavailable";
+    }
+
     if (self.quality != [self.qualityPicker selectedRowInComponent:0]) {
         [self.qualityPicker selectRow:self.quality inComponent:0 animated:NO];
     }
