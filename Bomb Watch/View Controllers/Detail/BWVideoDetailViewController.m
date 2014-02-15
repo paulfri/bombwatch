@@ -90,8 +90,6 @@
     } else {
         self.bylineCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    
-    [self selectQuality:self.quality];
 
     [self.preview setImageWithURLRequest:[NSURLRequest requestWithURL:self.video.imageSmallURL]
                         placeholderImage:nil
