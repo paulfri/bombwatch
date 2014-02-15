@@ -35,6 +35,12 @@
 + (NSValueTransformer *)JSONTransformerForKey:(NSString *)key
 {
     static NSArray *urlKeys;
+    static NSDateFormatter *formatter;
+    
+    if (formatter == nil) {
+        formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    }
     
     if (urlKeys == nil) {
         urlKeys = @[@"siteDetailURL",
@@ -47,6 +53,10 @@
     
     if ([urlKeys containsObject:key]) {
         return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+    } else if ([key isEqualToString:@"date"]) {
+        return [MTLValueTransformer transformerWithBlock:^NSDate *(NSString *dateString) {
+            return [formatter dateFromString:dateString];
+        }];
     } else if ([key isEqualToString:@"videoHDURL"]) {
         return [MTLValueTransformer reversibleTransformerWithBlock:^NSString *(NSString *hdURL) {
             if (!hdURL) return nil;

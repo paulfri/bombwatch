@@ -843,6 +843,30 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="lVP-Ns-6Ml" detailTextLabel="Og3-73-wuT" style="IBUITableViewCellStyleValue1" id="TPN-Df-p1V">
+                                        <rect key="frame" x="0.0" y="658" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TPN-Df-p1V" id="h3s-tp-XQ8">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lVP-Ns-6Ml">
+                                                    <rect key="frame" x="15" y="11" width="36" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="December 14, 2013" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Og3-73-wuT">
+                                                    <rect key="frame" x="154" y="11" width="151" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -863,6 +887,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                         <outlet property="downloadButton" destination="0J2-tD-fnd" id="qOb-rE-3tY"/>
                         <outlet property="durationCell" destination="Avl-oo-m7a" id="iG4-mC-Kj3"/>
                         <outlet property="favoritedButton" destination="qSB-CV-LFW" id="v3G-8W-EzB"/>
+                        <outlet property="labelDate" destination="Og3-73-wuT" id="22V-jM-FZl"/>
                         <outlet property="labelDescription" destination="KEe-L1-hR5" id="O3C-3q-sHm"/>
                         <outlet property="labelTitle" destination="tzF-hL-9DN" id="yy7-Sb-5Uy"/>
                         <outlet property="preview" destination="gY8-g6-6b1" id="b4j-qK-YTr"/>

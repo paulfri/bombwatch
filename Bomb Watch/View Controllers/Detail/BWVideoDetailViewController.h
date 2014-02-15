@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *preview;
 @property (weak, nonatomic) IBOutlet UILabel *labelTitle;
 @property (weak, nonatomic) IBOutlet UILabel *labelDescription;
+@property (weak, nonatomic) IBOutlet UILabel *labelDate;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *bylineCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *durationCell;

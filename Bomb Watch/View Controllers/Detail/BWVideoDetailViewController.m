@@ -56,6 +56,7 @@
 @property (weak, nonatomic) UIPopoverController *popoverVC;
 
 @property (strong, nonatomic) UIBarButtonItem *settingsItem;
+@property (strong, nonatomic) NSDateFormatter *formatter;
 
 @end
 
@@ -71,7 +72,11 @@
     self.qualityLabel.textColor = [UIColor lightGrayColor];
     self.bylineCell.detailTextLabel.textColor = [UIColor lightGrayColor];
     self.durationCell.detailTextLabel.textColor = [UIColor lightGrayColor];
-
+    self.labelDate.textColor = [UIColor lightGrayColor];
+    
+    self.formatter = [[NSDateFormatter alloc] init];
+    self.formatter.dateStyle = NSDateFormatterLongStyle;
+    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         // hide empty interface builder stuff until a video is loaded
         self.curtains = [[UIView alloc] initWithFrame:CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
@@ -84,6 +89,8 @@
     self.labelDescription.text = self.video.summary;
     self.bylineCell.textLabel.text = [BWNameFormatter realNameForUser:self.video.user];
     self.bylineCell.detailTextLabel.text = [BWNameFormatter twitterHandleForUser:self.video.user];
+    self.labelDate.text = [self.formatter stringFromDate:self.video.date];
+    self.labelDate.text = [self.video.date description];
 
     if ([self.bylineCell.detailTextLabel.text isEqualToString:@""]) {
         self.bylineCell.accessoryType = UITableViewCellAccessoryNone;
@@ -371,7 +378,8 @@
     self.labelDescription.text = self.video.summary;
     self.bylineCell.textLabel.text = [BWNameFormatter realNameForUser:self.video.user];
     self.bylineCell.detailTextLabel.text = [BWNameFormatter twitterHandleForUser:self.video.user];
-
+    self.labelDate.text = [self.formatter stringFromDate:self.video.date];
+    
     if (self.quality != [self.qualityPicker selectedRowInComponent:0]) {
         [self.qualityPicker selectRow:self.quality inComponent:0 animated:NO];
     }
