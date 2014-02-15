@@ -59,7 +59,7 @@
         return [@"@" stringByAppendingString:users[user]];
     }
 
-    return user;
+    return @"";
 }
 
 @end

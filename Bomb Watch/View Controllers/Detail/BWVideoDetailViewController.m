@@ -79,6 +79,28 @@
         [self.view addSubview:self.curtains];
         self.view.userInteractionEnabled = NO;
     }
+
+    self.labelTitle.text = self.video.name;
+    self.labelDescription.text = self.video.summary;
+    self.bylineCell.textLabel.text = [BWNameFormatter realNameForUser:self.video.user];
+    self.bylineCell.detailTextLabel.text = [BWNameFormatter twitterHandleForUser:self.video.user];
+
+    if ([self.bylineCell.detailTextLabel.text isEqualToString:@""]) {
+        self.bylineCell.accessoryType = UITableViewCellAccessoryNone;
+    } else {
+        self.bylineCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
+    [self selectQuality:self.quality];
+
+    [self.preview setImageWithURLRequest:[NSURLRequest requestWithURL:self.video.imageSmallURL]
+                        placeholderImage:nil
+                                 success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         self.previewImage = image;
+         [self updateImageBlurWithRadius:kBWImageCoverBlurRadius];
+     }
+                                   failure:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated

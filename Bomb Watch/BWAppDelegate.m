@@ -19,7 +19,7 @@
 #import "AFNetworking.h"
 #import "BWSegues.h"
 
-#define PocketConsumerKey    @"17866-6c522817c89aaee6ae6da74f"
+#define PocketConsumerKey    @"21561-d0890ac29e8460822d034b88"
 
 @interface BWAppDelegate ()
 @property (weak, nonatomic) UINavigationController *navVC;
