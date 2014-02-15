@@ -22,8 +22,8 @@
 
 #define kBWAttributionHeightBound 2670
 
-NSString *const kBWTwitterHandle = @"bombwatch";
-NSString *const kBWMailAddress   = @"cosmonautics@laika.io";
+NSString *const kBWTwitterHandle = @"paulfri";
+NSString *const kBWMailAddress   = @"paulrfri@gmail.com";
 
 @implementation BWAboutViewController
 
@@ -46,6 +46,7 @@ NSString *const kBWMailAddress   = @"cosmonautics@laika.io";
                                                  context:nil];
 
     self.aboutLabel.attributedText = string;
+    
 }
 
 
