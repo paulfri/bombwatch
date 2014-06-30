@@ -14,11 +14,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-PDGesturedTableView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-PocketAPI.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,32 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0A06FB907D6E41F6978094AA</key>
+		<key>0B937912F1624EC281E26E01</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>31968375B51343DAB8A1D777</key>
+		<key>0BA07AE0833E4FDDBE6D30BB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6A56F583F10844F38ADFA874</key>
+		<key>17166B031A9E484582BFE967</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BFF612AE13EE444BA971E1B0</key>
+		<key>191E709B6CAF4EC7A228507E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F246CE4D56E5463A8FFBC37B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FA7F552DE5864147AEFA0D02</key>
+		<key>C921D513DABF47949FD41A6D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
