@@ -40,7 +40,7 @@
 		<string>remote-notification</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
-	<string>Main_iPhone</string>
+	<string>BombWatch</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

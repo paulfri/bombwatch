@@ -18,7 +18,7 @@
 #import "AFNetworking.h"
 
 @interface BWAppDelegate ()
-@property (weak, nonatomic) UINavigationController *navVC;
+//@property (weak, nonatomic) UINavigationController *navVC;
 @end
 
 @implementation BWAppDelegate
@@ -28,6 +28,7 @@
     [self configureInterface];
     [self configureURLCache];
     [BWSettings initializeSettings];
+
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         if (status == AFNetworkReachabilityStatusReachableViaWWAN) {
@@ -36,24 +37,25 @@
     }];
 
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-       (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+//    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+//       (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 
-    self.navVC = self.window.rootViewController.childViewControllers[0];
-    self.navVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Videos"
-                                                     image:[UIImage imageNamed:@"tab_videos"]
-                                             selectedImage:[UIImage imageNamed:@"tab_videos_selected"]];
+//    self.navVC = self.window.rootViewController.childViewControllers[0];
+//    self.navVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Videos"
+//                                                     image:[UIImage imageNamed:@"tab_videos"]
+//                                             selectedImage:[UIImage imageNamed:@"tab_videos_selected"]];
 
-    [self.navVC.visibleViewController performSegueWithIdentifier:@"videoListSegue" // TODO constantize this in BWSegues.h maybe
-                                                          sender:@"Latest"];
+//    [self.navVC.visibleViewController performSegueWithIdentifier:@"videoListSegue" // TODO constantize this in BWSegues.h maybe
+//                                                          sender:@"Latest"];
 
-    NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (notification) {
-        [self openVideoWithNotification:notification];
-    }
-    
+//    NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+//    if (notification) {
+//        [self openVideoWithNotification:notification];
+//    }
+//    
     return YES;
 }
 
@@ -166,7 +168,7 @@
         detail.video = video;
         detail.quality = [BWSettings defaultQuality];
 
-        [self.navVC pushViewController:detail animated:NO];
+//        [self.navVC pushViewController:detail animated:NO];
 //        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Hey duder!" message:[NSString stringWithFormat:@"Totally going to load %@!", video.name] delegate:nil cancelButtonTitle:@"Sweet!" otherButtonTitles:nil];
 //        [alertView show];
     }
