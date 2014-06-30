@@ -162,7 +162,6 @@
 		DAADCC471961148F0099CD5A /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		DAADCC52196115A20099CD5A /* PDGesturedTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDGesturedTableView.h; sourceTree = "<group>"; };
 		DAADCC53196115A20099CD5A /* PDGesturedTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDGesturedTableView.m; sourceTree = "<group>"; };
-		DAADCC55196118D70099CD5A /* BombWatch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BombWatch-Bridging-Header.h"; sourceTree = "<group>"; };
 		DAADCC8319611E5D0099CD5A /* BombWatch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BombWatch.storyboard; sourceTree = "<group>"; };
 		DAAE246B1853E1500056D770 /* BWVideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoPlayerViewController.h; sourceTree = "<group>"; };
 		DAAE246C1853E1500056D770 /* BWVideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoPlayerViewController.m; sourceTree = "<group>"; };
@@ -438,7 +437,6 @@
 				DA68EBD617D02F9100451F14 /* Views */,
 				DA73CCA617CD15BC00976570 /* View Controllers */,
 				DACE826B17CD035700E23051 /* Supporting Files */,
-				DAADCC55196118D70099CD5A /* BombWatch-Bridging-Header.h */,
 			);
 			path = "Bomb Watch";
 			sourceTree = "<group>";

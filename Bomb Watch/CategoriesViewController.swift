@@ -22,6 +22,7 @@ class CategoriesViewController: UITableViewController {
     super.viewWillAppear(animated)
   }
   
+  // TODO (possibly) break out the data source to a separate class
   override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
     return 3
   }
@@ -58,9 +59,18 @@ class CategoriesViewController: UITableViewController {
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-    //
+    // TODO: list view controller should take an enum as its category
+    if let destination = segue.destinationViewController as? BWListViewController {
+      if segue.identifier == "videoListSegue" {
+        if let stringSender = sender as? String {
+          destination.category = stringSender;
+        } else {
+          let selectedCell = tableView.cellForRowAtIndexPath(tableView.indexPathForSelectedRow())
+          destination.category = selectedCell.textLabel.text
+        }
+      }
+    }
   }
-
   
   
   // generic stuff to move to a superclass later
@@ -68,7 +78,6 @@ class CategoriesViewController: UITableViewController {
     super.viewDidLoad()
     
     addTableHeader()
-
 //    tableView.backgroundColor = kBWGiantBombCharcoalColor;
     tableView.separatorColor = UIColor.grayColor()
   }
