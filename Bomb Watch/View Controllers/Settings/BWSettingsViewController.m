@@ -8,7 +8,6 @@
 
 #import "BWSettingsViewController.h"
 #import "GiantBombAPIClient.h"
-#import "PocketAPI.h"
 #import "SVProgressHUD.h"
 #import "BWVideo.h"
 #import "BWSettings.h"
@@ -77,7 +76,6 @@
         self.accountLinkedCell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
 
-    self.pocketSwitch.on = [PocketAPI sharedAPI].loggedIn;
     self.lockRotationSwitch.on = [BWSettings lockRotation];
     self.versionDetailLabel.text = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 }
@@ -141,39 +139,6 @@
 - (void)donePressed:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - Pocket
-
-- (IBAction)pocketSwitchChanged:(id)sender
-{
-    if(![PocketAPI sharedAPI].loggedIn) {
-        [SVProgressHUD showWithStatus:@"Logging in..."];
-        [self pocketLogin];
-    } else {
-        [self pocketLogout];
-    }
-}
-
-- (void)pocketLogin
-{
-    [[PocketAPI sharedAPI] loginWithHandler: ^(PocketAPI *API, NSError *error){
-        if (error != nil) {
-            NSLog(@"%@", error.localizedDescription);
-            [SVProgressHUD showErrorWithStatus:@"Login failed."];
-        } else {
-            [SVProgressHUD showSuccessWithStatus:@"Logged in!"];
-        }
-
-        self.pocketSwitch.on = [PocketAPI sharedAPI].loggedIn;
-    }];
-}
-
-- (void)pocketLogout
-{
-    [[PocketAPI sharedAPI] logout];
-    [SVProgressHUD showSuccessWithStatus:@"Logged out"];
-    self.pocketSwitch.on = NO;
 }
 
 #pragma mark - Navigation

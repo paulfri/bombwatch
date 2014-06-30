@@ -23,19 +23,16 @@ PODS:
   - Mantle (1.3.1):
     - Mantle/extobjc
   - Mantle/extobjc (1.3.1)
-  - PocketAPI (1.0.2)
   - SVProgressHUD (1.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.3.0)
   - Mantle (~> 1.3.1)
-  - PocketAPI (~> 1.0.2)
   - SVProgressHUD
 
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
   Mantle: a59fdca5cfedd43a0707f0418b3df4b043a1425d
-  PocketAPI: 801df1a3cdd094e5477add10c80dceb533c98a66
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
 
 COCOAPODS: 0.33.1

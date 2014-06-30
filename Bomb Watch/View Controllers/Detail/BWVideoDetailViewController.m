@@ -9,12 +9,9 @@
 #import "BWVideoDetailViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import <MediaPlayer/MediaPlayer.h>
-#import "PocketAPIActivity.h"
-#import "PocketAPI.h"
 #import "SVProgressHUD.h"
 #import "GiantBombAPIClient.h"
 #import "EVCircularProgressView.h"
-#import "BWOpenOnGBActivity.h"
 #import "BWVideoPlayerViewController.h"
 #import "BWVideo.h"
 #import "NSString+Extensions.h"
@@ -278,12 +275,9 @@
 
 - (IBAction)actionButtonPressed:(id)sender
 {
-    PocketAPIActivity *pocket = [[PocketAPIActivity alloc] init];
-    BWOpenOnGBActivity *gb = [[BWOpenOnGBActivity alloc] init];
-
     UIActivityViewController *activityController = [[UIActivityViewController alloc]
                                                     initWithActivityItems:@[self.video, self.video.siteDetailURL]
-                                                    applicationActivities:@[gb, pocket]];
+                                                    applicationActivities:@[]];
 
     [self presentViewController:activityController animated:YES completion:nil];
 }

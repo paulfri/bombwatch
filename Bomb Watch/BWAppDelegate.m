@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Laika Cosmonautics. All rights reserved.
 //
 #import "BWAppDelegate.h"
-#import "PocketAPI.h"
 #import "GiantBombAPIClient.h"
 #import <AVFoundation/AVFoundation.h>
 #import "BWPushNotificationClient.h"
@@ -17,8 +16,6 @@
 #import "BWVideoDownloader.h"
 #import "BWSettings.h"
 #import "AFNetworking.h"
-
-#define PocketConsumerKey    @"21561-d0890ac29e8460822d034b88"
 
 @interface BWAppDelegate ()
 @property (weak, nonatomic) UINavigationController *navVC;
@@ -38,7 +35,6 @@
         }
     }];
 
-    [[PocketAPI sharedAPI] setConsumerKey:PocketConsumerKey];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 
@@ -90,15 +86,6 @@
 }
 
 #pragma mark - App Delegate methods
-
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
-{
-    if([[PocketAPI sharedAPI] handleOpenURL:url]) {
-        return YES;
-    } else {
-        return NO;
-    }
-}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
