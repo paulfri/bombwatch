@@ -36,6 +36,11 @@
 		DA88AE87184D7E8600D6E823 /* BWDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = DA88AE86184D7E8600D6E823 /* BWDownload.m */; };
 		DA88AE8A184D821F00D6E823 /* BWVideoDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = DA88AE89184D821F00D6E823 /* BWVideoDownloader.m */; };
 		DA88AE90184E113B00D6E823 /* BWDownloadDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = DA88AE8F184E113B00D6E823 /* BWDownloadDataStore.m */; };
+		DAADCC411961148F0099CD5A /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAADCC401961148F0099CD5A /* NotificationCenter.framework */; };
+		DAADCC461961148F0099CD5A /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADCC451961148F0099CD5A /* TodayViewController.swift */; };
+		DAADCC481961148F0099CD5A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAADCC471961148F0099CD5A /* MainInterface.storyboard */; };
+		DAADCC4B1961148F0099CD5A /* io.laika.BombWatch.Latest.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DAADCC3F1961148F0099CD5A /* io.laika.BombWatch.Latest.appex */; };
+		DAADCC54196115A20099CD5A /* PDGesturedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAADCC53196115A20099CD5A /* PDGesturedTableView.m */; };
 		DAAE246D1853E1500056D770 /* BWVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAAE246C1853E1500056D770 /* BWVideoPlayerViewController.m */; };
 		DAAE24731853EF8F0056D770 /* BWTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAAE24721853EF8F0056D770 /* BWTabBarController.m */; };
 		DAAFF7591850184D003922EF /* BWSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = DAAFF7581850184D003922EF /* BWSettings.m */; };
@@ -58,6 +63,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		DAADCC491961148F0099CD5A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DACE825917CD035700E23051 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAADCC3E1961148F0099CD5A;
+			remoteInfo = Latest;
+		};
+		DAADCC4C1961148F0099CD5A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DACE825917CD035700E23051 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAADCC3E1961148F0099CD5A;
+			remoteInfo = Latest;
+		};
 		DACE828D17CD035800E23051 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DACE825917CD035700E23051 /* Project object */;
@@ -66,6 +85,20 @@
 			remoteInfo = "Bomb Watch";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DAADCC511961148F0099CD5A /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DAADCC4B1961148F0099CD5A /* io.laika.BombWatch.Latest.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		40FCD5D8F7DD4243AC1A2E48 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +158,13 @@
 		DA88AE89184D821F00D6E823 /* BWVideoDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoDownloader.m; sourceTree = "<group>"; };
 		DA88AE8E184E113B00D6E823 /* BWDownloadDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWDownloadDataStore.h; sourceTree = "<group>"; };
 		DA88AE8F184E113B00D6E823 /* BWDownloadDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWDownloadDataStore.m; sourceTree = "<group>"; };
+		DAADCC3F1961148F0099CD5A /* io.laika.BombWatch.Latest.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = io.laika.BombWatch.Latest.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAADCC401961148F0099CD5A /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		DAADCC441961148F0099CD5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAADCC451961148F0099CD5A /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		DAADCC471961148F0099CD5A /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
+		DAADCC52196115A20099CD5A /* PDGesturedTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDGesturedTableView.h; sourceTree = "<group>"; };
+		DAADCC53196115A20099CD5A /* PDGesturedTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDGesturedTableView.m; sourceTree = "<group>"; };
 		DAAE246B1853E1500056D770 /* BWVideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideoPlayerViewController.h; sourceTree = "<group>"; };
 		DAAE246C1853E1500056D770 /* BWVideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideoPlayerViewController.m; sourceTree = "<group>"; };
 		DAAE24711853EF8F0056D770 /* BWTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWTabBarController.h; sourceTree = "<group>"; };
@@ -157,6 +197,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DAADCC3C1961148F0099CD5A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAADCC411961148F0099CD5A /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DACE825E17CD035700E23051 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -307,11 +355,30 @@
 			path = Player;
 			sourceTree = "<group>";
 		};
+		DAADCC421961148F0099CD5A /* Latest */ = {
+			isa = PBXGroup;
+			children = (
+				DAADCC451961148F0099CD5A /* TodayViewController.swift */,
+				DAADCC471961148F0099CD5A /* MainInterface.storyboard */,
+				DAADCC431961148F0099CD5A /* Supporting Files */,
+			);
+			path = Latest;
+			sourceTree = "<group>";
+		};
+		DAADCC431961148F0099CD5A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DAADCC441961148F0099CD5A /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		DACE825817CD035700E23051 = {
 			isa = PBXGroup;
 			children = (
 				DACE826A17CD035700E23051 /* Bomb Watch */,
 				DACE828F17CD035800E23051 /* Bomb WatchTests */,
+				DAADCC421961148F0099CD5A /* Latest */,
 				DACE826317CD035700E23051 /* Frameworks */,
 				DACE826217CD035700E23051 /* Products */,
 				4D03B65A058C4AD9BB095CF3 /* Pods.xcconfig */,
@@ -323,6 +390,7 @@
 			children = (
 				DACE826117CD035700E23051 /* Bomb Watch.app */,
 				DACE828817CD035800E23051 /* Bomb WatchTests.xctest */,
+				DAADCC3F1961148F0099CD5A /* io.laika.BombWatch.Latest.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -337,6 +405,7 @@
 				DACE826817CD035700E23051 /* UIKit.framework */,
 				DACE828917CD035800E23051 /* XCTest.framework */,
 				40FCD5D8F7DD4243AC1A2E48 /* libPods.a */,
+				DAADCC401961148F0099CD5A /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -349,6 +418,8 @@
 				DACE827417CD035800E23051 /* BWAppDelegate.m */,
 				DACE827617CD035800E23051 /* Main_iPhone.storyboard */,
 				DA41280517CE38C5003C4F59 /* Images.xcassets */,
+				DAADCC52196115A20099CD5A /* PDGesturedTableView.h */,
+				DAADCC53196115A20099CD5A /* PDGesturedTableView.m */,
 				DA68EBD717D02F9F00451F14 /* Activities */,
 				DA01E18E184AB98B008B139F /* API */,
 				DA0A718E18493057004750F1 /* Controllers */,
@@ -430,6 +501,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		DAADCC3E1961148F0099CD5A /* Latest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAADCC501961148F0099CD5A /* Build configuration list for PBXNativeTarget "Latest" */;
+			buildPhases = (
+				DAADCC3B1961148F0099CD5A /* Sources */,
+				DAADCC3C1961148F0099CD5A /* Frameworks */,
+				DAADCC3D1961148F0099CD5A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Latest;
+			productName = Latest;
+			productReference = DAADCC3F1961148F0099CD5A /* io.laika.BombWatch.Latest.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		DACE826017CD035700E23051 /* Bomb Watch */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DACE829917CD035800E23051 /* Build configuration list for PBXNativeTarget "Bomb Watch" */;
@@ -439,10 +527,13 @@
 				DACE825E17CD035700E23051 /* Frameworks */,
 				DACE825F17CD035700E23051 /* Resources */,
 				3BC404BB42544193855FB24F /* Copy Pods Resources */,
+				DAADCC511961148F0099CD5A /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DAADCC4A1961148F0099CD5A /* PBXTargetDependency */,
+				DAADCC4D1961148F0099CD5A /* PBXTargetDependency */,
 			);
 			name = "Bomb Watch";
 			productName = "Bomb Watch";
@@ -477,6 +568,10 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Laika Cosmonautics";
 				TargetAttributes = {
+					DAADCC3E1961148F0099CD5A = {
+						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 7KGB78B22T;
+					};
 					DACE826017CD035700E23051 = {
 						DevelopmentTeam = 7KGB78B22T;
 						SystemCapabilities = {
@@ -505,11 +600,20 @@
 			targets = (
 				DACE826017CD035700E23051 /* Bomb Watch */,
 				DACE828717CD035800E23051 /* Bomb WatchTests */,
+				DAADCC3E1961148F0099CD5A /* Latest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DAADCC3D1961148F0099CD5A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAADCC481961148F0099CD5A /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DACE825F17CD035700E23051 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -564,6 +668,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DAADCC3B1961148F0099CD5A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAADCC461961148F0099CD5A /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DACE825D17CD035700E23051 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -600,6 +712,7 @@
 				DAAE24731853EF8F0056D770 /* BWTabBarController.m in Sources */,
 				DAF0B03E18543DCD00281399 /* BWTwitter.m in Sources */,
 				DA68EBDA17D0305300451F14 /* EVCircularProgressView.m in Sources */,
+				DAADCC54196115A20099CD5A /* PDGesturedTableView.m in Sources */,
 				DACE827517CD035800E23051 /* BWAppDelegate.m in Sources */,
 				DACE82A517CD052300E23051 /* GiantBombAPIClient.m in Sources */,
 			);
@@ -616,6 +729,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		DAADCC4A1961148F0099CD5A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAADCC3E1961148F0099CD5A /* Latest */;
+			targetProxy = DAADCC491961148F0099CD5A /* PBXContainerItemProxy */;
+		};
+		DAADCC4D1961148F0099CD5A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAADCC3E1961148F0099CD5A /* Latest */;
+			targetProxy = DAADCC4C1961148F0099CD5A /* PBXContainerItemProxy */;
+		};
 		DACE828E17CD035800E23051 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DACE826017CD035700E23051 /* Bomb Watch */;
@@ -651,6 +774,47 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		DAADCC4E1961148F0099CD5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Latest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "io.laika.BombWatch.$(TARGET_NAME:rfc1034identifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DAADCC4F1961148F0099CD5A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Latest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "io.laika.BombWatch.$(TARGET_NAME:rfc1034identifier)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		DACE829717CD035800E23051 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -802,6 +966,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DAADCC501961148F0099CD5A /* Build configuration list for PBXNativeTarget "Latest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAADCC4E1961148F0099CD5A /* Debug */,
+				DAADCC4F1961148F0099CD5A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		DACE825C17CD035700E23051 /* Build configuration list for PBXProject "Bomb Watch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

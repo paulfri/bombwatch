@@ -9,9 +9,19 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>Latest.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>DAADCC3E1961148F0099CD5A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>DACE826017CD035700E23051</key>
 		<dict>
 			<key>primary</key>
