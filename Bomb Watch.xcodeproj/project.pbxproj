@@ -24,6 +24,8 @@
 		DA0A7191184930BD004750F1 /* BWListController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A7190184930BD004750F1 /* BWListController.m */; };
 		DA0A719518494688004750F1 /* BWVideoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A719418494688004750F1 /* BWVideoFetcher.m */; };
 		DA0A71A218497CDF004750F1 /* BWVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0A71A118497CDF004750F1 /* BWVideo.m */; };
+		DA37A78A19631333009D82EA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37A78919631333009D82EA /* SettingsViewController.swift */; };
+		DA37A78D19631390009D82EA /* BombWatchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37A78C19631390009D82EA /* BombWatchTableViewController.swift */; };
 		DA4127F417CE28D3003C4F59 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4127F317CE28D3003C4F59 /* Security.framework */; };
 		DA41280617CE38C5003C4F59 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA41280517CE38C5003C4F59 /* Images.xcassets */; };
 		DA68EBDA17D0305300451F14 /* EVCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA68EBD917D0305300451F14 /* EVCircularProgressView.m */; };
@@ -135,6 +137,8 @@
 		DA0A71A018497CDF004750F1 /* BWVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWVideo.h; sourceTree = "<group>"; };
 		DA0A71A118497CDF004750F1 /* BWVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWVideo.m; sourceTree = "<group>"; };
 		DA2FC43617D2AEBA005E7408 /* Bomb Watch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Bomb Watch.entitlements"; sourceTree = "<group>"; };
+		DA37A78919631333009D82EA /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		DA37A78C19631390009D82EA /* BombWatchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BombWatchTableViewController.swift; sourceTree = "<group>"; };
 		DA4127F317CE28D3003C4F59 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DA41280517CE38C5003C4F59 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DA68EBD817D0305300451F14 /* EVCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVCircularProgressView.h; sourceTree = "<group>"; };
@@ -289,6 +293,14 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		DA37A78B19631371009D82EA /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				DA37A78C19631390009D82EA /* BombWatchTableViewController.swift */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
 		DA39B4AE17D6A2A800E7935D /* Generic */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,7 +386,9 @@
 		DABEFEAE1961231C00909B2D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DA37A78B19631371009D82EA /* Base */,
 				DABEFEB01961234900909B2D /* CategoriesViewController.swift */,
+				DA37A78919631333009D82EA /* SettingsViewController.swift */,
 				DABEFEAF1961234800909B2D /* Bomb Watch-Bridging-Header.h */,
 			);
 			name = "View Controllers";
@@ -744,6 +758,8 @@
 				DA88AE90184E113B00D6E823 /* BWDownloadDataStore.m in Sources */,
 				DA0A719518494688004750F1 /* BWVideoFetcher.m in Sources */,
 				DABEFEB11961234900909B2D /* CategoriesViewController.swift in Sources */,
+				DA37A78D19631390009D82EA /* BombWatchTableViewController.swift in Sources */,
+				DA37A78A19631333009D82EA /* SettingsViewController.swift in Sources */,
 				DA88AE84184D7D6400D6E823 /* BWDownloadsViewController.m in Sources */,
 				DACE827117CD035800E23051 /* main.m in Sources */,
 				DA01E197184BA03A008B139F /* BWGenericTableViewCell.m in Sources */,
