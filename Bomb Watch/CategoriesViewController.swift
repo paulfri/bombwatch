@@ -61,17 +61,16 @@ class CategoriesViewController: UITableViewController {
   override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
     // TODO: list view controller should take an enum as its category
     if let destination = segue.destinationViewController as? BWListViewController {
-      if segue.identifier == "videoListSegue" {
-        if let stringSender = sender as? String {
-          destination.category = stringSender;
-        } else {
-          let selectedCell = tableView.cellForRowAtIndexPath(tableView.indexPathForSelectedRow())
-          destination.category = selectedCell.textLabel.text
+      if let theSegue = segue {
+        if let theIdentifier = segue.identifier {
+          if segue.identifier == "videoListSegue" {
+            let selectedCell = tableView.cellForRowAtIndexPath(tableView.indexPathForSelectedRow())
+            destination.category = selectedCell.textLabel.text
+          }
         }
       }
     }
   }
-  
   
   // generic stuff to move to a superclass later
   override func viewDidLoad() {

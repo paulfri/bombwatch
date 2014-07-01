@@ -65,6 +65,10 @@ NSString *const kBWCacheFilePrefix   = @"bwcache";
 
 - (void)setCachedVideos:(NSArray *)videos forCategory:(NSString *)category
 {
+    if (!category || [category isEqualToString:@""]) {
+      return;
+    }
+
     self.categories[category] = videos;
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
