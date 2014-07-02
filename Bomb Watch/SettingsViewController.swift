@@ -8,9 +8,16 @@
 
 import Foundation
 
+enum VideoQuality: Int {
+  case Mobile, Low, High, HD
+}
+
 class SettingsViewController: BombWatchTableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+
+  let qualityOptions = ["Mobile", "Low", "High", "HD"]
   
-  let defaultQualityOptions = ["Mobile", "Low", "High", "HD"]
+  @IBOutlet var qualityPicker: UIPickerView
+  @IBOutlet var qualityLabel: UILabel
   
   @IBAction func doneTapped(sender: UIBarButtonItem) {
     dismissViewControllerAnimated(true, completion: nil)
@@ -21,51 +28,28 @@ class SettingsViewController: BombWatchTableViewController, UIPickerViewDataSour
     return 30.0
   }
 
+  func pickerView(pickerView: UIPickerView!, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString! {
+    let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+    
+    return NSAttributedString(string: qualityOptions[row], attributes: attributes)
+  }
+  
+  func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int) {
+    
+    if pickerView == qualityPicker {
+      BWSettings.setDefaultQuality(row)
+      qualityLabel.text = "asdf"
+      //      qualityLabel.text = pickerView(pickerView, attributedTitleForRow: row, forComponent: component).string
+    }
+  }
+  
   // UIPickerViewDataSource
   func numberOfComponentsInPickerView(pickerView: UIPickerView!) -> Int {
     return 1
   }
   
   func pickerView(pickerView: UIPickerView!, numberOfRowsInComponent component: Int) -> Int {
-    return defaultQualityOptions.count
+    return qualityOptions.count
   }
-  
-//  #pragma mark - UIPickerViewDelegate protocol methods
-//    
-//  - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
-//  {
-//  return 30.0;
-//  }
-//  
-//  - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-//  {
-//  if (pickerView == self.defaultQualityPicker) {
-//  [BWSettings setDefaultQuality:row];
-//  
-//  self.defaultQualityLabel.text = [[self pickerView:pickerView attributedTitleForRow:row forComponent:component] string];
-//  }
-//  }
-//  
-//  #pragma mark - UIPickerViewDataSource protocol methods
-//    
-//  - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-//  {
-//  return 1;
-//  }
-//  
-//  - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-//  {
-//  if (pickerView == self.defaultQualityPicker) {
-//  return self.defaultQualityOptions.count;
-//  }
-//  
-//  return 0;
-//  }
-//  
-//  - (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
-//  {
-//  return [[NSAttributedString alloc] initWithString:self.defaultQualityOptions[row]
-//  attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-//  }
-  
+
 }

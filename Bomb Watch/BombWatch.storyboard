@@ -141,6 +141,10 @@
                                             <subviews>
                                                 <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rct-cR-fHD">
                                                     <rect key="frame" x="20" y="-2" width="440" height="162"/>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="M0K-B9-TfS" id="aXB-4U-Mnw"/>
+                                                        <outlet property="delegate" destination="M0K-B9-TfS" id="UvX-Xl-3Qd"/>
+                                                    </connections>
                                                 </pickerView>
                                             </subviews>
                                             <constraints>
@@ -209,6 +213,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="qualityLabel" destination="tpE-Uo-fJt" id="ZZC-UA-we7"/>
+                        <outlet property="qualityPicker" destination="Rct-cR-fHD" id="gZ3-qf-ru2"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jt8-29-JBw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
